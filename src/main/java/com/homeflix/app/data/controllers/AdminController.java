@@ -1,0 +1,71 @@
+package com.homeflix.app.data.controllers;
+
+import com.homeflix.app.data.entity.MovieDatabase;
+import com.homeflix.app.data.service.MovieRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+@RequestMapping("/adm")
+public class AdminController {
+    private final MovieRepository movieRepository;
+
+    public AdminController(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
+
+    private static String createIdentifier(String url) {
+        var uri = URI.create(url);
+        var split = uri.getPath().split("/");
+        System.out.println(split);
+        return split[2];
+    }
+
+    @PostMapping("/add-movie")
+    ResponseEntity<?> addMovie(@RequestBody Movie movie) {
+        saveMovie(movie.name(), movie.link(), movie.posterLink());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/all")
+    List<Movie> findMovies() {
+        return movieRepository.findAll().stream().map(movieDatabase -> new Movie(movieDatabase.getName(), movieDatabase.getLink().toString(), movieDatabase.getPosterLink(), movieDatabase.isActive())).toList();
+    }
+
+    @PutMapping("/activate")
+    @Transactional
+    public ResponseEntity<?> activate(@RequestBody StatusChangeRequest statusChangeRequest) {
+        var movieDatabase = movieRepository.findByName(statusChangeRequest.movieName());
+        movieDatabase.setActive(true);
+        movieRepository.save(movieDatabase);
+        return ResponseEntity.status(201).build();
+    }
+
+    @PutMapping("/deactivate")
+    @Transactional
+    public ResponseEntity<?> deactivate(@RequestBody StatusChangeRequest statusChangeRequest) {
+        var movieDatabase = movieRepository.findByName(statusChangeRequest.movieName());
+        movieDatabase.setActive(false);
+        movieRepository.save(movieDatabase);
+        return ResponseEntity.status(201).build();
+    }
+
+    private void saveMovie(String name, String url, String posterLink) {
+        MovieDatabase movie = new MovieDatabase();
+        movie.setName(name);
+        movie.setIdentifier(createIdentifier(url));
+        movie.setLink(URI.create(url));
+        movie.setPosterLink(posterLink);
+        movieRepository.save(movie);
+    }
+
+    record StatusChangeRequest(String movieName) {
+    }
+
+    record Movie(String name, String link, String posterLink, boolean status) {
+    }
+}
