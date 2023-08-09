@@ -14,6 +14,10 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 
@@ -32,12 +36,18 @@ import java.net.URI;
 @Meta(name = "mobile-web-app-capable", content = "yes")
 @Meta(name = "apple-mobile-web-app-capable", content = "yes")
 @Meta(name = "apple-mobile-web-app-status-bar-style", content = "black-translucent")
+@EnableScheduling
 public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
+private static final RestTemplate REST_TEMPLATE=new RestTemplate();
+    @Scheduled(fixedDelay = 10000L)
+    void call(){
+        var response = REST_TEMPLATE.getForEntity("https://homeflix.onrender.com", String.class);
+        System.out.println(response.getStatusCode());
+    }
     @Autowired private MovieRepository movieRepository;
     @PostConstruct
     void addMovies(){
