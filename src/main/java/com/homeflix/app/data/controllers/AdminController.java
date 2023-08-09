@@ -33,7 +33,7 @@ public class AdminController {
 
     @GetMapping("/all")
     List<Movie> findMovies() {
-        return movieRepository.findAll().stream().map(movieDatabase -> new Movie(movieDatabase.getName(), movieDatabase.getLink().toString(), movieDatabase.getPosterLink(), movieDatabase.isActive())).toList();
+        return movieRepository.findAll().stream().map(movieDatabase -> new Movie(movieDatabase.getId(), movieDatabase.getName(), movieDatabase.getLink().toString(), movieDatabase.getPosterLink(), movieDatabase.isActive())).toList();
     }
 
     @PutMapping("/activate")
@@ -54,6 +54,11 @@ public class AdminController {
         return ResponseEntity.status(201).build();
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id){
+        movieRepository.deleteById(id);
+    }
+
     private void saveMovie(String name, String url, String posterLink) {
         MovieDatabase movie = new MovieDatabase();
         movie.setName(name);
@@ -66,6 +71,6 @@ public class AdminController {
     record StatusChangeRequest(String movieName) {
     }
 
-    record Movie(String name, String link, String posterLink, boolean status) {
+    record Movie(Long id, String name, String link, String posterLink, boolean status) {
     }
 }
