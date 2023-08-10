@@ -65,7 +65,7 @@ public class Application implements AppShellConfigurator {
         return split[2];
     }
 
-//    @Scheduled(fixedDelay = 10000L)
+    @Scheduled(fixedDelay = 10000L)
     void call() {
         var response = REST_TEMPLATE.getForEntity("https://homeflix.onrender.com", String.class);
         System.out.println(response.getStatusCode());
