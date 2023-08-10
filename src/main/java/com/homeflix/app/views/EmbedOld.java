@@ -3,6 +3,7 @@ package com.homeflix.app.views;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
@@ -19,6 +20,9 @@ import java.util.Arrays;
 
 @Route("")
 public class EmbedOld extends VerticalLayout {
+
+    private static final String URL = "https://vidsrc.to/embed/%s/%s";
+    private final ComboBox<String> stringComboBox = new ComboBox<>("Movie or Series?");
 
     public EmbedOld() {
         add(new H3("FullScreen support only on Apple devices"));
@@ -57,6 +61,10 @@ public class EmbedOld extends VerticalLayout {
         showMovieButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         showMovieButton.setWidthFull();
         add(textField);
+        stringComboBox.setItems("movie", "tv");
+        stringComboBox.setSizeFull();
+        add(stringComboBox);
+
         add(showMovieButton);
         var dialog = new Dialog();
         var horizontalLayout = new HorizontalLayout();
@@ -72,10 +80,14 @@ public class EmbedOld extends VerticalLayout {
         setSizeFull();
         NativeLabel nowPlaying = new NativeLabel();
         horizontalLayout.add(closeDialog, nowPlaying);
-        var url = "https://vidsrc.to/embed/movie/%s";
         showMovieButton.addClickListener(event -> UI.getCurrent().access(() -> {
+            var showType = stringComboBox.getValue();
+            if(showType==null || showType.isEmpty()){
+                showType= "movie";
+            }
+
             var value = textField.getValue().toLowerCase();
-            embed.setSrc(url.formatted(value));
+            embed.setSrc(URL.formatted(showType,value));
             nowPlaying.setText("Now Playing %s".formatted(value));
             dialog.open();
         }));
