@@ -5,6 +5,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -22,9 +23,9 @@ public class EmbedOld extends VerticalLayout {
     public EmbedOld() {
         add(new H3("FullScreen support only on Apple devices"));
         var nativeLabel = new NativeLabel("""
-                To get a IMDB ID, go to IMDB and select any movie.
+                To get an IMDB ID, go to IMDB and select any movie.
                                     
-                On the Browser address bar copy the ID.
+                On the Browser address bar copy the title ID.
                 Example:
                                     
                 url: https://www.imdb.com/title/tt0420223
@@ -35,10 +36,24 @@ public class EmbedOld extends VerticalLayout {
                 If the ID is incorrect or movie is not available video won't play 
                 """);
         add(nativeLabel);
-
-        TextField textField = new TextField("Enter IMDB ID");
+        var helpDialog = new Dialog();
+        helpDialog.setWidthFull();
+        add(helpDialog);
+        var helpFindingTitleId = new Button("Help Finding Title ID", VaadinIcon.QUESTION_CIRCLE.create());
+        helpFindingTitleId.removeThemeVariants(ButtonVariant.LUMO_ICON);
+        add(helpFindingTitleId);
+        helpFindingTitleId.setWidthFull();
+        helpFindingTitleId.addClickListener(event -> {
+            var verticalLayout = new VerticalLayout();
+            var image = new Image("/icons/showhelp.jpg", "");
+            image.setSizeFull();
+            verticalLayout.add(new NativeLabel("1. Open any browser and open imdb.com"), new NativeLabel("2. search Movie of wanna watch."), new NativeLabel("3. Copy encircled title ID and input in the field"), image);
+            helpDialog.add(verticalLayout);
+            helpDialog.open();
+        });
+        var textField = new TextField("Enter IMDB ID");
         textField.setWidthFull();
-        Button showMovieButton = new Button("Watch Movie");
+        var showMovieButton = new Button("Watch Movie");
         showMovieButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         showMovieButton.setWidthFull();
         add(textField);

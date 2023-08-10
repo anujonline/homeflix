@@ -12,6 +12,7 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.material.Material;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.io.FileUtils;
@@ -40,7 +41,7 @@ import java.util.stream.IntStream;
  */
 @SpringBootApplication
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
-@Theme(value = "homeflix", variant = Material.DARK)
+@Theme(value = "homeflix", variant = Lumo.DARK)
 @PWA(name = "HomeFlix", shortName = "HomeFlix")
 @Viewport("width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @Meta(name = "HandheldFriendly", content = "true")

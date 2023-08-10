@@ -10,13 +10,11 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.servlet.http.Cookie;
 
-
+@Route("/browse")
 public class BrowseView extends Scroller {
 
     public BrowseView(VAccess videoService) {
