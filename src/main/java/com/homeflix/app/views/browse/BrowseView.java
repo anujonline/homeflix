@@ -16,9 +16,7 @@ import com.vaadin.flow.server.VaadinService;
 import jakarta.annotation.security.PermitAll;
 import jakarta.servlet.http.Cookie;
 
-@Route(value = "")
-@PageTitle("Browse")
-@PermitAll
+
 public class BrowseView extends Scroller {
 
     public BrowseView(VAccess videoService) {

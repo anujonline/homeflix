@@ -1,15 +1,20 @@
 package com.homeflix.app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homeflix.app.data.entity.MovieDatabase;
 import com.homeflix.app.data.service.MovieRepository;
+import com.homeflix.app.views.Item;
+import com.homeflix.app.views.Response;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Meta;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.material.Material;
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +22,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.net.URI;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * The entry point of the Spring Boot application.
@@ -36,13 +48,14 @@ import java.util.Arrays;
 @Meta(name = "apple-mobile-web-app-capable", content = "yes")
 @Meta(name = "apple-mobile-web-app-status-bar-style", content = "black-translucent")
 @EnableScheduling
+@Push
 public class Application implements AppShellConfigurator {
 
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
     @Autowired
     private MovieRepository movieRepository;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
     }
 
@@ -52,7 +65,7 @@ public class Application implements AppShellConfigurator {
         return split[2];
     }
 
-    @Scheduled(fixedDelay = 10000L)
+//    @Scheduled(fixedDelay = 10000L)
     void call() {
         var response = REST_TEMPLATE.getForEntity("https://homeflix.onrender.com", String.class);
         System.out.println(response.getStatusCode());
