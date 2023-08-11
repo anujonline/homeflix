@@ -3,19 +3,23 @@ package com.homeflix.app.data.controllers;
 import com.homeflix.app.data.entity.MovieDatabase;
 import com.homeflix.app.data.service.MovieRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/adm")
 public class AdminController {
     private final MovieRepository movieRepository;
+    private final WatchRespository watchRespository;
 
-    public AdminController(MovieRepository movieRepository) {
+    public AdminController(MovieRepository movieRepository, WatchRespository watchRespository) {
         this.movieRepository = movieRepository;
+        this.watchRespository = watchRespository;
     }
 
     private static String createIdentifier(String url) {
@@ -55,7 +59,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         movieRepository.deleteById(id);
     }
 
@@ -66,6 +70,20 @@ public class AdminController {
         movie.setLink(URI.create(url));
         movie.setPosterLink(posterLink);
         movieRepository.save(movie);
+    }
+
+    @Async
+    public void addHistory(String address, String imdbID) {
+        var watchHistory = new WatchHistory();
+        watchHistory.setTime(LocalDateTime.now());
+        watchHistory.setAddress(address);
+        watchHistory.setImdbId(imdbID);
+        watchRespository.save(watchHistory);
+    }
+
+    @GetMapping("/history")
+    public List<WatchHistory> watchHistories(){
+        return watchRespository.findAll();
     }
 
     record StatusChangeRequest(String movieName) {

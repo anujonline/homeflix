@@ -1,5 +1,6 @@
 package com.homeflix.app.views.browse;
 
+import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.service.VAccess;
 import com.vaadin.flow.component.ScrollOptions;
 import com.vaadin.flow.component.UI;
@@ -17,7 +18,7 @@ import jakarta.servlet.http.Cookie;
 @Route("/browse")
 public class BrowseView extends Scroller {
 
-    public BrowseView(VAccess videoService) {
+    public BrowseView(VAccess videoService, AdminController adminController) {
         super();
         var image1 = new Image("icons/icon.png", "");
         image1.setHeight(30, Unit.PIXELS);
@@ -64,8 +65,10 @@ public class BrowseView extends Scroller {
             image.getStyle().set("transition", "all 0.3s ease 0s");
 
             image.addClickListener(clickEvent -> {
+                var ui = UI.getCurrent();
+                adminController.addHistory(ui.getSession().getBrowser().getAddress(), videoFile.getFullPath());
                 VaadinService.getCurrentResponse().addCookie(new Cookie("mainURL", videoFile.getFullPath()));
-                UI.getCurrent().getPage().setLocation("play/" + videoFile.getIdentifier());
+                ui.getPage().setLocation("play/" + videoFile.getIdentifier());
             });
             var text = new NativeLabel(videoFile.getName());
 
