@@ -43,7 +43,7 @@ import java.util.stream.IntStream;
 @SpringBootApplication
 @EnableAsync
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
-@Theme(value = "homeflix", variant = Lumo.LIGHT)
+@Theme(value = "homeflix", variant = Lumo.DARK)
 @PWA(name = "HomeFlix", shortName = "HomeFlix")
 @Viewport("width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @Meta(name = "HandheldFriendly", content = "true")
