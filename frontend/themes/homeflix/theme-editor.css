@@ -1,0 +1,39 @@
+/*
+ * This file has been created by the Vaadin Theme Editor. Please note that
+ * manual changes to individual CSS properties may be overwritten by the theme editor.
+ */
+label {
+  background-color:rgba(0,0,0,0.24);
+  color:rgba(252,252,252,1);
+}
+
+vaadin-button {
+  background-color:rgba(54,8,8,1);
+  border-radius:var(--lumo-border-radius-m);
+}
+
+vaadin-button::part(label) { color:rgba(255,255,255,1); }
+
+vaadin-dialog-overlay { color:black; }
+
+
+vaadin-radio-group vaadin-radio-button label {
+  color:rgba(252,252,252,1);
+}
+vaadin-radio-group::part(label) {
+  color:rgba(255,255,255,1);
+}
+vaadin-text-field::part(input-field) {
+  color:rgba(255,255,255,1);
+}
+
+vaadin-text-field::part(label) {
+  color:rgba(255,255,255,1);
+}
+
+vaadin-vertical-layout {
+  background-color:rgba(66,64,64,0.3);
+  border-color:rgba(252,252,252,0);
+  gap:var(--lumo-space-m);
+  padding:var(--lumo-space-m);
+}

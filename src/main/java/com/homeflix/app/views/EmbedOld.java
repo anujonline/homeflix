@@ -6,6 +6,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -13,47 +14,44 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.List;
 
 @Route("")
+@PageTitle("Homeflix")
 public class EmbedOld extends VerticalLayout {
     private static final String URL = "https://vidsrc.to/embed/%s/%s";
     private final String ERROR_MESSAGE = "Can not be empty";
-    private final String HELP_FINDING_TITLE_ID = "Help Finding Title ID";
-    private final Button HELP_FINDING_TITLE_BUTTON = new Button(HELP_FINDING_TITLE_ID, VaadinIcon.QUESTION_CIRCLE.create());
+    private final String HELP_FINDING_TITLE_ID = "Help Finding IMDB ID";
+    private final Button HELP_FINDING_TITLE_BUTTON = new Button(HELP_FINDING_TITLE_ID, VaadinIcon.QUESTION.create());
     private final Image HELP_IMAGE = new Image("/icons/showhelp.jpg", "");
     private final NativeLabel HELP_TEXT_1 = new NativeLabel("1. Open any browser and open imdb.com");
     private final NativeLabel HELP_TEXT_2 = new NativeLabel("2. search Movie of wanna watch.");
     private final NativeLabel HELP_TEXT_3 = new NativeLabel("3. Copy encircled title ID and input in the field");
     private final Button SHOW_MOVIE_BUTTON = new Button("Watch", VaadinIcon.PLAY_CIRCLE.create());
     private final TextField imdbId = new TextField("Enter IMDB ID");
-    private final ComboBox<String> type = new ComboBox<>("Movie or Series?", List.of("movie", "tv"));
+    private final RadioButtonGroup<String> type = new RadioButtonGroup<>("Movie or Series?", List.of("movie", "tv"));
 
     public EmbedOld(AdminController adminController) {
+        setClassName("hero");
+        setAlignItems(Alignment.CENTER);
+        var image = new Image("icons/icon.png", "");
+
+        image.setMaxHeight("10%");
+        add(image);
+        getStyle().set("background-image", "url('icons/bg.jpg')");
         imdbId.setMinLength(1);
         imdbId.setErrorMessage(ERROR_MESSAGE);
         type.setErrorMessage(ERROR_MESSAGE);
-        var nativeLabel = new NativeLabel("""
-                To get an IMDB ID, go to IMDB and select any movie.
-                                    
-                On the Browser address bar copy the title ID.
-                Example:
-                                    
-                url: https://www.imdb.com/title/tt0420223
-                                    
-                ID to go in the text box should be tt0420223.
-                                    
-                No slashes '/' nothing else.
-                If the ID is incorrect or movie is not available video won't play 
-                """);
-        add(nativeLabel);
+
+        add("To get an IMDB ID, go to IMDB and select any movie.");
+        add("On the Browser address bar copy the title ID.");
         var helpDialog = new Dialog();
-        helpDialog.setWidthFull();
         add(helpDialog);
-        HELP_FINDING_TITLE_BUTTON.addThemeVariants(ButtonVariant.LUMO_ICON);
         add(HELP_FINDING_TITLE_BUTTON);
         HELP_FINDING_TITLE_BUTTON.setWidthFull();
         HELP_FINDING_TITLE_BUTTON.addClickListener(event -> {
@@ -90,7 +88,7 @@ public class EmbedOld extends VerticalLayout {
 
         SHOW_MOVIE_BUTTON.addClickListener(event -> {
             if ((imdbId.getValue() == null || imdbId.getValue().isEmpty()) || (type.getValue() == null || type.getValue().isEmpty())) {
-                var show = Notification.show("You need to add imdbId and select type (movie or tv");
+                var show = Notification.show("You need to add imdbId and select type (movie or tv)");
                 show.setPosition(Notification.Position.TOP_STRETCH);
                 show.addThemeVariants(NotificationVariant.LUMO_ERROR);
             } else {
