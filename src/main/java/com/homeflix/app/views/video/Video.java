@@ -1,6 +1,9 @@
 package com.homeflix.app.views.video;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.HtmlContainer;
+import com.vaadin.flow.component.PropertyDescriptor;
+import com.vaadin.flow.component.PropertyDescriptors;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.web.bind.annotation.CrossOrigin;
 

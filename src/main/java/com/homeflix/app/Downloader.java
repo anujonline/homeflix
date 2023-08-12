@@ -15,19 +15,18 @@ import java.util.stream.IntStream;
 public class Downloader {
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         var objectMapper = new ObjectMapper();
         var items = new ArrayList<Item>();
         IntStream
-                .range(1,100)
+                .range(1, 100)
                 .forEach(value -> {
-                    try{
+                    try {
                         var response = REST_TEMPLATE.getForObject("https://vidsrc.to/vapi/movie/add/%s".formatted(value), Response.class);
                         assert response != null;
                         items.addAll(response.result().items());
-                        System.out.println(LocalDateTime.now() + " Running, total size so far :" +items.size());
-                    }
-                    catch (Exception e){
+                        System.out.println(LocalDateTime.now() + " Running, total size so far :" + items.size());
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });

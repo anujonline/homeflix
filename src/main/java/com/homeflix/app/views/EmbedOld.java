@@ -4,9 +4,7 @@ import com.homeflix.app.data.controllers.AdminController;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -21,7 +19,7 @@ import com.vaadin.flow.router.Route;
 
 import java.util.List;
 
-@Route("")
+@Route("old")
 @PageTitle("Homeflix")
 public class EmbedOld extends VerticalLayout {
     private static final String URL = "https://vidsrc.to/embed/%s/%s";
@@ -73,13 +71,13 @@ public class EmbedOld extends VerticalLayout {
         add(type);
 
         add(SHOW_MOVIE_BUTTON);
-        var dialog = new Dialog();
         var horizontalLayout = new HorizontalLayout();
         horizontalLayout.setAlignItems(Alignment.CENTER);
-        dialog.setSizeFull();
         var parameter = "https://vidsrc.to/embed/movie/tt17048514";
         var embed = new Embed(parameter);
         var closeDialog = new Button("Close Player", VaadinIcon.ARROW_LEFT.create());
+        var dialog = new Dialog();
+        dialog.setSizeFull();
         closeDialog.addClickListener(event -> dialog.close());
         add(dialog);
         dialog.add(horizontalLayout, embed);

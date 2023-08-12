@@ -82,7 +82,7 @@ public class AdminController {
     }
 
     @GetMapping("/history")
-    public List<WatchHistory> watchHistories(){
+    public List<WatchHistory> watchHistories() {
         return watchRespository.findAll();
     }
 

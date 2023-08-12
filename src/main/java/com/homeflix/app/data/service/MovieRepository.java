@@ -13,5 +13,4 @@ public interface MovieRepository extends JpaRepository<MovieDatabase, Long> {
     MovieDatabase findByName(String name);
 
 
-
 }

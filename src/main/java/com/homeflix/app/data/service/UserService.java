@@ -1,11 +1,12 @@
 package com.homeflix.app.data.service;
 
 import com.homeflix.app.data.entity.User;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {

@@ -1,10 +1,7 @@
 package com.homeflix.app;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homeflix.app.data.entity.MovieDatabase;
 import com.homeflix.app.data.service.MovieRepository;
-import com.homeflix.app.views.Item;
-import com.homeflix.app.views.Response;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Meta;
@@ -13,26 +10,17 @@ import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import com.vaadin.flow.theme.material.Material;
 import jakarta.annotation.PostConstruct;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
 import java.net.URI;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * The entry point of the Spring Boot application.
@@ -42,6 +30,7 @@ import java.util.stream.IntStream;
  */
 @SpringBootApplication
 @EnableAsync
+@EnableCaching
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
 @Theme(value = "homeflix", variant = Lumo.DARK)
 @PWA(name = "HomeFlix", shortName = "HomeFlix")
