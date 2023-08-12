@@ -7,13 +7,8 @@ import java.util.List;
 
 public interface VAccess {
 
-    @Cacheable("video-list")
     List<VideoFile> videoList();
-
-    @Cacheable("display-name")
-    String getDisplayName(String identifier);
 
     VideoFile getVideoFile(String identifier);
 
-    ResponseEntity<?> getVideoStream(String fileName, String range);
 }

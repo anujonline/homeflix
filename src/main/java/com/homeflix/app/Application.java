@@ -67,6 +67,10 @@ public class Application implements AppShellConfigurator {
     void addMovies() {
         saveMovie("Rocky aur Rani KPK", "https://si.videoapne.co/hls/bdohxlip7bboxuzvtarp4gisrbfbjat4liobzm7rmxyae3yqswitw56vq2iq/index-v1-a1.m3u8", "https://cdn.bollywoodmdb.com/fit-in/movies/largethumb/2022/rocky-aur-rani-ki-prem-kahani/rocky-aur-rani-ki-prem-kahani-poster-10.jpg");
         saveMovie("Satya Prem Ki Katha", "https://s2.videoapne.co/hls/bdohwdij7bboxuzvtarp4gkw3mghkgbvcairvc34vemlslqs3os4sekeflha/index-v1-a1.m3u8", "https://assets.gadgets360cdn.com/pricee/assets/product/202302/story_1675872661.jpg?downsize=680:*");
+        saveMovie("Gadar 2", "https://si.videoapne.co/hls/bdohwtij7bboxuzvtarp4bantkzijwybi667yrl4uhijukifkv4dmped6vqq/index-v1-a1.m3u8", "https://feeds.abplive.com/onecms/images/uploaded-images/2023/01/26/567e995f9865a78721f8978618c642701674718080896380_original.jpg?impolicy=abp_cdn&imwidth=720");
+        saveMovie("Adipurush", "https://s2.videoapne.co/hls/bdohwvyj7bboxuzvtarp4fytrttxokylslwh7qcjkrqz466zpiemhkfyzqwq/index-v1-a1.m3u8", "https://cdn.123telugu.com/content/wp-content/uploads/2023/03/Adipurush.jpg");
+        saveMovie("OMG 2", "https://si.videoapne.co/hls/bdohwtaj7bboxuzvtarp4tywrwdsfm37pm4mgqw3g4f3pfdpcmqhwt4sydva/index-v1-a1.m3u8", "https://cdn.bollywoodmdb.com/fit-in/movies/largethumb/2022/omg-2/poster.jpg");
+
     }
 
     private void saveMovie(String name, String url, String posterLink) {

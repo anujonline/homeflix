@@ -33,6 +33,7 @@ import java.util.List;
 class ViewBG extends VerticalLayout {
 
     public ViewBG(AdminController adminController, TMDBService service) {
+        getStyle().set("background-image", "url('icons/bg.jpg')");
         VaadinService.getCurrentRequest().setAttribute("type", "movie");
         setClassName("animate-area");
         setId("animate-area");

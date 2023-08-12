@@ -20,6 +20,9 @@ public class SearchView extends VerticalLayout {
 
     public SearchView(AdminController adminController, TMDBService service) {
         try {
+            getStyle().set("background-image", "url('icons/bg.jpg')");
+            setClassName("animate-area");
+            setId("animate-area");
             setAlignItems(FlexComponent.Alignment.CENTER);
             var backButton = new Button(VaadinIcon.ARROW_LEFT.create(), event -> UI.getCurrent().navigate(""));
             backButton.setWidthFull();
@@ -28,8 +31,6 @@ public class SearchView extends VerticalLayout {
             var title = (String) VaadinService.getCurrentRequest().getAttribute("title");
             var type = (String) VaadinService.getCurrentRequest().getAttribute("type");
 
-            setClassName("animate-area");
-            setId("animate-area");
             getStyle().set("border-radius", "25px");
             getStyle().set("overflow", "hidden");
             add(new NewView(adminController, false, DataProvider.ofCollection(service.getMoviesByName(title, type))));

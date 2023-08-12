@@ -445,12 +445,7 @@ public class TMDBService {
     public List<Result1> getMovies() {
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false)
-                .registerModule(new Jdk8Module())
-        ;
-
-        System.out.println("Called");
-
-//        return Objects.requireNonNull(responseEntity.getBody()).results();
+                .registerModule(new Jdk8Module());
         return OBJECT_MAPPER
                 .readValue(DATA, Response1.class).results();
     }

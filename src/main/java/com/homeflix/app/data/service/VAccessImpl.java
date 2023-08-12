@@ -1,5 +1,6 @@
 package com.homeflix.app.data.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -7,11 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class VAccessImpl implements VAccess {
-
-
-    @Autowired
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
 
     @Override
     public List<VideoFile> videoList() {
@@ -25,21 +24,9 @@ public class VAccessImpl implements VAccess {
                         .setFullPath(movieDatabase.getLink().toString())).toList();
 
     }
-
-    @Override
-    public String getDisplayName(String identifier) {
-        return null;
-    }
-
     @Override
     public VideoFile getVideoFile(String identifier) {
         var movieDatabase = movieRepository.findByIdentifier(identifier);
-
         return new VideoFile().setFullPath(movieDatabase.getLink().toString());
-    }
-
-    @Override
-    public ResponseEntity<?> getVideoStream(String fileName, String range) {
-        return null;
     }
 }

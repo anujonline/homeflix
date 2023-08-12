@@ -33,8 +33,5 @@
   }
 }
 #animate-area {
-
-  background-image: url('icons/bg.jpg');
-
   animation: animatedBackground 60s linear infinite alternate;
 }
