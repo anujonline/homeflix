@@ -2,19 +2,28 @@
  * This file has been created by the Vaadin Theme Editor. Please note that
  * manual changes to individual CSS properties may be overwritten by the theme editor.
  */
+h1 {
+  background-color:rgba(0,0,0,0.56);
+  border-radius:var(--lumo-border-radius-m);
+}
+
 label {
   background-color:rgba(0,0,0,0.24);
   color:rgba(252,252,252,1);
 }
 
-vaadin-button {
-  background-color:rgba(54,8,8,1);
-  border-radius:var(--lumo-border-radius-m);
+vaadin-button { border-radius:var(--lumo-border-radius-m); }
+
+vaadin-button.main-layout-button-1 {
+  background-color:rgba(0,0,0,0);
+  border-color:rgba(252,252,252,1);
 }
 
-vaadin-button::part(label) {}
+vaadin-button::part(label) { color:white; }
 
 vaadin-dialog-overlay { color:black; }
+
+vaadin-icon { color:white; }
 
 vaadin-radio-group vaadin-radio-button label { color:rgba(252,252,252,1); }
 
@@ -24,4 +33,4 @@ vaadin-text-field::part(input-field) {}
 
 vaadin-text-field::part(label) { color:rgba(255,255,255,1); }
 
-vaadin-vertical-layout {}
+vaadin-vertical-layout {border-radius:var(--lumo-border-radius-m)}

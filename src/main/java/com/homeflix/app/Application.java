@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -33,7 +35,7 @@ import java.net.URI;
 @EnableCaching
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
 @Theme(value = "homeflix", variant = Lumo.DARK)
-@PWA(name = "HomeFlix", shortName = "HomeFlix")
+@PWA(name = "HomeFlix", shortName = "HomeFlix", offlinePath = "offline.html")
 @Viewport("width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @Meta(name = "HandheldFriendly", content = "true")
 @Meta(name = "mobile-web-app-capable", content = "yes")
@@ -81,5 +83,14 @@ public class Application implements AppShellConfigurator {
         movie.setPosterLink(posterLink);
         movie.setActive(true);
         movieRepository.save(movie);
+    }
+
+    @Bean
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor(){
+        var threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setCorePoolSize(10);
+        threadPoolTaskExecutor.setMaxPoolSize(20);
+        threadPoolTaskExecutor.initialize();;
+        return threadPoolTaskExecutor;
     }
 }

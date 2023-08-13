@@ -55,7 +55,7 @@ public class NewView extends VerticalLayout {
     private Embed embed;
 
     public NewView(AdminController adminController, boolean addHeader, ListDataProvider<Result1> dataProvider) {
-
+        add(new Button("Try new UI", VaadinIcon.ASTERISK.create(), event -> UI.getCurrent().navigateToClient("v2")));
         if (addHeader) {
             addHeader();
         }
@@ -133,7 +133,3 @@ public class NewView extends VerticalLayout {
 record Response1(@JsonProperty("results") List<Result1> results) {
 }
 
-record Result1(@JsonProperty("poster_path") String poster_path, @JsonProperty("id") Long id,
-               @JsonProperty("original_title") String original_title,
-               @JsonProperty("first_air_date") String first_air_date, @JsonProperty("name") String name) {
-}
