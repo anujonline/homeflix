@@ -1,4 +1,4 @@
-import{t as themeRegistry,u as unsafeCSS,c as css$e,a as addLumoGlobalStyles,D as Directive,n as nothing,P as PartType,b as noChange,d as directive,r as render$1,s as svg$6,e as registerStyles$1,T as ThemableMixin,f as color$h,g as typography,h as ThemePropertyMixin,i as html$1,_ as __vitePreload,L as LitElement}from"./indexhtml-57feaed9.js";/**
+import{t as themeRegistry,u as unsafeCSS,c as css$e,a as addLumoGlobalStyles,D as Directive,n as nothing,P as PartType,b as noChange,d as directive,r as render$1,s as svg$6,e as registerStyles$1,T as ThemableMixin,f as ThemePropertyMixin,h as html$1,_ as __vitePreload,g as color$h,i as typography,L as LitElement}from"./indexhtml-0c9a9e08.js";/**
 @license
 Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -752,7 +752,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <g id="lumo:unordered-list"><path d="M146 325c-42 0-67-26-67-63 0-37 25-63 67-63 42 0 67 26 67 63 0 37-25 63-67 63z m0 250c-42 0-67-26-67-63 0-37 25-63 67-63 42 0 67 26 67 63 0 37-25 63-67 63z m0 250c-42 0-67-26-67-63 0-37 25-63 67-63 42 0 67 26 67 63 0 37-25 63-67 63zM333 258c0-18 15-33 34-33h516c18 0 33 15 34 33 0 18-15 33-34 34H367c-18 0-33-15-34-34z m0 250c0-18 15-33 34-33h516c18 0 33 15 34 33s-15 33-34 34H367c-18 0-33-15-34-34z m0 250c0-18 15-33 34-33h516c18 0 33 15 34 33s-15 33-34 34H367c-18 0-33-15-34-34z"></path></g>
 <g id="lumo:upload"><path d="M454 271V604c0 21-17 38-37 38s-38-17-38-38V271L254 382c-15 14-39 12-53-3-14-15-12-39 3-53L391 160c14-13 36-13 51-1 0 0 0 0 0 1l187 166c15 14 17 37 3 53-14 15-37 17-53 3L454 271zM675 704c0-21 17-38 37-37 21 0 38 17 38 37v92c0 21-17 38-38 37H121c-21 0-38-17-38-37v-92c0-21 17-38 38-37s38 17 37 37v54h517v-54z"></path></g>
 <g id="lumo:user"><path d="M500 500c-69 0-125-56-125-125s56-125 125-125 125 56 125 125-56 125-125 125z m-292 292c0-115 131-208 292-209s292 93 292 209H208z"></path></g>
-</defs></svg>`;Iconset.register("lumo",1e3,template$a);registerStyles$1("vaadin-app-layout",css$e`
+</defs></svg>`;Iconset.register("lumo",1e3,template$a);const verticalLayout=css$e`
+  :host([theme~='margin']) {
+    margin: var(--lumo-space-m);
+  }
+
+  :host([theme~='padding']) {
+    padding: var(--lumo-space-m);
+  }
+
+  :host([theme~='spacing-xs']) {
+    gap: var(--lumo-space-xs);
+  }
+
+  :host([theme~='spacing-s']) {
+    gap: var(--lumo-space-s);
+  }
+
+  :host([theme~='spacing']) {
+    gap: var(--lumo-space-m);
+  }
+
+  :host([theme~='spacing-l']) {
+    gap: var(--lumo-space-l);
+  }
+
+  :host([theme~='spacing-xl']) {
+    gap: var(--lumo-space-xl);
+  }
+`;registerStyles$1("vaadin-vertical-layout",verticalLayout,{moduleId:"lumo-vertical-layout"});/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class VerticalLayout extends ElementMixin(ThemableMixin(PolymerElement)){static get template(){return html`
+      <style>
+        :host {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          box-sizing: border-box;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        /* Theme variations */
+        :host([theme~='margin']) {
+          margin: 1em;
+        }
+
+        :host([theme~='padding']) {
+          padding: 1em;
+        }
+
+        :host([theme~='spacing']) {
+          gap: 1em;
+        }
+      </style>
+
+      <slot></slot>
+    `}static get is(){return"vaadin-vertical-layout"}}customElements.define(VerticalLayout.is,VerticalLayout);registerStyles$1("vaadin-app-layout",css$e`
     [part='navbar'],
     [part='drawer'] {
       background-color: var(--lumo-base-color);
@@ -1038,251 +1098,526 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <slot name="navbar-bottom"></slot>
       </div>
       <div hidden><slot id="touchSlot" name="navbar touch-optimized"></slot></div>
-    `}static get is(){return"vaadin-app-layout"}static get properties(){return{i18n:{type:Object,observer:"__i18nChanged",value:()=>({drawer:"Drawer"})},primarySection:{type:String,value:"navbar",notify:!0,reflectToAttribute:!0,observer:"__primarySectionChanged"},drawerOpened:{type:Boolean,notify:!0,value:!0,reflectToAttribute:!0,observer:"__drawerOpenedChanged"},overlay:{type:Boolean,notify:!0,readOnly:!0,value:!1,reflectToAttribute:!0},closeDrawerOn:{type:String,value:"vaadin-router-location-changed",observer:"_closeDrawerOnChanged"}}}static dispatchCloseOverlayDrawerEvent(){window.dispatchEvent(new CustomEvent("close-overlay-drawer"))}constructor(){super(),this.__boundResizeListener=this._resize.bind(this),this.__drawerToggleClickListener=this._drawerToggleClick.bind(this),this.__onDrawerKeyDown=this.__onDrawerKeyDown.bind(this),this.__closeOverlayDrawerListener=this.__closeOverlayDrawer.bind(this),this.__trapFocusInDrawer=this.__trapFocusInDrawer.bind(this),this.__releaseFocusFromDrawer=this.__releaseFocusFromDrawer.bind(this),this.__ariaModalController=new AriaModalController(this,()=>[...this.querySelectorAll('vaadin-drawer-toggle, [slot="drawer"]')]),this.__focusTrapController=new FocusTrapController(this)}connectedCallback(){super.connectedCallback(),this._blockAnimationUntilAfterNextRender(),window.addEventListener("resize",this.__boundResizeListener),this.addEventListener("drawer-toggle-click",this.__drawerToggleClickListener),beforeNextRender(this,this._afterFirstRender),this._updateTouchOptimizedMode();const i=this.$.navbarTop.firstElementChild;this._navbarChildObserver=new FlattenedNodesObserver(i,()=>{this._updateTouchOptimizedMode()}),this._touchChildObserver=new FlattenedNodesObserver(this.$.touchSlot,()=>{this._updateTouchOptimizedMode()}),this._drawerChildObserver=new FlattenedNodesObserver(this.$.drawerSlot,()=>{this._updateDrawerSize()}),this._updateDrawerSize(),this._updateOverlayMode(),this._navbarSizeObserver=new ResizeObserver(()=>{requestAnimationFrame(()=>{this.__isDrawerAnimating?this.__updateOffsetSizePending=!0:this._updateOffsetSize()})}),this._navbarSizeObserver.observe(this.$.navbarTop),this._navbarSizeObserver.observe(this.$.navbarBottom),window.addEventListener("close-overlay-drawer",this.__closeOverlayDrawerListener),window.addEventListener("keydown",this.__onDrawerKeyDown)}ready(){super.ready(),this.addController(this.__focusTrapController),this.__setAriaExpanded(),this.$.drawer.addEventListener("transitionstart",()=>{this.__isDrawerAnimating=!0}),this.$.drawer.addEventListener("transitionend",()=>{this.__updateOffsetSizePending&&(this.__updateOffsetSizePending=!1,this._updateOffsetSize()),requestAnimationFrame(()=>{this.__isDrawerAnimating=!1})})}disconnectedCallback(){super.disconnectedCallback(),this._navbarChildObserver&&this._navbarChildObserver.disconnect(),this._drawerChildObserver&&this._drawerChildObserver.disconnect(),this._touchChildObserver&&this._touchChildObserver.disconnect(),window.removeEventListener("resize",this.__boundResizeListener),this.removeEventListener("drawer-toggle-click",this.__drawerToggleClickListener),window.removeEventListener("close-overlay-drawer",this.__drawerToggleClickListener),window.removeEventListener("keydown",this.__onDrawerKeyDown)}__primarySectionChanged(i){["navbar","drawer"].includes(i)||this.set("primarySection","navbar")}__drawerOpenedChanged(i,t){this.overlay&&(i?this.__trapFocusInDrawer():t&&this.__releaseFocusFromDrawer()),this.__setAriaExpanded()}__i18nChanged(){this.__updateDrawerAriaAttributes()}_afterFirstRender(){this._blockAnimationUntilAfterNextRender(),this._updateOffsetSize()}_drawerToggleClick(i){i.stopPropagation(),this.drawerOpened=!this.drawerOpened}__closeOverlayDrawer(){this.overlay&&(this.drawerOpened=!1)}__setAriaExpanded(){const i=this.querySelector("vaadin-drawer-toggle");i&&i.setAttribute("aria-expanded",this.drawerOpened)}_updateDrawerSize(){const i=this.querySelectorAll("[slot=drawer]").length,t=this.$.drawer;i===0?t.setAttribute("hidden",""):t.removeAttribute("hidden"),this._updateOffsetSize()}_resize(){this._blockAnimationUntilAfterNextRender(),this._updateTouchOptimizedMode(),this._updateOverlayMode()}_updateOffsetSize(){const t=this.$.navbarTop.getBoundingClientRect(),o=this.$.navbarBottom.getBoundingClientRect();this.style.setProperty("--_vaadin-app-layout-navbar-offset-size",`${t.height}px`),this.style.setProperty("--_vaadin-app-layout-navbar-offset-size-bottom",`${o.height}px`);const s=this.$.drawer.getBoundingClientRect();this.style.setProperty("--_vaadin-app-layout-drawer-offset-size",`${s.width}px`)}_updateOverlayMode(){const i=this._getCustomPropertyValue("--vaadin-app-layout-drawer-overlay")==="true";!this.overlay&&i&&(this._drawerStateSaved=this.drawerOpened,this.drawerOpened=!1),this._setOverlay(i),!this.overlay&&this._drawerStateSaved&&(this.drawerOpened=this._drawerStateSaved,this._drawerStateSaved=null),this.__updateDrawerAriaAttributes()}__updateDrawerAriaAttributes(){const i=this.$.drawer;this.overlay?(i.setAttribute("role","dialog"),i.setAttribute("aria-modal","true"),i.setAttribute("aria-label",this.i18n.drawer)):(i.removeAttribute("role"),i.removeAttribute("aria-modal"),i.removeAttribute("aria-label"))}__drawerTransitionComplete(){return new Promise(i=>{if(this._getCustomPropertyValue("--vaadin-app-layout-transition")==="none"){i();return}this.$.drawer.addEventListener("transitionend",i,{once:!0})})}async __trapFocusInDrawer(){await this.__drawerTransitionComplete(),this.drawerOpened&&(this.$.drawer.setAttribute("tabindex","0"),this.__ariaModalController.showModal(),this.__focusTrapController.trapFocus(this.$.drawer))}async __releaseFocusFromDrawer(){if(await this.__drawerTransitionComplete(),this.drawerOpened)return;this.__ariaModalController.close(),this.__focusTrapController.releaseFocus(),this.$.drawer.removeAttribute("tabindex");const i=this.querySelector("vaadin-drawer-toggle");i&&(i.focus(),i.setAttribute("focus-ring","focus"))}__onDrawerKeyDown(i){i.key==="Escape"&&this.overlay&&(this.drawerOpened=!1)}_closeDrawerOnChanged(i,t){t&&window.removeEventListener(t,this.__closeOverlayDrawerListener),i&&window.addEventListener(i,this.__closeOverlayDrawerListener)}_onBackdropClick(){this._close()}_onBackdropTouchend(i){i.preventDefault(),this._close()}_close(){this.drawerOpened=!1}_getCustomPropertyValue(i){return(getComputedStyle(this).getPropertyValue(i)||"").trim().toLowerCase()}_updateTouchOptimizedMode(){const i=this._getCustomPropertyValue("--vaadin-app-layout-touch-optimized")==="true",t=this.querySelectorAll('[slot*="navbar"]');t.length>0&&Array.from(t).forEach(r=>{r.getAttribute("slot").indexOf("touch-optimized")>-1&&(r.__touchOptimized=!0),i&&r.__touchOptimized?r.setAttribute("slot","navbar-bottom"):r.setAttribute("slot","navbar")}),this.$.navbarTop.querySelector("[name=navbar]").assignedNodes().length===0?this.$.navbarTop.setAttribute("hidden",""):this.$.navbarTop.removeAttribute("hidden"),this.$.navbarBottom.querySelector("[name=navbar-bottom]").assignedNodes().length===0?this.$.navbarBottom.setAttribute("hidden",""):this.$.navbarBottom.removeAttribute("hidden"),this._updateOffsetSize()}_blockAnimationUntilAfterNextRender(){this.setAttribute("no-anim",""),afterNextRender(this,()=>{this.removeAttribute("no-anim")})}}customElements.define(AppLayout.is,AppLayout);registerStyles$1("vaadin-input-container",css$e`
-    :host {
-      background-color: var(--lumo-contrast-10pct);
-      padding: 0 calc(0.375em + var(--_input-container-radius) / 4 - 1px);
-      font-weight: 500;
-      line-height: 1;
-      position: relative;
-      cursor: text;
-      box-sizing: border-box;
-      border-radius:
-        /* See https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius#syntax */
-        var(--vaadin-input-field-top-start-radius, var(--_input-container-radius))
-        var(--vaadin-input-field-top-end-radius, var(--_input-container-radius))
-        var(--vaadin-input-field-bottom-end-radius, var(--_input-container-radius))
-        var(--vaadin-input-field-bottom-start-radius, var(--_input-container-radius));
-      /* Fallback */
-      --_input-container-radius: var(--vaadin-input-field-border-radius, var(--lumo-border-radius-m));
-      /* Default field border color */
-      --_input-border-color: var(--vaadin-input-field-border-color, var(--lumo-contrast-50pct));
-    }
+    `}static get is(){return"vaadin-app-layout"}static get properties(){return{i18n:{type:Object,observer:"__i18nChanged",value:()=>({drawer:"Drawer"})},primarySection:{type:String,value:"navbar",notify:!0,reflectToAttribute:!0,observer:"__primarySectionChanged"},drawerOpened:{type:Boolean,notify:!0,value:!0,reflectToAttribute:!0,observer:"__drawerOpenedChanged"},overlay:{type:Boolean,notify:!0,readOnly:!0,value:!1,reflectToAttribute:!0},closeDrawerOn:{type:String,value:"vaadin-router-location-changed",observer:"_closeDrawerOnChanged"}}}static dispatchCloseOverlayDrawerEvent(){window.dispatchEvent(new CustomEvent("close-overlay-drawer"))}constructor(){super(),this.__boundResizeListener=this._resize.bind(this),this.__drawerToggleClickListener=this._drawerToggleClick.bind(this),this.__onDrawerKeyDown=this.__onDrawerKeyDown.bind(this),this.__closeOverlayDrawerListener=this.__closeOverlayDrawer.bind(this),this.__trapFocusInDrawer=this.__trapFocusInDrawer.bind(this),this.__releaseFocusFromDrawer=this.__releaseFocusFromDrawer.bind(this),this.__ariaModalController=new AriaModalController(this,()=>[...this.querySelectorAll('vaadin-drawer-toggle, [slot="drawer"]')]),this.__focusTrapController=new FocusTrapController(this)}connectedCallback(){super.connectedCallback(),this._blockAnimationUntilAfterNextRender(),window.addEventListener("resize",this.__boundResizeListener),this.addEventListener("drawer-toggle-click",this.__drawerToggleClickListener),beforeNextRender(this,this._afterFirstRender),this._updateTouchOptimizedMode();const i=this.$.navbarTop.firstElementChild;this._navbarChildObserver=new FlattenedNodesObserver(i,()=>{this._updateTouchOptimizedMode()}),this._touchChildObserver=new FlattenedNodesObserver(this.$.touchSlot,()=>{this._updateTouchOptimizedMode()}),this._drawerChildObserver=new FlattenedNodesObserver(this.$.drawerSlot,()=>{this._updateDrawerSize()}),this._updateDrawerSize(),this._updateOverlayMode(),this._navbarSizeObserver=new ResizeObserver(()=>{requestAnimationFrame(()=>{this.__isDrawerAnimating?this.__updateOffsetSizePending=!0:this._updateOffsetSize()})}),this._navbarSizeObserver.observe(this.$.navbarTop),this._navbarSizeObserver.observe(this.$.navbarBottom),window.addEventListener("close-overlay-drawer",this.__closeOverlayDrawerListener),window.addEventListener("keydown",this.__onDrawerKeyDown)}ready(){super.ready(),this.addController(this.__focusTrapController),this.__setAriaExpanded(),this.$.drawer.addEventListener("transitionstart",()=>{this.__isDrawerAnimating=!0}),this.$.drawer.addEventListener("transitionend",()=>{this.__updateOffsetSizePending&&(this.__updateOffsetSizePending=!1,this._updateOffsetSize()),requestAnimationFrame(()=>{this.__isDrawerAnimating=!1})})}disconnectedCallback(){super.disconnectedCallback(),this._navbarChildObserver&&this._navbarChildObserver.disconnect(),this._drawerChildObserver&&this._drawerChildObserver.disconnect(),this._touchChildObserver&&this._touchChildObserver.disconnect(),window.removeEventListener("resize",this.__boundResizeListener),this.removeEventListener("drawer-toggle-click",this.__drawerToggleClickListener),window.removeEventListener("close-overlay-drawer",this.__drawerToggleClickListener),window.removeEventListener("keydown",this.__onDrawerKeyDown)}__primarySectionChanged(i){["navbar","drawer"].includes(i)||this.set("primarySection","navbar")}__drawerOpenedChanged(i,t){this.overlay&&(i?this.__trapFocusInDrawer():t&&this.__releaseFocusFromDrawer()),this.__setAriaExpanded()}__i18nChanged(){this.__updateDrawerAriaAttributes()}_afterFirstRender(){this._blockAnimationUntilAfterNextRender(),this._updateOffsetSize()}_drawerToggleClick(i){i.stopPropagation(),this.drawerOpened=!this.drawerOpened}__closeOverlayDrawer(){this.overlay&&(this.drawerOpened=!1)}__setAriaExpanded(){const i=this.querySelector("vaadin-drawer-toggle");i&&i.setAttribute("aria-expanded",this.drawerOpened)}_updateDrawerSize(){const i=this.querySelectorAll("[slot=drawer]").length,t=this.$.drawer;i===0?t.setAttribute("hidden",""):t.removeAttribute("hidden"),this._updateOffsetSize()}_resize(){this._blockAnimationUntilAfterNextRender(),this._updateTouchOptimizedMode(),this._updateOverlayMode()}_updateOffsetSize(){const t=this.$.navbarTop.getBoundingClientRect(),o=this.$.navbarBottom.getBoundingClientRect();this.style.setProperty("--_vaadin-app-layout-navbar-offset-size",`${t.height}px`),this.style.setProperty("--_vaadin-app-layout-navbar-offset-size-bottom",`${o.height}px`);const s=this.$.drawer.getBoundingClientRect();this.style.setProperty("--_vaadin-app-layout-drawer-offset-size",`${s.width}px`)}_updateOverlayMode(){const i=this._getCustomPropertyValue("--vaadin-app-layout-drawer-overlay")==="true";!this.overlay&&i&&(this._drawerStateSaved=this.drawerOpened,this.drawerOpened=!1),this._setOverlay(i),!this.overlay&&this._drawerStateSaved&&(this.drawerOpened=this._drawerStateSaved,this._drawerStateSaved=null),this.__updateDrawerAriaAttributes()}__updateDrawerAriaAttributes(){const i=this.$.drawer;this.overlay?(i.setAttribute("role","dialog"),i.setAttribute("aria-modal","true"),i.setAttribute("aria-label",this.i18n.drawer)):(i.removeAttribute("role"),i.removeAttribute("aria-modal"),i.removeAttribute("aria-label"))}__drawerTransitionComplete(){return new Promise(i=>{if(this._getCustomPropertyValue("--vaadin-app-layout-transition")==="none"){i();return}this.$.drawer.addEventListener("transitionend",i,{once:!0})})}async __trapFocusInDrawer(){await this.__drawerTransitionComplete(),this.drawerOpened&&(this.$.drawer.setAttribute("tabindex","0"),this.__ariaModalController.showModal(),this.__focusTrapController.trapFocus(this.$.drawer))}async __releaseFocusFromDrawer(){if(await this.__drawerTransitionComplete(),this.drawerOpened)return;this.__ariaModalController.close(),this.__focusTrapController.releaseFocus(),this.$.drawer.removeAttribute("tabindex");const i=this.querySelector("vaadin-drawer-toggle");i&&(i.focus(),i.setAttribute("focus-ring","focus"))}__onDrawerKeyDown(i){i.key==="Escape"&&this.overlay&&(this.drawerOpened=!1)}_closeDrawerOnChanged(i,t){t&&window.removeEventListener(t,this.__closeOverlayDrawerListener),i&&window.addEventListener(i,this.__closeOverlayDrawerListener)}_onBackdropClick(){this._close()}_onBackdropTouchend(i){i.preventDefault(),this._close()}_close(){this.drawerOpened=!1}_getCustomPropertyValue(i){return(getComputedStyle(this).getPropertyValue(i)||"").trim().toLowerCase()}_updateTouchOptimizedMode(){const i=this._getCustomPropertyValue("--vaadin-app-layout-touch-optimized")==="true",t=this.querySelectorAll('[slot*="navbar"]');t.length>0&&Array.from(t).forEach(r=>{r.getAttribute("slot").indexOf("touch-optimized")>-1&&(r.__touchOptimized=!0),i&&r.__touchOptimized?r.setAttribute("slot","navbar-bottom"):r.setAttribute("slot","navbar")}),this.$.navbarTop.querySelector("[name=navbar]").assignedNodes().length===0?this.$.navbarTop.setAttribute("hidden",""):this.$.navbarTop.removeAttribute("hidden"),this.$.navbarBottom.querySelector("[name=navbar-bottom]").assignedNodes().length===0?this.$.navbarBottom.setAttribute("hidden",""):this.$.navbarBottom.removeAttribute("hidden"),this._updateOffsetSize()}_blockAnimationUntilAfterNextRender(){this.setAttribute("no-anim",""),afterNextRender(this,()=>{this.removeAttribute("no-anim")})}}customElements.define(AppLayout.is,AppLayout);const scroller=css$e`
+  :host {
+    outline: none;
+  }
 
-    :host([dir='rtl']) {
-      border-radius:
-        /* Don't use logical props, see https://github.com/vaadin/vaadin-time-picker/issues/145 */
-        var(--vaadin-input-field-top-end-radius, var(--_input-container-radius))
-        var(--vaadin-input-field-top-start-radius, var(--_input-container-radius))
-        var(--vaadin-input-field-bottom-start-radius, var(--_input-container-radius))
-        var(--vaadin-input-field-bottom-end-radius, var(--_input-container-radius));
-    }
+  :host([focus-ring]) {
+    box-shadow: 0 0 0 2px var(--lumo-primary-color-50pct);
+  }
 
-    /* Used for hover and activation effects */
-    :host::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      background-color: var(--lumo-contrast-50pct);
-      opacity: 0;
-      transition: transform 0.15s, opacity 0.2s;
-      transform-origin: 100% 0;
-    }
+  /* Show dividers when content overflows */
 
-    ::slotted(:not([slot$='fix'])) {
-      cursor: inherit;
-      min-height: var(--lumo-text-field-size, var(--lumo-size-m));
-      padding: 0 0.25em;
-      --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent, #000 1.25em);
-      -webkit-mask-image: var(--_lumo-text-field-overflow-mask-image);
-      mask-image: var(--_lumo-text-field-overflow-mask-image);
-    }
+  :host([theme~='overflow-indicators'])::before,
+  :host([theme~='overflow-indicators'])::after {
+    content: '';
+    display: none;
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height: 1px;
+    margin-bottom: -1px;
+    background: var(--lumo-contrast-10pct);
+  }
 
-    /* Read-only */
-    :host([readonly]) {
-      color: var(--lumo-secondary-text-color);
-      background-color: transparent;
-      cursor: default;
-    }
+  :host([theme~='overflow-indicators'])::after {
+    margin-bottom: 0;
+    margin-top: -1px;
+  }
 
-    :host([readonly])::after {
-      background-color: transparent;
-      opacity: 1;
-      border: 1px dashed var(--lumo-contrast-30pct);
-    }
-
-    /* Disabled */
-    :host([disabled]) {
-      background-color: var(--lumo-contrast-5pct);
-    }
-
-    :host([disabled]) ::slotted(*) {
-      color: var(--lumo-disabled-text-color);
-      -webkit-text-fill-color: var(--lumo-disabled-text-color);
-    }
-
-    /* Invalid */
-    :host([invalid]) {
-      background-color: var(--lumo-error-color-10pct);
-    }
-
-    :host([invalid])::after {
-      background-color: var(--lumo-error-color-50pct);
-    }
-
-    /* Slotted icons */
-    ::slotted(vaadin-icon) {
-      color: var(--lumo-contrast-60pct);
-      width: var(--lumo-icon-size-m);
-      height: var(--lumo-icon-size-m);
-    }
-
-    /* Vaadin icons are based on a 16x16 grid (unlike Lumo and Material icons with 24x24), so they look too big by default */
-    ::slotted(vaadin-icon[icon^='vaadin:']) {
-      padding: 0.25em;
-      box-sizing: border-box !important;
-    }
-
-    /* Text align */
-    :host([dir='rtl']) ::slotted(:not([slot$='fix'])) {
-      --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent, #000 1.25em);
-    }
-
-    @-moz-document url-prefix() {
-      :host([dir='rtl']) ::slotted(:not([slot$='fix'])) {
-        mask-image: var(--_lumo-text-field-overflow-mask-image);
-      }
-    }
-
-    :host([theme~='align-left']) ::slotted(:not([slot$='fix'])) {
-      text-align: start;
-      --_lumo-text-field-overflow-mask-image: none;
-    }
-
-    :host([theme~='align-center']) ::slotted(:not([slot$='fix'])) {
-      text-align: center;
-      --_lumo-text-field-overflow-mask-image: none;
-    }
-
-    :host([theme~='align-right']) ::slotted(:not([slot$='fix'])) {
-      text-align: end;
-      --_lumo-text-field-overflow-mask-image: none;
-    }
-
-    @-moz-document url-prefix() {
-      /* Firefox is smart enough to align overflowing text to right */
-      :host([theme~='align-right']) ::slotted(:not([slot$='fix'])) {
-        --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent 0.25em, #000 1.5em);
-      }
-    }
-
-    @-moz-document url-prefix() {
-      /* Firefox is smart enough to align overflowing text to right */
-      :host([theme~='align-left']) ::slotted(:not([slot$='fix'])) {
-        --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent 0.25em, #000 1.5em);
-      }
-    }
-
-    /* RTL specific styles */
-    :host([dir='rtl'])::after {
-      transform-origin: 0% 0;
-    }
-
-    :host([theme~='align-left'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
-      --_lumo-text-field-overflow-mask-image: none;
-    }
-
-    :host([theme~='align-center'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
-      --_lumo-text-field-overflow-mask-image: none;
-    }
-
-    :host([theme~='align-right'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
-      --_lumo-text-field-overflow-mask-image: none;
-    }
-
-    @-moz-document url-prefix() {
-      /* Firefox is smart enough to align overflowing text to right */
-      :host([theme~='align-right'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
-        --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent 0.25em, #000 1.5em);
-      }
-    }
-
-    @-moz-document url-prefix() {
-      /* Firefox is smart enough to align overflowing text to right */
-      :host([theme~='align-left'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
-        --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent 0.25em, #000 1.5em);
-      }
-    }
-  `,{moduleId:"lumo-input-container"});/**
+  :host([theme~='overflow-indicators'][overflow~='top'])::before,
+  :host([theme~='overflow-indicators'][overflow~='bottom'])::after {
+    display: block;
+  }
+`;registerStyles$1("vaadin-scroller",scroller,{moduleId:"lumo-scroller"});/**
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class InputContainer extends ThemableMixin(DirMixin(PolymerElement)){static get is(){return"vaadin-input-container"}static get template(){return html`
+ */const FocusMixin=dedupingMixin(n=>class extends n{get _keyboardActive(){return isKeyboardActive()}ready(){this.addEventListener("focusin",t=>{this._shouldSetFocus(t)&&this._setFocused(!0)}),this.addEventListener("focusout",t=>{this._shouldRemoveFocus(t)&&this._setFocused(!1)}),super.ready()}disconnectedCallback(){super.disconnectedCallback(),this.hasAttribute("focused")&&this._setFocused(!1)}_setFocused(t){this.toggleAttribute("focused",t),this.toggleAttribute("focus-ring",t&&this._keyboardActive)}_shouldSetFocus(t){return!0}_shouldRemoveFocus(t){return!0}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class OverflowController{constructor(i,t){this.host=i,this.scrollTarget=t||i,this.__boundOnScroll=this.__onScroll.bind(this)}hostConnected(){this.initialized||(this.initialized=!0,this.observe())}observe(){this.__resizeObserver=new ResizeObserver(()=>{this.__debounceOverflow=Debouncer$1.debounce(this.__debounceOverflow,animationFrame,()=>{this.__updateOverflow()})}),this.__resizeObserver.observe(this.host),this.__childObserver=new FlattenedNodesObserver(this.host,i=>{i.addedNodes.forEach(t=>{t.nodeType===Node.ELEMENT_NODE&&this.__resizeObserver.observe(t)}),i.removedNodes.forEach(t=>{t.nodeType===Node.ELEMENT_NODE&&this.__resizeObserver.unobserve(t)}),this.__updateOverflow()}),this.scrollTarget.addEventListener("scroll",this.__boundOnScroll),this.__updateOverflow()}__onScroll(){this.__updateOverflow()}__updateOverflow(){const i=this.scrollTarget;let t="";i.scrollTop>0&&(t+=" top"),Math.ceil(i.scrollTop)<Math.ceil(i.scrollHeight-i.clientHeight)&&(t+=" bottom");const r=Math.abs(i.scrollLeft);r>0&&(t+=" start"),Math.ceil(r)<Math.ceil(i.scrollWidth-i.clientWidth)&&(t+=" end"),t=t.trim(),t.length>0&&this.host.getAttribute("overflow")!==t?this.host.setAttribute("overflow",t):t.length===0&&this.host.hasAttribute("overflow")&&this.host.removeAttribute("overflow")}}/**
+ * @license
+ * Copyright (c) 2020 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class Scroller extends FocusMixin(ElementMixin(ControllerMixin(ThemableMixin(PolymerElement)))){static get template(){return html`
       <style>
-        :host {
-          display: flex;
-          align-items: center;
-          flex: 0 1 auto;
-          border-radius:
-            /* See https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius */
-            var(--vaadin-input-field-top-start-radius, var(--__border-radius))
-            var(--vaadin-input-field-top-end-radius, var(--__border-radius))
-            var(--vaadin-input-field-bottom-end-radius, var(--__border-radius))
-            var(--vaadin-input-field-bottom-start-radius, var(--__border-radius));
-          --_border-radius: var(--vaadin-input-field-border-radius, 0px);
-          --_input-border-width: var(--vaadin-input-field-border-width, 0);
-          --_input-border-color: var(--vaadin-input-field-border-color, transparent);
-          box-shadow: inset 0 0 0 var(--_input-border-width, 0) var(--_input-border-color);
-        }
-
-        :host([dir='rtl']) {
-          border-radius:
-            /* Don't use logical props, see https://github.com/vaadin/vaadin-time-picker/issues/145 */
-            var(--vaadin-input-field-top-end-radius, var(--_border-radius))
-            var(--vaadin-input-field-top-start-radius, var(--_border-radius))
-            var(--vaadin-input-field-bottom-start-radius, var(--_border-radius))
-            var(--vaadin-input-field-bottom-end-radius, var(--_border-radius));
-        }
-
         :host([hidden]) {
           display: none !important;
         }
 
-        /* Reset the native input styles */
-        ::slotted(input) {
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          flex: auto;
-          white-space: nowrap;
+        :host {
+          display: block;
+          overflow: auto;
+        }
+
+        :host([scroll-direction='vertical']) {
+          overflow-x: hidden;
+        }
+
+        :host([scroll-direction='horizontal']) {
+          overflow-y: hidden;
+        }
+
+        :host([scroll-direction='none']) {
           overflow: hidden;
+        }
+      </style>
+
+      <slot></slot>
+    `}static get is(){return"vaadin-scroller"}static get properties(){return{scrollDirection:{type:String,reflectToAttribute:!0},tabindex:{type:Number,value:0,reflectToAttribute:!0}}}ready(){super.ready(),this.__overflowController=new OverflowController(this),this.addController(this.__overflowController)}_shouldSetFocus(i){return i.target===this}}customElements.define(Scroller.is,Scroller);/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const userColors=css$e`
+  :host {
+    --vaadin-user-color-0: #df0b92;
+    --vaadin-user-color-1: #650acc;
+    --vaadin-user-color-2: #097faa;
+    --vaadin-user-color-3: #ad6200;
+    --vaadin-user-color-4: #bf16f3;
+    --vaadin-user-color-5: #084391;
+    --vaadin-user-color-6: #078836;
+  }
+
+  [theme~='dark'] {
+    --vaadin-user-color-0: #ff66c7;
+    --vaadin-user-color-1: #9d8aff;
+    --vaadin-user-color-2: #8aff66;
+    --vaadin-user-color-3: #ffbd66;
+    --vaadin-user-color-4: #dc6bff;
+    --vaadin-user-color-5: #66fffa;
+    --vaadin-user-color-6: #e6ff66;
+  }
+`;addLumoGlobalStyles("user-color-props",userColors);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */registerStyles$1("vaadin-field-outline",css$e`
+    :host {
+      transition: opacity 0.3s;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
+
+    :host::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: 0 0 0 2px var(--_active-user-color);
+      border-radius: var(--lumo-border-radius-s);
+      transition: box-shadow 0.3s;
+    }
+
+    :host([context$='checkbox'])::before {
+      box-shadow: 0 0 0 2px var(--lumo-base-color), 0 0 0 4px var(--_active-user-color);
+    }
+
+    :host([context$='radio-button'])::before {
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px var(--lumo-base-color), 0 0 0 5px var(--_active-user-color);
+    }
+
+    :host([context$='item'])::before {
+      box-shadow: inset 0 0 0 2px var(--_active-user-color);
+    }
+  `,{moduleId:"lumo-field-outline"});/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const overlay=css$e`
+  :host {
+    top: var(--lumo-space-m);
+    right: var(--lumo-space-m);
+    bottom: var(--lumo-space-m);
+    left: var(--lumo-space-m);
+    /* Workaround for Edge issue (only on Surface), where an overflowing vaadin-list-box inside vaadin-select-overlay makes the overlay transparent */
+    /* stylelint-disable-next-line */
+    outline: 0px solid transparent;
+  }
+
+  [part='overlay'] {
+    background-color: var(--lumo-base-color);
+    background-image: linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
+    border-radius: var(--lumo-border-radius-m);
+    box-shadow: 0 0 0 1px var(--lumo-shade-5pct), var(--lumo-box-shadow-m);
+    color: var(--lumo-body-text-color);
+    font-family: var(--lumo-font-family);
+    font-size: var(--lumo-font-size-m);
+    font-weight: 400;
+    line-height: var(--lumo-line-height-m);
+    letter-spacing: 0;
+    text-transform: none;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [part='content'] {
+    padding: var(--lumo-space-xs);
+  }
+
+  [part='backdrop'] {
+    background-color: var(--lumo-shade-20pct);
+    animation: 0.2s lumo-overlay-backdrop-enter both;
+    will-change: opacity;
+  }
+
+  @keyframes lumo-overlay-backdrop-enter {
+    0% {
+      opacity: 0;
+    }
+  }
+
+  :host([closing]) [part='backdrop'] {
+    animation: 0.2s lumo-overlay-backdrop-exit both;
+  }
+
+  @keyframes lumo-overlay-backdrop-exit {
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes lumo-overlay-dummy-animation {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+`;registerStyles$1("",overlay,{moduleId:"lumo-overlay"});registerStyles$1("vaadin-overlay",overlay,{moduleId:"lumo-vaadin-overlay"});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */function processTemplates(n){if(window.Vaadin&&window.Vaadin.templateRendererCallback){window.Vaadin.templateRendererCallback(n);return}n.querySelector("template")&&console.warn(`WARNING: <template> inside <${n.localName}> is no longer supported. Import @vaadin/polymer-legacy-adapter/template-renderer.js to enable compatibility.`)}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class FocusRestorationController{saveFocus(i){this.focusNode=i||getDeepActiveElement()}restoreFocus(){const i=this.focusNode;i&&(getDeepActiveElement()===document.body?setTimeout(()=>i.focus()):i.focus(),this.focusNode=null)}}/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const OverlayFocusMixin=n=>class extends ControllerMixin(n){static get properties(){return{focusTrap:{type:Boolean,value:!1},restoreFocusOnClose:{type:Boolean,value:!1},restoreFocusNode:{type:HTMLElement}}}constructor(){super(),this.__ariaModalController=new AriaModalController(this),this.__focusTrapController=new FocusTrapController(this),this.__focusRestorationController=new FocusRestorationController}ready(){super.ready(),this.addController(this.__ariaModalController),this.addController(this.__focusTrapController),this.addController(this.__focusRestorationController)}_resetFocus(){this.focusTrap&&(this.__ariaModalController.close(),this.__focusTrapController.releaseFocus()),this.restoreFocusOnClose&&this._shouldRestoreFocus()&&this.__focusRestorationController.restoreFocus()}_saveFocus(){this.restoreFocusOnClose&&this.__focusRestorationController.saveFocus(this.restoreFocusNode)}_trapFocus(){this.focusTrap&&(this.__ariaModalController.showModal(),this.__focusTrapController.trapFocus(this.$.overlay))}_shouldRestoreFocus(){const t=getDeepActiveElement();return t===document.body||this._deepContains(t)}_deepContains(t){if(this.contains(t))return!0;let r=t;const o=t.ownerDocument;for(;r&&r!==o&&r!==this;)r=r.parentNode||r.host;return r===this}};/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class Overlay extends OverlayFocusMixin(ThemableMixin(DirMixin(PolymerElement))){static get template(){return html`
+      <style>
+        :host {
+          z-index: 200;
+          position: fixed;
+
+          /* Despite of what the names say, <vaadin-overlay> is just a container
+          for position/sizing/alignment. The actual overlay is the overlay part. */
+
+          /* Default position constraints: the entire viewport. Note: themes can
+          override this to introduce gaps between the overlay and the viewport. */
+          top: 0;
+          right: 0;
+          bottom: var(--vaadin-overlay-viewport-bottom);
+          left: 0;
+
+          /* Use flexbox alignment for the overlay part. */
+          display: flex;
+          flex-direction: column; /* makes dropdowns sizing easier */
+          /* Align to center by default. */
+          align-items: center;
+          justify-content: center;
+
+          /* Allow centering when max-width/max-height applies. */
+          margin: auto;
+
+          /* The host is not clickable, only the overlay part is. */
+          pointer-events: none;
+
+          /* Remove tap highlight on touch devices. */
+          -webkit-tap-highlight-color: transparent;
+
+          /* CSS API for host */
+          --vaadin-overlay-viewport-bottom: 0;
+        }
+
+        :host([hidden]),
+        :host(:not([opened]):not([closing])) {
+          display: none !important;
+        }
+
+        [part='overlay'] {
+          -webkit-overflow-scrolling: touch;
+          overflow: auto;
+          pointer-events: auto;
+
+          /* Prevent overflowing the host in MSIE 11 */
+          max-width: 100%;
+          box-sizing: border-box;
+
+          -webkit-tap-highlight-color: initial; /* reenable tap highlight inside */
+        }
+
+        [part='backdrop'] {
+          z-index: -1;
+          content: '';
+          background: rgba(0, 0, 0, 0.5);
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          pointer-events: auto;
+        }
+      </style>
+
+      <div id="backdrop" part="backdrop" hidden$="[[!withBackdrop]]"></div>
+      <div part="overlay" id="overlay" tabindex="0">
+        <div part="content" id="content">
+          <slot></slot>
+        </div>
+      </div>
+    `}static get is(){return"vaadin-overlay"}static get properties(){return{opened:{type:Boolean,notify:!0,observer:"_openedChanged",reflectToAttribute:!0},owner:Element,renderer:Function,withBackdrop:{type:Boolean,value:!1,reflectToAttribute:!0},model:Object,modeless:{type:Boolean,value:!1,reflectToAttribute:!0,observer:"_modelessChanged"},hidden:{type:Boolean,reflectToAttribute:!0,observer:"_hiddenChanged"},_mouseDownInside:{type:Boolean},_mouseUpInside:{type:Boolean},_oldOwner:Element,_oldModel:Object,_oldRenderer:Object,_oldOpened:Boolean}}static get observers(){return["_rendererOrDataChanged(renderer, owner, model, opened)"]}static get __attachedInstances(){return Array.from(document.body.children).filter(i=>i instanceof Overlay&&!i.hasAttribute("closing")).sort((i,t)=>i.__zIndex-t.__zIndex||0)}constructor(){super(),this._boundMouseDownListener=this._mouseDownListener.bind(this),this._boundMouseUpListener=this._mouseUpListener.bind(this),this._boundOutsideClickListener=this._outsideClickListener.bind(this),this._boundKeydownListener=this._keydownListener.bind(this),isIOS&&(this._boundIosResizeListener=()=>this._detectIosNavbar())}get _last(){return this===Overlay.__attachedInstances.pop()}ready(){super.ready(),this.addEventListener("click",()=>{}),this.$.backdrop.addEventListener("click",()=>{}),processTemplates(this)}_detectIosNavbar(){if(!this.opened)return;const i=window.innerHeight,r=window.innerWidth>i,o=document.documentElement.clientHeight;r&&o>i?this.style.setProperty("--vaadin-overlay-viewport-bottom",`${o-i}px`):this.style.setProperty("--vaadin-overlay-viewport-bottom","0")}close(i){const t=new CustomEvent("vaadin-overlay-close",{bubbles:!0,cancelable:!0,detail:{sourceEvent:i}});this.dispatchEvent(t),t.defaultPrevented||(this.opened=!1)}connectedCallback(){super.connectedCallback(),this._boundIosResizeListener&&(this._detectIosNavbar(),window.addEventListener("resize",this._boundIosResizeListener))}disconnectedCallback(){super.disconnectedCallback(),this._boundIosResizeListener&&window.removeEventListener("resize",this._boundIosResizeListener)}requestContentUpdate(){this.renderer&&this.renderer.call(this.owner,this,this.owner,this.model)}_mouseDownListener(i){this._mouseDownInside=i.composedPath().indexOf(this.$.overlay)>=0}_mouseUpListener(i){this._mouseUpInside=i.composedPath().indexOf(this.$.overlay)>=0}_shouldCloseOnOutsideClick(i){return this._last}_outsideClickListener(i){if(i.composedPath().includes(this.$.overlay)||this._mouseDownInside||this._mouseUpInside){this._mouseDownInside=!1,this._mouseUpInside=!1;return}if(!this._shouldCloseOnOutsideClick(i))return;const t=new CustomEvent("vaadin-overlay-outside-click",{bubbles:!0,cancelable:!0,detail:{sourceEvent:i}});this.dispatchEvent(t),this.opened&&!t.defaultPrevented&&this.close(i)}_keydownListener(i){if(this._last&&!(this.modeless&&!i.composedPath().includes(this.$.overlay))&&i.key==="Escape"){const t=new CustomEvent("vaadin-overlay-escape-press",{bubbles:!0,cancelable:!0,detail:{sourceEvent:i}});this.dispatchEvent(t),this.opened&&!t.defaultPrevented&&this.close(i)}}_openedChanged(i,t){i?(this._saveFocus(),this._animatedOpening(),afterNextRender(this,()=>{this._trapFocus();const r=new CustomEvent("vaadin-overlay-open",{bubbles:!0});this.dispatchEvent(r)}),document.addEventListener("keydown",this._boundKeydownListener),this.modeless||this._addGlobalListeners()):t&&(this._resetFocus(),this._animatedClosing(),document.removeEventListener("keydown",this._boundKeydownListener),this.modeless||this._removeGlobalListeners())}_hiddenChanged(i){i&&this.hasAttribute("closing")&&this._flushAnimation("closing")}_shouldAnimate(){const i=getComputedStyle(this),t=i.getPropertyValue("animation-name");return!(i.getPropertyValue("display")==="none")&&t&&t!=="none"}_enqueueAnimation(i,t){const r=`__${i}Handler`,o=a=>{a&&a.target!==this||(t(),this.removeEventListener("animationend",o),delete this[r])};this[r]=o,this.addEventListener("animationend",o)}_flushAnimation(i){const t=`__${i}Handler`;typeof this[t]=="function"&&this[t]()}_animatedOpening(){this.parentNode===document.body&&this.hasAttribute("closing")&&this._flushAnimation("closing"),this._attachOverlay(),this.modeless||this._enterModalState(),this.setAttribute("opening",""),this._shouldAnimate()?this._enqueueAnimation("opening",()=>{this._finishOpening()}):this._finishOpening()}_attachOverlay(){this._placeholder=document.createComment("vaadin-overlay-placeholder"),this.parentNode.insertBefore(this._placeholder,this),document.body.appendChild(this),this.bringToFront()}_finishOpening(){this.removeAttribute("opening")}_finishClosing(){this._detachOverlay(),this.$.overlay.style.removeProperty("pointer-events"),this.removeAttribute("closing"),this.dispatchEvent(new CustomEvent("vaadin-overlay-closed"))}_animatedClosing(){this.hasAttribute("opening")&&this._flushAnimation("opening"),this._placeholder&&(this._exitModalState(),this.setAttribute("closing",""),this.dispatchEvent(new CustomEvent("vaadin-overlay-closing")),this._shouldAnimate()?this._enqueueAnimation("closing",()=>{this._finishClosing()}):this._finishClosing())}_detachOverlay(){this._placeholder.parentNode.insertBefore(this,this._placeholder),this._placeholder.parentNode.removeChild(this._placeholder)}_modelessChanged(i){i?(this._removeGlobalListeners(),this._exitModalState()):this.opened&&(this._addGlobalListeners(),this._enterModalState())}_addGlobalListeners(){document.addEventListener("mousedown",this._boundMouseDownListener),document.addEventListener("mouseup",this._boundMouseUpListener),document.documentElement.addEventListener("click",this._boundOutsideClickListener,!0)}_enterModalState(){document.body.style.pointerEvents!=="none"&&(this._previousDocumentPointerEvents=document.body.style.pointerEvents,document.body.style.pointerEvents="none"),Overlay.__attachedInstances.forEach(i=>{i!==this&&(i.shadowRoot.querySelector('[part="overlay"]').style.pointerEvents="none")})}_removeGlobalListeners(){document.removeEventListener("mousedown",this._boundMouseDownListener),document.removeEventListener("mouseup",this._boundMouseUpListener),document.documentElement.removeEventListener("click",this._boundOutsideClickListener,!0)}_exitModalState(){this._previousDocumentPointerEvents!==void 0&&(document.body.style.pointerEvents=this._previousDocumentPointerEvents,delete this._previousDocumentPointerEvents);const i=Overlay.__attachedInstances;let t;for(;(t=i.pop())&&!(t!==this&&(t.shadowRoot.querySelector('[part="overlay"]').style.removeProperty("pointer-events"),!t.modeless)););}_rendererOrDataChanged(i,t,r,o){const a=this._oldOwner!==t||this._oldModel!==r;this._oldModel=r,this._oldOwner=t;const s=this._oldRenderer!==i;this._oldRenderer=i;const l=this._oldOpened!==o;this._oldOpened=o,s&&(this.innerHTML="",delete this._$litPart$),o&&i&&(s||l||a)&&this.requestContentUpdate()}bringToFront(){let i="";const t=Overlay.__attachedInstances.filter(r=>r!==this).pop();t&&(i=t.__zIndex+1),this.style.zIndex=i,this.__zIndex=i||parseFloat(getComputedStyle(this).zIndex)}}customElements.define(Overlay.is,Overlay);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */registerStyles$1("vaadin-user-tags-overlay",css$e`
+    [part='overlay'] {
+      will-change: opacity, transform;
+    }
+
+    :host([opening]) [part='overlay'] {
+      animation: 0.1s lumo-user-tags-enter ease-out both;
+    }
+
+    @keyframes lumo-user-tags-enter {
+      0% {
+        opacity: 0;
+      }
+    }
+
+    :host([closing]) [part='overlay'] {
+      animation: 0.1s lumo-user-tags-exit both;
+    }
+
+    @keyframes lumo-user-tags-exit {
+      100% {
+        opacity: 0;
+      }
+    }
+  `,{moduleId:"lumo-user-tags-overlay"});registerStyles$1("vaadin-user-tag",css$e`
+    :host {
+      font-family: var(--lumo-font-family);
+      font-size: var(--lumo-font-size-xxs);
+      border-radius: var(--lumo-border-radius-s);
+      box-shadow: var(--lumo-box-shadow-xs);
+      --vaadin-user-tag-offset: var(--lumo-space-xs);
+    }
+
+    [part='name'] {
+      color: var(--lumo-primary-contrast-color);
+      padding: 0.3em calc(0.3em + var(--lumo-border-radius-s) / 4);
+      line-height: 1;
+      font-weight: 500;
+      min-width: calc(var(--lumo-line-height-xs) * 1em + 0.45em);
+    }
+  `,{moduleId:"lumo-user-tag"});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class UserTag extends ThemableMixin(DirMixin(PolymerElement)){static get is(){return"vaadin-user-tag"}static get template(){return html`
+      <style>
+        :host {
+          display: block;
+          box-sizing: border-box;
+          margin: 0 0 var(--vaadin-user-tag-offset);
+          opacity: 0;
+          height: 1.3rem;
+          transition: opacity 0.2s ease-in-out;
+          background-color: var(--vaadin-user-tag-color);
+          color: #fff;
+          cursor: default;
+          -webkit-user-select: none;
+          user-select: none;
+          --vaadin-user-tag-offset: 4px;
+        }
+
+        :host(.show) {
+          opacity: 1;
+        }
+
+        :host(:last-of-type) {
+          margin-bottom: 0;
+        }
+
+        [part='name'] {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          box-sizing: border-box;
+          padding: 2px 4px;
+          height: 1.3rem;
+          font-size: 13px;
+        }
+      </style>
+      <div part="name">[[name]]</div>
+    `}static get properties(){return{name:{type:String},uid:{type:String},colorIndex:{type:Number,observer:"_colorIndexChanged"}}}ready(){super.ready(),this.addEventListener("mousedown",this._onClick.bind(this),!0)}_colorIndexChanged(i){i!=null&&this.style.setProperty("--vaadin-user-tag-color",`var(--vaadin-user-color-${i})`)}_onClick(i){i.preventDefault(),this.dispatchEvent(new CustomEvent("user-tag-click",{bubbles:!0,composed:!0,detail:{name:this.name}}))}}customElements.define(UserTag.is,UserTag);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */function getAncestorRootNodes(n){const i=[];for(;n;){if(n.nodeType===Node.DOCUMENT_NODE){i.push(n);break}if(n.nodeType===Node.DOCUMENT_FRAGMENT_NODE){i.push(n),n=n.host;continue}if(n.assignedSlot){n=n.assignedSlot;continue}n=n.parentNode}return i}function getClosestElement(n,i){return i?i.closest(n)||getClosestElement(n,i.getRootNode().host):null}function deserializeAttributeValue(n){return n?new Set(n.split(" ")):new Set}function serializeAttributeValue(n){return n?[...n].join(" "):""}function addValueToAttribute(n,i,t){const r=deserializeAttributeValue(n.getAttribute(i));r.add(t),n.setAttribute(i,serializeAttributeValue(r))}function removeValueFromAttribute(n,i,t){const r=deserializeAttributeValue(n.getAttribute(i));if(r.delete(t),r.size===0){n.removeAttribute(i);return}n.setAttribute(i,serializeAttributeValue(r))}function isEmptyTextNode(n){return n.nodeType===Node.TEXT_NODE&&n.textContent.trim()===""}/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const PROP_NAMES_VERTICAL={start:"top",end:"bottom"},PROP_NAMES_HORIZONTAL={start:"left",end:"right"},targetResizeObserver=new ResizeObserver(n=>{setTimeout(()=>{n.forEach(i=>{i.target.__overlay&&i.target.__overlay._updatePosition()})})}),PositionMixin=n=>class extends n{static get properties(){return{positionTarget:{type:Object,value:null},horizontalAlign:{type:String,value:"start"},verticalAlign:{type:String,value:"top"},noHorizontalOverlap:{type:Boolean,value:!1},noVerticalOverlap:{type:Boolean,value:!1},requiredVerticalSpace:{type:Number,value:0}}}static get observers(){return["__positionSettingsChanged(horizontalAlign, verticalAlign, noHorizontalOverlap, noVerticalOverlap, requiredVerticalSpace)","__overlayOpenedChanged(opened, positionTarget)"]}constructor(){super(),this.__onScroll=this.__onScroll.bind(this),this._updatePosition=this._updatePosition.bind(this)}connectedCallback(){super.connectedCallback(),this.opened&&this.__addUpdatePositionEventListeners()}disconnectedCallback(){super.disconnectedCallback(),this.__removeUpdatePositionEventListeners()}__addUpdatePositionEventListeners(){window.addEventListener("resize",this._updatePosition),this.__positionTargetAncestorRootNodes=getAncestorRootNodes(this.positionTarget),this.__positionTargetAncestorRootNodes.forEach(t=>{t.addEventListener("scroll",this.__onScroll,!0)})}__removeUpdatePositionEventListeners(){window.removeEventListener("resize",this._updatePosition),this.__positionTargetAncestorRootNodes&&(this.__positionTargetAncestorRootNodes.forEach(t=>{t.removeEventListener("scroll",this.__onScroll,!0)}),this.__positionTargetAncestorRootNodes=null)}__overlayOpenedChanged(t,r){if(this.__removeUpdatePositionEventListeners(),r&&(r.__overlay=null,targetResizeObserver.unobserve(r),t&&(this.__addUpdatePositionEventListeners(),r.__overlay=this,targetResizeObserver.observe(r))),t){const o=getComputedStyle(this);this.__margins||(this.__margins={},["top","bottom","left","right"].forEach(a=>{this.__margins[a]=parseInt(o[a],10)})),this.setAttribute("dir",o.direction),this._updatePosition(),requestAnimationFrame(()=>this._updatePosition())}}__positionSettingsChanged(){this._updatePosition()}__onScroll(t){this.contains(t.target)||this._updatePosition()}_updatePosition(){if(!this.positionTarget||!this.opened)return;const t=this.positionTarget.getBoundingClientRect(),r=this.__shouldAlignStartVertically(t);this.style.justifyContent=r?"flex-start":"flex-end";const o=this.__isRTL,a=this.__shouldAlignStartHorizontally(t,o),s=!o&&a||o&&!a;this.style.alignItems=s?"flex-start":"flex-end";const l=this.getBoundingClientRect(),h=this.__calculatePositionInOneDimension(t,l,this.noVerticalOverlap,PROP_NAMES_VERTICAL,this,r),c=this.__calculatePositionInOneDimension(t,l,this.noHorizontalOverlap,PROP_NAMES_HORIZONTAL,this,a);Object.assign(this.style,h,c),this.toggleAttribute("bottom-aligned",!r),this.toggleAttribute("top-aligned",r),this.toggleAttribute("end-aligned",!s),this.toggleAttribute("start-aligned",s)}__shouldAlignStartHorizontally(t,r){const o=Math.max(this.__oldContentWidth||0,this.$.overlay.offsetWidth);this.__oldContentWidth=this.$.overlay.offsetWidth;const a=Math.min(window.innerWidth,document.documentElement.clientWidth),s=!r&&this.horizontalAlign==="start"||r&&this.horizontalAlign==="end";return this.__shouldAlignStart(t,o,a,this.__margins,s,this.noHorizontalOverlap,PROP_NAMES_HORIZONTAL)}__shouldAlignStartVertically(t){const r=this.requiredVerticalSpace||Math.max(this.__oldContentHeight||0,this.$.overlay.offsetHeight);this.__oldContentHeight=this.$.overlay.offsetHeight;const o=Math.min(window.innerHeight,document.documentElement.clientHeight),a=this.verticalAlign==="top";return this.__shouldAlignStart(t,r,o,this.__margins,a,this.noVerticalOverlap,PROP_NAMES_VERTICAL)}__shouldAlignStart(t,r,o,a,s,l,h){const c=o-t[l?h.end:h.start]-a[h.end],d=t[l?h.start:h.end]-a[h.start],u=s?c:d,f=u>(s?d:c)||u>r;return s===f}__adjustBottomProperty(t,r,o){let a;if(t===r.end){if(r.end===PROP_NAMES_VERTICAL.end){const s=Math.min(window.innerHeight,document.documentElement.clientHeight);if(o>s&&this.__oldViewportHeight){const l=this.__oldViewportHeight-s;a=o-l}this.__oldViewportHeight=s}if(r.end===PROP_NAMES_HORIZONTAL.end){const s=Math.min(window.innerWidth,document.documentElement.clientWidth);if(o>s&&this.__oldViewportWidth){const l=this.__oldViewportWidth-s;a=o-l}this.__oldViewportWidth=s}}return a}__calculatePositionInOneDimension(t,r,o,a,s,l){const h=l?a.start:a.end,c=l?a.end:a.start,d=parseFloat(s.style[h]||getComputedStyle(s)[h]),u=this.__adjustBottomProperty(h,a,d),p=r[l?a.start:a.end]-t[o===l?a.end:a.start],f=u?`${u}px`:`${d+p*(l?-1:1)}px`;return{[h]:f,[c]:""}}};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */registerStyles$1("vaadin-user-tags-overlay",css$e`
+    :host {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    [part='overlay'] {
+      box-shadow: none;
+      background: transparent;
+      position: relative;
+      left: -4px;
+      padding: 4px;
+      outline: none;
+      overflow: visible;
+    }
+
+    ::slotted([part='tags']) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    :host([dir='rtl']) [part='overlay'] {
+      left: auto;
+      right: -4px;
+    }
+
+    [part='content'] {
+      padding: 0;
+    }
+
+    :host([opening]),
+    :host([closing]) {
+      animation: 0.14s user-tags-overlay-dummy-animation;
+    }
+
+    @keyframes user-tags-overlay-dummy-animation {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+  `);class UserTagsOverlay extends PositionMixin(Overlay){static get is(){return"vaadin-user-tags-overlay"}ready(){super.ready(),this.$.overlay.setAttribute("tabindex","-1")}}customElements.define(UserTagsOverlay.is,UserTagsOverlay);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const listenOnce$1=(n,i)=>new Promise(t=>{const r=()=>{n.removeEventListener(i,r),t()};n.addEventListener(i,r)});class UserTags extends PolymerElement{static get is(){return"vaadin-user-tags"}static get template(){return html`
+      <style>
+        :host {
+          position: absolute;
+        }
+      </style>
+      <vaadin-user-tags-overlay
+        id="overlay"
+        modeless
+        opened="[[opened]]"
+        no-vertical-overlap
+        on-vaadin-overlay-open="_onOverlayOpen"
+      ></vaadin-user-tags-overlay>
+    `}static get properties(){return{hasFocus:{type:Boolean,value:!1,observer:"_hasFocusChanged"},opened:{type:Boolean,value:!1},flashing:{type:Boolean,value:!1},target:{type:Object,observer:"__targetChanged"},users:{type:Array,value:()=>[]},duration:{type:Number,value:200},delay:{type:Number,value:2e3},__flashQueue:{type:Array,value:()=>[]},__isTargetVisible:{type:Boolean,value:!1}}}constructor(){super(),this.__targetVisibilityObserver=new IntersectionObserver(([i])=>{this.__onTargetVisibilityChange(i.isIntersecting)},{threshold:1})}get wrapper(){return this.$.overlay.querySelector('[part="tags"]')}connectedCallback(){super.connectedCallback(),this.target&&this.__targetVisibilityObserver.observe(this.target)}disconnectedCallback(){super.disconnectedCallback(),this.opened=!1,this.target&&this.__targetVisibilityObserver.unobserve(this.target)}ready(){super.ready(),this.$.overlay.renderer=i=>{if(!i.firstChild){const t=document.createElement("div");t.setAttribute("part","tags"),i.appendChild(t)}},this.$.overlay.requestContentUpdate()}__onTargetVisibilityChange(i){if(this.__isTargetVisible=i,i&&this.__flashQueue.length>0&&!this.flashing){this.flashTags(this.__flashQueue.shift());return}if(i&&this.hasFocus){this.opened=!0;return}!i&&this.opened&&(this.opened=!1)}__targetChanged(i,t){this.$.overlay.positionTarget=i,t&&this.__targetVisibilityObserver.unobserve(t),i&&this.__targetVisibilityObserver.observe(i)}_hasFocusChanged(i){i&&this.flashing&&this.stopFlash()}createUserTag(i){const t=document.createElement("vaadin-user-tag");return t.name=i.name,t.uid=i.id,t.colorIndex=i.colorIndex,t}getTagForUser(i){return Array.from(this.wrapper.children).find(t=>t.uid===i.id)}getChangedTags(i,t){const r=t.map(a=>this.getTagForUser(a));return{added:i.map(a=>this.getTagForUser(a)||this.createUserTag(a)),removed:r}}getChangedUsers(i,t){const r=[],o=[];t.forEach(l=>{l.removed.forEach(h=>{o.push(h)});for(let h=l.addedCount-1;h>=0;h--)r.push(i[l.index+h])});const a=r.filter(l=>!o.some(h=>l.id===h.id)),s=o.filter(l=>!r.some(h=>l.id===h.id));return{addedUsers:a,removedUsers:s}}applyTagsStart({added:i,removed:t}){const r=this.wrapper;t.forEach(o=>{o&&(o.classList.add("removing"),o.classList.remove("show"))}),i.forEach(o=>r.insertBefore(o,r.firstChild))}applyTagsEnd({added:i,removed:t}){const r=this.wrapper;t.forEach(o=>{o&&o.parentNode===r&&r.removeChild(o)}),i.forEach(o=>o&&o.classList.add("show"))}setUsers(i){this.requestContentUpdate();const t=calculateSplices(i,this.users);if(t.length===0)return;const{addedUsers:r,removedUsers:o}=this.getChangedUsers(i,t);if(r.length===0&&o.length===0)return;const a=this.getChangedTags(r,o);if(this.__flashQueue.length>0&&o.forEach((s,l)=>{a.removed[l]!==null&&this.__flashQueue.forEach(h=>{h.some(c=>c.uid===s.id)&&this.splice("__flashQueue",l,1)})}),this.opened&&this.hasFocus)this.updateTags(i,a);else if(r.length>0&&document.visibilityState!=="hidden"){const s=a.added,l=a.removed;this.updateTagsSync(i,{added:[],removed:l}),this.flashing||!this.__isTargetVisible?this.push("__flashQueue",s):this.flashTags(s)}else this.updateTagsSync(i,a)}_onOverlayOpen(){Array.from(this.wrapper.children).forEach(i=>{i.classList.contains("removing")||i.classList.add("show")})}flashTags(i){this.flashing=!0;const t=this.wrapper,r=Array.from(t.children);r.forEach(o=>{o.style.display="none"}),i.forEach(o=>{t.insertBefore(o,t.firstChild)}),this.flashPromise=new Promise(o=>{listenOnce$1(this.$.overlay,"vaadin-overlay-open").then(()=>{this._debounceFlashStart=Debouncer$1.debounce(this._debounceFlashStart,timeOut.after(this.duration+this.delay),()=>{this.hasFocus||i.forEach(a=>a.classList.remove("show")),this._debounceFlashEnd=Debouncer$1.debounce(this._debounceFlashEnd,timeOut.after(this.duration),()=>{const a=()=>{r.forEach(s=>{s.style.display="block"}),this.flashing=!1,o()};this.hasFocus?a():(listenOnce$1(this.$.overlay,"animationend").then(()=>{a()}),this.opened=!1)})})})}).then(()=>{if(this.__flashQueue.length>0){const o=this.__flashQueue[0];this.splice("__flashQueue",0,1),this.flashTags(o)}}),this.opened=!0}stopFlash(){this._debounceFlashStart&&this._debounceFlashStart.flush(),this._debounceFlashEnd&&this._debounceFlashEnd.flush(),this.$.overlay._flushAnimation("closing")}updateTags(i,t){this.applyTagsStart(t),this._debounceRender=Debouncer$1.debounce(this._debounceRender,timeOut.after(this.duration),()=>{this.set("users",i),this.applyTagsEnd(t),i.length===0&&this.opened&&(this.opened=!1)})}updateTagsSync(i,t){this.applyTagsStart(t),this.set("users",i),this.applyTagsEnd(t)}show(){this.hasFocus=!0,this.__isTargetVisible&&(this.opened=!0)}hide(){this.hasFocus=!1,this.opened=!1}requestContentUpdate(){this._debounceRender&&this._debounceRender.isActive()&&this._debounceRender.flush()}}customElements.define(UserTags.is,UserTags);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class FieldOutline extends ThemableMixin(DirMixin(PolymerElement)){static get is(){return"vaadin-field-outline"}static get template(){return html`
+      <style>
+        :host {
+          display: block;
+          box-sizing: border-box;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
           width: 100%;
           height: 100%;
-          outline: none;
-          margin: 0;
-          padding: 0;
-          border: 0;
-          border-radius: 0;
-          min-width: 0;
-          font: inherit;
-          line-height: normal;
-          color: inherit;
-          background-color: transparent;
-          /* Disable default invalid style in Firefox */
-          box-shadow: none;
+          pointer-events: none;
+          user-select: none;
+          opacity: 0;
+          --_active-user-color: transparent;
         }
 
-        ::slotted(*) {
-          flex: none;
-        }
-
-        ::slotted(:is(input, textarea))::placeholder {
-          /* Use ::slotted(input:placeholder-shown) in themes to style the placeholder. */
-          /* because ::slotted(...)::placeholder does not work in Safari. */
-          font: inherit;
-          color: inherit;
-          /* Override default opacity in Firefox */
+        :host([has-active-user]) {
           opacity: 1;
         }
       </style>
-      <slot name="prefix"></slot>
-      <slot></slot>
-      <slot name="suffix"></slot>
-    `}static get properties(){return{disabled:{type:Boolean,reflectToAttribute:!0},readonly:{type:Boolean,reflectToAttribute:!0},invalid:{type:Boolean,reflectToAttribute:!0}}}ready(){super.ready(),this.addEventListener("pointerdown",i=>{i.target===this&&i.preventDefault()}),this.addEventListener("click",i=>{i.target===this&&this.shadowRoot.querySelector("slot:not([name])").assignedNodes({flatten:!0}).forEach(t=>t.focus&&t.focus())})}}customElements.define(InputContainer.is,InputContainer);/**
+    `}static get properties(){return{user:{type:Object,value:null,observer:"_userChanged"}}}ready(){super.ready(),this.setAttribute("part","outline"),this._field=this.getRootNode().host}_userChanged(i){this.toggleAttribute("has-active-user",!!i);const t=i?`var(--vaadin-user-color-${i.colorIndex})`:"transparent",r="--_active-user-color";this.style.setProperty(r,t),this._field&&this._field.style.setProperty(r,t)}}customElements.define(FieldOutline.is,FieldOutline);/**
+ * @license
+ * Copyright (c) 2022 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const region=document.createElement("div");region.style.position="fixed";region.style.clip="rect(0px, 0px, 0px, 0px)";region.setAttribute("aria-live","polite");document.body.appendChild(region);let alertDebouncer;function announce(n,i={}){const t=i.mode||"polite",r=i.timeout===void 0?150:i.timeout;t==="alert"?(region.removeAttribute("aria-live"),region.removeAttribute("role"),alertDebouncer=Debouncer$1.debounce(alertDebouncer,animationFrame,()=>{region.setAttribute("role","alert")})):(alertDebouncer&&alertDebouncer.cancel(),region.removeAttribute("role"),region.setAttribute("aria-live",t)),region.textContent="",setTimeout(()=>{region.textContent=n},r)}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const getOutlineTarget=(n,i)=>{switch(i){case"vaadin-big-decimal-field":case"vaadin-combo-box":case"vaadin-date-picker":case"vaadin-email-field":case"vaadin-integer-field":case"vaadin-number-field":case"vaadin-password-field":case"vaadin-select":case"vaadin-text-area":case"vaadin-text-field":case"vaadin-time-picker":return n.shadowRoot.querySelector('[part="input-field"]');case"vaadin-checkbox":return n.shadowRoot.querySelector('[part="checkbox"]');case"vaadin-radio-button":return n.shadowRoot.querySelector('[part="radio"]');default:return n}},fields=new WeakMap,initOutline=n=>{if(!fields.has(n)){const i=n.tagName.toLowerCase(),t=getOutlineTarget(n,i);t.style.position="relative",i.endsWith("text-area")&&(t.style.overflow="visible");const r=document.createElement("style");r.textContent=`
+      :host([active]) [part="outline"],
+      :host([focus-ring]) [part="outline"] {
+        display: none;
+      }
+    `,n.shadowRoot.appendChild(r);const o=document.createElement("vaadin-field-outline");(t===n?n.shadowRoot:t).appendChild(o),o.setAttribute("context",i),fields.set(n,{root:n,target:t,outline:o})}return fields.get(n)};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class ComponentObserver{constructor(i){this.component=i,this.initTags(i)}getFields(){return[this.component]}getFieldIndex(i){return this.getFields().indexOf(i)}getFocusTarget(i){return this.component}initTags(i){const t=document.createElement("vaadin-user-tags");i.shadowRoot.appendChild(t),t.target=i,this._tags=t,i.addEventListener("mouseenter",r=>{r.relatedTarget!==this._tags.$.overlay&&(this._mouse=!0,this._mouseDebouncer=Debouncer$1.debounce(this._mouseDebouncer,timeOut.after(200),()=>{this._mouse&&this._tags.show()}))}),i.addEventListener("mouseleave",r=>{r.relatedTarget!==this._tags.$.overlay&&(this._mouse=!1,this._hasFocus||this._tags.hide())}),i.addEventListener("vaadin-highlight-show",r=>{this._hasFocus=!0,this._debouncer&&this._debouncer.isActive()?this._debouncer.cancel():this._tags.show()}),i.addEventListener("vaadin-highlight-hide",r=>{this._hasFocus=!1,this._mouse||(this._debouncer=Debouncer$1.debounce(this._debouncer,timeOut.after(1),()=>{this._tags.hide()}))}),this._tags.$.overlay.addEventListener("mouseleave",r=>{r.relatedTarget!==i&&(this._mouse=!1,i.hasAttribute("focused")||this._tags.hide())})}setOutlines(i){const t=this.getFields();t.forEach((r,o)=>{const{outline:a}=initOutline(r),s=t.length===1?0:i.map(l=>l.fieldIndex).indexOf(o);a.user=i[s]})}showOutline(i){this.fire("show",i)}hideOutline(i){this.fire("hide",i)}fire(i,t){this.component.dispatchEvent(new CustomEvent(`vaadin-highlight-${i}`,{bubbles:!0,composed:!0,detail:{fieldIndex:this.getFieldIndex(t)}}))}redraw(i){this._tags.setUsers(i),this.setOutlines(i)}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class FieldObserver extends ComponentObserver{constructor(i){super(i),this.addListeners(i)}addListeners(i){i.addEventListener("focusin",t=>this.onFocusIn(t)),i.addEventListener("focusout",t=>this.onFocusOut(t))}onFocusIn(i){const t=this.getFocusTarget(i);this.showOutline(t)}onFocusOut(i){const t=this.getFocusTarget(i);this.hideOutline(t)}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class CheckboxGroupObserver extends FieldObserver{getFields(){return this.component.__checkboxes}getFocusTarget(i){const t=this.getFields();return Array.from(i.composedPath()).find(r=>t.includes(r))}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class DatePickerObserver extends ComponentObserver{constructor(i){super(i),this.datePicker=i,this.fullscreenFocus=!1,this.blurWhileOpened=!1,this.addListeners(i)}addListeners(i){this.overlay=i.$.overlay,i.addEventListener("blur",t=>this.onBlur(t),!0),i.addEventListener("opened-changed",t=>this.onOpenedChanged(t)),this.overlay.addEventListener("focusout",t=>this.onOverlayFocusOut(t)),i.addEventListener("focusin",t=>this.onFocusIn(t)),i.addEventListener("focusout",t=>this.onFocusOut(t))}isEventInOverlay(i){return this.datePicker._overlayContent&&this.datePicker._overlayContent.contains(i)}onBlur(i){this.datePicker._fullscreen&&!this.isEventInOverlay(i.relatedTarget)&&(this.fullscreenFocus=!0)}onFocusIn(i){if(!this.isEventInOverlay(i.relatedTarget)){if(this.blurWhileOpened){this.blurWhileOpened=!1;return}this.showOutline(this.datePicker)}}onFocusOut(i){this.fullscreenFocus||this.isEventInOverlay(i.relatedTarget)||(this.datePicker.opened?this.blurWhileOpened=!0:this.hideOutline(this.datePicker))}onOverlayFocusOut(i){this.datePicker.contains(i.relatedTarget)||(this.blurWhileOpened=!0)}onOpenedChanged(i){i.detail.value===!0&&this.fullscreenFocus&&(this.fullscreenFocus=!1,this.showOutline(this.datePicker)),i.detail.value===!1&&this.blurWhileOpened&&(this.blurWhileOpened=!1,this.hideOutline(this.datePicker))}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class DateObserver extends DatePickerObserver{constructor(i,t){super(i),this.component=t}getFieldIndex(){return 0}}class TimeObserver extends FieldObserver{constructor(i,t){super(i),this.component=t,this.timePicker=i}getFocusTarget(i){return this.timePicker}getFieldIndex(){return 1}}class DateTimePickerObserver extends ComponentObserver{constructor(i){super(i);const[t,r]=this.getFields();this.dateObserver=new DateObserver(t,i),this.timeObserver=new TimeObserver(r,i)}getFields(){return this.component.__inputs}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class ListBoxObserver extends FieldObserver{getFields(){return this.component.items||[]}getFocusTarget(i){const t=this.getFields();return Array.from(i.composedPath()).find(r=>t.includes(r))}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class RadioGroupObserver extends FieldObserver{getFields(){return this.component.__radioButtons}getFocusTarget(i){const t=this.getFields();return Array.from(i.composedPath()).find(r=>t.includes(r))}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class SelectObserver extends FieldObserver{constructor(i){super(i),this.blurWhileOpened=!1,this.overlay=i._overlayElement}addListeners(i){super.addListeners(i),i.addEventListener("opened-changed",t=>{i._phone&&t.detail.value===!1&&this.hideOutline(i)})}onFocusIn(i){this.overlay.contains(i.relatedTarget)||!this.component._phone&&this.overlay.hasAttribute("closing")||super.onFocusIn(i)}onFocusOut(i){this.overlay.contains(i.relatedTarget)||super.onFocusOut(i)}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const initFieldObserver=n=>{let i;switch(n.tagName.toLowerCase()){case"vaadin-date-picker":i=new DatePickerObserver(n);break;case"vaadin-date-time-picker":i=new DateTimePickerObserver(n);break;case"vaadin-select":i=new SelectObserver(n);break;case"vaadin-checkbox-group":i=new CheckboxGroupObserver(n);break;case"vaadin-radio-group":i=new RadioGroupObserver(n);break;case"vaadin-list-box":i=new ListBoxObserver(n);break;default:i=new FieldObserver(n)}return i};class FieldHighlighterController{constructor(i){this.host=i,this.user=null,this.users=[]}get user(){return this._user}set user(i){if(this._user=i,i){const t=`${i.name} started editing`,{label:r}=this.host;announce(r?`${t} ${r}`:t)}}hostConnected(){this.redraw()}addUser(i){i&&(this.users.push(i),this.redraw(),this.user=i)}setUsers(i){Array.isArray(i)&&(this.users=i,this.redraw(),this.user=i[i.length-1]||null)}removeUser(i){if(i&&i.id!==void 0){let t;for(let r=0;r<this.users.length;r++)if(this.users[r].id===i.id){t=r;break}t!==void 0&&(this.users.splice(t,1),this.redraw(),this.users.length>0?this.user=this.users[this.users.length-1]:this.user=null)}}redraw(){this.observer.redraw([...this.users].reverse())}}class FieldHighlighter extends HTMLElement{static init(i){if(!i._highlighterController){const t=new FieldHighlighterController(i);i.setAttribute("has-highlighter",""),t.observer=initFieldObserver(i),i.addController(t),i._highlighterController=t}return i._highlighterController}static addUser(i,t){this.init(i).addUser(t)}static removeUser(i,t){this.init(i).removeUser(t)}static setUsers(i,t){this.init(i).setUsers(t)}}customElements.define("vaadin-field-highlighter",FieldHighlighter);/**
  * @license
  * Copyright (c) 2017 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -1339,339 +1674,245 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --lumo-icons-upload: '\\ea29';
     --lumo-icons-user: '\\ea2a';
   }
-`;addLumoGlobalStyles("font-icons",fontIcons);/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const fieldButton=css$e`
-  [part$='button'] {
-    flex: none;
-    width: 1em;
-    height: 1em;
-    line-height: 1;
-    font-size: var(--lumo-icon-size-m);
-    text-align: center;
-    color: var(--lumo-contrast-60pct);
-    transition: 0.2s color;
+`;addLumoGlobalStyles("font-icons",fontIcons);const detailsSummary=css$e`
+  :host {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    outline: none;
+    padding: var(--lumo-space-s) 0;
+    box-sizing: border-box;
+    font-family: var(--lumo-font-family);
+    font-size: var(--lumo-font-size-m);
+    font-weight: 500;
+    line-height: var(--lumo-line-height-xs);
+    color: var(--lumo-secondary-text-color);
+    background-color: inherit;
+    border-radius: var(--lumo-border-radius-m);
     cursor: var(--lumo-clickable-cursor);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  [part$='button']:hover {
-    color: var(--lumo-contrast-90pct);
-  }
-
-  :host([disabled]) [part$='button'],
-  :host([readonly]) [part$='button'] {
-    color: var(--lumo-contrast-20pct);
+  :host([disabled]),
+  :host([disabled]) [part='toggle'] {
+    color: var(--lumo-disabled-text-color);
     cursor: default;
   }
 
-  [part$='button']::before {
-    font-family: 'lumo-icons';
+  @media (hover: hover) {
+    :host(:hover:not([disabled])),
+    :host(:hover:not([disabled])) [part='toggle'] {
+      color: var(--lumo-contrast-80pct);
+    }
+  }
+
+  [part='toggle'] {
     display: block;
-  }
-`;registerStyles$1("",fieldButton,{moduleId:"lumo-field-button"});/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const helper=css$e`
-  :host([has-helper]) [part='helper-text']::before {
-    content: '';
-    display: block;
-    height: 0.4em;
-  }
-
-  [part='helper-text'] {
-    display: block;
-    color: var(--lumo-secondary-text-color);
-    font-size: var(--lumo-font-size-xs);
-    line-height: var(--lumo-line-height-xs);
-    margin-left: calc(var(--lumo-border-radius-m) / 4);
-    transition: color 0.2s;
-  }
-
-  :host(:hover:not([readonly])) [part='helper-text'] {
-    color: var(--lumo-body-text-color);
-  }
-
-  :host([disabled]) [part='helper-text'] {
-    color: var(--lumo-disabled-text-color);
-    -webkit-text-fill-color: var(--lumo-disabled-text-color);
-  }
-
-  :host([has-helper][theme~='helper-above-field']) [part='helper-text']::before {
-    display: none;
-  }
-
-  :host([has-helper][theme~='helper-above-field']) [part='helper-text']::after {
-    content: '';
-    display: block;
-    height: 0.4em;
-  }
-
-  :host([has-helper][theme~='helper-above-field']) [part='label'] {
-    order: 0;
-    padding-bottom: 0.4em;
-  }
-
-  :host([has-helper][theme~='helper-above-field']) [part='helper-text'] {
-    order: 1;
-  }
-
-  :host([has-helper][theme~='helper-above-field']) [part='label'] + * {
-    order: 2;
-  }
-
-  :host([has-helper][theme~='helper-above-field']) [part='error-message'] {
-    order: 3;
-  }
-`;/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const requiredField=css$e`
-  [part='label'] {
-    align-self: flex-start;
-    color: var(--lumo-secondary-text-color);
-    font-weight: 500;
-    font-size: var(--lumo-font-size-s);
-    margin-left: calc(var(--lumo-border-radius-m) / 4);
-    transition: color 0.2s;
-    line-height: 1;
-    padding-right: 1em;
-    padding-bottom: 0.5em;
-    /* As a workaround for diacritics being cut off, add a top padding and a 
-    negative margin to compensate */
-    padding-top: 0.25em;
-    margin-top: -0.25em;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    position: relative;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  :host([has-label])::before {
-    margin-top: calc(var(--lumo-font-size-s) * 1.5);
-  }
-
-  :host([has-label][theme~='small'])::before {
-    margin-top: calc(var(--lumo-font-size-xs) * 1.5);
-  }
-
-  :host([has-label]) {
-    padding-top: var(--lumo-space-m);
-  }
-
-  :host([has-label]) ::slotted([slot='tooltip']) {
-    --vaadin-tooltip-offset-bottom: calc((var(--lumo-space-m) - var(--lumo-space-xs)) * -1);
-  }
-
-  :host([required]) [part='required-indicator']::after {
-    content: var(--lumo-required-field-indicator, '\\2022');
-    transition: opacity 0.2s;
-    color: var(--lumo-required-field-indicator-color, var(--lumo-primary-text-color));
-    position: absolute;
-    right: 0;
     width: 1em;
-    text-align: center;
+    height: 1em;
+    margin-left: calc(var(--lumo-space-xs) * -1);
+    margin-right: var(--lumo-space-xs);
+    font-size: var(--lumo-icon-size-s);
+    line-height: 1;
+    color: var(--lumo-contrast-60pct);
+    font-family: 'lumo-icons';
+    cursor: var(--lumo-clickable-cursor);
   }
 
-  :host([invalid]) [part='required-indicator']::after {
-    color: var(--lumo-required-field-indicator-color, var(--lumo-error-text-color));
+  [part='toggle']::before {
+    content: var(--lumo-icons-angle-right);
   }
 
-  [part='error-message'] {
-    margin-left: calc(var(--lumo-border-radius-m) / 4);
-    font-size: var(--lumo-font-size-xs);
-    line-height: var(--lumo-line-height-xs);
-    color: var(--lumo-error-text-color);
-    will-change: max-height;
-    transition: 0.4s max-height;
-    max-height: 5em;
+  :host([opened]) [part='toggle'] {
+    transform: rotate(90deg);
   }
 
-  :host([has-error-message]) [part='error-message']::before,
-  :host([has-error-message]) [part='error-message']::after {
-    content: '';
-    display: block;
-    height: 0.4em;
+  /* RTL styles */
+  :host([dir='rtl']) [part='toggle'] {
+    margin-left: var(--lumo-space-xs);
+    margin-right: calc(var(--lumo-space-xs) * -1);
   }
 
-  :host(:not([invalid])) [part='error-message'] {
-    max-height: 0;
-    overflow: hidden;
+  :host([dir='rtl']) [part='toggle']::before {
+    content: var(--lumo-icons-angle-left);
   }
 
-  /* RTL specific styles */
+  :host([opened][dir='rtl']) [part='toggle'] {
+    transform: rotate(-90deg);
+  }
 
-  :host([dir='rtl']) [part='label'] {
+  /* Small */
+  :host([theme~='small']) {
+    padding-top: var(--lumo-space-xs);
+    padding-bottom: var(--lumo-space-xs);
+  }
+
+  :host([theme~='small']) [part='toggle'] {
+    margin-right: calc(var(--lumo-space-xs) / 2);
+  }
+
+  :host([theme~='small'][dir='rtl']) [part='toggle'] {
+    margin-left: calc(var(--lumo-space-xs) / 2);
+  }
+
+  /* Filled */
+  :host([theme~='filled']) {
+    padding: var(--lumo-space-s) calc(var(--lumo-space-s) + var(--lumo-space-xs) / 2);
+  }
+
+  /* Reverse */
+  :host([theme~='reverse']) {
+    justify-content: space-between;
+  }
+
+  :host([theme~='reverse']) [part='toggle'] {
+    order: 1;
+    margin-right: 0;
+  }
+
+  :host([theme~='reverse'][dir='rtl']) [part='toggle'] {
     margin-left: 0;
-    margin-right: calc(var(--lumo-border-radius-m) / 4);
   }
 
-  :host([dir='rtl']) [part='label'] {
-    padding-left: 1em;
-    padding-right: 0;
+  /* Filled reverse */
+  :host([theme~='reverse'][theme~='filled']) {
+    padding-left: var(--lumo-space-m);
   }
 
-  :host([dir='rtl']) [part='required-indicator']::after {
-    right: auto;
-    left: 0;
+  :host([theme~='reverse'][theme~='filled'][dir='rtl']) {
+    padding-right: var(--lumo-space-m);
   }
-
-  :host([dir='rtl']) [part='error-message'] {
-    margin-left: 0;
-    margin-right: calc(var(--lumo-border-radius-m) / 4);
-  }
-`;registerStyles$1("",requiredField,{moduleId:"lumo-required-field"});/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const inputField=css$e`
+`;registerStyles$1("vaadin-details-summary",detailsSummary,{moduleId:"lumo-details-summary"});const accordionHeading=css$e`
   :host {
-    --lumo-text-field-size: var(--lumo-size-m);
-    color: var(--lumo-body-text-color);
-    font-size: var(--lumo-font-size-m);
-    font-family: var(--lumo-font-family);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-tap-highlight-color: transparent;
-    padding: var(--lumo-space-xs) 0;
+    padding: 0;
   }
 
-  :host::before {
-    height: var(--lumo-text-field-size);
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
+  [part='content'] {
+    padding: var(--lumo-space-s) 0;
   }
 
-  :host([focused]:not([readonly])) [part='label'] {
-    color: var(--lumo-primary-text-color);
+  :host([theme~='filled']) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+`;registerStyles$1("vaadin-accordion-heading",[detailsSummary,accordionHeading],{moduleId:"lumo-accordion-heading"});const details=css$e`
+  :host {
+    margin: var(--lumo-space-xs) 0;
+    outline: none;
   }
 
-  :host([focused]) [part='input-field'] ::slotted(:is(input, textarea)) {
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  ::slotted(:is(input, textarea):placeholder-shown) {
-    color: var(--lumo-secondary-text-color);
-  }
-
-  /* Hover */
-  :host(:hover:not([readonly]):not([focused])) [part='label'] {
-    color: var(--lumo-body-text-color);
-  }
-
-  :host(:hover:not([readonly]):not([focused])) [part='input-field']::after {
-    opacity: 0.1;
-  }
-
-  /* Touch device adjustment */
-  @media (pointer: coarse) {
-    :host(:hover:not([readonly]):not([focused])) [part='label'] {
-      color: var(--lumo-secondary-text-color);
-    }
-
-    :host(:hover:not([readonly]):not([focused])) [part='input-field']::after {
-      opacity: 0;
-    }
-
-    :host(:active:not([readonly]):not([focused])) [part='input-field']::after {
-      opacity: 0.2;
-    }
-  }
-
-  /* Trigger when not focusing using the keyboard */
-  :host([focused]:not([focus-ring]):not([readonly])) [part='input-field']::after {
-    transform: scaleX(0);
-    transition-duration: 0.15s, 1s;
-  }
-
-  /* Focus-ring */
-  :host([focus-ring]) [part='input-field'] {
+  :host([focus-ring]) ::slotted([slot='summary']) {
     box-shadow: 0 0 0 2px var(--lumo-primary-color-50pct);
   }
 
-  /* Read-only and disabled */
-  :host(:is([readonly], [disabled])) ::slotted(:is(input, textarea):placeholder-shown) {
-    opacity: 0;
+  [part='content'] {
+    padding: var(--lumo-space-xs) 0 var(--lumo-space-s);
+    font-size: var(--lumo-font-size-m);
+    line-height: var(--lumo-line-height-m);
   }
 
-  /* Read-only style */
-  :host([readonly]) {
-    --vaadin-input-field-border-color: transparent;
+  :host([theme~='filled']) {
+    background-color: var(--lumo-contrast-5pct);
+    border-radius: var(--lumo-border-radius-m);
   }
 
-  /* Disabled style */
-  :host([disabled]) {
-    pointer-events: none;
-    --vaadin-input-field-border-color: var(--lumo-contrast-20pct);
+  :host([theme~='filled']) [part='content'] {
+    padding-left: var(--lumo-space-m);
+    padding-right: var(--lumo-space-m);
   }
 
-  :host([disabled]) [part='label'],
-  :host([disabled]) [part='input-field'] ::slotted(*) {
-    color: var(--lumo-disabled-text-color);
-    -webkit-text-fill-color: var(--lumo-disabled-text-color);
-  }
-
-  /* Invalid style */
-  :host([invalid]) {
-    --vaadin-input-field-border-color: var(--lumo-error-color);
-  }
-
-  :host([invalid][focus-ring]) [part='input-field'] {
-    box-shadow: 0 0 0 2px var(--lumo-error-color-50pct);
-  }
-
-  :host([input-prevented]) [part='input-field'] {
-    animation: shake 0.15s infinite;
-  }
-
-  @keyframes shake {
-    25% {
-      transform: translateX(4px);
-    }
-    75% {
-      transform: translateX(-4px);
-    }
-  }
-
-  /* Small theme */
-  :host([theme~='small']) {
+  :host([theme~='small']) [part$='content'] {
     font-size: var(--lumo-font-size-s);
-    --lumo-text-field-size: var(--lumo-size-s);
+  }
+`;registerStyles$1("vaadin-details",details,{moduleId:"lumo-details"});const accordionPanel=css$e`
+  :host {
+    margin: 0;
+    border-bottom: solid 1px var(--lumo-contrast-10pct);
   }
 
-  :host([theme~='small']) [part='label'] {
-    font-size: var(--lumo-font-size-xs);
+  :host(:last-child) {
+    border-bottom: none;
   }
 
-  :host([theme~='small']) [part='error-message'] {
-    font-size: var(--lumo-font-size-xxs);
+  :host([theme~='filled']) {
+    border-bottom: none;
   }
 
-  /* Slotted content */
-  [part='input-field'] ::slotted(:not(vaadin-icon):not(input):not(textarea)) {
-    color: var(--lumo-secondary-text-color);
-    font-weight: 400;
+  :host([theme~='filled']:not(:last-child)) {
+    margin-bottom: 2px;
   }
-
-  [part='clear-button']::before {
-    content: var(--lumo-icons-cross);
-  }
-`,inputFieldShared$1=[requiredField,fieldButton,helper,inputField];registerStyles$1("",inputFieldShared$1,{moduleId:"lumo-input-field-shared-styles"});/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-text-field",inputFieldShared$1,{moduleId:"lumo-text-field-styles"});/**
+`;registerStyles$1("vaadin-accordion-panel",[details,accordionPanel],{moduleId:"lumo-accordion-panel"});/**
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/const passiveTouchGestures=!1,wrap$e=n=>n,HAS_NATIVE_TA=typeof document.head.style.touchAction=="string",GESTURE_KEY="__polymerGestures",HANDLED_OBJ="__polymerGesturesHandled",TOUCH_ACTION="__polymerGesturesTouchAction",TAP_DISTANCE=25,TRACK_DISTANCE=5,TRACK_LENGTH=2,MOUSE_EVENTS=["mousedown","mousemove","mouseup","click"],MOUSE_WHICH_TO_BUTTONS=[0,1,4,2],MOUSE_HAS_BUTTONS=function(){try{return new MouseEvent("test",{buttons:1}).buttons===1}catch{return!1}}();function isMouseEvent(n){return MOUSE_EVENTS.indexOf(n)>-1}let supportsPassive=!1;(function(){try{const n=Object.defineProperty({},"passive",{get(){supportsPassive=!0}});window.addEventListener("test",null,n),window.removeEventListener("test",null,n)}catch{}})();function PASSIVE_TOUCH(n){if(!(isMouseEvent(n)||n==="touchend")&&HAS_NATIVE_TA&&supportsPassive&&passiveTouchGestures)return{passive:!0}}const IS_TOUCH_ONLY=navigator.userAgent.match(/iP(?:[oa]d|hone)|Android/u),canBeDisabled={button:!0,command:!0,fieldset:!0,input:!0,keygen:!0,optgroup:!0,option:!0,select:!0,textarea:!0};function hasLeftMouseButton(n){const i=n.type;if(!isMouseEvent(i))return!1;if(i==="mousemove"){let r=n.buttons===void 0?1:n.buttons;return n instanceof window.MouseEvent&&!MOUSE_HAS_BUTTONS&&(r=MOUSE_WHICH_TO_BUTTONS[n.which]||0),!!(r&1)}return(n.button===void 0?0:n.button)===0}function isSyntheticClick(n){if(n.type==="click"){if(n.detail===0)return!0;const i=_findOriginalTarget(n);if(!i.nodeType||i.nodeType!==Node.ELEMENT_NODE)return!0;const t=i.getBoundingClientRect(),r=n.pageX,o=n.pageY;return!(r>=t.left&&r<=t.right&&o>=t.top&&o<=t.bottom)}return!1}const POINTERSTATE={mouse:{target:null,mouseIgnoreJob:null},touch:{x:0,y:0,id:-1,scrollDecided:!1}};function firstTouchAction(n){let i="auto";const t=getComposedPath(n);for(let r=0,o;r<t.length;r++)if(o=t[r],o[TOUCH_ACTION]){i=o[TOUCH_ACTION];break}return i}function trackDocument(n,i,t){n.movefn=i,n.upfn=t,document.addEventListener("mousemove",i),document.addEventListener("mouseup",t)}function untrackDocument(n){document.removeEventListener("mousemove",n.movefn),document.removeEventListener("mouseup",n.upfn),n.movefn=null,n.upfn=null}const getComposedPath=window.ShadyDOM&&window.ShadyDOM.noPatch?window.ShadyDOM.composedPath:n=>n.composedPath&&n.composedPath()||[],gestures={},recognizers=[];function deepTargetFind(n,i){let t=document.elementFromPoint(n,i),r=t;for(;r&&r.shadowRoot&&!window.ShadyDOM;){const o=r;if(r=r.shadowRoot.elementFromPoint(n,i),o===r)break;r&&(t=r)}return t}function _findOriginalTarget(n){const i=getComposedPath(n);return i.length>0?i[0]:n.target}function _handleNative(n){const i=n.type,r=n.currentTarget[GESTURE_KEY];if(!r)return;const o=r[i];if(!o)return;if(!n[HANDLED_OBJ]&&(n[HANDLED_OBJ]={},i.startsWith("touch"))){const s=n.changedTouches[0];if(i==="touchstart"&&n.touches.length===1&&(POINTERSTATE.touch.id=s.identifier),POINTERSTATE.touch.id!==s.identifier)return;HAS_NATIVE_TA||(i==="touchstart"||i==="touchmove")&&_handleTouchAction(n)}const a=n[HANDLED_OBJ];if(!a.skip){for(let s=0,l;s<recognizers.length;s++)l=recognizers[s],o[l.name]&&!a[l.name]&&l.flow&&l.flow.start.indexOf(n.type)>-1&&l.reset&&l.reset();for(let s=0,l;s<recognizers.length;s++)l=recognizers[s],o[l.name]&&!a[l.name]&&(a[l.name]=!0,l[i](n))}}function _handleTouchAction(n){const i=n.changedTouches[0],t=n.type;if(t==="touchstart")POINTERSTATE.touch.x=i.clientX,POINTERSTATE.touch.y=i.clientY,POINTERSTATE.touch.scrollDecided=!1;else if(t==="touchmove"){if(POINTERSTATE.touch.scrollDecided)return;POINTERSTATE.touch.scrollDecided=!0;const r=firstTouchAction(n);let o=!1;const a=Math.abs(POINTERSTATE.touch.x-i.clientX),s=Math.abs(POINTERSTATE.touch.y-i.clientY);n.cancelable&&(r==="none"?o=!0:r==="pan-x"?o=s>a:r==="pan-y"&&(o=a>s)),o?n.preventDefault():prevent("track")}}function addListener(n,i,t){return gestures[i]?(_add(n,i,t),!0):!1}function removeListener(n,i,t){return gestures[i]?(_remove(n,i,t),!0):!1}function _add(n,i,t){const r=gestures[i],o=r.deps,a=r.name;let s=n[GESTURE_KEY];s||(n[GESTURE_KEY]=s={});for(let l=0,h,c;l<o.length;l++)h=o[l],!(IS_TOUCH_ONLY&&isMouseEvent(h)&&h!=="click")&&(c=s[h],c||(s[h]=c={_count:0}),c._count===0&&n.addEventListener(h,_handleNative,PASSIVE_TOUCH(h)),c[a]=(c[a]||0)+1,c._count=(c._count||0)+1);n.addEventListener(i,t),r.touchAction&&setTouchAction(n,r.touchAction)}function _remove(n,i,t){const r=gestures[i],o=r.deps,a=r.name,s=n[GESTURE_KEY];if(s)for(let l=0,h,c;l<o.length;l++)h=o[l],c=s[h],c&&c[a]&&(c[a]=(c[a]||1)-1,c._count=(c._count||1)-1,c._count===0&&n.removeEventListener(h,_handleNative,PASSIVE_TOUCH(h)));n.removeEventListener(i,t)}function register$1(n){recognizers.push(n),n.emits.forEach(i=>{gestures[i]=n})}function _findRecognizerByEvent(n){for(let i=0,t;i<recognizers.length;i++){t=recognizers[i];for(let r=0,o;r<t.emits.length;r++)if(o=t.emits[r],o===n)return t}return null}function setTouchAction(n,i){HAS_NATIVE_TA&&n instanceof HTMLElement&&microTask.run(()=>{n.style.touchAction=i}),n[TOUCH_ACTION]=i}function _fire(n,i,t){const r=new Event(i,{bubbles:!0,cancelable:!0,composed:!0});if(r.detail=t,wrap$e(n).dispatchEvent(r),r.defaultPrevented){const o=t.preventer||t.sourceEvent;o&&o.preventDefault&&o.preventDefault()}}function prevent(n){const i=_findRecognizerByEvent(n);i.info&&(i.info.prevent=!0)}register$1({name:"downup",deps:["mousedown","touchstart","touchend"],flow:{start:["mousedown","touchstart"],end:["mouseup","touchend"]},emits:["down","up"],info:{movefn:null,upfn:null},reset(){untrackDocument(this.info)},mousedown(n){if(!hasLeftMouseButton(n))return;const i=_findOriginalTarget(n),t=this,r=a=>{hasLeftMouseButton(a)||(downupFire("up",i,a),untrackDocument(t.info))},o=a=>{hasLeftMouseButton(a)&&downupFire("up",i,a),untrackDocument(t.info)};trackDocument(this.info,r,o),downupFire("down",i,n)},touchstart(n){downupFire("down",_findOriginalTarget(n),n.changedTouches[0],n)},touchend(n){downupFire("up",_findOriginalTarget(n),n.changedTouches[0],n)}});function downupFire(n,i,t,r){i&&_fire(i,n,{x:t.clientX,y:t.clientY,sourceEvent:t,preventer:r,prevent(o){return prevent(o)}})}register$1({name:"track",touchAction:"none",deps:["mousedown","touchstart","touchmove","touchend"],flow:{start:["mousedown","touchstart"],end:["mouseup","touchend"]},emits:["track"],info:{x:0,y:0,state:"start",started:!1,moves:[],addMove(n){this.moves.length>TRACK_LENGTH&&this.moves.shift(),this.moves.push(n)},movefn:null,upfn:null,prevent:!1},reset(){this.info.state="start",this.info.started=!1,this.info.moves=[],this.info.x=0,this.info.y=0,this.info.prevent=!1,untrackDocument(this.info)},mousedown(n){if(!hasLeftMouseButton(n))return;const i=_findOriginalTarget(n),t=this,r=a=>{const s=a.clientX,l=a.clientY;trackHasMovedEnough(t.info,s,l)&&(t.info.state=t.info.started?a.type==="mouseup"?"end":"track":"start",t.info.state==="start"&&prevent("tap"),t.info.addMove({x:s,y:l}),hasLeftMouseButton(a)||(t.info.state="end",untrackDocument(t.info)),i&&trackFire(t.info,i,a),t.info.started=!0)},o=a=>{t.info.started&&r(a),untrackDocument(t.info)};trackDocument(this.info,r,o),this.info.x=n.clientX,this.info.y=n.clientY},touchstart(n){const i=n.changedTouches[0];this.info.x=i.clientX,this.info.y=i.clientY},touchmove(n){const i=_findOriginalTarget(n),t=n.changedTouches[0],r=t.clientX,o=t.clientY;trackHasMovedEnough(this.info,r,o)&&(this.info.state==="start"&&prevent("tap"),this.info.addMove({x:r,y:o}),trackFire(this.info,i,t),this.info.state="track",this.info.started=!0)},touchend(n){const i=_findOriginalTarget(n),t=n.changedTouches[0];this.info.started&&(this.info.state="end",this.info.addMove({x:t.clientX,y:t.clientY}),trackFire(this.info,i,t))}});function trackHasMovedEnough(n,i,t){if(n.prevent)return!1;if(n.started)return!0;const r=Math.abs(n.x-i),o=Math.abs(n.y-t);return r>=TRACK_DISTANCE||o>=TRACK_DISTANCE}function trackFire(n,i,t){if(!i)return;const r=n.moves[n.moves.length-2],o=n.moves[n.moves.length-1],a=o.x-n.x,s=o.y-n.y;let l,h=0;r&&(l=o.x-r.x,h=o.y-r.y),_fire(i,"track",{state:n.state,x:t.clientX,y:t.clientY,dx:a,dy:s,ddx:l,ddy:h,sourceEvent:t,hover(){return deepTargetFind(t.clientX,t.clientY)}})}register$1({name:"tap",deps:["mousedown","click","touchstart","touchend"],flow:{start:["mousedown","touchstart"],end:["click","touchend"]},emits:["tap"],info:{x:NaN,y:NaN,prevent:!1},reset(){this.info.x=NaN,this.info.y=NaN,this.info.prevent=!1},mousedown(n){hasLeftMouseButton(n)&&(this.info.x=n.clientX,this.info.y=n.clientY)},click(n){hasLeftMouseButton(n)&&trackForward(this.info,n)},touchstart(n){const i=n.changedTouches[0];this.info.x=i.clientX,this.info.y=i.clientY},touchend(n){trackForward(this.info,n.changedTouches[0],n)}});function trackForward(n,i,t){const r=Math.abs(i.clientX-n.x),o=Math.abs(i.clientY-n.y),a=_findOriginalTarget(t||i);!a||canBeDisabled[a.localName]&&a.hasAttribute("disabled")||(isNaN(r)||isNaN(o)||r<=TAP_DISTANCE&&o<=TAP_DISTANCE||isSyntheticClick(i))&&(n.prevent||_fire(a,"tap",{x:i.clientX,y:i.clientY,sourceEvent:i,preventer:t}))}/**
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */function getAncestorRootNodes(n){const i=[];for(;n;){if(n.nodeType===Node.DOCUMENT_NODE){i.push(n);break}if(n.nodeType===Node.DOCUMENT_FRAGMENT_NODE){i.push(n),n=n.host;continue}if(n.assignedSlot){n=n.assignedSlot;continue}n=n.parentNode}return i}function getClosestElement(n,i){return i?i.closest(n)||getClosestElement(n,i.getRootNode().host):null}function deserializeAttributeValue(n){return n?new Set(n.split(" ")):new Set}function serializeAttributeValue(n){return n?[...n].join(" "):""}function addValueToAttribute(n,i,t){const r=deserializeAttributeValue(n.getAttribute(i));r.add(t),n.setAttribute(i,serializeAttributeValue(r))}function removeValueFromAttribute(n,i,t){const r=deserializeAttributeValue(n.getAttribute(i));if(r.delete(t),r.size===0){n.removeAttribute(i);return}n.setAttribute(i,serializeAttributeValue(r))}function isEmptyTextNode(n){return n.nodeType===Node.TEXT_NODE&&n.textContent.trim()===""}/**
+ */const DisabledMixin=dedupingMixin(n=>class extends n{static get properties(){return{disabled:{type:Boolean,value:!1,observer:"_disabledChanged",reflectToAttribute:!0}}}_disabledChanged(t){this._setAriaDisabled(t)}_setAriaDisabled(t){t?this.setAttribute("aria-disabled","true"):this.removeAttribute("aria-disabled")}click(){this.disabled||super.click()}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const KeyboardMixin=dedupingMixin(n=>class extends n{ready(){super.ready(),this.addEventListener("keydown",t=>{this._onKeyDown(t)}),this.addEventListener("keyup",t=>{this._onKeyUp(t)})}_onKeyDown(t){switch(t.key){case"Enter":this._onEnter(t);break;case"Escape":this._onEscape(t);break}}_onKeyUp(t){}_onEnter(t){}_onEscape(t){}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const ActiveMixin=n=>class extends DisabledMixin(KeyboardMixin(n)){get _activeKeys(){return[" "]}ready(){super.ready(),addListener(this,"down",t=>{this._shouldSetActive(t)&&this._setActive(!0)}),addListener(this,"up",()=>{this._setActive(!1)})}disconnectedCallback(){super.disconnectedCallback(),this._setActive(!1)}_shouldSetActive(t){return!this.disabled}_onKeyDown(t){super._onKeyDown(t),this._shouldSetActive(t)&&this._activeKeys.includes(t.key)&&(this._setActive(!0),document.addEventListener("keyup",r=>{this._activeKeys.includes(r.key)&&this._setActive(!1)},{once:!0}))}_setActive(t){this.toggleAttribute("active",t)}};/**
+ * @license
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class AccordionHeading extends ActiveMixin(DirMixin(ThemableMixin(PolymerElement))){static get is(){return"vaadin-accordion-heading"}static get template(){return html`
+      <style>
+        :host {
+          display: block;
+          outline: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: inherit;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          background-color: initial;
+          color: inherit;
+          border: initial;
+          outline: none;
+          font: inherit;
+          text-align: inherit;
+        }
+      </style>
+      <button id="button" part="content" disabled$="[[disabled]]" aria-expanded$="[[__updateAriaExpanded(opened)]]">
+        <span part="toggle" aria-hidden="true"></span>
+        <slot></slot>
+      </button>
+    `}static get properties(){return{opened:{type:Boolean,reflectToAttribute:!0}}}_attachDom(i){const t=this.attachShadow({mode:"open",delegatesFocus:!0});return t.appendChild(i),t}ready(){super.ready(),this.hasAttribute("role")||this.setAttribute("role","heading")}__updateAriaExpanded(i){return i?"true":"false"}}customElements.define(AccordionHeading.is,AccordionHeading);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const TabindexMixin=n=>class extends DisabledMixin(n){static get properties(){return{tabindex:{type:Number,reflectToAttribute:!0,observer:"_tabindexChanged"},_lastTabIndex:{type:Number}}}_disabledChanged(t,r){super._disabledChanged(t,r),t?(this.tabindex!==void 0&&(this._lastTabIndex=this.tabindex),this.tabindex=-1):r&&(this.tabindex=this._lastTabIndex)}_tabindexChanged(t){this.disabled&&t!==-1&&(this._lastTabIndex=t,this.tabindex=-1)}};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const DelegateFocusMixin=dedupingMixin(n=>class extends FocusMixin(TabindexMixin(n)){static get properties(){return{autofocus:{type:Boolean},focusElement:{type:Object,readOnly:!0,observer:"_focusElementChanged"},_lastTabIndex:{value:0}}}constructor(){super(),this._boundOnBlur=this._onBlur.bind(this),this._boundOnFocus=this._onFocus.bind(this)}ready(){super.ready(),this.autofocus&&!this.disabled&&requestAnimationFrame(()=>{this.focus(),this.setAttribute("focus-ring","")})}focus(){!this.focusElement||this.disabled||(this.focusElement.focus(),this._setFocused(!0))}blur(){this.focusElement&&(this.focusElement.blur(),this._setFocused(!1))}click(){this.focusElement&&!this.disabled&&this.focusElement.click()}_focusElementChanged(t,r){t?(t.disabled=this.disabled,this._addFocusListeners(t),this.__forwardTabIndex(this.tabindex)):r&&this._removeFocusListeners(r)}_addFocusListeners(t){t.addEventListener("blur",this._boundOnBlur),t.addEventListener("focus",this._boundOnFocus)}_removeFocusListeners(t){t.removeEventListener("blur",this._boundOnBlur),t.removeEventListener("focus",this._boundOnFocus)}_onFocus(t){t.stopPropagation(),this.dispatchEvent(new Event("focus"))}_onBlur(t){t.stopPropagation(),this.dispatchEvent(new Event("blur"))}_shouldSetFocus(t){return t.target===this.focusElement}_shouldRemoveFocus(t){return t.target===this.focusElement}_disabledChanged(t,r){super._disabledChanged(t,r),this.focusElement&&(this.focusElement.disabled=t),t&&this.blur()}_tabindexChanged(t){this.__forwardTabIndex(t)}__forwardTabIndex(t){t!==void 0&&this.focusElement&&(this.focusElement.tabIndex=t,t!==-1&&(this.tabindex=void 0)),this.disabled&&t&&(t!==-1&&(this._lastTabIndex=t),this.tabindex=void 0)}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const DelegateStateMixin=dedupingMixin(n=>class extends n{static get properties(){return{stateTarget:{type:Object,observer:"_stateTargetChanged"}}}static get delegateAttrs(){return[]}static get delegateProps(){return[]}ready(){super.ready(),this._createDelegateAttrsObserver(),this._createDelegatePropsObserver()}_stateTargetChanged(t){t&&(this._ensureAttrsDelegated(),this._ensurePropsDelegated())}_createDelegateAttrsObserver(){this._createMethodObserver(`_delegateAttrsChanged(${this.constructor.delegateAttrs.join(", ")})`)}_createDelegatePropsObserver(){this._createMethodObserver(`_delegatePropsChanged(${this.constructor.delegateProps.join(", ")})`)}_ensureAttrsDelegated(){this.constructor.delegateAttrs.forEach(t=>{this._delegateAttribute(t,this[t])})}_ensurePropsDelegated(){this.constructor.delegateProps.forEach(t=>{this._delegateProperty(t,this[t])})}_delegateAttrsChanged(...t){this.constructor.delegateAttrs.forEach((r,o)=>{this._delegateAttribute(r,t[o])})}_delegatePropsChanged(...t){this.constructor.delegateProps.forEach((r,o)=>{this._delegateProperty(r,t[o])})}_delegateAttribute(t,r){this.stateTarget&&(t==="invalid"&&this._delegateAttribute("aria-invalid",r?"true":!1),typeof r=="boolean"?this.stateTarget.toggleAttribute(t,r):r?this.stateTarget.setAttribute(t,r):this.stateTarget.removeAttribute(t))}_delegateProperty(t,r){this.stateTarget&&(this.stateTarget[t]=r)}});/**
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -1685,216 +1926,131 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */class TooltipController extends SlotController{constructor(i){super(i,"tooltip"),this.setTarget(i)}initCustomNode(i){i.target=this.target,this.context!==void 0&&(i.context=this.context),this.manual!==void 0&&(i.manual=this.manual),this.opened!==void 0&&(i.opened=this.opened),this.position!==void 0&&(i._position=this.position),this.shouldShow!==void 0&&(i.shouldShow=this.shouldShow)}setContext(i){this.context=i;const t=this.node;t&&(t.context=i)}setManual(i){this.manual=i;const t=this.node;t&&(t.manual=i)}setOpened(i){this.opened=i;const t=this.node;t&&(t.opened=i)}setPosition(i){this.position=i;const t=this.node;t&&(t._position=i)}setShouldShow(i){this.shouldShow=i;const t=this.node;t&&(t.shouldShow=i)}setTarget(i){this.target=i;const t=this.node;t&&(t.target=i)}}/**
  * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd..
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const clearButton=css$e`
-  [part='clear-button'] {
-    display: none;
-    cursor: default;
-  }
-
-  [part='clear-button']::before {
-    content: '\\2715';
-  }
-
-  :host([clear-button-visible][has-value]:not([disabled]):not([readonly])) [part='clear-button'] {
-    display: block;
-  }
-`;/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd..
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const fieldShared=css$e`
-  :host {
-    display: inline-flex;
-    outline: none;
-  }
-
-  :host::before {
-    content: '\\2003';
-    width: 0;
-    display: inline-block;
-    /* Size and position this element on the same vertical position as the input-field element
-          to make vertical align for the host element work as expected */
-  }
-
-  :host([hidden]) {
-    display: none !important;
-  }
-
-  :host(:not([has-label])) [part='label'] {
-    display: none;
-  }
-
-  @media (forced-colors: active) {
-    :host(:not([readonly])) [part='input-field'] {
-      outline: 1px solid;
-      outline-offset: -1px;
-    }
-    :host([focused]) [part='input-field'] {
-      outline-width: 2px;
-    }
-    :host([disabled]) [part='input-field'] {
-      outline-color: GrayText;
-    }
-  }
-`;/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd..
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const inputFieldContainer=css$e`
-  [class$='container'] {
-    display: flex;
-    flex-direction: column;
-    min-width: 100%;
-    max-width: 100%;
-    width: var(--vaadin-field-default-width, 12em);
-  }
-`;/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd..
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const inputFieldShared=[fieldShared,inputFieldContainer,clearButton];/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class InputController extends SlotController{constructor(i,t){super(i,"input","input",{initializer:(r,o)=>{o.value&&r.setAttribute("value",o.value),o.type&&r.setAttribute("type",o.type),r.id=this.defaultId,typeof t=="function"&&t(r)},useUniqueId:!0})}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const FocusMixin=dedupingMixin(n=>class extends n{get _keyboardActive(){return isKeyboardActive()}ready(){this.addEventListener("focusin",t=>{this._shouldSetFocus(t)&&this._setFocused(!0)}),this.addEventListener("focusout",t=>{this._shouldRemoveFocus(t)&&this._setFocused(!1)}),super.ready()}disconnectedCallback(){super.disconnectedCallback(),this.hasAttribute("focused")&&this._setFocused(!1)}_setFocused(t){this.toggleAttribute("focused",t),this.toggleAttribute("focus-ring",t&&this._keyboardActive)}_shouldSetFocus(t){return!0}_shouldRemoveFocus(t){return!0}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const DisabledMixin=dedupingMixin(n=>class extends n{static get properties(){return{disabled:{type:Boolean,value:!1,observer:"_disabledChanged",reflectToAttribute:!0}}}_disabledChanged(t){this._setAriaDisabled(t)}_setAriaDisabled(t){t?this.setAttribute("aria-disabled","true"):this.removeAttribute("aria-disabled")}click(){this.disabled||super.click()}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const TabindexMixin=n=>class extends DisabledMixin(n){static get properties(){return{tabindex:{type:Number,reflectToAttribute:!0,observer:"_tabindexChanged"},_lastTabIndex:{type:Number}}}_disabledChanged(t,r){super._disabledChanged(t,r),t?(this.tabindex!==void 0&&(this._lastTabIndex=this.tabindex),this.tabindex=-1):r&&(this.tabindex=this._lastTabIndex)}_tabindexChanged(t){this.disabled&&t!==-1&&(this._lastTabIndex=t,this.tabindex=-1)}};/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const DelegateFocusMixin=dedupingMixin(n=>class extends FocusMixin(TabindexMixin(n)){static get properties(){return{autofocus:{type:Boolean},focusElement:{type:Object,readOnly:!0,observer:"_focusElementChanged"},_lastTabIndex:{value:0}}}constructor(){super(),this._boundOnBlur=this._onBlur.bind(this),this._boundOnFocus=this._onFocus.bind(this)}ready(){super.ready(),this.autofocus&&!this.disabled&&requestAnimationFrame(()=>{this.focus(),this.setAttribute("focus-ring","")})}focus(){!this.focusElement||this.disabled||(this.focusElement.focus(),this._setFocused(!0))}blur(){this.focusElement&&(this.focusElement.blur(),this._setFocused(!1))}click(){this.focusElement&&!this.disabled&&this.focusElement.click()}_focusElementChanged(t,r){t?(t.disabled=this.disabled,this._addFocusListeners(t),this.__forwardTabIndex(this.tabindex)):r&&this._removeFocusListeners(r)}_addFocusListeners(t){t.addEventListener("blur",this._boundOnBlur),t.addEventListener("focus",this._boundOnFocus)}_removeFocusListeners(t){t.removeEventListener("blur",this._boundOnBlur),t.removeEventListener("focus",this._boundOnFocus)}_onFocus(t){t.stopPropagation(),this.dispatchEvent(new Event("focus"))}_onBlur(t){t.stopPropagation(),this.dispatchEvent(new Event("blur"))}_shouldSetFocus(t){return t.target===this.focusElement}_shouldRemoveFocus(t){return t.target===this.focusElement}_disabledChanged(t,r){super._disabledChanged(t,r),this.focusElement&&(this.focusElement.disabled=t),t&&this.blur()}_tabindexChanged(t){this.__forwardTabIndex(t)}__forwardTabIndex(t){t!==void 0&&this.focusElement&&(this.focusElement.tabIndex=t,t!==-1&&(this.tabindex=void 0)),this.disabled&&t&&(t!==-1&&(this._lastTabIndex=t),this.tabindex=void 0)}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const KeyboardMixin=dedupingMixin(n=>class extends n{ready(){super.ready(),this.addEventListener("keydown",t=>{this._onKeyDown(t)}),this.addEventListener("keyup",t=>{this._onKeyUp(t)})}_onKeyDown(t){switch(t.key){case"Enter":this._onEnter(t);break;case"Escape":this._onEscape(t);break}}_onKeyUp(t){}_onEnter(t){}_onEscape(t){}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const InputMixin=dedupingMixin(n=>class extends n{static get properties(){return{inputElement:{type:Object,readOnly:!0,observer:"_inputElementChanged"},type:{type:String,readOnly:!0},value:{type:String,value:"",observer:"_valueChanged",notify:!0},_hasInputValue:{type:Boolean,value:!1,observer:"_hasInputValueChanged"}}}constructor(){super(),this._boundOnInput=this.__onInput.bind(this),this._boundOnChange=this._onChange.bind(this)}get _hasValue(){return this.value!=null&&this.value!==""}get _inputElementValueProperty(){return"value"}get _inputElementValue(){return this.inputElement?this.inputElement[this._inputElementValueProperty]:void 0}set _inputElementValue(t){this.inputElement&&(this.inputElement[this._inputElementValueProperty]=t)}clear(){this._hasInputValue=!1,this.value="",this._inputElementValue=""}_addInputListeners(t){t.addEventListener("input",this._boundOnInput),t.addEventListener("change",this._boundOnChange)}_removeInputListeners(t){t.removeEventListener("input",this._boundOnInput),t.removeEventListener("change",this._boundOnChange)}_forwardInputValue(t){this.inputElement&&(this._inputElementValue=t??"")}_inputElementChanged(t,r){t?this._addInputListeners(t):r&&this._removeInputListeners(r)}_hasInputValueChanged(t,r){(t||r)&&this.dispatchEvent(new CustomEvent("has-input-value-changed"))}__onInput(t){this._setHasInputValue(t),this._onInput(t)}_onInput(t){const r=t.composedPath()[0];this.__userInput=t.isTrusted,this.value=r.value,this.__userInput=!1}_onChange(t){}_toggleHasValue(t){this.toggleAttribute("has-value",t)}_valueChanged(t,r){this._toggleHasValue(this._hasValue),!(t===""&&r===void 0)&&(this.__userInput||this._forwardInputValue(t))}_setHasInputValue(t){const r=t.composedPath()[0];this._hasInputValue=r.value.length>0}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const ClearButtonMixin=n=>class extends InputMixin(KeyboardMixin(n)){static get properties(){return{clearButtonVisible:{type:Boolean,reflectToAttribute:!0,value:!1}}}get clearElement(){return console.warn(`Please implement the 'clearElement' property in <${this.localName}>`),null}ready(){super.ready(),this.clearElement&&(this.clearElement.addEventListener("mousedown",t=>this._onClearButtonMouseDown(t)),this.clearElement.addEventListener("click",t=>this._onClearButtonClick(t)))}_onClearButtonClick(t){t.preventDefault(),this._onClearAction()}_onClearButtonMouseDown(t){t.preventDefault(),isTouch||this.inputElement.focus()}_onEscape(t){super._onEscape(t),this.clearButtonVisible&&this.value&&(t.stopPropagation(),this._onClearAction())}_onClearAction(){this.clear(),this.inputElement.dispatchEvent(new Event("input",{bubbles:!0,composed:!0})),this.inputElement.dispatchEvent(new Event("change",{bubbles:!0}))}};/**
- * @license
- * Copyright (c) 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const attributeToTargets=new Map;function getAttrMap(n){return attributeToTargets.has(n)||attributeToTargets.set(n,new WeakMap),attributeToTargets.get(n)}function cleanAriaIDReference(n,i){n&&n.removeAttribute(i)}function storeAriaIDReference(n,i){if(!n||!i)return;const t=getAttrMap(i);if(t.has(n))return;const r=deserializeAttributeValue(n.getAttribute(i));t.set(n,new Set(r))}function restoreGeneratedAriaIDReference(n,i){if(!n||!i)return;const t=getAttrMap(i),r=t.get(n);!r||r.size===0?n.removeAttribute(i):addValueToAttribute(n,i,serializeAttributeValue(r)),t.delete(n)}function setAriaIDReference(n,i,t={newId:null,oldId:null,fromUser:!1}){if(!n||!i)return;const{newId:r,oldId:o,fromUser:a}=t,s=getAttrMap(i),l=s.get(n);if(!a&&l){o&&l.delete(o),r&&l.add(r);return}a&&(l?r||s.delete(n):storeAriaIDReference(n,i),cleanAriaIDReference(n,i)),removeValueFromAttribute(n,i,o);const h=r||serializeAttributeValue(l);h&&addValueToAttribute(n,i,h)}function removeAriaIDReference(n,i){storeAriaIDReference(n,i),cleanAriaIDReference(n,i)}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class FieldAriaController{constructor(i){this.host=i,this.__required=!1}setTarget(i){this.__target=i,this.__setAriaRequiredAttribute(this.__required),this.__setLabelIdToAriaAttribute(this.__labelId,this.__labelId),this.__labelIdFromUser!=null&&this.__setLabelIdToAriaAttribute(this.__labelIdFromUser,this.__labelIdFromUser,!0),this.__setErrorIdToAriaAttribute(this.__errorId),this.__setHelperIdToAriaAttribute(this.__helperId),this.setAriaLabel(this.__label)}setRequired(i){this.__setAriaRequiredAttribute(i),this.__required=i}setAriaLabel(i){this.__setAriaLabelToAttribute(i),this.__label=i}setLabelId(i,t=!1){const r=t?this.__labelIdFromUser:this.__labelId;this.__setLabelIdToAriaAttribute(i,r,t),t?this.__labelIdFromUser=i:this.__labelId=i}setErrorId(i){this.__setErrorIdToAriaAttribute(i,this.__errorId),this.__errorId=i}setHelperId(i){this.__setHelperIdToAriaAttribute(i,this.__helperId),this.__helperId=i}__setAriaLabelToAttribute(i){this.__target&&(i?(removeAriaIDReference(this.__target,"aria-labelledby"),this.__target.setAttribute("aria-label",i)):this.__label&&(restoreGeneratedAriaIDReference(this.__target,"aria-labelledby"),this.__target.removeAttribute("aria-label")))}__setLabelIdToAriaAttribute(i,t,r){setAriaIDReference(this.__target,"aria-labelledby",{newId:i,oldId:t,fromUser:r})}__setErrorIdToAriaAttribute(i,t){setAriaIDReference(this.__target,"aria-describedby",{newId:i,oldId:t,fromUser:!1})}__setHelperIdToAriaAttribute(i,t){setAriaIDReference(this.__target,"aria-describedby",{newId:i,oldId:t,fromUser:!1})}__setAriaRequiredAttribute(i){this.__target&&(["input","textarea"].includes(this.__target.localName)||(i?this.__target.setAttribute("aria-required","true"):this.__target.removeAttribute("aria-required")))}}/**
- * @license
  * Copyright (c) 2022 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */class SlotChildObserveController extends SlotController{constructor(i,t,r,o={}){super(i,t,r,{...o,useUniqueId:!0})}initCustomNode(i){this.__updateNodeId(i),this.__notifyChange(i)}teardownNode(i){const t=this.getSlotChild();t&&t!==this.defaultNode?this.__notifyChange(t):(this.restoreDefaultNode(),this.updateDefaultNode(this.node))}attachDefaultNode(){const i=super.attachDefaultNode();return i&&this.__updateNodeId(i),i}restoreDefaultNode(){}updateDefaultNode(i){this.__notifyChange(i)}observeNode(i){this.__nodeObserver&&this.__nodeObserver.disconnect(),this.__nodeObserver=new MutationObserver(t=>{t.forEach(r=>{const o=r.target,a=o===this.node;r.type==="attributes"?a&&this.__updateNodeId(o):(a||o.parentElement===this.node)&&this.__notifyChange(this.node)})}),this.__nodeObserver.observe(i,{attributes:!0,attributeFilter:["id"],childList:!0,subtree:!0,characterData:!0})}__hasContent(i){return i?i.nodeType===Node.ELEMENT_NODE&&(customElements.get(i.localName)||i.children.length>0)||i.textContent&&i.textContent.trim()!=="":!1}__notifyChange(i){this.dispatchEvent(new CustomEvent("slot-content-changed",{detail:{hasContent:this.__hasContent(i),node:i}}))}__updateNodeId(i){const t=!this.nodes||i===this.nodes[0];i.nodeType===Node.ELEMENT_NODE&&(!this.multiple||t)&&!i.id&&(i.id=this.defaultId)}}/**
  * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class ErrorController extends SlotChildObserveController{constructor(i){super(i,"error-message","div")}setErrorMessage(i){this.errorMessage=i,this.updateDefaultNode(this.node)}setInvalid(i){this.invalid=i,this.updateDefaultNode(this.node)}initAddedNode(i){i!==this.defaultNode&&this.initCustomNode(i)}initNode(i){this.updateDefaultNode(i)}initCustomNode(i){i.textContent&&!this.errorMessage&&(this.errorMessage=i.textContent.trim()),super.initCustomNode(i)}restoreDefaultNode(){this.attachDefaultNode()}updateDefaultNode(i){const{errorMessage:t,invalid:r}=this,o=!!(r&&t&&t.trim()!=="");i&&(i.textContent=o?t:"",i.hidden=!o,o?i.setAttribute("role","alert"):i.removeAttribute("role")),super.updateDefaultNode(i)}}/**
+ */class ContentController extends SlotChildObserveController{static generateId(i){return super.generateId(i,"content")}constructor(i){super(i,"",null,{multiple:!0})}}/**
  * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class HelperController extends SlotChildObserveController{constructor(i){super(i,"helper",null)}setHelperText(i){this.helperText=i,this.getSlotChild()||this.restoreDefaultNode(),this.node===this.defaultNode&&this.updateDefaultNode(this.node)}restoreDefaultNode(){const{helperText:i}=this;if(i&&i.trim()!==""){this.tagName="div";const t=this.attachDefaultNode();this.observeNode(t)}}updateDefaultNode(i){i&&(i.textContent=this.helperText),super.updateDefaultNode(i)}initCustomNode(i){super.initCustomNode(i),this.observeNode(i)}}/**
+ */const CollapsibleMixin=n=>class extends n{static get properties(){return{opened:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0},_contentElements:{type:Array}}}static get observers(){return["_openedOrContentChanged(opened, _contentElements)"]}constructor(){super(),this._contentController=new ContentController(this),this._contentController.addEventListener("slot-content-changed",t=>{const r=t.target.nodes||[];this._contentElements=r.filter(o=>o.parentNode===this)})}ready(){super.ready(),this.addController(this._contentController),this.addEventListener("click",({target:t})=>{const r=this.focusElement;r&&(t===r||r.contains(t))&&(this.opened=!this.opened)})}_openedOrContentChanged(t,r){r&&r.forEach(o=>{o.setAttribute("aria-hidden",t?"false":"true")})}};/**
  * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class LabelController extends SlotChildObserveController{constructor(i){super(i,"label","label")}setLabel(i){this.label=i,this.getSlotChild()||this.restoreDefaultNode(),this.node===this.defaultNode&&this.updateDefaultNode(this.node)}restoreDefaultNode(){const{label:i}=this;if(i&&i.trim()!==""){const t=this.attachDefaultNode();this.observeNode(t)}}updateDefaultNode(i){i&&(i.textContent=this.label),super.updateDefaultNode(i)}initCustomNode(i){super.initCustomNode(i),this.observeNode(i)}}/**
+ */class SummaryController extends SlotChildObserveController{constructor(i,t){super(i,"summary",t)}setSummary(i){this.summary=i,this.getSlotChild()||this.restoreDefaultNode(),this.node===this.defaultNode&&this.updateDefaultNode(this.node)}restoreDefaultNode(){const{summary:i}=this;i&&i.trim()!==""&&this.attachDefaultNode()}updateDefaultNode(i){i&&(i.textContent=this.summary),super.updateDefaultNode(i)}}/**
  * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const LabelMixin=dedupingMixin(n=>class extends ControllerMixin(n){static get properties(){return{label:{type:String,observer:"_labelChanged"}}}constructor(){super(),this._labelController=new LabelController(this),this._labelController.addEventListener("slot-content-changed",t=>{this.toggleAttribute("has-label",t.detail.hasContent)})}get _labelId(){const t=this._labelNode;return t&&t.id}get _labelNode(){return this._labelController.node}ready(){super.ready(),this.addController(this._labelController)}_labelChanged(t){this._labelController.setLabel(t)}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const ValidateMixin=dedupingMixin(n=>class extends n{static get properties(){return{invalid:{type:Boolean,reflectToAttribute:!0,notify:!0,value:!1},required:{type:Boolean,reflectToAttribute:!0}}}validate(){const t=this.checkValidity();return this._setInvalid(!t),this.dispatchEvent(new CustomEvent("validated",{detail:{valid:t}})),t}checkValidity(){return!this.required||!!this.value}_setInvalid(t){this._shouldSetInvalid(t)&&(this.invalid=t)}_shouldSetInvalid(t){return!0}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const FieldMixin=n=>class extends ValidateMixin(LabelMixin(ControllerMixin(n))){static get properties(){return{ariaTarget:{type:Object,observer:"_ariaTargetChanged"},errorMessage:{type:String,observer:"_errorMessageChanged"},helperText:{type:String,observer:"_helperTextChanged"},accessibleName:{type:String,observer:"_accessibleNameChanged"},accessibleNameRef:{type:String,observer:"_accessibleNameRefChanged"}}}static get observers(){return["_invalidChanged(invalid)","_requiredChanged(required)"]}constructor(){super(),this._fieldAriaController=new FieldAriaController(this),this._helperController=new HelperController(this),this._errorController=new ErrorController(this),this._errorController.addEventListener("slot-content-changed",t=>{this.toggleAttribute("has-error-message",t.detail.hasContent)}),this._labelController.addEventListener("slot-content-changed",t=>{const{hasContent:r,node:o}=t.detail;this.__labelChanged(r,o)}),this._helperController.addEventListener("slot-content-changed",t=>{const{hasContent:r,node:o}=t.detail;this.toggleAttribute("has-helper",r),this.__helperChanged(r,o)})}get _errorNode(){return this._errorController.node}get _helperNode(){return this._helperController.node}ready(){super.ready(),this.addController(this._fieldAriaController),this.addController(this._helperController),this.addController(this._errorController)}__helperChanged(t,r){t?this._fieldAriaController.setHelperId(r.id):this._fieldAriaController.setHelperId(null)}_accessibleNameChanged(t){this._fieldAriaController.setAriaLabel(t)}_accessibleNameRefChanged(t){this._fieldAriaController.setLabelId(t,!0)}__labelChanged(t,r){t?this._fieldAriaController.setLabelId(r.id):this._fieldAriaController.setLabelId(null)}_errorMessageChanged(t){this._errorController.setErrorMessage(t)}_helperTextChanged(t){this._helperController.setHelperText(t)}_ariaTargetChanged(t){t&&this._fieldAriaController.setTarget(t)}_requiredChanged(t){this._fieldAriaController.setRequired(t)}_invalidChanged(t){this._errorController.setInvalid(t),setTimeout(()=>{if(t){const r=this._errorNode;this._fieldAriaController.setErrorId(r&&r.id)}else this._fieldAriaController.setErrorId(null)})}};/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const DelegateStateMixin=dedupingMixin(n=>class extends n{static get properties(){return{stateTarget:{type:Object,observer:"_stateTargetChanged"}}}static get delegateAttrs(){return[]}static get delegateProps(){return[]}ready(){super.ready(),this._createDelegateAttrsObserver(),this._createDelegatePropsObserver()}_stateTargetChanged(t){t&&(this._ensureAttrsDelegated(),this._ensurePropsDelegated())}_createDelegateAttrsObserver(){this._createMethodObserver(`_delegateAttrsChanged(${this.constructor.delegateAttrs.join(", ")})`)}_createDelegatePropsObserver(){this._createMethodObserver(`_delegatePropsChanged(${this.constructor.delegateProps.join(", ")})`)}_ensureAttrsDelegated(){this.constructor.delegateAttrs.forEach(t=>{this._delegateAttribute(t,this[t])})}_ensurePropsDelegated(){this.constructor.delegateProps.forEach(t=>{this._delegateProperty(t,this[t])})}_delegateAttrsChanged(...t){this.constructor.delegateAttrs.forEach((r,o)=>{this._delegateAttribute(r,t[o])})}_delegatePropsChanged(...t){this.constructor.delegateProps.forEach((r,o)=>{this._delegateProperty(r,t[o])})}_delegateAttribute(t,r){this.stateTarget&&(t==="invalid"&&this._delegateAttribute("aria-invalid",r?"true":!1),typeof r=="boolean"?this.stateTarget.toggleAttribute(t,r):r?this.stateTarget.setAttribute(t,r):this.stateTarget.removeAttribute(t))}_delegateProperty(t,r){this.stateTarget&&(this.stateTarget[t]=r)}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const InputConstraintsMixin=dedupingMixin(n=>class extends DelegateStateMixin(ValidateMixin(InputMixin(n))){static get constraints(){return["required"]}static get delegateAttrs(){return[...super.delegateAttrs,"required"]}ready(){super.ready(),this._createConstraintsObserver()}checkValidity(){return this.inputElement&&this._hasValidConstraints(this.constructor.constraints.map(t=>this[t]))?this.inputElement.checkValidity():!this.invalid}_hasValidConstraints(t){return t.some(r=>this.__isValidConstraint(r))}_createConstraintsObserver(){this._createMethodObserver(`_constraintsChanged(stateTarget, ${this.constructor.constraints.join(", ")})`)}_constraintsChanged(t,...r){if(!t)return;const o=this._hasValidConstraints(r),a=this.__previousHasConstraints&&!o;(this._hasValue||this.invalid)&&o?this.validate():a&&this._setInvalid(!1),this.__previousHasConstraints=o}_onChange(t){t.stopPropagation(),this.validate(),this.dispatchEvent(new CustomEvent("change",{detail:{sourceEvent:t},bubbles:t.bubbles,cancelable:t.cancelable}))}__isValidConstraint(t){return!!t||t===0}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const stylesMap=new WeakMap;function getRootStyles(n){return stylesMap.has(n)||stylesMap.set(n,new Set),stylesMap.get(n)}function insertStyles(n,i){const t=document.createElement("style");t.textContent=n,i===document?document.head.appendChild(t):i.insertBefore(t,i.firstChild)}const SlotStylesMixin=dedupingMixin(n=>class extends n{get slotStyles(){return{}}connectedCallback(){super.connectedCallback(),this.__applySlotStyles()}__applySlotStyles(){const t=this.getRootNode(),r=getRootStyles(t);this.slotStyles.forEach(o=>{r.has(o)||(insertStyles(o,t),r.add(o))})}});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const InputControlMixin=n=>class extends SlotStylesMixin(DelegateFocusMixin(InputConstraintsMixin(FieldMixin(ClearButtonMixin(KeyboardMixin(n)))))){static get properties(){return{allowedCharPattern:{type:String,observer:"_allowedCharPatternChanged"},autoselect:{type:Boolean,value:!1},name:{type:String,reflectToAttribute:!0},placeholder:{type:String,reflectToAttribute:!0},readonly:{type:Boolean,value:!1,reflectToAttribute:!0},title:{type:String,reflectToAttribute:!0}}}static get delegateAttrs(){return[...super.delegateAttrs,"name","type","placeholder","readonly","invalid","title"]}constructor(){super(),this._boundOnPaste=this._onPaste.bind(this),this._boundOnDrop=this._onDrop.bind(this),this._boundOnBeforeInput=this._onBeforeInput.bind(this)}get slotStyles(){return[`
-          :is(input[slot='input'], textarea[slot='textarea'])::placeholder {
-            font: inherit;
-            color: inherit;
-          }
-        `]}_onFocus(t){super._onFocus(t),this.autoselect&&this.inputElement&&this.inputElement.select()}_onChange(t){t.stopPropagation(),this.validate(),this.dispatchEvent(new CustomEvent("change",{detail:{sourceEvent:t},bubbles:t.bubbles,cancelable:t.cancelable}))}_addInputListeners(t){super._addInputListeners(t),t.addEventListener("paste",this._boundOnPaste),t.addEventListener("drop",this._boundOnDrop),t.addEventListener("beforeinput",this._boundOnBeforeInput)}_removeInputListeners(t){super._removeInputListeners(t),t.removeEventListener("paste",this._boundOnPaste),t.removeEventListener("drop",this._boundOnDrop),t.removeEventListener("beforeinput",this._boundOnBeforeInput)}_onKeyDown(t){super._onKeyDown(t),this.allowedCharPattern&&!this.__shouldAcceptKey(t)&&(t.preventDefault(),this._markInputPrevented())}_markInputPrevented(){this.setAttribute("input-prevented",""),this._preventInputDebouncer=Debouncer$1.debounce(this._preventInputDebouncer,timeOut.after(200),()=>{this.removeAttribute("input-prevented")})}__shouldAcceptKey(t){return t.metaKey||t.ctrlKey||!t.key||t.key.length!==1||this.__allowedCharRegExp.test(t.key)}_onPaste(t){if(this.allowedCharPattern){const r=t.clipboardData.getData("text");this.__allowedTextRegExp.test(r)||(t.preventDefault(),this._markInputPrevented())}}_onDrop(t){if(this.allowedCharPattern){const r=t.dataTransfer.getData("text");this.__allowedTextRegExp.test(r)||(t.preventDefault(),this._markInputPrevented())}}_onBeforeInput(t){this.allowedCharPattern&&t.data&&!this.__allowedTextRegExp.test(t.data)&&(t.preventDefault(),this._markInputPrevented())}_allowedCharPatternChanged(t){if(t)try{this.__allowedCharRegExp=new RegExp(`^${t}$`,"u"),this.__allowedTextRegExp=new RegExp(`^${t}*$`,"u")}catch(r){console.error(r)}}};/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const InputFieldMixin=n=>class extends InputControlMixin(n){static get properties(){return{autocomplete:{type:String},autocorrect:{type:String},autocapitalize:{type:String,reflectToAttribute:!0}}}static get delegateAttrs(){return[...super.delegateAttrs,"autocapitalize","autocomplete","autocorrect"]}get __data(){return this.__dataValue||{}}set __data(t){this.__dataValue=t}_inputElementChanged(t){super._inputElementChanged(t),t&&(t.value&&t.value!==this.value&&(console.warn(`Please define value on the <${this.localName}> component!`),t.value=""),this.value&&(t.value=this.value))}_setFocused(t){super._setFocused(t),!t&&document.hasFocus()&&this.validate()}_onInput(t){super._onInput(t),this.invalid&&this.validate()}_valueChanged(t,r){super._valueChanged(t,r),r!==void 0&&this.invalid&&this.validate()}};/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class LabelledInputController{constructor(i,t){this.input=i,this.__preventDuplicateLabelClick=this.__preventDuplicateLabelClick.bind(this),t.addEventListener("slot-content-changed",r=>{this.__initLabel(r.detail.node)}),this.__initLabel(t.node)}__initLabel(i){i&&(i.addEventListener("click",this.__preventDuplicateLabelClick),this.input&&i.setAttribute("for",this.input.id))}__preventDuplicateLabelClick(){const i=t=>{t.stopImmediatePropagation(),this.input.removeEventListener("click",i)};this.input.addEventListener("click",i)}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const TextFieldMixin=n=>class extends InputFieldMixin(n){static get properties(){return{maxlength:{type:Number},minlength:{type:Number},pattern:{type:String}}}static get delegateAttrs(){return[...super.delegateAttrs,"maxlength","minlength","pattern"]}static get constraints(){return[...super.constraints,"maxlength","minlength","pattern"]}constructor(){super(),this._setType("text")}get clearElement(){return this.$.clearButton}ready(){super.ready(),this.addController(new InputController(this,t=>{this._setInputElement(t),this._setFocusElement(t),this.stateTarget=t,this.ariaTarget=t})),this.addController(new LabelledInputController(this.inputElement,this._labelController))}};/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-text-field",inputFieldShared,{moduleId:"vaadin-text-field-styles"});class TextField extends TextFieldMixin(ThemableMixin(ElementMixin(PolymerElement))){static get is(){return"vaadin-text-field"}static get template(){return html`
+ */class AccordionPanel extends CollapsibleMixin(DelegateFocusMixin(DelegateStateMixin(ThemableMixin(ControllerMixin(PolymerElement))))){static get is(){return"vaadin-accordion-panel"}static get template(){return html`
       <style>
-        [part='input-field'] {
-          flex-grow: 0;
+        :host {
+          display: block;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        [part='content'] {
+          display: none;
+          overflow: hidden;
+        }
+
+        :host([opened]) [part='content'] {
+          display: block;
+          overflow: visible;
         }
       </style>
 
-      <div class="vaadin-field-container">
-        <div part="label">
-          <slot name="label"></slot>
-          <span part="required-indicator" aria-hidden="true" on-click="focus"></span>
-        </div>
+      <slot name="summary"></slot>
 
-        <vaadin-input-container
-          part="input-field"
-          readonly="[[readonly]]"
-          disabled="[[disabled]]"
-          invalid="[[invalid]]"
-          theme$="[[_theme]]"
-        >
-          <slot name="prefix" slot="prefix"></slot>
-          <slot name="input"></slot>
-          <slot name="suffix" slot="suffix"></slot>
-          <div id="clearButton" part="clear-button" slot="suffix" aria-hidden="true"></div>
-        </vaadin-input-container>
-
-        <div part="helper-text">
-          <slot name="helper"></slot>
-        </div>
-
-        <div part="error-message">
-          <slot name="error-message"></slot>
-        </div>
+      <div part="content">
+        <slot></slot>
       </div>
+
       <slot name="tooltip"></slot>
-    `}static get properties(){return{maxlength:{type:Number},minlength:{type:Number}}}ready(){super.ready(),this._tooltipController=new TooltipController(this),this._tooltipController.setPosition("top"),this.addController(this._tooltipController)}}customElements.define(TextField.is,TextField);const button=css$e`
+    `}static get properties(){return{summary:{type:String,observer:"_summaryChanged"}}}static get observers(){return["__updateAriaAttributes(focusElement, _contentElements)"]}static get delegateAttrs(){return["theme"]}static get delegateProps(){return["disabled","opened"]}constructor(){super(),this._summaryController=new SummaryController(this,"vaadin-accordion-heading"),this._summaryController.addEventListener("slot-content-changed",i=>{const{node:t}=i.target;this._setFocusElement(t),this.stateTarget=t,this._tooltipController.setTarget(t)}),this._tooltipController=new TooltipController(this),this._tooltipController.setPosition("bottom-start")}ready(){super.ready(),this.addController(this._summaryController),this.addController(this._tooltipController)}_setAriaDisabled(){}_summaryChanged(i){this._summaryController.setSummary(i)}__updateAriaAttributes(i,t){if(i&&t){const r=t[0];r&&(r.setAttribute("role","region"),r.setAttribute("aria-labelledby",i.id)),r&&r.id?i.setAttribute("aria-controls",r.id):i.removeAttribute("aria-controls")}}}customElements.define(AccordionPanel.is,AccordionPanel);/**
+ * @license
+ * Copyright (c) 2022 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const KeyboardDirectionMixin=n=>class extends KeyboardMixin(n){get focused(){return(this._getItems()||[]).find(isElementFocused)}get _vertical(){return!0}focus(){const t=this._getItems();if(Array.isArray(t)){const r=this._getAvailableIndex(t,0,null,o=>!isElementHidden(o));r>=0&&t[r].focus()}}_getItems(){return Array.from(this.children)}_onKeyDown(t){if(super._onKeyDown(t),t.metaKey||t.ctrlKey)return;const{key:r}=t,o=this._getItems()||[],a=o.indexOf(this.focused);let s,l;const c=!this._vertical&&this.getAttribute("dir")==="rtl"?-1:1;this.__isPrevKey(r)?(l=-c,s=a-c):this.__isNextKey(r)?(l=c,s=a+c):r==="Home"?(l=1,s=0):r==="End"&&(l=-1,s=o.length-1),s=this._getAvailableIndex(o,s,l,d=>!isElementHidden(d)),s>=0&&(t.preventDefault(),this._focus(s,!0))}__isPrevKey(t){return this._vertical?t==="ArrowUp":t==="ArrowLeft"}__isNextKey(t){return this._vertical?t==="ArrowDown":t==="ArrowRight"}_focus(t,r=!1){const o=this._getItems();this._focusItem(o[t],r)}_focusItem(t){t&&(t.focus(),t.setAttribute("focus-ring",""))}_getAvailableIndex(t,r,o,a){const s=t.length;let l=r;for(let h=0;typeof l=="number"&&h<s;h+=1,l+=o||1){l<0?l=s-1:l>=s&&(l=0);const c=t[l];if(!c.hasAttribute("disabled")&&this.__isMatchingItem(c,a))return l}return-1}__isMatchingItem(t,r){return typeof r=="function"?r(t):!0}};/**
+ * @license
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class Accordion extends KeyboardDirectionMixin(ThemableMixin(ElementMixin(PolymerElement))){static get template(){return html`
+      <style>
+        :host {
+          display: block;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+      </style>
+      <slot></slot>
+    `}static get is(){return"vaadin-accordion"}static get properties(){return{opened:{type:Number,value:0,notify:!0,reflectToAttribute:!0},items:{type:Array,readOnly:!0,notify:!0}}}static get observers(){return["_updateItems(items, opened)"]}constructor(){super(),this._boundUpdateOpened=this._updateOpened.bind(this)}get focused(){return(this._getItems()||[]).find(i=>isElementFocused(i.focusElement))}focus(){this._observer&&this._observer.flush(),super.focus()}ready(){super.ready(),this._observer=new FlattenedNodesObserver(this,i=>{this._setItems(this._filterItems(Array.from(this.children))),this._filterItems(i.addedNodes).forEach(t=>{t.addEventListener("opened-changed",this._boundUpdateOpened)})})}_getItems(){return this.items}_filterItems(i){return i.filter(t=>t instanceof AccordionPanel)}_updateItems(i,t){if(i){const r=i[t];i.forEach(o=>{o.opened=o===r})}}_onKeyDown(i){this.items.some(t=>t.focusElement===i.target)&&super._onKeyDown(i)}_updateOpened(i){const t=this._filterItems(i.composedPath())[0],r=this.items.indexOf(t);if(i.detail.value){if(t.disabled||r===-1)return;this.opened=r}else this.items.some(o=>o.opened)||(this.opened=null)}}customElements.define(Accordion.is,Accordion);/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const ButtonMixin=n=>class extends ActiveMixin(TabindexMixin(FocusMixin(n))){static get properties(){return{tabindex:{type:Number,value:0,reflectToAttribute:!0}}}get _activeKeys(){return["Enter"," "]}ready(){super.ready(),this.hasAttribute("role")||this.setAttribute("role","button")}_onKeyDown(t){super._onKeyDown(t),this._activeKeys.includes(t.key)&&(t.preventDefault(),this.click())}};/**
+ * @license
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class DetailsSummary extends ButtonMixin(DirMixin(ThemableMixin(PolymerElement))){static get is(){return"vaadin-details-summary"}static get template(){return html`
+      <style>
+        :host {
+          display: block;
+          outline: none;
+          white-space: nowrap;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        :host([disabled]) {
+          pointer-events: none;
+        }
+      </style>
+      <span part="toggle" aria-hidden="true"></span>
+      <div part="content"><slot></slot></div>
+    `}static get properties(){return{opened:{type:Boolean,reflectToAttribute:!0}}}}customElements.define(DetailsSummary.is,DetailsSummary);/**
+ * @license
+ * Copyright (c) 2019 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class Details extends CollapsibleMixin(DelegateStateMixin(DelegateFocusMixin(ElementMixin(ThemableMixin(ControllerMixin(PolymerElement)))))){static get template(){return html`
+      <style>
+        :host {
+          display: block;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        [part='content'] {
+          display: none;
+        }
+
+        :host([opened]) [part='content'] {
+          display: block;
+        }
+      </style>
+
+      <slot name="summary"></slot>
+
+      <div part="content">
+        <slot></slot>
+      </div>
+
+      <slot name="tooltip"></slot>
+    `}static get is(){return"vaadin-details"}static get properties(){return{summary:{type:String,observer:"_summaryChanged"}}}static get observers(){return["__updateAriaControls(focusElement, _contentElements)","__updateAriaExpanded(focusElement, opened)"]}static get delegateAttrs(){return["theme"]}static get delegateProps(){return["disabled","opened"]}constructor(){super(),this._summaryController=new SummaryController(this,"vaadin-details-summary"),this._summaryController.addEventListener("slot-content-changed",i=>{const{node:t}=i.target;this._setFocusElement(t),this.stateTarget=t,this._tooltipController.setTarget(t)}),this._tooltipController=new TooltipController(this),this._tooltipController.setPosition("bottom-start")}ready(){super.ready(),this.addController(this._summaryController),this.addController(this._tooltipController)}_setAriaDisabled(){}_summaryChanged(i){this._summaryController.setSummary(i)}__updateAriaControls(i,t){if(i&&t){const r=t[0];r&&r.id?i.setAttribute("aria-controls",r.id):i.removeAttribute("aria-controls")}}__updateAriaExpanded(i,t){i&&i.setAttribute("aria-expanded",t?"true":"false")}}customElements.define(Details.is,Details);const button=css$e`
   :host {
     /* Sizing */
     --lumo-button-size: var(--lumo-size-m);
@@ -2148,45 +2304,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 `;registerStyles$1("vaadin-button",button,{moduleId:"lumo-button"});/**
  * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const passwordFieldButton=css$e`
-  :host {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    min-width: auto;
-    background: transparent;
-    outline: none;
-  }
-`;registerStyles$1("vaadin-password-field-button",[button,passwordFieldButton],{moduleId:"lumo-password-field-button"});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const passwordField=css$e`
-  [part='reveal-button']::before {
-    content: var(--lumo-icons-eye);
-  }
-
-  :host([password-visible]) [part='reveal-button']::before {
-    content: var(--lumo-icons-eye-disabled);
-  }
-
-  /* Make it easy to hide the button across the whole app */
-  [part='reveal-button'] {
-    position: relative;
-    display: var(--lumo-password-field-reveal-button-display, block);
-  }
-
-  [part='reveal-button'][hidden] {
-    display: none !important;
-  }
-`;registerStyles$1("vaadin-password-field",[inputFieldShared$1,passwordField],{moduleId:"lumo-password-field"});/**
- * @license
  * Copyright (c) 2017 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */const buttonStyles=css$e`
@@ -2263,1261 +2380,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </div>
   <slot name="tooltip"></slot>
 `;/**
-@license
-Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/const passiveTouchGestures=!1,wrap$e=n=>n,HAS_NATIVE_TA=typeof document.head.style.touchAction=="string",GESTURE_KEY="__polymerGestures",HANDLED_OBJ="__polymerGesturesHandled",TOUCH_ACTION="__polymerGesturesTouchAction",TAP_DISTANCE=25,TRACK_DISTANCE=5,TRACK_LENGTH=2,MOUSE_EVENTS=["mousedown","mousemove","mouseup","click"],MOUSE_WHICH_TO_BUTTONS=[0,1,4,2],MOUSE_HAS_BUTTONS=function(){try{return new MouseEvent("test",{buttons:1}).buttons===1}catch{return!1}}();function isMouseEvent(n){return MOUSE_EVENTS.indexOf(n)>-1}let supportsPassive=!1;(function(){try{const n=Object.defineProperty({},"passive",{get(){supportsPassive=!0}});window.addEventListener("test",null,n),window.removeEventListener("test",null,n)}catch{}})();function PASSIVE_TOUCH(n){if(!(isMouseEvent(n)||n==="touchend")&&HAS_NATIVE_TA&&supportsPassive&&passiveTouchGestures)return{passive:!0}}const IS_TOUCH_ONLY=navigator.userAgent.match(/iP(?:[oa]d|hone)|Android/u),canBeDisabled={button:!0,command:!0,fieldset:!0,input:!0,keygen:!0,optgroup:!0,option:!0,select:!0,textarea:!0};function hasLeftMouseButton(n){const i=n.type;if(!isMouseEvent(i))return!1;if(i==="mousemove"){let r=n.buttons===void 0?1:n.buttons;return n instanceof window.MouseEvent&&!MOUSE_HAS_BUTTONS&&(r=MOUSE_WHICH_TO_BUTTONS[n.which]||0),!!(r&1)}return(n.button===void 0?0:n.button)===0}function isSyntheticClick(n){if(n.type==="click"){if(n.detail===0)return!0;const i=_findOriginalTarget(n);if(!i.nodeType||i.nodeType!==Node.ELEMENT_NODE)return!0;const t=i.getBoundingClientRect(),r=n.pageX,o=n.pageY;return!(r>=t.left&&r<=t.right&&o>=t.top&&o<=t.bottom)}return!1}const POINTERSTATE={mouse:{target:null,mouseIgnoreJob:null},touch:{x:0,y:0,id:-1,scrollDecided:!1}};function firstTouchAction(n){let i="auto";const t=getComposedPath(n);for(let r=0,o;r<t.length;r++)if(o=t[r],o[TOUCH_ACTION]){i=o[TOUCH_ACTION];break}return i}function trackDocument(n,i,t){n.movefn=i,n.upfn=t,document.addEventListener("mousemove",i),document.addEventListener("mouseup",t)}function untrackDocument(n){document.removeEventListener("mousemove",n.movefn),document.removeEventListener("mouseup",n.upfn),n.movefn=null,n.upfn=null}const getComposedPath=window.ShadyDOM&&window.ShadyDOM.noPatch?window.ShadyDOM.composedPath:n=>n.composedPath&&n.composedPath()||[],gestures={},recognizers=[];function deepTargetFind(n,i){let t=document.elementFromPoint(n,i),r=t;for(;r&&r.shadowRoot&&!window.ShadyDOM;){const o=r;if(r=r.shadowRoot.elementFromPoint(n,i),o===r)break;r&&(t=r)}return t}function _findOriginalTarget(n){const i=getComposedPath(n);return i.length>0?i[0]:n.target}function _handleNative(n){const i=n.type,r=n.currentTarget[GESTURE_KEY];if(!r)return;const o=r[i];if(!o)return;if(!n[HANDLED_OBJ]&&(n[HANDLED_OBJ]={},i.startsWith("touch"))){const s=n.changedTouches[0];if(i==="touchstart"&&n.touches.length===1&&(POINTERSTATE.touch.id=s.identifier),POINTERSTATE.touch.id!==s.identifier)return;HAS_NATIVE_TA||(i==="touchstart"||i==="touchmove")&&_handleTouchAction(n)}const a=n[HANDLED_OBJ];if(!a.skip){for(let s=0,l;s<recognizers.length;s++)l=recognizers[s],o[l.name]&&!a[l.name]&&l.flow&&l.flow.start.indexOf(n.type)>-1&&l.reset&&l.reset();for(let s=0,l;s<recognizers.length;s++)l=recognizers[s],o[l.name]&&!a[l.name]&&(a[l.name]=!0,l[i](n))}}function _handleTouchAction(n){const i=n.changedTouches[0],t=n.type;if(t==="touchstart")POINTERSTATE.touch.x=i.clientX,POINTERSTATE.touch.y=i.clientY,POINTERSTATE.touch.scrollDecided=!1;else if(t==="touchmove"){if(POINTERSTATE.touch.scrollDecided)return;POINTERSTATE.touch.scrollDecided=!0;const r=firstTouchAction(n);let o=!1;const a=Math.abs(POINTERSTATE.touch.x-i.clientX),s=Math.abs(POINTERSTATE.touch.y-i.clientY);n.cancelable&&(r==="none"?o=!0:r==="pan-x"?o=s>a:r==="pan-y"&&(o=a>s)),o?n.preventDefault():prevent("track")}}function addListener(n,i,t){return gestures[i]?(_add(n,i,t),!0):!1}function removeListener(n,i,t){return gestures[i]?(_remove(n,i,t),!0):!1}function _add(n,i,t){const r=gestures[i],o=r.deps,a=r.name;let s=n[GESTURE_KEY];s||(n[GESTURE_KEY]=s={});for(let l=0,h,c;l<o.length;l++)h=o[l],!(IS_TOUCH_ONLY&&isMouseEvent(h)&&h!=="click")&&(c=s[h],c||(s[h]=c={_count:0}),c._count===0&&n.addEventListener(h,_handleNative,PASSIVE_TOUCH(h)),c[a]=(c[a]||0)+1,c._count=(c._count||0)+1);n.addEventListener(i,t),r.touchAction&&setTouchAction(n,r.touchAction)}function _remove(n,i,t){const r=gestures[i],o=r.deps,a=r.name,s=n[GESTURE_KEY];if(s)for(let l=0,h,c;l<o.length;l++)h=o[l],c=s[h],c&&c[a]&&(c[a]=(c[a]||1)-1,c._count=(c._count||1)-1,c._count===0&&n.removeEventListener(h,_handleNative,PASSIVE_TOUCH(h)));n.removeEventListener(i,t)}function register$1(n){recognizers.push(n),n.emits.forEach(i=>{gestures[i]=n})}function _findRecognizerByEvent(n){for(let i=0,t;i<recognizers.length;i++){t=recognizers[i];for(let r=0,o;r<t.emits.length;r++)if(o=t.emits[r],o===n)return t}return null}function setTouchAction(n,i){HAS_NATIVE_TA&&n instanceof HTMLElement&&microTask.run(()=>{n.style.touchAction=i}),n[TOUCH_ACTION]=i}function _fire(n,i,t){const r=new Event(i,{bubbles:!0,cancelable:!0,composed:!0});if(r.detail=t,wrap$e(n).dispatchEvent(r),r.defaultPrevented){const o=t.preventer||t.sourceEvent;o&&o.preventDefault&&o.preventDefault()}}function prevent(n){const i=_findRecognizerByEvent(n);i.info&&(i.info.prevent=!0)}register$1({name:"downup",deps:["mousedown","touchstart","touchend"],flow:{start:["mousedown","touchstart"],end:["mouseup","touchend"]},emits:["down","up"],info:{movefn:null,upfn:null},reset(){untrackDocument(this.info)},mousedown(n){if(!hasLeftMouseButton(n))return;const i=_findOriginalTarget(n),t=this,r=a=>{hasLeftMouseButton(a)||(downupFire("up",i,a),untrackDocument(t.info))},o=a=>{hasLeftMouseButton(a)&&downupFire("up",i,a),untrackDocument(t.info)};trackDocument(this.info,r,o),downupFire("down",i,n)},touchstart(n){downupFire("down",_findOriginalTarget(n),n.changedTouches[0],n)},touchend(n){downupFire("up",_findOriginalTarget(n),n.changedTouches[0],n)}});function downupFire(n,i,t,r){i&&_fire(i,n,{x:t.clientX,y:t.clientY,sourceEvent:t,preventer:r,prevent(o){return prevent(o)}})}register$1({name:"track",touchAction:"none",deps:["mousedown","touchstart","touchmove","touchend"],flow:{start:["mousedown","touchstart"],end:["mouseup","touchend"]},emits:["track"],info:{x:0,y:0,state:"start",started:!1,moves:[],addMove(n){this.moves.length>TRACK_LENGTH&&this.moves.shift(),this.moves.push(n)},movefn:null,upfn:null,prevent:!1},reset(){this.info.state="start",this.info.started=!1,this.info.moves=[],this.info.x=0,this.info.y=0,this.info.prevent=!1,untrackDocument(this.info)},mousedown(n){if(!hasLeftMouseButton(n))return;const i=_findOriginalTarget(n),t=this,r=a=>{const s=a.clientX,l=a.clientY;trackHasMovedEnough(t.info,s,l)&&(t.info.state=t.info.started?a.type==="mouseup"?"end":"track":"start",t.info.state==="start"&&prevent("tap"),t.info.addMove({x:s,y:l}),hasLeftMouseButton(a)||(t.info.state="end",untrackDocument(t.info)),i&&trackFire(t.info,i,a),t.info.started=!0)},o=a=>{t.info.started&&r(a),untrackDocument(t.info)};trackDocument(this.info,r,o),this.info.x=n.clientX,this.info.y=n.clientY},touchstart(n){const i=n.changedTouches[0];this.info.x=i.clientX,this.info.y=i.clientY},touchmove(n){const i=_findOriginalTarget(n),t=n.changedTouches[0],r=t.clientX,o=t.clientY;trackHasMovedEnough(this.info,r,o)&&(this.info.state==="start"&&prevent("tap"),this.info.addMove({x:r,y:o}),trackFire(this.info,i,t),this.info.state="track",this.info.started=!0)},touchend(n){const i=_findOriginalTarget(n),t=n.changedTouches[0];this.info.started&&(this.info.state="end",this.info.addMove({x:t.clientX,y:t.clientY}),trackFire(this.info,i,t))}});function trackHasMovedEnough(n,i,t){if(n.prevent)return!1;if(n.started)return!0;const r=Math.abs(n.x-i),o=Math.abs(n.y-t);return r>=TRACK_DISTANCE||o>=TRACK_DISTANCE}function trackFire(n,i,t){if(!i)return;const r=n.moves[n.moves.length-2],o=n.moves[n.moves.length-1],a=o.x-n.x,s=o.y-n.y;let l,h=0;r&&(l=o.x-r.x,h=o.y-r.y),_fire(i,"track",{state:n.state,x:t.clientX,y:t.clientY,dx:a,dy:s,ddx:l,ddy:h,sourceEvent:t,hover(){return deepTargetFind(t.clientX,t.clientY)}})}register$1({name:"tap",deps:["mousedown","click","touchstart","touchend"],flow:{start:["mousedown","touchstart"],end:["click","touchend"]},emits:["tap"],info:{x:NaN,y:NaN,prevent:!1},reset(){this.info.x=NaN,this.info.y=NaN,this.info.prevent=!1},mousedown(n){hasLeftMouseButton(n)&&(this.info.x=n.clientX,this.info.y=n.clientY)},click(n){hasLeftMouseButton(n)&&trackForward(this.info,n)},touchstart(n){const i=n.changedTouches[0];this.info.x=i.clientX,this.info.y=i.clientY},touchend(n){trackForward(this.info,n.changedTouches[0],n)}});function trackForward(n,i,t){const r=Math.abs(i.clientX-n.x),o=Math.abs(i.clientY-n.y),a=_findOriginalTarget(t||i);!a||canBeDisabled[a.localName]&&a.hasAttribute("disabled")||(isNaN(r)||isNaN(o)||r<=TAP_DISTANCE&&o<=TAP_DISTANCE||isSyntheticClick(i))&&(n.prevent||_fire(a,"tap",{x:i.clientX,y:i.clientY,sourceEvent:i,preventer:t}))}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const ActiveMixin=n=>class extends DisabledMixin(KeyboardMixin(n)){get _activeKeys(){return[" "]}ready(){super.ready(),addListener(this,"down",t=>{this._shouldSetActive(t)&&this._setActive(!0)}),addListener(this,"up",()=>{this._setActive(!1)})}disconnectedCallback(){super.disconnectedCallback(),this._setActive(!1)}_shouldSetActive(t){return!this.disabled}_onKeyDown(t){super._onKeyDown(t),this._shouldSetActive(t)&&this._activeKeys.includes(t.key)&&(this._setActive(!0),document.addEventListener("keyup",r=>{this._activeKeys.includes(r.key)&&this._setActive(!1)},{once:!0}))}_setActive(t){this.toggleAttribute("active",t)}};/**
  * @license
  * Copyright (c) 2017 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const ButtonMixin=n=>class extends ActiveMixin(TabindexMixin(FocusMixin(n))){static get properties(){return{tabindex:{type:Number,value:0,reflectToAttribute:!0}}}get _activeKeys(){return["Enter"," "]}ready(){super.ready(),this.hasAttribute("role")||this.setAttribute("role","button")}_onKeyDown(t){super._onKeyDown(t),this._activeKeys.includes(t.key)&&(t.preventDefault(),this.click())}};/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-button",buttonStyles,{moduleId:"vaadin-button-styles"});class Button extends ButtonMixin(ElementMixin(ThemableMixin(ControllerMixin(PolymerElement)))){static get is(){return"vaadin-button"}static get template(){return buttonTemplate(html)}ready(){super.ready(),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}}customElements.define(Button.is,Button);/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class PasswordFieldButton extends Button{static get is(){return"vaadin-password-field-button"}static get template(){return html`
-      <style>
-        :host {
-          display: block;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-      </style>
-      <slot name="tooltip"></slot>
-    `}}customElements.define(PasswordFieldButton.is,PasswordFieldButton);/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const ownTemplate=html`
-  <div part="reveal-button" slot="suffix">
-    <slot name="reveal"></slot>
-  </div>
-`;let memoizedTemplate$c;class PasswordField extends TextField{static get is(){return"vaadin-password-field"}static get template(){if(!memoizedTemplate$c){memoizedTemplate$c=super.template.cloneNode(!0);const i=ownTemplate.content.querySelector('[part="reveal-button"]');memoizedTemplate$c.content.querySelector('[part="input-field"]').appendChild(i)}return memoizedTemplate$c}static get properties(){return{revealButtonHidden:{type:Boolean,observer:"_revealButtonHiddenChanged",value:!1},passwordVisible:{type:Boolean,value:!1,reflectToAttribute:!0,observer:"_passwordVisibleChanged",readOnly:!0},i18n:{type:Object,value:()=>({reveal:"Show password"})}}}static get observers(){return["__i18nChanged(i18n.*)"]}constructor(){super(),this._setType("password"),this.__boundRevealButtonClick=this._onRevealButtonClick.bind(this),this.__boundRevealButtonMouseDown=this._onRevealButtonMouseDown.bind(this),this.__lastChange=""}get slotStyles(){const i=this.localName;return[...super.slotStyles,`
-        ${i} [slot="input"]::-ms-reveal {
-          display: none;
-        }
-      `]}get _revealNode(){return this._revealButtonController&&this._revealButtonController.node}ready(){super.ready(),this._revealPart=this.shadowRoot.querySelector('[part="reveal-button"]'),this._revealButtonController=new SlotController(this,"reveal","vaadin-password-field-button",{initializer:i=>{i.disabled=this.disabled,i.addEventListener("click",this.__boundRevealButtonClick),i.addEventListener("mousedown",this.__boundRevealButtonMouseDown)}}),this.addController(this._revealButtonController),this.__updateAriaLabel(this.i18n),this._updateToggleState(!1),this._toggleRevealHidden(this.revealButtonHidden),this.inputElement&&(this.inputElement.autocapitalize="off")}_onChange(i){super._onChange(i),this.__lastChange=this.inputElement.value}_shouldSetFocus(i){return i.target===this.inputElement||i.target===this._revealNode}_shouldRemoveFocus(i){return!(i.relatedTarget===this._revealNode||i.relatedTarget===this.inputElement&&i.target===this._revealNode)}_setFocused(i){if(super._setFocused(i),!i)this._setPasswordVisible(!1),this.__lastChange!==this.inputElement.value&&(this.__lastChange=this.inputElement.value,this.dispatchEvent(new CustomEvent("change",{bubbles:!0})));else{const t=this.getRootNode().activeElement===this._revealNode;this.toggleAttribute("focus-ring",this._keyboardActive&&!t)}}__updateAriaLabel(i){i.reveal&&this._revealNode&&this._revealNode.setAttribute("aria-label",i.reveal)}__i18nChanged(i){this.__updateAriaLabel(i.base)}_revealButtonHiddenChanged(i){this._toggleRevealHidden(i)}_togglePasswordVisibility(){this._setPasswordVisible(!this.passwordVisible)}_onRevealButtonClick(){this._togglePasswordVisibility()}_onRevealButtonMouseDown(i){i.preventDefault(),this.inputElement.focus()}_toggleRevealHidden(i){this._revealNode&&(i?(this._revealPart.setAttribute("hidden",""),this._revealNode.setAttribute("tabindex","-1"),this._revealNode.setAttribute("aria-hidden","true")):(this._revealPart.removeAttribute("hidden"),this._revealNode.setAttribute("tabindex","0"),this._revealNode.removeAttribute("aria-hidden")))}_updateToggleState(i){this._revealNode&&this._revealNode.setAttribute("aria-pressed",i?"true":"false")}_passwordVisibleChanged(i){this._setType(i?"text":"password"),this._updateToggleState(i)}_disabledChanged(i,t){super._disabledChanged(i,t),this._revealNode&&(this._revealNode.disabled=i)}}customElements.define(PasswordField.is,PasswordField);/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const overlay=css$e`
-  :host {
-    top: var(--lumo-space-m);
-    right: var(--lumo-space-m);
-    bottom: var(--lumo-space-m);
-    left: var(--lumo-space-m);
-    /* Workaround for Edge issue (only on Surface), where an overflowing vaadin-list-box inside vaadin-select-overlay makes the overlay transparent */
-    /* stylelint-disable-next-line */
-    outline: 0px solid transparent;
-  }
-
-  [part='overlay'] {
-    background-color: var(--lumo-base-color);
-    background-image: linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
-    border-radius: var(--lumo-border-radius-m);
-    box-shadow: 0 0 0 1px var(--lumo-shade-5pct), var(--lumo-box-shadow-m);
-    color: var(--lumo-body-text-color);
-    font-family: var(--lumo-font-family);
-    font-size: var(--lumo-font-size-m);
-    font-weight: 400;
-    line-height: var(--lumo-line-height-m);
-    letter-spacing: 0;
-    text-transform: none;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  [part='content'] {
-    padding: var(--lumo-space-xs);
-  }
-
-  [part='backdrop'] {
-    background-color: var(--lumo-shade-20pct);
-    animation: 0.2s lumo-overlay-backdrop-enter both;
-    will-change: opacity;
-  }
-
-  @keyframes lumo-overlay-backdrop-enter {
-    0% {
-      opacity: 0;
-    }
-  }
-
-  :host([closing]) [part='backdrop'] {
-    animation: 0.2s lumo-overlay-backdrop-exit both;
-  }
-
-  @keyframes lumo-overlay-backdrop-exit {
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes lumo-overlay-dummy-animation {
-    0% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
-`;registerStyles$1("",overlay,{moduleId:"lumo-overlay"});registerStyles$1("vaadin-overlay",overlay,{moduleId:"lumo-vaadin-overlay"});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */function processTemplates(n){if(window.Vaadin&&window.Vaadin.templateRendererCallback){window.Vaadin.templateRendererCallback(n);return}n.querySelector("template")&&console.warn(`WARNING: <template> inside <${n.localName}> is no longer supported. Import @vaadin/polymer-legacy-adapter/template-renderer.js to enable compatibility.`)}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class FocusRestorationController{saveFocus(i){this.focusNode=i||getDeepActiveElement()}restoreFocus(){const i=this.focusNode;i&&(getDeepActiveElement()===document.body?setTimeout(()=>i.focus()):i.focus(),this.focusNode=null)}}/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const OverlayFocusMixin=n=>class extends ControllerMixin(n){static get properties(){return{focusTrap:{type:Boolean,value:!1},restoreFocusOnClose:{type:Boolean,value:!1},restoreFocusNode:{type:HTMLElement}}}constructor(){super(),this.__ariaModalController=new AriaModalController(this),this.__focusTrapController=new FocusTrapController(this),this.__focusRestorationController=new FocusRestorationController}ready(){super.ready(),this.addController(this.__ariaModalController),this.addController(this.__focusTrapController),this.addController(this.__focusRestorationController)}_resetFocus(){this.focusTrap&&(this.__ariaModalController.close(),this.__focusTrapController.releaseFocus()),this.restoreFocusOnClose&&this._shouldRestoreFocus()&&this.__focusRestorationController.restoreFocus()}_saveFocus(){this.restoreFocusOnClose&&this.__focusRestorationController.saveFocus(this.restoreFocusNode)}_trapFocus(){this.focusTrap&&(this.__ariaModalController.showModal(),this.__focusTrapController.trapFocus(this.$.overlay))}_shouldRestoreFocus(){const t=getDeepActiveElement();return t===document.body||this._deepContains(t)}_deepContains(t){if(this.contains(t))return!0;let r=t;const o=t.ownerDocument;for(;r&&r!==o&&r!==this;)r=r.parentNode||r.host;return r===this}};/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class Overlay extends OverlayFocusMixin(ThemableMixin(DirMixin(PolymerElement))){static get template(){return html`
-      <style>
-        :host {
-          z-index: 200;
-          position: fixed;
-
-          /* Despite of what the names say, <vaadin-overlay> is just a container
-          for position/sizing/alignment. The actual overlay is the overlay part. */
-
-          /* Default position constraints: the entire viewport. Note: themes can
-          override this to introduce gaps between the overlay and the viewport. */
-          top: 0;
-          right: 0;
-          bottom: var(--vaadin-overlay-viewport-bottom);
-          left: 0;
-
-          /* Use flexbox alignment for the overlay part. */
-          display: flex;
-          flex-direction: column; /* makes dropdowns sizing easier */
-          /* Align to center by default. */
-          align-items: center;
-          justify-content: center;
-
-          /* Allow centering when max-width/max-height applies. */
-          margin: auto;
-
-          /* The host is not clickable, only the overlay part is. */
-          pointer-events: none;
-
-          /* Remove tap highlight on touch devices. */
-          -webkit-tap-highlight-color: transparent;
-
-          /* CSS API for host */
-          --vaadin-overlay-viewport-bottom: 0;
-        }
-
-        :host([hidden]),
-        :host(:not([opened]):not([closing])) {
-          display: none !important;
-        }
-
-        [part='overlay'] {
-          -webkit-overflow-scrolling: touch;
-          overflow: auto;
-          pointer-events: auto;
-
-          /* Prevent overflowing the host in MSIE 11 */
-          max-width: 100%;
-          box-sizing: border-box;
-
-          -webkit-tap-highlight-color: initial; /* reenable tap highlight inside */
-        }
-
-        [part='backdrop'] {
-          z-index: -1;
-          content: '';
-          background: rgba(0, 0, 0, 0.5);
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          pointer-events: auto;
-        }
-      </style>
-
-      <div id="backdrop" part="backdrop" hidden$="[[!withBackdrop]]"></div>
-      <div part="overlay" id="overlay" tabindex="0">
-        <div part="content" id="content">
-          <slot></slot>
-        </div>
-      </div>
-    `}static get is(){return"vaadin-overlay"}static get properties(){return{opened:{type:Boolean,notify:!0,observer:"_openedChanged",reflectToAttribute:!0},owner:Element,renderer:Function,withBackdrop:{type:Boolean,value:!1,reflectToAttribute:!0},model:Object,modeless:{type:Boolean,value:!1,reflectToAttribute:!0,observer:"_modelessChanged"},hidden:{type:Boolean,reflectToAttribute:!0,observer:"_hiddenChanged"},_mouseDownInside:{type:Boolean},_mouseUpInside:{type:Boolean},_oldOwner:Element,_oldModel:Object,_oldRenderer:Object,_oldOpened:Boolean}}static get observers(){return["_rendererOrDataChanged(renderer, owner, model, opened)"]}static get __attachedInstances(){return Array.from(document.body.children).filter(i=>i instanceof Overlay&&!i.hasAttribute("closing")).sort((i,t)=>i.__zIndex-t.__zIndex||0)}constructor(){super(),this._boundMouseDownListener=this._mouseDownListener.bind(this),this._boundMouseUpListener=this._mouseUpListener.bind(this),this._boundOutsideClickListener=this._outsideClickListener.bind(this),this._boundKeydownListener=this._keydownListener.bind(this),isIOS&&(this._boundIosResizeListener=()=>this._detectIosNavbar())}get _last(){return this===Overlay.__attachedInstances.pop()}ready(){super.ready(),this.addEventListener("click",()=>{}),this.$.backdrop.addEventListener("click",()=>{}),processTemplates(this)}_detectIosNavbar(){if(!this.opened)return;const i=window.innerHeight,r=window.innerWidth>i,o=document.documentElement.clientHeight;r&&o>i?this.style.setProperty("--vaadin-overlay-viewport-bottom",`${o-i}px`):this.style.setProperty("--vaadin-overlay-viewport-bottom","0")}close(i){const t=new CustomEvent("vaadin-overlay-close",{bubbles:!0,cancelable:!0,detail:{sourceEvent:i}});this.dispatchEvent(t),t.defaultPrevented||(this.opened=!1)}connectedCallback(){super.connectedCallback(),this._boundIosResizeListener&&(this._detectIosNavbar(),window.addEventListener("resize",this._boundIosResizeListener))}disconnectedCallback(){super.disconnectedCallback(),this._boundIosResizeListener&&window.removeEventListener("resize",this._boundIosResizeListener)}requestContentUpdate(){this.renderer&&this.renderer.call(this.owner,this,this.owner,this.model)}_mouseDownListener(i){this._mouseDownInside=i.composedPath().indexOf(this.$.overlay)>=0}_mouseUpListener(i){this._mouseUpInside=i.composedPath().indexOf(this.$.overlay)>=0}_shouldCloseOnOutsideClick(i){return this._last}_outsideClickListener(i){if(i.composedPath().includes(this.$.overlay)||this._mouseDownInside||this._mouseUpInside){this._mouseDownInside=!1,this._mouseUpInside=!1;return}if(!this._shouldCloseOnOutsideClick(i))return;const t=new CustomEvent("vaadin-overlay-outside-click",{bubbles:!0,cancelable:!0,detail:{sourceEvent:i}});this.dispatchEvent(t),this.opened&&!t.defaultPrevented&&this.close(i)}_keydownListener(i){if(this._last&&!(this.modeless&&!i.composedPath().includes(this.$.overlay))&&i.key==="Escape"){const t=new CustomEvent("vaadin-overlay-escape-press",{bubbles:!0,cancelable:!0,detail:{sourceEvent:i}});this.dispatchEvent(t),this.opened&&!t.defaultPrevented&&this.close(i)}}_openedChanged(i,t){i?(this._saveFocus(),this._animatedOpening(),afterNextRender(this,()=>{this._trapFocus();const r=new CustomEvent("vaadin-overlay-open",{bubbles:!0});this.dispatchEvent(r)}),document.addEventListener("keydown",this._boundKeydownListener),this.modeless||this._addGlobalListeners()):t&&(this._resetFocus(),this._animatedClosing(),document.removeEventListener("keydown",this._boundKeydownListener),this.modeless||this._removeGlobalListeners())}_hiddenChanged(i){i&&this.hasAttribute("closing")&&this._flushAnimation("closing")}_shouldAnimate(){const i=getComputedStyle(this),t=i.getPropertyValue("animation-name");return!(i.getPropertyValue("display")==="none")&&t&&t!=="none"}_enqueueAnimation(i,t){const r=`__${i}Handler`,o=a=>{a&&a.target!==this||(t(),this.removeEventListener("animationend",o),delete this[r])};this[r]=o,this.addEventListener("animationend",o)}_flushAnimation(i){const t=`__${i}Handler`;typeof this[t]=="function"&&this[t]()}_animatedOpening(){this.parentNode===document.body&&this.hasAttribute("closing")&&this._flushAnimation("closing"),this._attachOverlay(),this.modeless||this._enterModalState(),this.setAttribute("opening",""),this._shouldAnimate()?this._enqueueAnimation("opening",()=>{this._finishOpening()}):this._finishOpening()}_attachOverlay(){this._placeholder=document.createComment("vaadin-overlay-placeholder"),this.parentNode.insertBefore(this._placeholder,this),document.body.appendChild(this),this.bringToFront()}_finishOpening(){this.removeAttribute("opening")}_finishClosing(){this._detachOverlay(),this.$.overlay.style.removeProperty("pointer-events"),this.removeAttribute("closing"),this.dispatchEvent(new CustomEvent("vaadin-overlay-closed"))}_animatedClosing(){this.hasAttribute("opening")&&this._flushAnimation("opening"),this._placeholder&&(this._exitModalState(),this.setAttribute("closing",""),this.dispatchEvent(new CustomEvent("vaadin-overlay-closing")),this._shouldAnimate()?this._enqueueAnimation("closing",()=>{this._finishClosing()}):this._finishClosing())}_detachOverlay(){this._placeholder.parentNode.insertBefore(this,this._placeholder),this._placeholder.parentNode.removeChild(this._placeholder)}_modelessChanged(i){i?(this._removeGlobalListeners(),this._exitModalState()):this.opened&&(this._addGlobalListeners(),this._enterModalState())}_addGlobalListeners(){document.addEventListener("mousedown",this._boundMouseDownListener),document.addEventListener("mouseup",this._boundMouseUpListener),document.documentElement.addEventListener("click",this._boundOutsideClickListener,!0)}_enterModalState(){document.body.style.pointerEvents!=="none"&&(this._previousDocumentPointerEvents=document.body.style.pointerEvents,document.body.style.pointerEvents="none"),Overlay.__attachedInstances.forEach(i=>{i!==this&&(i.shadowRoot.querySelector('[part="overlay"]').style.pointerEvents="none")})}_removeGlobalListeners(){document.removeEventListener("mousedown",this._boundMouseDownListener),document.removeEventListener("mouseup",this._boundMouseUpListener),document.documentElement.removeEventListener("click",this._boundOutsideClickListener,!0)}_exitModalState(){this._previousDocumentPointerEvents!==void 0&&(document.body.style.pointerEvents=this._previousDocumentPointerEvents,delete this._previousDocumentPointerEvents);const i=Overlay.__attachedInstances;let t;for(;(t=i.pop())&&!(t!==this&&(t.shadowRoot.querySelector('[part="overlay"]').style.removeProperty("pointer-events"),!t.modeless)););}_rendererOrDataChanged(i,t,r,o){const a=this._oldOwner!==t||this._oldModel!==r;this._oldModel=r,this._oldOwner=t;const s=this._oldRenderer!==i;this._oldRenderer=i;const l=this._oldOpened!==o;this._oldOpened=o,s&&(this.innerHTML="",delete this._$litPart$),o&&i&&(s||l||a)&&this.requestContentUpdate()}bringToFront(){let i="";const t=Overlay.__attachedInstances.filter(r=>r!==this).pop();t&&(i=t.__zIndex+1),this.style.zIndex=i,this.__zIndex=i||parseFloat(getComputedStyle(this).zIndex)}}customElements.define(Overlay.is,Overlay);const loginFormWrapper$1=css$e`
-  :host {
-    max-width: calc(var(--lumo-size-m) * 10);
-    background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
-  }
-
-  [part='form'] {
-    padding: var(--lumo-space-l);
-  }
-
-  [part='form-title'] {
-    margin-top: calc(var(--lumo-font-size-xxxl) - var(--lumo-font-size-xxl));
-  }
-
-  ::slotted([slot='forgot-password']) {
-    margin: var(--lumo-space-s) auto;
-  }
-
-  [part='error-message'] {
-    background-color: var(--lumo-error-color-10pct);
-    padding: var(--lumo-space-m);
-    border-radius: var(--lumo-border-radius-m);
-    margin-top: var(--lumo-space-m);
-    margin-bottom: var(--lumo-space-s);
-    color: var(--lumo-error-text-color);
-  }
-
-  :host(:not([dir='rtl'])) [part='error-message'] {
-    padding-left: var(--lumo-size-m);
-  }
-
-  :host([dir='rtl']) [part='error-message'] {
-    padding-right: var(--lumo-size-m);
-  }
-
-  [part='error-message']::before {
-    content: var(--lumo-icons-error);
-    font-family: lumo-icons;
-    font-size: var(--lumo-icon-size-m);
-    position: absolute;
-    width: var(--lumo-size-m);
-    height: 1em;
-    line-height: 1;
-    text-align: center;
-  }
-
-  :host(:not([dir='rtl'])) [part='error-message']::before {
-    /* Visual centering */
-    margin-left: calc(var(--lumo-size-m) * -0.95);
-  }
-
-  :host([dir='rtl']) [part='error-message']::before {
-    /* Visual centering */
-    margin-right: calc(var(--lumo-size-m) * -0.95);
-  }
-
-  [part='error-message-title'] {
-    margin: 0 0 0.25em;
-    color: inherit;
-  }
-
-  [part='error-message-description'] {
-    font-size: var(--lumo-font-size-s);
-    line-height: var(--lumo-line-height-s);
-    margin: 0;
-    opacity: 0.9;
-  }
-
-  [part='footer'] {
-    font-size: var(--lumo-font-size-xs);
-    line-height: var(--lumo-line-height-s);
-    color: var(--lumo-secondary-text-color);
-  }
-`;registerStyles$1("vaadin-login-form-wrapper",[color$h,typography,loginFormWrapper$1],{moduleId:"lumo-login-form-wrapper"});registerStyles$1("vaadin-login-form",css$e`
-    form > vaadin-button[theme~='submit'] {
-      margin-top: var(--lumo-space-l);
-      margin-bottom: var(--lumo-space-s);
-    }
-  `,{moduleId:"lumo-login-form"});/**
- * @license
- * Copyright (c) 2018 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class LoginFormWrapper extends ThemableMixin(PolymerElement){static get template(){return html`
-      <style>
-        :host {
-          overflow: hidden;
-          display: inline-block;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        [part='form'] {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          box-sizing: border-box;
-        }
-
-        [part='form-title'] {
-          margin: 0;
-        }
-
-        [part='error-message'] {
-          position: relative;
-        }
-      </style>
-      <section part="form">
-        <h2 part="form-title">[[i18n.form.title]]</h2>
-        <div part="error-message" hidden$="[[!error]]">
-          <h5 part="error-message-title">[[i18n.errorMessage.title]]</h5>
-          <p part="error-message-description">[[i18n.errorMessage.message]]</p>
-        </div>
-
-        <slot name="form"></slot>
-
-        <slot name="forgot-password"></slot>
-
-        <div part="footer">
-          <p>[[i18n.additionalInformation]]</p>
-        </div>
-      </section>
-    `}static get is(){return"vaadin-login-form-wrapper"}static get properties(){return{error:{type:Boolean,value:!1,reflectToAttribute:!0},i18n:{type:Object}}}}customElements.define(LoginFormWrapper.is,LoginFormWrapper);/**
- * @license
- * Copyright (c) 2018 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const LoginMixin=n=>class extends n{static get properties(){return{action:{type:String,value:null},disabled:{type:Boolean,value:!1,notify:!0},error:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0},noForgotPassword:{type:Boolean,value:!1},noAutofocus:{type:Boolean,value:!1},i18n:{type:Object,value(){return{form:{title:"Log in",username:"Username",password:"Password",submit:"Log in",forgotPassword:"Forgot password"},errorMessage:{title:"Incorrect username or password",message:"Check that you have entered the correct username and password and try again.",username:"Username is required",password:"Password is required"}}}},_preventAutoEnable:{type:Boolean,value:!1}}}};/**
- * @license
- * Copyright (c) 2018 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class LoginForm extends LoginMixin(ElementMixin(ThemableMixin(PolymerElement))){static get template(){return html`
-      <style>
-        vaadin-login-form-wrapper > form > * {
-          width: 100%;
-        }
-      </style>
-      <vaadin-login-form-wrapper theme$="[[_theme]]" error="[[error]]" i18n="[[i18n]]">
-        <form method="POST" action$="[[action]]" slot="form">
-          <input id="csrf" type="hidden" />
-          <vaadin-text-field
-            name="username"
-            label="[[i18n.form.username]]"
-            error-message="[[i18n.errorMessage.username]]"
-            id="vaadinLoginUsername"
-            required
-            on-keydown="_handleInputKeydown"
-            autocapitalize="none"
-            autocorrect="off"
-            spellcheck="false"
-            autocomplete="username"
-          >
-            <input type="text" slot="input" on-keyup="_handleInputKeyup" />
-          </vaadin-text-field>
-
-          <vaadin-password-field
-            name="password"
-            label="[[i18n.form.password]]"
-            error-message="[[i18n.errorMessage.password]]"
-            id="vaadinLoginPassword"
-            required
-            on-keydown="_handleInputKeydown"
-            spellcheck="false"
-            autocomplete="current-password"
-          >
-            <input type="password" slot="input" on-keyup="_handleInputKeyup" />
-          </vaadin-password-field>
-
-          <vaadin-button theme="primary contained submit" on-click="submit" disabled$="[[disabled]]">
-            [[i18n.form.submit]]
-          </vaadin-button>
-        </form>
-
-        <vaadin-button
-          slot="forgot-password"
-          theme="tertiary small"
-          on-click="_onForgotPasswordClick"
-          hidden$="[[noForgotPassword]]"
-        >
-          [[i18n.form.forgotPassword]]
-        </vaadin-button>
-      </vaadin-login-form-wrapper>
-    `}static get is(){return"vaadin-login-form"}static get observers(){return["_errorChanged(error)"]}connectedCallback(){super.connectedCallback(),this.noAutofocus||this.$.vaadinLoginUsername.focus()}_attachDom(i){this.appendChild(i)}_errorChanged(){this.error&&!this._preventAutoEnable&&(this.disabled=!1)}submit(){const i=this.$.vaadinLoginUsername,t=this.$.vaadinLoginPassword;if(this.disabled||!(i.validate()&&t.validate()))return;this.error=!1,this.disabled=!0;const r={bubbles:!0,cancelable:!0,detail:{username:i.value,password:t.value}},o=this.dispatchEvent(new CustomEvent("login",r));if(this.action&&o){const a=document.querySelector("meta[name=_csrf_parameter]"),s=document.querySelector("meta[name=_csrf]");a&&s&&(this.$.csrf.name=a.content,this.$.csrf.value=s.content),this.querySelector("form").submit()}}_handleInputKeydown(i){if(i.key==="Enter"){const{currentTarget:t}=i,r=t.id==="vaadinLoginUsername"?this.$.vaadinLoginPassword:this.$.vaadinLoginUsername;t.validate()&&(r.checkValidity()?this.submit():r.focus())}}_handleInputKeyup(i){const t=i.currentTarget;i.key==="Tab"&&t instanceof HTMLInputElement&&t.select()}_onForgotPasswordClick(){this.dispatchEvent(new CustomEvent("forgot-password"))}}customElements.define(LoginForm.is,LoginForm);const loginOverlayWrapper=css$e`
-  :host {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  [part='backdrop'] {
-    background: var(--lumo-base-color) linear-gradient(var(--lumo-shade-5pct), var(--lumo-shade-5pct));
-  }
-
-  [part='content'] {
-    padding: 0;
-  }
-
-  [part='overlay'] {
-    background: none;
-    border-radius: 0;
-    box-shadow: none;
-    width: 100%;
-    height: 100%;
-  }
-
-  [part='card'] {
-    width: calc(var(--lumo-size-m) * 10);
-    background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
-  }
-
-  [part='brand'] {
-    padding: var(--lumo-space-l) var(--lumo-space-xl) var(--lumo-space-l) var(--lumo-space-l);
-    background-color: var(--lumo-primary-color);
-    color: var(--lumo-primary-contrast-color);
-    min-height: calc(var(--lumo-size-m) * 5);
-  }
-
-  [part='description'] {
-    line-height: var(--lumo-line-height-s);
-    color: var(--lumo-tint-70pct);
-    margin-bottom: 0;
-  }
-
-  [part='content'] {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  [part='card'] {
-    border-radius: var(--lumo-border-radius-l);
-    box-shadow: var(--lumo-box-shadow-s);
-    margin: var(--lumo-space-s);
-    height: auto;
-  }
-
-  /* Small screen */
-  @media only screen and (max-width: 500px) {
-    [part='overlay'],
-    [part='content'] {
-      height: 100%;
-    }
-
-    [part='content'] {
-      min-height: 100%;
-      background: var(--lumo-base-color);
-      align-items: flex-start;
-    }
-
-    [part='card'],
-    [part='overlay'] {
-      width: 100%;
-      border-radius: 0;
-      box-shadow: none;
-      margin: 0;
-    }
-
-    /* RTL styles */
-    :host([dir='rtl']) [part='brand'] {
-      padding: var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-xl);
-    }
-  }
-
-  /* Landscape small screen */
-  @media only screen and (max-height: 600px) and (min-width: 600px) and (orientation: landscape) {
-    [part='card'] {
-      flex-direction: row;
-      align-items: stretch;
-      max-width: calc(var(--lumo-size-m) * 16);
-      width: 100%;
-    }
-
-    [part='brand'],
-    [part='form'] {
-      flex: auto;
-      flex-basis: 0;
-      box-sizing: border-box;
-    }
-
-    [part='brand'] {
-      justify-content: flex-start;
-    }
-
-    [part='form'] {
-      padding: var(--lumo-space-l);
-      overflow: auto;
-    }
-  }
-
-  /* Landscape really small screen */
-  @media only screen and (max-height: 500px) and (min-width: 600px) and (orientation: landscape),
-    only screen and (max-width: 600px) and (min-width: 600px) and (orientation: landscape) {
-    [part='content'] {
-      height: 100vh;
-    }
-
-    [part='card'] {
-      margin: 0;
-      width: 100%;
-      max-width: none;
-      height: 100%;
-      flex: auto;
-      border-radius: 0;
-      box-shadow: none;
-    }
-
-    [part='form'] {
-      height: 100%;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  }
-
-  /* Handle iPhone X notch */
-  @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
-    [part='card'] {
-      padding-right: constant(safe-area-inset-right);
-      padding-right: env(safe-area-inset-right);
-
-      padding-left: constant(safe-area-inset-left);
-      padding-left: env(safe-area-inset-left);
-    }
-
-    [part='brand'] {
-      margin-left: calc(constant(safe-area-inset-left) * -1);
-      margin-left: calc(env(safe-area-inset-left) * -1);
-
-      padding-left: calc(var(--lumo-space-l) + constant(safe-area-inset-left));
-      padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-left));
-    }
-
-    /* RTL styles */
-    :host([dir='rtl']) [part='card'] {
-      padding-left: constant(safe-area-inset-right);
-      padding-left: env(safe-area-inset-right);
-      padding-right: constant(safe-area-inset-left);
-      padding-right: env(safe-area-inset-left);
-    }
-
-    :host([dir='rtl']) [part='brand'] {
-      margin-right: calc(constant(safe-area-inset-left) * -1);
-      margin-right: calc(env(safe-area-inset-left) * -1);
-      padding-right: calc(var(--lumo-space-l) + constant(safe-area-inset-left));
-      padding-right: calc(var(--lumo-space-l) + env(safe-area-inset-left));
-    }
-  }
-`;registerStyles$1("vaadin-login-overlay-wrapper",[color$h,typography,loginOverlayWrapper],{moduleId:"vaadin-login-overlay-wrapper-lumo-styles"});const loginFormWrapper=css$e`
-  :host([theme~='with-overlay']) {
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    max-width: 100%;
-  }
-
-  /* Landscape small screen */
-  @media only screen and (max-height: 600px) and (min-width: 600px) and (orientation: landscape) {
-    :host([theme~='with-overlay']) [part='form'] {
-      height: 100%;
-      -webkit-overflow-scrolling: touch;
-      flex: 1;
-      padding: 2px;
-    }
-  }
-`;registerStyles$1("vaadin-login-form-wrapper",[color$h,typography,loginFormWrapper],{moduleId:"lumo-login-overlay"});/**
- * @license
- * Copyright (c) 2018 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-login-overlay-wrapper",css$e`
-    [part='overlay'] {
-      outline: none;
-    }
-
-    [part='card'] {
-      max-width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    [part='brand'] {
-      box-sizing: border-box;
-      overflow: hidden;
-      flex-grow: 1;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    [part='brand'] h1 {
-      color: inherit;
-      margin: 0;
-    }
-  `,{moduleId:"vaadin-login-overlay-wrapper-styles"});const template$8=html`
-  <section part="card">
-    <div part="brand">
-      <slot name="title">
-        <h1 part="title">[[title]]</h1>
-      </slot>
-      <p part="description">[[description]]</p>
-    </div>
-    <div part="form">
-      <slot></slot>
-    </div>
-  </section>
-`;let memoizedTemplate$b;class LoginOverlayWrapper extends Overlay{static get is(){return"vaadin-login-overlay-wrapper"}static get properties(){return{title:{type:String},description:{type:String}}}static get template(){if(!memoizedTemplate$b){memoizedTemplate$b=super.template.cloneNode(!0);const i=template$8.content.querySelector("[part=card]"),t=memoizedTemplate$b.content.querySelector("#content");t.replaceChild(i,t.children[0])}return memoizedTemplate$b}}customElements.define(LoginOverlayWrapper.is,LoginOverlayWrapper);/**
- * @license
- * Copyright (c) 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const OverlayClassMixin=n=>class extends n{static get properties(){return{overlayClass:{type:String},_overlayElement:{type:Object}}}static get observers(){return["__updateOverlayClassNames(overlayClass, _overlayElement)"]}__updateOverlayClassNames(t,r){if(!r||t===void 0)return;const{classList:o}=r;if(this.__initialClasses||(this.__initialClasses=new Set(o)),Array.isArray(this.__previousClasses)){const s=this.__previousClasses.filter(l=>!this.__initialClasses.has(l));s.length>0&&o.remove(...s)}const a=typeof t=="string"?t.split(" "):[];a.length>0&&o.add(...a),this.__previousClasses=a}};/**
- * @license
- * Copyright (c) 2018 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class LoginOverlay extends LoginMixin(OverlayClassMixin(ElementMixin(ThemableMixin(PolymerElement)))){static get template(){return html`
-      <vaadin-login-overlay-wrapper
-        id="vaadinLoginOverlayWrapper"
-        opened="{{opened}}"
-        focus-trap
-        with-backdrop
-        title="[[title]]"
-        description="[[description]]"
-        theme$="[[_theme]]"
-        on-vaadin-overlay-escape-press="_preventClosingLogin"
-        on-vaadin-overlay-outside-click="_preventClosingLogin"
-      >
-        <vaadin-login-form
-          theme="with-overlay"
-          id="vaadinLoginForm"
-          action="[[action]]"
-          disabled="{{disabled}}"
-          error="{{error}}"
-          no-autofocus="[[noAutofocus]]"
-          no-forgot-password="[[noForgotPassword]]"
-          i18n="{{i18n}}"
-          on-login="_retargetEvent"
-          on-forgot-password="_retargetEvent"
-        ></vaadin-login-form>
-      </vaadin-login-overlay-wrapper>
-    `}static get is(){return"vaadin-login-overlay"}static get properties(){return{description:{type:String,value:"Application description",notify:!0},opened:{type:Boolean,value:!1,observer:"_onOpenedChange"},title:{type:String,value:"App name"}}}static get observers(){return["__i18nChanged(i18n.header.*)"]}ready(){super.ready(),this._overlayElement=this.$.vaadinLoginOverlayWrapper}connectedCallback(){super.connectedCallback(),this.__restoreOpened&&(this.opened=!0)}disconnectedCallback(){super.disconnectedCallback(),this.__restoreOpened=this.opened,this.opened=!1}__i18nChanged(i){const t=i.base;t&&(this.title=t.title,this.description=t.description)}_preventClosingLogin(i){i.preventDefault()}_retargetEvent(i){i.stopPropagation();const{detail:t,composed:r,cancelable:o,bubbles:a}=i;this.dispatchEvent(new CustomEvent(i.type,{bubbles:a,cancelable:o,composed:r,detail:t}))||i.preventDefault()}_onOpenedChange(){this.opened?(this._undoTeleport=this._teleport(this._getElementsToTeleport()),document.body.style.pointerEvents=this.$.vaadinLoginOverlayWrapper._previousDocumentPointerEvents):(this.$.vaadinLoginForm.$.vaadinLoginUsername.value="",this.$.vaadinLoginForm.$.vaadinLoginPassword.value="",this.disabled=!1,this._undoTeleport&&this._undoTeleport())}_teleport(i){const t=Array.from(i).map(r=>this.$.vaadinLoginOverlayWrapper.appendChild(r));return()=>{for(;t.length>0;)this.appendChild(t.shift())}}_getElementsToTeleport(){return this.querySelectorAll("[slot=title]")}}customElements.define(LoginOverlay.is,LoginOverlay);/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const userColors=css$e`
-  :host {
-    --vaadin-user-color-0: #df0b92;
-    --vaadin-user-color-1: #650acc;
-    --vaadin-user-color-2: #097faa;
-    --vaadin-user-color-3: #ad6200;
-    --vaadin-user-color-4: #bf16f3;
-    --vaadin-user-color-5: #084391;
-    --vaadin-user-color-6: #078836;
-  }
-
-  [theme~='dark'] {
-    --vaadin-user-color-0: #ff66c7;
-    --vaadin-user-color-1: #9d8aff;
-    --vaadin-user-color-2: #8aff66;
-    --vaadin-user-color-3: #ffbd66;
-    --vaadin-user-color-4: #dc6bff;
-    --vaadin-user-color-5: #66fffa;
-    --vaadin-user-color-6: #e6ff66;
-  }
-`;addLumoGlobalStyles("user-color-props",userColors);/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-field-outline",css$e`
-    :host {
-      transition: opacity 0.3s;
-      -webkit-mask-image: none !important;
-      mask-image: none !important;
-    }
-
-    :host::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      box-shadow: 0 0 0 2px var(--_active-user-color);
-      border-radius: var(--lumo-border-radius-s);
-      transition: box-shadow 0.3s;
-    }
-
-    :host([context$='checkbox'])::before {
-      box-shadow: 0 0 0 2px var(--lumo-base-color), 0 0 0 4px var(--_active-user-color);
-    }
-
-    :host([context$='radio-button'])::before {
-      border-radius: 50%;
-      box-shadow: 0 0 0 3px var(--lumo-base-color), 0 0 0 5px var(--_active-user-color);
-    }
-
-    :host([context$='item'])::before {
-      box-shadow: inset 0 0 0 2px var(--_active-user-color);
-    }
-  `,{moduleId:"lumo-field-outline"});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-user-tags-overlay",css$e`
-    [part='overlay'] {
-      will-change: opacity, transform;
-    }
-
-    :host([opening]) [part='overlay'] {
-      animation: 0.1s lumo-user-tags-enter ease-out both;
-    }
-
-    @keyframes lumo-user-tags-enter {
-      0% {
-        opacity: 0;
-      }
-    }
-
-    :host([closing]) [part='overlay'] {
-      animation: 0.1s lumo-user-tags-exit both;
-    }
-
-    @keyframes lumo-user-tags-exit {
-      100% {
-        opacity: 0;
-      }
-    }
-  `,{moduleId:"lumo-user-tags-overlay"});registerStyles$1("vaadin-user-tag",css$e`
-    :host {
-      font-family: var(--lumo-font-family);
-      font-size: var(--lumo-font-size-xxs);
-      border-radius: var(--lumo-border-radius-s);
-      box-shadow: var(--lumo-box-shadow-xs);
-      --vaadin-user-tag-offset: var(--lumo-space-xs);
-    }
-
-    [part='name'] {
-      color: var(--lumo-primary-contrast-color);
-      padding: 0.3em calc(0.3em + var(--lumo-border-radius-s) / 4);
-      line-height: 1;
-      font-weight: 500;
-      min-width: calc(var(--lumo-line-height-xs) * 1em + 0.45em);
-    }
-  `,{moduleId:"lumo-user-tag"});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class UserTag extends ThemableMixin(DirMixin(PolymerElement)){static get is(){return"vaadin-user-tag"}static get template(){return html`
-      <style>
-        :host {
-          display: block;
-          box-sizing: border-box;
-          margin: 0 0 var(--vaadin-user-tag-offset);
-          opacity: 0;
-          height: 1.3rem;
-          transition: opacity 0.2s ease-in-out;
-          background-color: var(--vaadin-user-tag-color);
-          color: #fff;
-          cursor: default;
-          -webkit-user-select: none;
-          user-select: none;
-          --vaadin-user-tag-offset: 4px;
-        }
-
-        :host(.show) {
-          opacity: 1;
-        }
-
-        :host(:last-of-type) {
-          margin-bottom: 0;
-        }
-
-        [part='name'] {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          box-sizing: border-box;
-          padding: 2px 4px;
-          height: 1.3rem;
-          font-size: 13px;
-        }
-      </style>
-      <div part="name">[[name]]</div>
-    `}static get properties(){return{name:{type:String},uid:{type:String},colorIndex:{type:Number,observer:"_colorIndexChanged"}}}ready(){super.ready(),this.addEventListener("mousedown",this._onClick.bind(this),!0)}_colorIndexChanged(i){i!=null&&this.style.setProperty("--vaadin-user-tag-color",`var(--vaadin-user-color-${i})`)}_onClick(i){i.preventDefault(),this.dispatchEvent(new CustomEvent("user-tag-click",{bubbles:!0,composed:!0,detail:{name:this.name}}))}}customElements.define(UserTag.is,UserTag);/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const PROP_NAMES_VERTICAL={start:"top",end:"bottom"},PROP_NAMES_HORIZONTAL={start:"left",end:"right"},targetResizeObserver=new ResizeObserver(n=>{setTimeout(()=>{n.forEach(i=>{i.target.__overlay&&i.target.__overlay._updatePosition()})})}),PositionMixin=n=>class extends n{static get properties(){return{positionTarget:{type:Object,value:null},horizontalAlign:{type:String,value:"start"},verticalAlign:{type:String,value:"top"},noHorizontalOverlap:{type:Boolean,value:!1},noVerticalOverlap:{type:Boolean,value:!1},requiredVerticalSpace:{type:Number,value:0}}}static get observers(){return["__positionSettingsChanged(horizontalAlign, verticalAlign, noHorizontalOverlap, noVerticalOverlap, requiredVerticalSpace)","__overlayOpenedChanged(opened, positionTarget)"]}constructor(){super(),this.__onScroll=this.__onScroll.bind(this),this._updatePosition=this._updatePosition.bind(this)}connectedCallback(){super.connectedCallback(),this.opened&&this.__addUpdatePositionEventListeners()}disconnectedCallback(){super.disconnectedCallback(),this.__removeUpdatePositionEventListeners()}__addUpdatePositionEventListeners(){window.addEventListener("resize",this._updatePosition),this.__positionTargetAncestorRootNodes=getAncestorRootNodes(this.positionTarget),this.__positionTargetAncestorRootNodes.forEach(t=>{t.addEventListener("scroll",this.__onScroll,!0)})}__removeUpdatePositionEventListeners(){window.removeEventListener("resize",this._updatePosition),this.__positionTargetAncestorRootNodes&&(this.__positionTargetAncestorRootNodes.forEach(t=>{t.removeEventListener("scroll",this.__onScroll,!0)}),this.__positionTargetAncestorRootNodes=null)}__overlayOpenedChanged(t,r){if(this.__removeUpdatePositionEventListeners(),r&&(r.__overlay=null,targetResizeObserver.unobserve(r),t&&(this.__addUpdatePositionEventListeners(),r.__overlay=this,targetResizeObserver.observe(r))),t){const o=getComputedStyle(this);this.__margins||(this.__margins={},["top","bottom","left","right"].forEach(a=>{this.__margins[a]=parseInt(o[a],10)})),this.setAttribute("dir",o.direction),this._updatePosition(),requestAnimationFrame(()=>this._updatePosition())}}__positionSettingsChanged(){this._updatePosition()}__onScroll(t){this.contains(t.target)||this._updatePosition()}_updatePosition(){if(!this.positionTarget||!this.opened)return;const t=this.positionTarget.getBoundingClientRect(),r=this.__shouldAlignStartVertically(t);this.style.justifyContent=r?"flex-start":"flex-end";const o=this.__isRTL,a=this.__shouldAlignStartHorizontally(t,o),s=!o&&a||o&&!a;this.style.alignItems=s?"flex-start":"flex-end";const l=this.getBoundingClientRect(),h=this.__calculatePositionInOneDimension(t,l,this.noVerticalOverlap,PROP_NAMES_VERTICAL,this,r),c=this.__calculatePositionInOneDimension(t,l,this.noHorizontalOverlap,PROP_NAMES_HORIZONTAL,this,a);Object.assign(this.style,h,c),this.toggleAttribute("bottom-aligned",!r),this.toggleAttribute("top-aligned",r),this.toggleAttribute("end-aligned",!s),this.toggleAttribute("start-aligned",s)}__shouldAlignStartHorizontally(t,r){const o=Math.max(this.__oldContentWidth||0,this.$.overlay.offsetWidth);this.__oldContentWidth=this.$.overlay.offsetWidth;const a=Math.min(window.innerWidth,document.documentElement.clientWidth),s=!r&&this.horizontalAlign==="start"||r&&this.horizontalAlign==="end";return this.__shouldAlignStart(t,o,a,this.__margins,s,this.noHorizontalOverlap,PROP_NAMES_HORIZONTAL)}__shouldAlignStartVertically(t){const r=this.requiredVerticalSpace||Math.max(this.__oldContentHeight||0,this.$.overlay.offsetHeight);this.__oldContentHeight=this.$.overlay.offsetHeight;const o=Math.min(window.innerHeight,document.documentElement.clientHeight),a=this.verticalAlign==="top";return this.__shouldAlignStart(t,r,o,this.__margins,a,this.noVerticalOverlap,PROP_NAMES_VERTICAL)}__shouldAlignStart(t,r,o,a,s,l,h){const c=o-t[l?h.end:h.start]-a[h.end],d=t[l?h.start:h.end]-a[h.start],u=s?c:d,f=u>(s?d:c)||u>r;return s===f}__adjustBottomProperty(t,r,o){let a;if(t===r.end){if(r.end===PROP_NAMES_VERTICAL.end){const s=Math.min(window.innerHeight,document.documentElement.clientHeight);if(o>s&&this.__oldViewportHeight){const l=this.__oldViewportHeight-s;a=o-l}this.__oldViewportHeight=s}if(r.end===PROP_NAMES_HORIZONTAL.end){const s=Math.min(window.innerWidth,document.documentElement.clientWidth);if(o>s&&this.__oldViewportWidth){const l=this.__oldViewportWidth-s;a=o-l}this.__oldViewportWidth=s}}return a}__calculatePositionInOneDimension(t,r,o,a,s,l){const h=l?a.start:a.end,c=l?a.end:a.start,d=parseFloat(s.style[h]||getComputedStyle(s)[h]),u=this.__adjustBottomProperty(h,a,d),p=r[l?a.start:a.end]-t[o===l?a.end:a.start],f=u?`${u}px`:`${d+p*(l?-1:1)}px`;return{[h]:f,[c]:""}}};/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */registerStyles$1("vaadin-user-tags-overlay",css$e`
-    :host {
-      background: transparent;
-      box-shadow: none;
-    }
-
-    [part='overlay'] {
-      box-shadow: none;
-      background: transparent;
-      position: relative;
-      left: -4px;
-      padding: 4px;
-      outline: none;
-      overflow: visible;
-    }
-
-    ::slotted([part='tags']) {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    :host([dir='rtl']) [part='overlay'] {
-      left: auto;
-      right: -4px;
-    }
-
-    [part='content'] {
-      padding: 0;
-    }
-
-    :host([opening]),
-    :host([closing]) {
-      animation: 0.14s user-tags-overlay-dummy-animation;
-    }
-
-    @keyframes user-tags-overlay-dummy-animation {
-      0% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-  `);class UserTagsOverlay extends PositionMixin(Overlay){static get is(){return"vaadin-user-tags-overlay"}ready(){super.ready(),this.$.overlay.setAttribute("tabindex","-1")}}customElements.define(UserTagsOverlay.is,UserTagsOverlay);/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const listenOnce$1=(n,i)=>new Promise(t=>{const r=()=>{n.removeEventListener(i,r),t()};n.addEventListener(i,r)});class UserTags extends PolymerElement{static get is(){return"vaadin-user-tags"}static get template(){return html`
-      <style>
-        :host {
-          position: absolute;
-        }
-      </style>
-      <vaadin-user-tags-overlay
-        id="overlay"
-        modeless
-        opened="[[opened]]"
-        no-vertical-overlap
-        on-vaadin-overlay-open="_onOverlayOpen"
-      ></vaadin-user-tags-overlay>
-    `}static get properties(){return{hasFocus:{type:Boolean,value:!1,observer:"_hasFocusChanged"},opened:{type:Boolean,value:!1},flashing:{type:Boolean,value:!1},target:{type:Object,observer:"__targetChanged"},users:{type:Array,value:()=>[]},duration:{type:Number,value:200},delay:{type:Number,value:2e3},__flashQueue:{type:Array,value:()=>[]},__isTargetVisible:{type:Boolean,value:!1}}}constructor(){super(),this.__targetVisibilityObserver=new IntersectionObserver(([i])=>{this.__onTargetVisibilityChange(i.isIntersecting)},{threshold:1})}get wrapper(){return this.$.overlay.querySelector('[part="tags"]')}connectedCallback(){super.connectedCallback(),this.target&&this.__targetVisibilityObserver.observe(this.target)}disconnectedCallback(){super.disconnectedCallback(),this.opened=!1,this.target&&this.__targetVisibilityObserver.unobserve(this.target)}ready(){super.ready(),this.$.overlay.renderer=i=>{if(!i.firstChild){const t=document.createElement("div");t.setAttribute("part","tags"),i.appendChild(t)}},this.$.overlay.requestContentUpdate()}__onTargetVisibilityChange(i){if(this.__isTargetVisible=i,i&&this.__flashQueue.length>0&&!this.flashing){this.flashTags(this.__flashQueue.shift());return}if(i&&this.hasFocus){this.opened=!0;return}!i&&this.opened&&(this.opened=!1)}__targetChanged(i,t){this.$.overlay.positionTarget=i,t&&this.__targetVisibilityObserver.unobserve(t),i&&this.__targetVisibilityObserver.observe(i)}_hasFocusChanged(i){i&&this.flashing&&this.stopFlash()}createUserTag(i){const t=document.createElement("vaadin-user-tag");return t.name=i.name,t.uid=i.id,t.colorIndex=i.colorIndex,t}getTagForUser(i){return Array.from(this.wrapper.children).find(t=>t.uid===i.id)}getChangedTags(i,t){const r=t.map(a=>this.getTagForUser(a));return{added:i.map(a=>this.getTagForUser(a)||this.createUserTag(a)),removed:r}}getChangedUsers(i,t){const r=[],o=[];t.forEach(l=>{l.removed.forEach(h=>{o.push(h)});for(let h=l.addedCount-1;h>=0;h--)r.push(i[l.index+h])});const a=r.filter(l=>!o.some(h=>l.id===h.id)),s=o.filter(l=>!r.some(h=>l.id===h.id));return{addedUsers:a,removedUsers:s}}applyTagsStart({added:i,removed:t}){const r=this.wrapper;t.forEach(o=>{o&&(o.classList.add("removing"),o.classList.remove("show"))}),i.forEach(o=>r.insertBefore(o,r.firstChild))}applyTagsEnd({added:i,removed:t}){const r=this.wrapper;t.forEach(o=>{o&&o.parentNode===r&&r.removeChild(o)}),i.forEach(o=>o&&o.classList.add("show"))}setUsers(i){this.requestContentUpdate();const t=calculateSplices(i,this.users);if(t.length===0)return;const{addedUsers:r,removedUsers:o}=this.getChangedUsers(i,t);if(r.length===0&&o.length===0)return;const a=this.getChangedTags(r,o);if(this.__flashQueue.length>0&&o.forEach((s,l)=>{a.removed[l]!==null&&this.__flashQueue.forEach(h=>{h.some(c=>c.uid===s.id)&&this.splice("__flashQueue",l,1)})}),this.opened&&this.hasFocus)this.updateTags(i,a);else if(r.length>0&&document.visibilityState!=="hidden"){const s=a.added,l=a.removed;this.updateTagsSync(i,{added:[],removed:l}),this.flashing||!this.__isTargetVisible?this.push("__flashQueue",s):this.flashTags(s)}else this.updateTagsSync(i,a)}_onOverlayOpen(){Array.from(this.wrapper.children).forEach(i=>{i.classList.contains("removing")||i.classList.add("show")})}flashTags(i){this.flashing=!0;const t=this.wrapper,r=Array.from(t.children);r.forEach(o=>{o.style.display="none"}),i.forEach(o=>{t.insertBefore(o,t.firstChild)}),this.flashPromise=new Promise(o=>{listenOnce$1(this.$.overlay,"vaadin-overlay-open").then(()=>{this._debounceFlashStart=Debouncer$1.debounce(this._debounceFlashStart,timeOut.after(this.duration+this.delay),()=>{this.hasFocus||i.forEach(a=>a.classList.remove("show")),this._debounceFlashEnd=Debouncer$1.debounce(this._debounceFlashEnd,timeOut.after(this.duration),()=>{const a=()=>{r.forEach(s=>{s.style.display="block"}),this.flashing=!1,o()};this.hasFocus?a():(listenOnce$1(this.$.overlay,"animationend").then(()=>{a()}),this.opened=!1)})})})}).then(()=>{if(this.__flashQueue.length>0){const o=this.__flashQueue[0];this.splice("__flashQueue",0,1),this.flashTags(o)}}),this.opened=!0}stopFlash(){this._debounceFlashStart&&this._debounceFlashStart.flush(),this._debounceFlashEnd&&this._debounceFlashEnd.flush(),this.$.overlay._flushAnimation("closing")}updateTags(i,t){this.applyTagsStart(t),this._debounceRender=Debouncer$1.debounce(this._debounceRender,timeOut.after(this.duration),()=>{this.set("users",i),this.applyTagsEnd(t),i.length===0&&this.opened&&(this.opened=!1)})}updateTagsSync(i,t){this.applyTagsStart(t),this.set("users",i),this.applyTagsEnd(t)}show(){this.hasFocus=!0,this.__isTargetVisible&&(this.opened=!0)}hide(){this.hasFocus=!1,this.opened=!1}requestContentUpdate(){this._debounceRender&&this._debounceRender.isActive()&&this._debounceRender.flush()}}customElements.define(UserTags.is,UserTags);/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class FieldOutline extends ThemableMixin(DirMixin(PolymerElement)){static get is(){return"vaadin-field-outline"}static get template(){return html`
-      <style>
-        :host {
-          display: block;
-          box-sizing: border-box;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          user-select: none;
-          opacity: 0;
-          --_active-user-color: transparent;
-        }
-
-        :host([has-active-user]) {
-          opacity: 1;
-        }
-      </style>
-    `}static get properties(){return{user:{type:Object,value:null,observer:"_userChanged"}}}ready(){super.ready(),this.setAttribute("part","outline"),this._field=this.getRootNode().host}_userChanged(i){this.toggleAttribute("has-active-user",!!i);const t=i?`var(--vaadin-user-color-${i.colorIndex})`:"transparent",r="--_active-user-color";this.style.setProperty(r,t),this._field&&this._field.style.setProperty(r,t)}}customElements.define(FieldOutline.is,FieldOutline);/**
- * @license
- * Copyright (c) 2022 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const region=document.createElement("div");region.style.position="fixed";region.style.clip="rect(0px, 0px, 0px, 0px)";region.setAttribute("aria-live","polite");document.body.appendChild(region);let alertDebouncer;function announce(n,i={}){const t=i.mode||"polite",r=i.timeout===void 0?150:i.timeout;t==="alert"?(region.removeAttribute("aria-live"),region.removeAttribute("role"),alertDebouncer=Debouncer$1.debounce(alertDebouncer,animationFrame,()=>{region.setAttribute("role","alert")})):(alertDebouncer&&alertDebouncer.cancel(),region.removeAttribute("role"),region.setAttribute("aria-live",t)),region.textContent="",setTimeout(()=>{region.textContent=n},r)}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const getOutlineTarget=(n,i)=>{switch(i){case"vaadin-big-decimal-field":case"vaadin-combo-box":case"vaadin-date-picker":case"vaadin-email-field":case"vaadin-integer-field":case"vaadin-number-field":case"vaadin-password-field":case"vaadin-select":case"vaadin-text-area":case"vaadin-text-field":case"vaadin-time-picker":return n.shadowRoot.querySelector('[part="input-field"]');case"vaadin-checkbox":return n.shadowRoot.querySelector('[part="checkbox"]');case"vaadin-radio-button":return n.shadowRoot.querySelector('[part="radio"]');default:return n}},fields=new WeakMap,initOutline=n=>{if(!fields.has(n)){const i=n.tagName.toLowerCase(),t=getOutlineTarget(n,i);t.style.position="relative",i.endsWith("text-area")&&(t.style.overflow="visible");const r=document.createElement("style");r.textContent=`
-      :host([active]) [part="outline"],
-      :host([focus-ring]) [part="outline"] {
-        display: none;
-      }
-    `,n.shadowRoot.appendChild(r);const o=document.createElement("vaadin-field-outline");(t===n?n.shadowRoot:t).appendChild(o),o.setAttribute("context",i),fields.set(n,{root:n,target:t,outline:o})}return fields.get(n)};/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class ComponentObserver{constructor(i){this.component=i,this.initTags(i)}getFields(){return[this.component]}getFieldIndex(i){return this.getFields().indexOf(i)}getFocusTarget(i){return this.component}initTags(i){const t=document.createElement("vaadin-user-tags");i.shadowRoot.appendChild(t),t.target=i,this._tags=t,i.addEventListener("mouseenter",r=>{r.relatedTarget!==this._tags.$.overlay&&(this._mouse=!0,this._mouseDebouncer=Debouncer$1.debounce(this._mouseDebouncer,timeOut.after(200),()=>{this._mouse&&this._tags.show()}))}),i.addEventListener("mouseleave",r=>{r.relatedTarget!==this._tags.$.overlay&&(this._mouse=!1,this._hasFocus||this._tags.hide())}),i.addEventListener("vaadin-highlight-show",r=>{this._hasFocus=!0,this._debouncer&&this._debouncer.isActive()?this._debouncer.cancel():this._tags.show()}),i.addEventListener("vaadin-highlight-hide",r=>{this._hasFocus=!1,this._mouse||(this._debouncer=Debouncer$1.debounce(this._debouncer,timeOut.after(1),()=>{this._tags.hide()}))}),this._tags.$.overlay.addEventListener("mouseleave",r=>{r.relatedTarget!==i&&(this._mouse=!1,i.hasAttribute("focused")||this._tags.hide())})}setOutlines(i){const t=this.getFields();t.forEach((r,o)=>{const{outline:a}=initOutline(r),s=t.length===1?0:i.map(l=>l.fieldIndex).indexOf(o);a.user=i[s]})}showOutline(i){this.fire("show",i)}hideOutline(i){this.fire("hide",i)}fire(i,t){this.component.dispatchEvent(new CustomEvent(`vaadin-highlight-${i}`,{bubbles:!0,composed:!0,detail:{fieldIndex:this.getFieldIndex(t)}}))}redraw(i){this._tags.setUsers(i),this.setOutlines(i)}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class FieldObserver extends ComponentObserver{constructor(i){super(i),this.addListeners(i)}addListeners(i){i.addEventListener("focusin",t=>this.onFocusIn(t)),i.addEventListener("focusout",t=>this.onFocusOut(t))}onFocusIn(i){const t=this.getFocusTarget(i);this.showOutline(t)}onFocusOut(i){const t=this.getFocusTarget(i);this.hideOutline(t)}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class CheckboxGroupObserver extends FieldObserver{getFields(){return this.component.__checkboxes}getFocusTarget(i){const t=this.getFields();return Array.from(i.composedPath()).find(r=>t.includes(r))}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class DatePickerObserver extends ComponentObserver{constructor(i){super(i),this.datePicker=i,this.fullscreenFocus=!1,this.blurWhileOpened=!1,this.addListeners(i)}addListeners(i){this.overlay=i.$.overlay,i.addEventListener("blur",t=>this.onBlur(t),!0),i.addEventListener("opened-changed",t=>this.onOpenedChanged(t)),this.overlay.addEventListener("focusout",t=>this.onOverlayFocusOut(t)),i.addEventListener("focusin",t=>this.onFocusIn(t)),i.addEventListener("focusout",t=>this.onFocusOut(t))}isEventInOverlay(i){return this.datePicker._overlayContent&&this.datePicker._overlayContent.contains(i)}onBlur(i){this.datePicker._fullscreen&&!this.isEventInOverlay(i.relatedTarget)&&(this.fullscreenFocus=!0)}onFocusIn(i){if(!this.isEventInOverlay(i.relatedTarget)){if(this.blurWhileOpened){this.blurWhileOpened=!1;return}this.showOutline(this.datePicker)}}onFocusOut(i){this.fullscreenFocus||this.isEventInOverlay(i.relatedTarget)||(this.datePicker.opened?this.blurWhileOpened=!0:this.hideOutline(this.datePicker))}onOverlayFocusOut(i){this.datePicker.contains(i.relatedTarget)||(this.blurWhileOpened=!0)}onOpenedChanged(i){i.detail.value===!0&&this.fullscreenFocus&&(this.fullscreenFocus=!1,this.showOutline(this.datePicker)),i.detail.value===!1&&this.blurWhileOpened&&(this.blurWhileOpened=!1,this.hideOutline(this.datePicker))}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class DateObserver extends DatePickerObserver{constructor(i,t){super(i),this.component=t}getFieldIndex(){return 0}}class TimeObserver extends FieldObserver{constructor(i,t){super(i),this.component=t,this.timePicker=i}getFocusTarget(i){return this.timePicker}getFieldIndex(){return 1}}class DateTimePickerObserver extends ComponentObserver{constructor(i){super(i);const[t,r]=this.getFields();this.dateObserver=new DateObserver(t,i),this.timeObserver=new TimeObserver(r,i)}getFields(){return this.component.__inputs}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class ListBoxObserver extends FieldObserver{getFields(){return this.component.items||[]}getFocusTarget(i){const t=this.getFields();return Array.from(i.composedPath()).find(r=>t.includes(r))}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class RadioGroupObserver extends FieldObserver{getFields(){return this.component.__radioButtons}getFocusTarget(i){const t=this.getFields();return Array.from(i.composedPath()).find(r=>t.includes(r))}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class SelectObserver extends FieldObserver{constructor(i){super(i),this.blurWhileOpened=!1,this.overlay=i._overlayElement}addListeners(i){super.addListeners(i),i.addEventListener("opened-changed",t=>{i._phone&&t.detail.value===!1&&this.hideOutline(i)})}onFocusIn(i){this.overlay.contains(i.relatedTarget)||!this.component._phone&&this.overlay.hasAttribute("closing")||super.onFocusIn(i)}onFocusOut(i){this.overlay.contains(i.relatedTarget)||super.onFocusOut(i)}}/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const initFieldObserver=n=>{let i;switch(n.tagName.toLowerCase()){case"vaadin-date-picker":i=new DatePickerObserver(n);break;case"vaadin-date-time-picker":i=new DateTimePickerObserver(n);break;case"vaadin-select":i=new SelectObserver(n);break;case"vaadin-checkbox-group":i=new CheckboxGroupObserver(n);break;case"vaadin-radio-group":i=new RadioGroupObserver(n);break;case"vaadin-list-box":i=new ListBoxObserver(n);break;default:i=new FieldObserver(n)}return i};class FieldHighlighterController{constructor(i){this.host=i,this.user=null,this.users=[]}get user(){return this._user}set user(i){if(this._user=i,i){const t=`${i.name} started editing`,{label:r}=this.host;announce(r?`${t} ${r}`:t)}}hostConnected(){this.redraw()}addUser(i){i&&(this.users.push(i),this.redraw(),this.user=i)}setUsers(i){Array.isArray(i)&&(this.users=i,this.redraw(),this.user=i[i.length-1]||null)}removeUser(i){if(i&&i.id!==void 0){let t;for(let r=0;r<this.users.length;r++)if(this.users[r].id===i.id){t=r;break}t!==void 0&&(this.users.splice(t,1),this.redraw(),this.users.length>0?this.user=this.users[this.users.length-1]:this.user=null)}}redraw(){this.observer.redraw([...this.users].reverse())}}class FieldHighlighter extends HTMLElement{static init(i){if(!i._highlighterController){const t=new FieldHighlighterController(i);i.setAttribute("has-highlighter",""),t.observer=initFieldObserver(i),i.addController(t),i._highlighterController=t}return i._highlighterController}static addUser(i,t){this.init(i).addUser(t)}static removeUser(i,t){this.init(i).removeUser(t)}static setUsers(i,t){this.init(i).setUsers(t)}}customElements.define("vaadin-field-highlighter",FieldHighlighter);const detailsSummary=css$e`
-  :host {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    outline: none;
-    padding: var(--lumo-space-s) 0;
-    box-sizing: border-box;
-    font-family: var(--lumo-font-family);
-    font-size: var(--lumo-font-size-m);
-    font-weight: 500;
-    line-height: var(--lumo-line-height-xs);
-    color: var(--lumo-secondary-text-color);
-    background-color: inherit;
-    border-radius: var(--lumo-border-radius-m);
-    cursor: var(--lumo-clickable-cursor);
-    -webkit-tap-highlight-color: transparent;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  :host([disabled]),
-  :host([disabled]) [part='toggle'] {
-    color: var(--lumo-disabled-text-color);
-    cursor: default;
-  }
-
-  @media (hover: hover) {
-    :host(:hover:not([disabled])),
-    :host(:hover:not([disabled])) [part='toggle'] {
-      color: var(--lumo-contrast-80pct);
-    }
-  }
-
-  [part='toggle'] {
-    display: block;
-    width: 1em;
-    height: 1em;
-    margin-left: calc(var(--lumo-space-xs) * -1);
-    margin-right: var(--lumo-space-xs);
-    font-size: var(--lumo-icon-size-s);
-    line-height: 1;
-    color: var(--lumo-contrast-60pct);
-    font-family: 'lumo-icons';
-    cursor: var(--lumo-clickable-cursor);
-  }
-
-  [part='toggle']::before {
-    content: var(--lumo-icons-angle-right);
-  }
-
-  :host([opened]) [part='toggle'] {
-    transform: rotate(90deg);
-  }
-
-  /* RTL styles */
-  :host([dir='rtl']) [part='toggle'] {
-    margin-left: var(--lumo-space-xs);
-    margin-right: calc(var(--lumo-space-xs) * -1);
-  }
-
-  :host([dir='rtl']) [part='toggle']::before {
-    content: var(--lumo-icons-angle-left);
-  }
-
-  :host([opened][dir='rtl']) [part='toggle'] {
-    transform: rotate(-90deg);
-  }
-
-  /* Small */
-  :host([theme~='small']) {
-    padding-top: var(--lumo-space-xs);
-    padding-bottom: var(--lumo-space-xs);
-  }
-
-  :host([theme~='small']) [part='toggle'] {
-    margin-right: calc(var(--lumo-space-xs) / 2);
-  }
-
-  :host([theme~='small'][dir='rtl']) [part='toggle'] {
-    margin-left: calc(var(--lumo-space-xs) / 2);
-  }
-
-  /* Filled */
-  :host([theme~='filled']) {
-    padding: var(--lumo-space-s) calc(var(--lumo-space-s) + var(--lumo-space-xs) / 2);
-  }
-
-  /* Reverse */
-  :host([theme~='reverse']) {
-    justify-content: space-between;
-  }
-
-  :host([theme~='reverse']) [part='toggle'] {
-    order: 1;
-    margin-right: 0;
-  }
-
-  :host([theme~='reverse'][dir='rtl']) [part='toggle'] {
-    margin-left: 0;
-  }
-
-  /* Filled reverse */
-  :host([theme~='reverse'][theme~='filled']) {
-    padding-left: var(--lumo-space-m);
-  }
-
-  :host([theme~='reverse'][theme~='filled'][dir='rtl']) {
-    padding-right: var(--lumo-space-m);
-  }
-`;registerStyles$1("vaadin-details-summary",detailsSummary,{moduleId:"lumo-details-summary"});const accordionHeading=css$e`
-  :host {
-    padding: 0;
-  }
-
-  [part='content'] {
-    padding: var(--lumo-space-s) 0;
-  }
-
-  :host([theme~='filled']) {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-`;registerStyles$1("vaadin-accordion-heading",[detailsSummary,accordionHeading],{moduleId:"lumo-accordion-heading"});const details=css$e`
-  :host {
-    margin: var(--lumo-space-xs) 0;
-    outline: none;
-  }
-
-  :host([focus-ring]) ::slotted([slot='summary']) {
-    box-shadow: 0 0 0 2px var(--lumo-primary-color-50pct);
-  }
-
-  [part='content'] {
-    padding: var(--lumo-space-xs) 0 var(--lumo-space-s);
-    font-size: var(--lumo-font-size-m);
-    line-height: var(--lumo-line-height-m);
-  }
-
-  :host([theme~='filled']) {
-    background-color: var(--lumo-contrast-5pct);
-    border-radius: var(--lumo-border-radius-m);
-  }
-
-  :host([theme~='filled']) [part='content'] {
-    padding-left: var(--lumo-space-m);
-    padding-right: var(--lumo-space-m);
-  }
-
-  :host([theme~='small']) [part$='content'] {
-    font-size: var(--lumo-font-size-s);
-  }
-`;registerStyles$1("vaadin-details",details,{moduleId:"lumo-details"});const accordionPanel=css$e`
-  :host {
-    margin: 0;
-    border-bottom: solid 1px var(--lumo-contrast-10pct);
-  }
-
-  :host(:last-child) {
-    border-bottom: none;
-  }
-
-  :host([theme~='filled']) {
-    border-bottom: none;
-  }
-
-  :host([theme~='filled']:not(:last-child)) {
-    margin-bottom: 2px;
-  }
-`;registerStyles$1("vaadin-accordion-panel",[details,accordionPanel],{moduleId:"lumo-accordion-panel"});/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class AccordionHeading extends ActiveMixin(DirMixin(ThemableMixin(PolymerElement))){static get is(){return"vaadin-accordion-heading"}static get template(){return html`
-      <style>
-        :host {
-          display: block;
-          outline: none;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        button {
-          display: flex;
-          align-items: center;
-          justify-content: inherit;
-          width: 100%;
-          margin: 0;
-          padding: 0;
-          background-color: initial;
-          color: inherit;
-          border: initial;
-          outline: none;
-          font: inherit;
-          text-align: inherit;
-        }
-      </style>
-      <button id="button" part="content" disabled$="[[disabled]]" aria-expanded$="[[__updateAriaExpanded(opened)]]">
-        <span part="toggle" aria-hidden="true"></span>
-        <slot></slot>
-      </button>
-    `}static get properties(){return{opened:{type:Boolean,reflectToAttribute:!0}}}_attachDom(i){const t=this.attachShadow({mode:"open",delegatesFocus:!0});return t.appendChild(i),t}ready(){super.ready(),this.hasAttribute("role")||this.setAttribute("role","heading")}__updateAriaExpanded(i){return i?"true":"false"}}customElements.define(AccordionHeading.is,AccordionHeading);/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class ContentController extends SlotChildObserveController{static generateId(i){return super.generateId(i,"content")}constructor(i){super(i,"",null,{multiple:!0})}}/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const CollapsibleMixin=n=>class extends n{static get properties(){return{opened:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0},_contentElements:{type:Array}}}static get observers(){return["_openedOrContentChanged(opened, _contentElements)"]}constructor(){super(),this._contentController=new ContentController(this),this._contentController.addEventListener("slot-content-changed",t=>{const r=t.target.nodes||[];this._contentElements=r.filter(o=>o.parentNode===this)})}ready(){super.ready(),this.addController(this._contentController),this.addEventListener("click",({target:t})=>{const r=this.focusElement;r&&(t===r||r.contains(t))&&(this.opened=!this.opened)})}_openedOrContentChanged(t,r){r&&r.forEach(o=>{o.setAttribute("aria-hidden",t?"false":"true")})}};/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class SummaryController extends SlotChildObserveController{constructor(i,t){super(i,"summary",t)}setSummary(i){this.summary=i,this.getSlotChild()||this.restoreDefaultNode(),this.node===this.defaultNode&&this.updateDefaultNode(this.node)}restoreDefaultNode(){const{summary:i}=this;i&&i.trim()!==""&&this.attachDefaultNode()}updateDefaultNode(i){i&&(i.textContent=this.summary),super.updateDefaultNode(i)}}/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class AccordionPanel extends CollapsibleMixin(DelegateFocusMixin(DelegateStateMixin(ThemableMixin(ControllerMixin(PolymerElement))))){static get is(){return"vaadin-accordion-panel"}static get template(){return html`
-      <style>
-        :host {
-          display: block;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        [part='content'] {
-          display: none;
-          overflow: hidden;
-        }
-
-        :host([opened]) [part='content'] {
-          display: block;
-          overflow: visible;
-        }
-      </style>
-
-      <slot name="summary"></slot>
-
-      <div part="content">
-        <slot></slot>
-      </div>
-
-      <slot name="tooltip"></slot>
-    `}static get properties(){return{summary:{type:String,observer:"_summaryChanged"}}}static get observers(){return["__updateAriaAttributes(focusElement, _contentElements)"]}static get delegateAttrs(){return["theme"]}static get delegateProps(){return["disabled","opened"]}constructor(){super(),this._summaryController=new SummaryController(this,"vaadin-accordion-heading"),this._summaryController.addEventListener("slot-content-changed",i=>{const{node:t}=i.target;this._setFocusElement(t),this.stateTarget=t,this._tooltipController.setTarget(t)}),this._tooltipController=new TooltipController(this),this._tooltipController.setPosition("bottom-start")}ready(){super.ready(),this.addController(this._summaryController),this.addController(this._tooltipController)}_setAriaDisabled(){}_summaryChanged(i){this._summaryController.setSummary(i)}__updateAriaAttributes(i,t){if(i&&t){const r=t[0];r&&(r.setAttribute("role","region"),r.setAttribute("aria-labelledby",i.id)),r&&r.id?i.setAttribute("aria-controls",r.id):i.removeAttribute("aria-controls")}}}customElements.define(AccordionPanel.is,AccordionPanel);/**
- * @license
- * Copyright (c) 2022 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const KeyboardDirectionMixin=n=>class extends KeyboardMixin(n){get focused(){return(this._getItems()||[]).find(isElementFocused)}get _vertical(){return!0}focus(){const t=this._getItems();if(Array.isArray(t)){const r=this._getAvailableIndex(t,0,null,o=>!isElementHidden(o));r>=0&&t[r].focus()}}_getItems(){return Array.from(this.children)}_onKeyDown(t){if(super._onKeyDown(t),t.metaKey||t.ctrlKey)return;const{key:r}=t,o=this._getItems()||[],a=o.indexOf(this.focused);let s,l;const c=!this._vertical&&this.getAttribute("dir")==="rtl"?-1:1;this.__isPrevKey(r)?(l=-c,s=a-c):this.__isNextKey(r)?(l=c,s=a+c):r==="Home"?(l=1,s=0):r==="End"&&(l=-1,s=o.length-1),s=this._getAvailableIndex(o,s,l,d=>!isElementHidden(d)),s>=0&&(t.preventDefault(),this._focus(s,!0))}__isPrevKey(t){return this._vertical?t==="ArrowUp":t==="ArrowLeft"}__isNextKey(t){return this._vertical?t==="ArrowDown":t==="ArrowRight"}_focus(t,r=!1){const o=this._getItems();this._focusItem(o[t],r)}_focusItem(t){t&&(t.focus(),t.setAttribute("focus-ring",""))}_getAvailableIndex(t,r,o,a){const s=t.length;let l=r;for(let h=0;typeof l=="number"&&h<s;h+=1,l+=o||1){l<0?l=s-1:l>=s&&(l=0);const c=t[l];if(!c.hasAttribute("disabled")&&this.__isMatchingItem(c,a))return l}return-1}__isMatchingItem(t,r){return typeof r=="function"?r(t):!0}};/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class Accordion extends KeyboardDirectionMixin(ThemableMixin(ElementMixin(PolymerElement))){static get template(){return html`
-      <style>
-        :host {
-          display: block;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-      </style>
-      <slot></slot>
-    `}static get is(){return"vaadin-accordion"}static get properties(){return{opened:{type:Number,value:0,notify:!0,reflectToAttribute:!0},items:{type:Array,readOnly:!0,notify:!0}}}static get observers(){return["_updateItems(items, opened)"]}constructor(){super(),this._boundUpdateOpened=this._updateOpened.bind(this)}get focused(){return(this._getItems()||[]).find(i=>isElementFocused(i.focusElement))}focus(){this._observer&&this._observer.flush(),super.focus()}ready(){super.ready(),this._observer=new FlattenedNodesObserver(this,i=>{this._setItems(this._filterItems(Array.from(this.children))),this._filterItems(i.addedNodes).forEach(t=>{t.addEventListener("opened-changed",this._boundUpdateOpened)})})}_getItems(){return this.items}_filterItems(i){return i.filter(t=>t instanceof AccordionPanel)}_updateItems(i,t){if(i){const r=i[t];i.forEach(o=>{o.opened=o===r})}}_onKeyDown(i){this.items.some(t=>t.focusElement===i.target)&&super._onKeyDown(i)}_updateOpened(i){const t=this._filterItems(i.composedPath())[0],r=this.items.indexOf(t);if(i.detail.value){if(t.disabled||r===-1)return;this.opened=r}else this.items.some(o=>o.opened)||(this.opened=null)}}customElements.define(Accordion.is,Accordion);/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class DetailsSummary extends ButtonMixin(DirMixin(ThemableMixin(PolymerElement))){static get is(){return"vaadin-details-summary"}static get template(){return html`
-      <style>
-        :host {
-          display: block;
-          outline: none;
-          white-space: nowrap;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        :host([disabled]) {
-          pointer-events: none;
-        }
-      </style>
-      <span part="toggle" aria-hidden="true"></span>
-      <div part="content"><slot></slot></div>
-    `}static get properties(){return{opened:{type:Boolean,reflectToAttribute:!0}}}}customElements.define(DetailsSummary.is,DetailsSummary);/**
- * @license
- * Copyright (c) 2019 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class Details extends CollapsibleMixin(DelegateStateMixin(DelegateFocusMixin(ElementMixin(ThemableMixin(ControllerMixin(PolymerElement)))))){static get template(){return html`
-      <style>
-        :host {
-          display: block;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        [part='content'] {
-          display: none;
-        }
-
-        :host([opened]) [part='content'] {
-          display: block;
-        }
-      </style>
-
-      <slot name="summary"></slot>
-
-      <div part="content">
-        <slot></slot>
-      </div>
-
-      <slot name="tooltip"></slot>
-    `}static get is(){return"vaadin-details"}static get properties(){return{summary:{type:String,observer:"_summaryChanged"}}}static get observers(){return["__updateAriaControls(focusElement, _contentElements)","__updateAriaExpanded(focusElement, opened)"]}static get delegateAttrs(){return["theme"]}static get delegateProps(){return["disabled","opened"]}constructor(){super(),this._summaryController=new SummaryController(this,"vaadin-details-summary"),this._summaryController.addEventListener("slot-content-changed",i=>{const{node:t}=i.target;this._setFocusElement(t),this.stateTarget=t,this._tooltipController.setTarget(t)}),this._tooltipController=new TooltipController(this),this._tooltipController.setPosition("bottom-start")}ready(){super.ready(),this.addController(this._summaryController),this.addController(this._tooltipController)}_setAriaDisabled(){}_summaryChanged(i){this._summaryController.setSummary(i)}__updateAriaControls(i,t){if(i&&t){const r=t[0];r&&r.id?i.setAttribute("aria-controls",r.id):i.removeAttribute("aria-controls")}}__updateAriaExpanded(i,t){i&&i.setAttribute("aria-expanded",t?"true":"false")}}customElements.define(Details.is,Details);function disableOnClickListener({currentTarget:n}){n.disabled=n.hasAttribute("disableOnClick")}window.Vaadin.Flow.button={initDisableOnClick:n=>{n.__hasDisableOnClickListener||(n.addEventListener("click",disableOnClickListener),n.__hasDisableOnClickListener=!0)}};const drawerToggle=css$e`
+ */registerStyles$1("vaadin-button",buttonStyles,{moduleId:"vaadin-button-styles"});class Button extends ButtonMixin(ElementMixin(ThemableMixin(ControllerMixin(PolymerElement)))){static get is(){return"vaadin-button"}static get template(){return buttonTemplate(html)}ready(){super.ready(),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}}customElements.define(Button.is,Button);function disableOnClickListener({currentTarget:n}){n.disabled=n.hasAttribute("disableOnClick")}window.Vaadin.Flow.button={initDisableOnClick:n=>{n.__hasDisableOnClickListener||(n.addEventListener("click",disableOnClickListener),n.__hasDisableOnClickListener=!0)}};const drawerToggle=css$e`
   :host {
     width: var(--lumo-size-l);
     height: var(--lumo-size-l);
@@ -3647,7 +2513,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         outline: 1px dashed;
       }
     }
-  `,{moduleId:"vaadin-tooltip-overlay-styles"});let memoizedTemplate$a;class TooltipOverlay extends PositionMixin(Overlay){static get is(){return"vaadin-tooltip-overlay"}static get template(){return memoizedTemplate$a||(memoizedTemplate$a=super.template.cloneNode(!0),memoizedTemplate$a.content.querySelector('[part~="overlay"]').removeAttribute("tabindex"),memoizedTemplate$a.content.querySelector('[part~="content"]').innerHTML="<slot></slot>"),memoizedTemplate$a}static get properties(){return{position:{type:String,reflectToAttribute:!0}}}ready(){super.ready(),this.owner=this.__dataHost,this.owner._overlayElement=this}requestContentUpdate(){if(super.requestContentUpdate(),this.toggleAttribute("hidden",this.textContent.trim()===""),this.positionTarget&&this.owner){const i=getComputedStyle(this.owner);["top","bottom","start","end"].forEach(t=>{this.style.setProperty(`--vaadin-tooltip-offset-${t}`,i.getPropertyValue(`--vaadin-tooltip-offset-${t}`))})}}_updatePosition(){if(super._updatePosition(),!!this.positionTarget){if(this.position==="bottom"||this.position==="top"){const i=this.positionTarget.getBoundingClientRect(),t=this.$.overlay.getBoundingClientRect(),r=i.width/2-t.width/2;if(this.style.left){const o=t.left+r;o>0&&(this.style.left=`${o}px`)}if(this.style.right){const o=parseFloat(this.style.right)+r;o>0&&(this.style.right=`${o}px`)}}if(this.position==="start"||this.position==="end"){const i=this.positionTarget.getBoundingClientRect(),t=this.$.overlay.getBoundingClientRect(),r=i.height/2-t.height/2;this.style.top=`${t.top+r}px`}}}}customElements.define(TooltipOverlay.is,TooltipOverlay);/**
+  `,{moduleId:"vaadin-tooltip-overlay-styles"});let memoizedTemplate$c;class TooltipOverlay extends PositionMixin(Overlay){static get is(){return"vaadin-tooltip-overlay"}static get template(){return memoizedTemplate$c||(memoizedTemplate$c=super.template.cloneNode(!0),memoizedTemplate$c.content.querySelector('[part~="overlay"]').removeAttribute("tabindex"),memoizedTemplate$c.content.querySelector('[part~="content"]').innerHTML="<slot></slot>"),memoizedTemplate$c}static get properties(){return{position:{type:String,reflectToAttribute:!0}}}ready(){super.ready(),this.owner=this.__dataHost,this.owner._overlayElement=this}requestContentUpdate(){if(super.requestContentUpdate(),this.toggleAttribute("hidden",this.textContent.trim()===""),this.positionTarget&&this.owner){const i=getComputedStyle(this.owner);["top","bottom","start","end"].forEach(t=>{this.style.setProperty(`--vaadin-tooltip-offset-${t}`,i.getPropertyValue(`--vaadin-tooltip-offset-${t}`))})}}_updatePosition(){if(super._updatePosition(),!!this.positionTarget){if(this.position==="bottom"||this.position==="top"){const i=this.positionTarget.getBoundingClientRect(),t=this.$.overlay.getBoundingClientRect(),r=i.width/2-t.width/2;if(this.style.left){const o=t.left+r;o>0&&(this.style.left=`${o}px`)}if(this.style.right){const o=parseFloat(this.style.right)+r;o>0&&(this.style.right=`${o}px`)}}if(this.position==="start"||this.position==="end"){const i=this.positionTarget.getBoundingClientRect(),t=this.$.overlay.getBoundingClientRect(),r=i.height/2-t.height/2;this.style.top=`${t.top+r}px`}}}}customElements.define(TooltipOverlay.is,TooltipOverlay);/**
+ * @license
+ * Copyright (c) 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const OverlayClassMixin=n=>class extends n{static get properties(){return{overlayClass:{type:String},_overlayElement:{type:Object}}}static get observers(){return["__updateOverlayClassNames(overlayClass, _overlayElement)"]}__updateOverlayClassNames(t,r){if(!r||t===void 0)return;const{classList:o}=r;if(this.__initialClasses||(this.__initialClasses=new Set(o)),Array.isArray(this.__previousClasses)){const s=this.__previousClasses.filter(l=>!this.__initialClasses.has(l));s.length>0&&o.remove(...s)}const a=typeof t=="string"?t.split(" "):[];a.length>0&&o.add(...a),this.__previousClasses=a}};/**
  * @license
  * Copyright (c) 2022 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -3739,7 +2609,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  * @license
  * Copyright (c) 2020 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const template$7=document.createElement("template");template$7.innerHTML=`
+ */const template$8=document.createElement("template");template$8.innerHTML=`
   <style>
     @font-face {
       font-family: 'vaadin-avatar-icons';
@@ -3748,7 +2618,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-style: normal;
     }
   </style>
-`;document.head.appendChild(template$7.content);/**
+`;document.head.appendChild(template$8.content);/**
  * @license
  * Copyright (c) 2020 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -5624,7 +4494,27 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const InputMixin=dedupingMixin(n=>class extends n{static get properties(){return{inputElement:{type:Object,readOnly:!0,observer:"_inputElementChanged"},type:{type:String,readOnly:!0},value:{type:String,value:"",observer:"_valueChanged",notify:!0},_hasInputValue:{type:Boolean,value:!1,observer:"_hasInputValueChanged"}}}constructor(){super(),this._boundOnInput=this.__onInput.bind(this),this._boundOnChange=this._onChange.bind(this)}get _hasValue(){return this.value!=null&&this.value!==""}get _inputElementValueProperty(){return"value"}get _inputElementValue(){return this.inputElement?this.inputElement[this._inputElementValueProperty]:void 0}set _inputElementValue(t){this.inputElement&&(this.inputElement[this._inputElementValueProperty]=t)}clear(){this._hasInputValue=!1,this.value="",this._inputElementValue=""}_addInputListeners(t){t.addEventListener("input",this._boundOnInput),t.addEventListener("change",this._boundOnChange)}_removeInputListeners(t){t.removeEventListener("input",this._boundOnInput),t.removeEventListener("change",this._boundOnChange)}_forwardInputValue(t){this.inputElement&&(this._inputElementValue=t??"")}_inputElementChanged(t,r){t?this._addInputListeners(t):r&&this._removeInputListeners(r)}_hasInputValueChanged(t,r){(t||r)&&this.dispatchEvent(new CustomEvent("has-input-value-changed"))}__onInput(t){this._setHasInputValue(t),this._onInput(t)}_onInput(t){const r=t.composedPath()[0];this.__userInput=t.isTrusted,this.value=r.value,this.__userInput=!1}_onChange(t){}_toggleHasValue(t){this.toggleAttribute("has-value",t)}_valueChanged(t,r){this._toggleHasValue(this._hasValue),!(t===""&&r===void 0)&&(this.__userInput||this._forwardInputValue(t))}_setHasInputValue(t){const r=t.composedPath()[0];this._hasInputValue=r.value.length>0}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */const CheckedMixin=dedupingMixin(n=>class extends DelegateStateMixin(DisabledMixin(InputMixin(n))){static get properties(){return{checked:{type:Boolean,value:!1,notify:!0,reflectToAttribute:!0}}}static get delegateProps(){return[...super.delegateProps,"checked"]}_onChange(t){const r=t.target;this._toggleChecked(r.checked),isElementFocused(r)||r.focus()}_toggleChecked(t){this.checked=t}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class InputController extends SlotController{constructor(i,t){super(i,"input","input",{initializer:(r,o)=>{o.value&&r.setAttribute("value",o.value),o.type&&r.setAttribute("type",o.type),r.id=this.defaultId,typeof t=="function"&&t(r)},useUniqueId:!0})}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class LabelController extends SlotChildObserveController{constructor(i){super(i,"label","label")}setLabel(i){this.label=i,this.getSlotChild()||this.restoreDefaultNode(),this.node===this.defaultNode&&this.updateDefaultNode(this.node)}restoreDefaultNode(){const{label:i}=this;if(i&&i.trim()!==""){const t=this.attachDefaultNode();this.observeNode(t)}}updateDefaultNode(i){i&&(i.textContent=this.label),super.updateDefaultNode(i)}initCustomNode(i){super.initCustomNode(i),this.observeNode(i)}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const LabelMixin=dedupingMixin(n=>class extends ControllerMixin(n){static get properties(){return{label:{type:String,observer:"_labelChanged"}}}constructor(){super(),this._labelController=new LabelController(this),this._labelController.addEventListener("slot-content-changed",t=>{this.toggleAttribute("has-label",t.detail.hasContent)})}get _labelId(){const t=this._labelNode;return t&&t.id}get _labelNode(){return this._labelController.node}ready(){super.ready(),this.addController(this._labelController)}_labelChanged(t){this._labelController.setLabel(t)}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class LabelledInputController{constructor(i,t){this.input=i,this.__preventDuplicateLabelClick=this.__preventDuplicateLabelClick.bind(this),t.addEventListener("slot-content-changed",r=>{this.__initLabel(r.detail.node)}),this.__initLabel(t.node)}__initLabel(i){i&&(i.addEventListener("click",this.__preventDuplicateLabelClick),this.input&&i.setAttribute("for",this.input.id))}__preventDuplicateLabelClick(){const i=t=>{t.stopImmediatePropagation(),this.input.removeEventListener("click",i)};this.input.addEventListener("click",i)}}/**
  * @license
  * Copyright (c) 2017 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -5719,7 +4609,162 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
         <slot name="label"></slot>
       </div>
       <slot name="tooltip"></slot>
-    `}ready(){super.ready(),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}}customElements.define(Checkbox.is,Checkbox);const checkboxGroup=css$e`
+    `}ready(){super.ready(),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}}customElements.define(Checkbox.is,Checkbox);/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const helper=css$e`
+  :host([has-helper]) [part='helper-text']::before {
+    content: '';
+    display: block;
+    height: 0.4em;
+  }
+
+  [part='helper-text'] {
+    display: block;
+    color: var(--lumo-secondary-text-color);
+    font-size: var(--lumo-font-size-xs);
+    line-height: var(--lumo-line-height-xs);
+    margin-left: calc(var(--lumo-border-radius-m) / 4);
+    transition: color 0.2s;
+  }
+
+  :host(:hover:not([readonly])) [part='helper-text'] {
+    color: var(--lumo-body-text-color);
+  }
+
+  :host([disabled]) [part='helper-text'] {
+    color: var(--lumo-disabled-text-color);
+    -webkit-text-fill-color: var(--lumo-disabled-text-color);
+  }
+
+  :host([has-helper][theme~='helper-above-field']) [part='helper-text']::before {
+    display: none;
+  }
+
+  :host([has-helper][theme~='helper-above-field']) [part='helper-text']::after {
+    content: '';
+    display: block;
+    height: 0.4em;
+  }
+
+  :host([has-helper][theme~='helper-above-field']) [part='label'] {
+    order: 0;
+    padding-bottom: 0.4em;
+  }
+
+  :host([has-helper][theme~='helper-above-field']) [part='helper-text'] {
+    order: 1;
+  }
+
+  :host([has-helper][theme~='helper-above-field']) [part='label'] + * {
+    order: 2;
+  }
+
+  :host([has-helper][theme~='helper-above-field']) [part='error-message'] {
+    order: 3;
+  }
+`;/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const requiredField=css$e`
+  [part='label'] {
+    align-self: flex-start;
+    color: var(--lumo-secondary-text-color);
+    font-weight: 500;
+    font-size: var(--lumo-font-size-s);
+    margin-left: calc(var(--lumo-border-radius-m) / 4);
+    transition: color 0.2s;
+    line-height: 1;
+    padding-right: 1em;
+    padding-bottom: 0.5em;
+    /* As a workaround for diacritics being cut off, add a top padding and a 
+    negative margin to compensate */
+    padding-top: 0.25em;
+    margin-top: -0.25em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  :host([has-label])::before {
+    margin-top: calc(var(--lumo-font-size-s) * 1.5);
+  }
+
+  :host([has-label][theme~='small'])::before {
+    margin-top: calc(var(--lumo-font-size-xs) * 1.5);
+  }
+
+  :host([has-label]) {
+    padding-top: var(--lumo-space-m);
+  }
+
+  :host([has-label]) ::slotted([slot='tooltip']) {
+    --vaadin-tooltip-offset-bottom: calc((var(--lumo-space-m) - var(--lumo-space-xs)) * -1);
+  }
+
+  :host([required]) [part='required-indicator']::after {
+    content: var(--lumo-required-field-indicator, '\\2022');
+    transition: opacity 0.2s;
+    color: var(--lumo-required-field-indicator-color, var(--lumo-primary-text-color));
+    position: absolute;
+    right: 0;
+    width: 1em;
+    text-align: center;
+  }
+
+  :host([invalid]) [part='required-indicator']::after {
+    color: var(--lumo-required-field-indicator-color, var(--lumo-error-text-color));
+  }
+
+  [part='error-message'] {
+    margin-left: calc(var(--lumo-border-radius-m) / 4);
+    font-size: var(--lumo-font-size-xs);
+    line-height: var(--lumo-line-height-xs);
+    color: var(--lumo-error-text-color);
+    will-change: max-height;
+    transition: 0.4s max-height;
+    max-height: 5em;
+  }
+
+  :host([has-error-message]) [part='error-message']::before,
+  :host([has-error-message]) [part='error-message']::after {
+    content: '';
+    display: block;
+    height: 0.4em;
+  }
+
+  :host(:not([invalid])) [part='error-message'] {
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  /* RTL specific styles */
+
+  :host([dir='rtl']) [part='label'] {
+    margin-left: 0;
+    margin-right: calc(var(--lumo-border-radius-m) / 4);
+  }
+
+  :host([dir='rtl']) [part='label'] {
+    padding-left: 1em;
+    padding-right: 0;
+  }
+
+  :host([dir='rtl']) [part='required-indicator']::after {
+    right: auto;
+    left: 0;
+  }
+
+  :host([dir='rtl']) [part='error-message'] {
+    margin-left: 0;
+    margin-right: calc(var(--lumo-border-radius-m) / 4);
+  }
+`;registerStyles$1("",requiredField,{moduleId:"lumo-required-field"});const checkboxGroup=css$e`
   :host {
     color: var(--lumo-body-text-color);
     font-size: var(--lumo-font-size-m);
@@ -5763,6 +4808,30 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
     }
   }
 `;registerStyles$1("vaadin-checkbox-group",[requiredField,helper,checkboxGroup],{moduleId:"lumo-checkbox-group"});/**
+ * @license
+ * Copyright (c) 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const attributeToTargets=new Map;function getAttrMap(n){return attributeToTargets.has(n)||attributeToTargets.set(n,new WeakMap),attributeToTargets.get(n)}function cleanAriaIDReference(n,i){n&&n.removeAttribute(i)}function storeAriaIDReference(n,i){if(!n||!i)return;const t=getAttrMap(i);if(t.has(n))return;const r=deserializeAttributeValue(n.getAttribute(i));t.set(n,new Set(r))}function restoreGeneratedAriaIDReference(n,i){if(!n||!i)return;const t=getAttrMap(i),r=t.get(n);!r||r.size===0?n.removeAttribute(i):addValueToAttribute(n,i,serializeAttributeValue(r)),t.delete(n)}function setAriaIDReference(n,i,t={newId:null,oldId:null,fromUser:!1}){if(!n||!i)return;const{newId:r,oldId:o,fromUser:a}=t,s=getAttrMap(i),l=s.get(n);if(!a&&l){o&&l.delete(o),r&&l.add(r);return}a&&(l?r||s.delete(n):storeAriaIDReference(n,i),cleanAriaIDReference(n,i)),removeValueFromAttribute(n,i,o);const h=r||serializeAttributeValue(l);h&&addValueToAttribute(n,i,h)}function removeAriaIDReference(n,i){storeAriaIDReference(n,i),cleanAriaIDReference(n,i)}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class FieldAriaController{constructor(i){this.host=i,this.__required=!1}setTarget(i){this.__target=i,this.__setAriaRequiredAttribute(this.__required),this.__setLabelIdToAriaAttribute(this.__labelId,this.__labelId),this.__labelIdFromUser!=null&&this.__setLabelIdToAriaAttribute(this.__labelIdFromUser,this.__labelIdFromUser,!0),this.__setErrorIdToAriaAttribute(this.__errorId),this.__setHelperIdToAriaAttribute(this.__helperId),this.setAriaLabel(this.__label)}setRequired(i){this.__setAriaRequiredAttribute(i),this.__required=i}setAriaLabel(i){this.__setAriaLabelToAttribute(i),this.__label=i}setLabelId(i,t=!1){const r=t?this.__labelIdFromUser:this.__labelId;this.__setLabelIdToAriaAttribute(i,r,t),t?this.__labelIdFromUser=i:this.__labelId=i}setErrorId(i){this.__setErrorIdToAriaAttribute(i,this.__errorId),this.__errorId=i}setHelperId(i){this.__setHelperIdToAriaAttribute(i,this.__helperId),this.__helperId=i}__setAriaLabelToAttribute(i){this.__target&&(i?(removeAriaIDReference(this.__target,"aria-labelledby"),this.__target.setAttribute("aria-label",i)):this.__label&&(restoreGeneratedAriaIDReference(this.__target,"aria-labelledby"),this.__target.removeAttribute("aria-label")))}__setLabelIdToAriaAttribute(i,t,r){setAriaIDReference(this.__target,"aria-labelledby",{newId:i,oldId:t,fromUser:r})}__setErrorIdToAriaAttribute(i,t){setAriaIDReference(this.__target,"aria-describedby",{newId:i,oldId:t,fromUser:!1})}__setHelperIdToAriaAttribute(i,t){setAriaIDReference(this.__target,"aria-describedby",{newId:i,oldId:t,fromUser:!1})}__setAriaRequiredAttribute(i){this.__target&&(["input","textarea"].includes(this.__target.localName)||(i?this.__target.setAttribute("aria-required","true"):this.__target.removeAttribute("aria-required")))}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class ErrorController extends SlotChildObserveController{constructor(i){super(i,"error-message","div")}setErrorMessage(i){this.errorMessage=i,this.updateDefaultNode(this.node)}setInvalid(i){this.invalid=i,this.updateDefaultNode(this.node)}initAddedNode(i){i!==this.defaultNode&&this.initCustomNode(i)}initNode(i){this.updateDefaultNode(i)}initCustomNode(i){i.textContent&&!this.errorMessage&&(this.errorMessage=i.textContent.trim()),super.initCustomNode(i)}restoreDefaultNode(){this.attachDefaultNode()}updateDefaultNode(i){const{errorMessage:t,invalid:r}=this,o=!!(r&&t&&t.trim()!=="");i&&(i.textContent=o?t:"",i.hidden=!o,o?i.setAttribute("role","alert"):i.removeAttribute("role")),super.updateDefaultNode(i)}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class HelperController extends SlotChildObserveController{constructor(i){super(i,"helper",null)}setHelperText(i){this.helperText=i,this.getSlotChild()||this.restoreDefaultNode(),this.node===this.defaultNode&&this.updateDefaultNode(this.node)}restoreDefaultNode(){const{helperText:i}=this;if(i&&i.trim()!==""){this.tagName="div";const t=this.attachDefaultNode();this.observeNode(t)}}updateDefaultNode(i){i&&(i.textContent=this.helperText),super.updateDefaultNode(i)}initCustomNode(i){super.initCustomNode(i),this.observeNode(i)}}/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const ValidateMixin=dedupingMixin(n=>class extends n{static get properties(){return{invalid:{type:Boolean,reflectToAttribute:!0,notify:!0,value:!1},required:{type:Boolean,reflectToAttribute:!0}}}validate(){const t=this.checkValidity();return this._setInvalid(!t),this.dispatchEvent(new CustomEvent("validated",{detail:{valid:t}})),t}checkValidity(){return!this.required||!!this.value}_setInvalid(t){this._shouldSetInvalid(t)&&(this.invalid=t)}_shouldSetInvalid(t){return!0}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const FieldMixin=n=>class extends ValidateMixin(LabelMixin(ControllerMixin(n))){static get properties(){return{ariaTarget:{type:Object,observer:"_ariaTargetChanged"},errorMessage:{type:String,observer:"_errorMessageChanged"},helperText:{type:String,observer:"_helperTextChanged"},accessibleName:{type:String,observer:"_accessibleNameChanged"},accessibleNameRef:{type:String,observer:"_accessibleNameRefChanged"}}}static get observers(){return["_invalidChanged(invalid)","_requiredChanged(required)"]}constructor(){super(),this._fieldAriaController=new FieldAriaController(this),this._helperController=new HelperController(this),this._errorController=new ErrorController(this),this._errorController.addEventListener("slot-content-changed",t=>{this.toggleAttribute("has-error-message",t.detail.hasContent)}),this._labelController.addEventListener("slot-content-changed",t=>{const{hasContent:r,node:o}=t.detail;this.__labelChanged(r,o)}),this._helperController.addEventListener("slot-content-changed",t=>{const{hasContent:r,node:o}=t.detail;this.toggleAttribute("has-helper",r),this.__helperChanged(r,o)})}get _errorNode(){return this._errorController.node}get _helperNode(){return this._helperController.node}ready(){super.ready(),this.addController(this._fieldAriaController),this.addController(this._helperController),this.addController(this._errorController)}__helperChanged(t,r){t?this._fieldAriaController.setHelperId(r.id):this._fieldAriaController.setHelperId(null)}_accessibleNameChanged(t){this._fieldAriaController.setAriaLabel(t)}_accessibleNameRefChanged(t){this._fieldAriaController.setLabelId(t,!0)}__labelChanged(t,r){t?this._fieldAriaController.setLabelId(r.id):this._fieldAriaController.setLabelId(null)}_errorMessageChanged(t){this._errorController.setErrorMessage(t)}_helperTextChanged(t){this._helperController.setHelperText(t)}_ariaTargetChanged(t){t&&this._fieldAriaController.setTarget(t)}_requiredChanged(t){this._fieldAriaController.setRequired(t)}_invalidChanged(t){this._errorController.setInvalid(t),setTimeout(()=>{if(t){const r=this._errorNode;this._fieldAriaController.setErrorId(r&&r.id)}else this._fieldAriaController.setErrorId(null)})}};/**
  * @license
  * Copyright (c) 2018 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -5818,7 +4887,251 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
       </div>
 
       <slot name="tooltip"></slot>
-    `}static get properties(){return{value:{type:Array,value:()=>[],notify:!0,observer:"__valueChanged"}}}constructor(){super(),this.__registerCheckbox=this.__registerCheckbox.bind(this),this.__unregisterCheckbox=this.__unregisterCheckbox.bind(this),this.__onCheckboxCheckedChanged=this.__onCheckboxCheckedChanged.bind(this)}get __checkboxes(){return this.__filterCheckboxes([...this.children])}ready(){super.ready(),this.ariaTarget=this,this.setAttribute("role","group"),this._observer=new FlattenedNodesObserver(this,({addedNodes:i,removedNodes:t})=>{const r=this.__filterCheckboxes(i),o=this.__filterCheckboxes(t);r.forEach(this.__registerCheckbox),o.forEach(this.__unregisterCheckbox),this.__warnOfCheckboxesWithoutValue(r)}),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}checkValidity(){return!this.required||this.value.length>0}__filterCheckboxes(i){return i.filter(t=>t instanceof Checkbox)}__warnOfCheckboxesWithoutValue(i){i.some(r=>{const{value:o}=r;return!r.hasAttribute("value")&&(!o||o==="on")})&&console.warn("Please provide the value attribute to all the checkboxes inside the checkbox group.")}__registerCheckbox(i){i.addEventListener("checked-changed",this.__onCheckboxCheckedChanged),this.disabled&&(i.disabled=!0),i.checked?this.__addCheckboxToValue(i.value):this.value.includes(i.value)&&(i.checked=!0)}__unregisterCheckbox(i){i.removeEventListener("checked-changed",this.__onCheckboxCheckedChanged),i.checked&&this.__removeCheckboxFromValue(i.value)}_disabledChanged(i,t){super._disabledChanged(i,t),!(!i&&t===void 0)&&t!==i&&this.__checkboxes.forEach(r=>{r.disabled=i})}__addCheckboxToValue(i){this.value.includes(i)||(this.value=[...this.value,i])}__removeCheckboxFromValue(i){this.value.includes(i)&&(this.value=this.value.filter(t=>t!==i))}__onCheckboxCheckedChanged(i){const t=i.target;t.checked?this.__addCheckboxToValue(t.value):this.__removeCheckboxFromValue(t.value)}__valueChanged(i,t){i.length===0&&t===void 0||(this.toggleAttribute("has-value",i.length>0),this.__checkboxes.forEach(r=>{r.checked=i.includes(r.value)}),t!==void 0&&this.validate())}_shouldRemoveFocus(i){return!this.contains(i.relatedTarget)}_setFocused(i){super._setFocused(i),!i&&document.hasFocus()&&this.validate()}}customElements.define(CheckboxGroup.is,CheckboxGroup);const comboBoxItem=css$e`
+    `}static get properties(){return{value:{type:Array,value:()=>[],notify:!0,observer:"__valueChanged"}}}constructor(){super(),this.__registerCheckbox=this.__registerCheckbox.bind(this),this.__unregisterCheckbox=this.__unregisterCheckbox.bind(this),this.__onCheckboxCheckedChanged=this.__onCheckboxCheckedChanged.bind(this)}get __checkboxes(){return this.__filterCheckboxes([...this.children])}ready(){super.ready(),this.ariaTarget=this,this.setAttribute("role","group"),this._observer=new FlattenedNodesObserver(this,({addedNodes:i,removedNodes:t})=>{const r=this.__filterCheckboxes(i),o=this.__filterCheckboxes(t);r.forEach(this.__registerCheckbox),o.forEach(this.__unregisterCheckbox),this.__warnOfCheckboxesWithoutValue(r)}),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}checkValidity(){return!this.required||this.value.length>0}__filterCheckboxes(i){return i.filter(t=>t instanceof Checkbox)}__warnOfCheckboxesWithoutValue(i){i.some(r=>{const{value:o}=r;return!r.hasAttribute("value")&&(!o||o==="on")})&&console.warn("Please provide the value attribute to all the checkboxes inside the checkbox group.")}__registerCheckbox(i){i.addEventListener("checked-changed",this.__onCheckboxCheckedChanged),this.disabled&&(i.disabled=!0),i.checked?this.__addCheckboxToValue(i.value):this.value.includes(i.value)&&(i.checked=!0)}__unregisterCheckbox(i){i.removeEventListener("checked-changed",this.__onCheckboxCheckedChanged),i.checked&&this.__removeCheckboxFromValue(i.value)}_disabledChanged(i,t){super._disabledChanged(i,t),!(!i&&t===void 0)&&t!==i&&this.__checkboxes.forEach(r=>{r.disabled=i})}__addCheckboxToValue(i){this.value.includes(i)||(this.value=[...this.value,i])}__removeCheckboxFromValue(i){this.value.includes(i)&&(this.value=this.value.filter(t=>t!==i))}__onCheckboxCheckedChanged(i){const t=i.target;t.checked?this.__addCheckboxToValue(t.value):this.__removeCheckboxFromValue(t.value)}__valueChanged(i,t){i.length===0&&t===void 0||(this.toggleAttribute("has-value",i.length>0),this.__checkboxes.forEach(r=>{r.checked=i.includes(r.value)}),t!==void 0&&this.validate())}_shouldRemoveFocus(i){return!this.contains(i.relatedTarget)}_setFocused(i){super._setFocused(i),!i&&document.hasFocus()&&this.validate()}}customElements.define(CheckboxGroup.is,CheckboxGroup);registerStyles$1("vaadin-input-container",css$e`
+    :host {
+      background-color: var(--lumo-contrast-10pct);
+      padding: 0 calc(0.375em + var(--_input-container-radius) / 4 - 1px);
+      font-weight: 500;
+      line-height: 1;
+      position: relative;
+      cursor: text;
+      box-sizing: border-box;
+      border-radius:
+        /* See https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius#syntax */
+        var(--vaadin-input-field-top-start-radius, var(--_input-container-radius))
+        var(--vaadin-input-field-top-end-radius, var(--_input-container-radius))
+        var(--vaadin-input-field-bottom-end-radius, var(--_input-container-radius))
+        var(--vaadin-input-field-bottom-start-radius, var(--_input-container-radius));
+      /* Fallback */
+      --_input-container-radius: var(--vaadin-input-field-border-radius, var(--lumo-border-radius-m));
+      /* Default field border color */
+      --_input-border-color: var(--vaadin-input-field-border-color, var(--lumo-contrast-50pct));
+    }
+
+    :host([dir='rtl']) {
+      border-radius:
+        /* Don't use logical props, see https://github.com/vaadin/vaadin-time-picker/issues/145 */
+        var(--vaadin-input-field-top-end-radius, var(--_input-container-radius))
+        var(--vaadin-input-field-top-start-radius, var(--_input-container-radius))
+        var(--vaadin-input-field-bottom-start-radius, var(--_input-container-radius))
+        var(--vaadin-input-field-bottom-end-radius, var(--_input-container-radius));
+    }
+
+    /* Used for hover and activation effects */
+    :host::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background-color: var(--lumo-contrast-50pct);
+      opacity: 0;
+      transition: transform 0.15s, opacity 0.2s;
+      transform-origin: 100% 0;
+    }
+
+    ::slotted(:not([slot$='fix'])) {
+      cursor: inherit;
+      min-height: var(--lumo-text-field-size, var(--lumo-size-m));
+      padding: 0 0.25em;
+      --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent, #000 1.25em);
+      -webkit-mask-image: var(--_lumo-text-field-overflow-mask-image);
+      mask-image: var(--_lumo-text-field-overflow-mask-image);
+    }
+
+    /* Read-only */
+    :host([readonly]) {
+      color: var(--lumo-secondary-text-color);
+      background-color: transparent;
+      cursor: default;
+    }
+
+    :host([readonly])::after {
+      background-color: transparent;
+      opacity: 1;
+      border: 1px dashed var(--lumo-contrast-30pct);
+    }
+
+    /* Disabled */
+    :host([disabled]) {
+      background-color: var(--lumo-contrast-5pct);
+    }
+
+    :host([disabled]) ::slotted(*) {
+      color: var(--lumo-disabled-text-color);
+      -webkit-text-fill-color: var(--lumo-disabled-text-color);
+    }
+
+    /* Invalid */
+    :host([invalid]) {
+      background-color: var(--lumo-error-color-10pct);
+    }
+
+    :host([invalid])::after {
+      background-color: var(--lumo-error-color-50pct);
+    }
+
+    /* Slotted icons */
+    ::slotted(vaadin-icon) {
+      color: var(--lumo-contrast-60pct);
+      width: var(--lumo-icon-size-m);
+      height: var(--lumo-icon-size-m);
+    }
+
+    /* Vaadin icons are based on a 16x16 grid (unlike Lumo and Material icons with 24x24), so they look too big by default */
+    ::slotted(vaadin-icon[icon^='vaadin:']) {
+      padding: 0.25em;
+      box-sizing: border-box !important;
+    }
+
+    /* Text align */
+    :host([dir='rtl']) ::slotted(:not([slot$='fix'])) {
+      --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent, #000 1.25em);
+    }
+
+    @-moz-document url-prefix() {
+      :host([dir='rtl']) ::slotted(:not([slot$='fix'])) {
+        mask-image: var(--_lumo-text-field-overflow-mask-image);
+      }
+    }
+
+    :host([theme~='align-left']) ::slotted(:not([slot$='fix'])) {
+      text-align: start;
+      --_lumo-text-field-overflow-mask-image: none;
+    }
+
+    :host([theme~='align-center']) ::slotted(:not([slot$='fix'])) {
+      text-align: center;
+      --_lumo-text-field-overflow-mask-image: none;
+    }
+
+    :host([theme~='align-right']) ::slotted(:not([slot$='fix'])) {
+      text-align: end;
+      --_lumo-text-field-overflow-mask-image: none;
+    }
+
+    @-moz-document url-prefix() {
+      /* Firefox is smart enough to align overflowing text to right */
+      :host([theme~='align-right']) ::slotted(:not([slot$='fix'])) {
+        --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent 0.25em, #000 1.5em);
+      }
+    }
+
+    @-moz-document url-prefix() {
+      /* Firefox is smart enough to align overflowing text to right */
+      :host([theme~='align-left']) ::slotted(:not([slot$='fix'])) {
+        --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent 0.25em, #000 1.5em);
+      }
+    }
+
+    /* RTL specific styles */
+    :host([dir='rtl'])::after {
+      transform-origin: 0% 0;
+    }
+
+    :host([theme~='align-left'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
+      --_lumo-text-field-overflow-mask-image: none;
+    }
+
+    :host([theme~='align-center'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
+      --_lumo-text-field-overflow-mask-image: none;
+    }
+
+    :host([theme~='align-right'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
+      --_lumo-text-field-overflow-mask-image: none;
+    }
+
+    @-moz-document url-prefix() {
+      /* Firefox is smart enough to align overflowing text to right */
+      :host([theme~='align-right'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
+        --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent 0.25em, #000 1.5em);
+      }
+    }
+
+    @-moz-document url-prefix() {
+      /* Firefox is smart enough to align overflowing text to right */
+      :host([theme~='align-left'][dir='rtl']) ::slotted(:not([slot$='fix'])) {
+        --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent 0.25em, #000 1.5em);
+      }
+    }
+  `,{moduleId:"lumo-input-container"});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class InputContainer extends ThemableMixin(DirMixin(PolymerElement)){static get is(){return"vaadin-input-container"}static get template(){return html`
+      <style>
+        :host {
+          display: flex;
+          align-items: center;
+          flex: 0 1 auto;
+          border-radius:
+            /* See https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius */
+            var(--vaadin-input-field-top-start-radius, var(--__border-radius))
+            var(--vaadin-input-field-top-end-radius, var(--__border-radius))
+            var(--vaadin-input-field-bottom-end-radius, var(--__border-radius))
+            var(--vaadin-input-field-bottom-start-radius, var(--__border-radius));
+          --_border-radius: var(--vaadin-input-field-border-radius, 0px);
+          --_input-border-width: var(--vaadin-input-field-border-width, 0);
+          --_input-border-color: var(--vaadin-input-field-border-color, transparent);
+          box-shadow: inset 0 0 0 var(--_input-border-width, 0) var(--_input-border-color);
+        }
+
+        :host([dir='rtl']) {
+          border-radius:
+            /* Don't use logical props, see https://github.com/vaadin/vaadin-time-picker/issues/145 */
+            var(--vaadin-input-field-top-end-radius, var(--_border-radius))
+            var(--vaadin-input-field-top-start-radius, var(--_border-radius))
+            var(--vaadin-input-field-bottom-start-radius, var(--_border-radius))
+            var(--vaadin-input-field-bottom-end-radius, var(--_border-radius));
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        /* Reset the native input styles */
+        ::slotted(input) {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          flex: auto;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          outline: none;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          border-radius: 0;
+          min-width: 0;
+          font: inherit;
+          line-height: normal;
+          color: inherit;
+          background-color: transparent;
+          /* Disable default invalid style in Firefox */
+          box-shadow: none;
+        }
+
+        ::slotted(*) {
+          flex: none;
+        }
+
+        ::slotted(:is(input, textarea))::placeholder {
+          /* Use ::slotted(input:placeholder-shown) in themes to style the placeholder. */
+          /* because ::slotted(...)::placeholder does not work in Safari. */
+          font: inherit;
+          color: inherit;
+          /* Override default opacity in Firefox */
+          opacity: 1;
+        }
+      </style>
+      <slot name="prefix"></slot>
+      <slot></slot>
+      <slot name="suffix"></slot>
+    `}static get properties(){return{disabled:{type:Boolean,reflectToAttribute:!0},readonly:{type:Boolean,reflectToAttribute:!0},invalid:{type:Boolean,reflectToAttribute:!0}}}ready(){super.ready(),this.addEventListener("pointerdown",i=>{i.target===this&&i.preventDefault()}),this.addEventListener("click",i=>{i.target===this&&this.shadowRoot.querySelector("slot:not([name])").assignedNodes({flatten:!0}).forEach(t=>t.focus&&t.focus())})}}customElements.define(InputContainer.is,InputContainer);const comboBoxItem=css$e`
   :host {
     transition: background-color 100ms;
     overflow: hidden;
@@ -5919,7 +5232,176 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
         --_vaadin-combo-box-items-container-border-width: var(--lumo-space-xs);
         --_vaadin-combo-box-items-container-border-style: solid;
       }
-    `],{moduleId:"lumo-combo-box-overlay"});const comboBox=css$e`
+    `],{moduleId:"lumo-combo-box-overlay"});/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const fieldButton=css$e`
+  [part$='button'] {
+    flex: none;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    font-size: var(--lumo-icon-size-m);
+    text-align: center;
+    color: var(--lumo-contrast-60pct);
+    transition: 0.2s color;
+    cursor: var(--lumo-clickable-cursor);
+  }
+
+  [part$='button']:hover {
+    color: var(--lumo-contrast-90pct);
+  }
+
+  :host([disabled]) [part$='button'],
+  :host([readonly]) [part$='button'] {
+    color: var(--lumo-contrast-20pct);
+    cursor: default;
+  }
+
+  [part$='button']::before {
+    font-family: 'lumo-icons';
+    display: block;
+  }
+`;registerStyles$1("",fieldButton,{moduleId:"lumo-field-button"});/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const inputField=css$e`
+  :host {
+    --lumo-text-field-size: var(--lumo-size-m);
+    color: var(--lumo-body-text-color);
+    font-size: var(--lumo-font-size-m);
+    font-family: var(--lumo-font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    padding: var(--lumo-space-xs) 0;
+  }
+
+  :host::before {
+    height: var(--lumo-text-field-size);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  :host([focused]:not([readonly])) [part='label'] {
+    color: var(--lumo-primary-text-color);
+  }
+
+  :host([focused]) [part='input-field'] ::slotted(:is(input, textarea)) {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  ::slotted(:is(input, textarea):placeholder-shown) {
+    color: var(--lumo-secondary-text-color);
+  }
+
+  /* Hover */
+  :host(:hover:not([readonly]):not([focused])) [part='label'] {
+    color: var(--lumo-body-text-color);
+  }
+
+  :host(:hover:not([readonly]):not([focused])) [part='input-field']::after {
+    opacity: 0.1;
+  }
+
+  /* Touch device adjustment */
+  @media (pointer: coarse) {
+    :host(:hover:not([readonly]):not([focused])) [part='label'] {
+      color: var(--lumo-secondary-text-color);
+    }
+
+    :host(:hover:not([readonly]):not([focused])) [part='input-field']::after {
+      opacity: 0;
+    }
+
+    :host(:active:not([readonly]):not([focused])) [part='input-field']::after {
+      opacity: 0.2;
+    }
+  }
+
+  /* Trigger when not focusing using the keyboard */
+  :host([focused]:not([focus-ring]):not([readonly])) [part='input-field']::after {
+    transform: scaleX(0);
+    transition-duration: 0.15s, 1s;
+  }
+
+  /* Focus-ring */
+  :host([focus-ring]) [part='input-field'] {
+    box-shadow: 0 0 0 2px var(--lumo-primary-color-50pct);
+  }
+
+  /* Read-only and disabled */
+  :host(:is([readonly], [disabled])) ::slotted(:is(input, textarea):placeholder-shown) {
+    opacity: 0;
+  }
+
+  /* Read-only style */
+  :host([readonly]) {
+    --vaadin-input-field-border-color: transparent;
+  }
+
+  /* Disabled style */
+  :host([disabled]) {
+    pointer-events: none;
+    --vaadin-input-field-border-color: var(--lumo-contrast-20pct);
+  }
+
+  :host([disabled]) [part='label'],
+  :host([disabled]) [part='input-field'] ::slotted(*) {
+    color: var(--lumo-disabled-text-color);
+    -webkit-text-fill-color: var(--lumo-disabled-text-color);
+  }
+
+  /* Invalid style */
+  :host([invalid]) {
+    --vaadin-input-field-border-color: var(--lumo-error-color);
+  }
+
+  :host([invalid][focus-ring]) [part='input-field'] {
+    box-shadow: 0 0 0 2px var(--lumo-error-color-50pct);
+  }
+
+  :host([input-prevented]) [part='input-field'] {
+    animation: shake 0.15s infinite;
+  }
+
+  @keyframes shake {
+    25% {
+      transform: translateX(4px);
+    }
+    75% {
+      transform: translateX(-4px);
+    }
+  }
+
+  /* Small theme */
+  :host([theme~='small']) {
+    font-size: var(--lumo-font-size-s);
+    --lumo-text-field-size: var(--lumo-size-s);
+  }
+
+  :host([theme~='small']) [part='label'] {
+    font-size: var(--lumo-font-size-xs);
+  }
+
+  :host([theme~='small']) [part='error-message'] {
+    font-size: var(--lumo-font-size-xxs);
+  }
+
+  /* Slotted content */
+  [part='input-field'] ::slotted(:not(vaadin-icon):not(input):not(textarea)) {
+    color: var(--lumo-secondary-text-color);
+    font-weight: 400;
+  }
+
+  [part='clear-button']::before {
+    content: var(--lumo-icons-cross);
+  }
+`,inputFieldShared$1=[requiredField,fieldButton,helper,inputField];registerStyles$1("",inputFieldShared$1,{moduleId:"lumo-input-field-shared-styles"});const comboBox=css$e`
   :host {
     outline: none;
   }
@@ -5967,7 +5449,7 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
       flex-direction: column;
       height: 100%;
     }
-  `,{moduleId:"vaadin-combo-box-overlay-styles"});let memoizedTemplate$9;class ComboBoxOverlay extends ComboBoxOverlayMixin(Overlay){static get is(){return"vaadin-combo-box-overlay"}static get template(){if(!memoizedTemplate$9){memoizedTemplate$9=super.template.cloneNode(!0);const i=memoizedTemplate$9.content.querySelector('[part~="overlay"]');i.removeAttribute("tabindex");const t=document.createElement("div");t.setAttribute("part","loader"),i.insertBefore(t,i.firstElementChild)}return memoizedTemplate$9}}customElements.define(ComboBoxOverlay.is,ComboBoxOverlay);/**
+  `,{moduleId:"vaadin-combo-box-overlay-styles"});let memoizedTemplate$b;class ComboBoxOverlay extends ComboBoxOverlayMixin(Overlay){static get is(){return"vaadin-combo-box-overlay"}static get template(){if(!memoizedTemplate$b){memoizedTemplate$b=super.template.cloneNode(!0);const i=memoizedTemplate$b.content.querySelector('[part~="overlay"]');i.removeAttribute("tabindex");const t=document.createElement("div");t.setAttribute("part","loader"),i.insertBefore(t,i.firstElementChild)}return memoizedTemplate$b}}customElements.define(ComboBoxOverlay.is,ComboBoxOverlay);/**
  * @license
  * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -6022,7 +5504,99 @@ ${this.outerHTML}`)}_parseBoardCols(i){const t=i.map(a=>a.getAttribute("board-co
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const ClearButtonMixin=n=>class extends InputMixin(KeyboardMixin(n)){static get properties(){return{clearButtonVisible:{type:Boolean,reflectToAttribute:!0,value:!1}}}get clearElement(){return console.warn(`Please implement the 'clearElement' property in <${this.localName}>`),null}ready(){super.ready(),this.clearElement&&(this.clearElement.addEventListener("mousedown",t=>this._onClearButtonMouseDown(t)),this.clearElement.addEventListener("click",t=>this._onClearButtonClick(t)))}_onClearButtonClick(t){t.preventDefault(),this._onClearAction()}_onClearButtonMouseDown(t){t.preventDefault(),isTouch||this.inputElement.focus()}_onEscape(t){super._onEscape(t),this.clearButtonVisible&&this.value&&(t.stopPropagation(),this._onClearAction())}_onClearAction(){this.clear(),this.inputElement.dispatchEvent(new Event("input",{bubbles:!0,composed:!0})),this.inputElement.dispatchEvent(new Event("change",{bubbles:!0}))}};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const InputConstraintsMixin=dedupingMixin(n=>class extends DelegateStateMixin(ValidateMixin(InputMixin(n))){static get constraints(){return["required"]}static get delegateAttrs(){return[...super.delegateAttrs,"required"]}ready(){super.ready(),this._createConstraintsObserver()}checkValidity(){return this.inputElement&&this._hasValidConstraints(this.constructor.constraints.map(t=>this[t]))?this.inputElement.checkValidity():!this.invalid}_hasValidConstraints(t){return t.some(r=>this.__isValidConstraint(r))}_createConstraintsObserver(){this._createMethodObserver(`_constraintsChanged(stateTarget, ${this.constructor.constraints.join(", ")})`)}_constraintsChanged(t,...r){if(!t)return;const o=this._hasValidConstraints(r),a=this.__previousHasConstraints&&!o;(this._hasValue||this.invalid)&&o?this.validate():a&&this._setInvalid(!1),this.__previousHasConstraints=o}_onChange(t){t.stopPropagation(),this.validate(),this.dispatchEvent(new CustomEvent("change",{detail:{sourceEvent:t},bubbles:t.bubbles,cancelable:t.cancelable}))}__isValidConstraint(t){return!!t||t===0}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const stylesMap=new WeakMap;function getRootStyles(n){return stylesMap.has(n)||stylesMap.set(n,new Set),stylesMap.get(n)}function insertStyles(n,i){const t=document.createElement("style");t.textContent=n,i===document?document.head.appendChild(t):i.insertBefore(t,i.firstChild)}const SlotStylesMixin=dedupingMixin(n=>class extends n{get slotStyles(){return{}}connectedCallback(){super.connectedCallback(),this.__applySlotStyles()}__applySlotStyles(){const t=this.getRootNode(),r=getRootStyles(t);this.slotStyles.forEach(o=>{r.has(o)||(insertStyles(o,t),r.add(o))})}});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const InputControlMixin=n=>class extends SlotStylesMixin(DelegateFocusMixin(InputConstraintsMixin(FieldMixin(ClearButtonMixin(KeyboardMixin(n)))))){static get properties(){return{allowedCharPattern:{type:String,observer:"_allowedCharPatternChanged"},autoselect:{type:Boolean,value:!1},name:{type:String,reflectToAttribute:!0},placeholder:{type:String,reflectToAttribute:!0},readonly:{type:Boolean,value:!1,reflectToAttribute:!0},title:{type:String,reflectToAttribute:!0}}}static get delegateAttrs(){return[...super.delegateAttrs,"name","type","placeholder","readonly","invalid","title"]}constructor(){super(),this._boundOnPaste=this._onPaste.bind(this),this._boundOnDrop=this._onDrop.bind(this),this._boundOnBeforeInput=this._onBeforeInput.bind(this)}get slotStyles(){return[`
+          :is(input[slot='input'], textarea[slot='textarea'])::placeholder {
+            font: inherit;
+            color: inherit;
+          }
+        `]}_onFocus(t){super._onFocus(t),this.autoselect&&this.inputElement&&this.inputElement.select()}_onChange(t){t.stopPropagation(),this.validate(),this.dispatchEvent(new CustomEvent("change",{detail:{sourceEvent:t},bubbles:t.bubbles,cancelable:t.cancelable}))}_addInputListeners(t){super._addInputListeners(t),t.addEventListener("paste",this._boundOnPaste),t.addEventListener("drop",this._boundOnDrop),t.addEventListener("beforeinput",this._boundOnBeforeInput)}_removeInputListeners(t){super._removeInputListeners(t),t.removeEventListener("paste",this._boundOnPaste),t.removeEventListener("drop",this._boundOnDrop),t.removeEventListener("beforeinput",this._boundOnBeforeInput)}_onKeyDown(t){super._onKeyDown(t),this.allowedCharPattern&&!this.__shouldAcceptKey(t)&&(t.preventDefault(),this._markInputPrevented())}_markInputPrevented(){this.setAttribute("input-prevented",""),this._preventInputDebouncer=Debouncer$1.debounce(this._preventInputDebouncer,timeOut.after(200),()=>{this.removeAttribute("input-prevented")})}__shouldAcceptKey(t){return t.metaKey||t.ctrlKey||!t.key||t.key.length!==1||this.__allowedCharRegExp.test(t.key)}_onPaste(t){if(this.allowedCharPattern){const r=t.clipboardData.getData("text");this.__allowedTextRegExp.test(r)||(t.preventDefault(),this._markInputPrevented())}}_onDrop(t){if(this.allowedCharPattern){const r=t.dataTransfer.getData("text");this.__allowedTextRegExp.test(r)||(t.preventDefault(),this._markInputPrevented())}}_onBeforeInput(t){this.allowedCharPattern&&t.data&&!this.__allowedTextRegExp.test(t.data)&&(t.preventDefault(),this._markInputPrevented())}_allowedCharPatternChanged(t){if(t)try{this.__allowedCharRegExp=new RegExp(`^${t}$`,"u"),this.__allowedTextRegExp=new RegExp(`^${t}*$`,"u")}catch(r){console.error(r)}}};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */const PatternMixin=n=>class extends InputConstraintsMixin(n){static get properties(){return{pattern:{type:String}}}static get delegateAttrs(){return[...super.delegateAttrs,"pattern"]}static get constraints(){return[...super.constraints,"pattern"]}};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd..
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const clearButton=css$e`
+  [part='clear-button'] {
+    display: none;
+    cursor: default;
+  }
+
+  [part='clear-button']::before {
+    content: '\\2715';
+  }
+
+  :host([clear-button-visible][has-value]:not([disabled]):not([readonly])) [part='clear-button'] {
+    display: block;
+  }
+`;/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd..
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const fieldShared=css$e`
+  :host {
+    display: inline-flex;
+    outline: none;
+  }
+
+  :host::before {
+    content: '\\2003';
+    width: 0;
+    display: inline-block;
+    /* Size and position this element on the same vertical position as the input-field element
+          to make vertical align for the host element work as expected */
+  }
+
+  :host([hidden]) {
+    display: none !important;
+  }
+
+  :host(:not([has-label])) [part='label'] {
+    display: none;
+  }
+
+  @media (forced-colors: active) {
+    :host(:not([readonly])) [part='input-field'] {
+      outline: 1px solid;
+      outline-offset: -1px;
+    }
+    :host([focused]) [part='input-field'] {
+      outline-width: 2px;
+    }
+    :host([disabled]) [part='input-field'] {
+      outline-color: GrayText;
+    }
+  }
+`;/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd..
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const inputFieldContainer=css$e`
+  [class$='container'] {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    max-width: 100%;
+    width: var(--vaadin-field-default-width, 12em);
+  }
+`;/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd..
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const inputFieldShared=[fieldShared,inputFieldContainer,clearButton];/**
  * @license
  * Copyright (c) 2015 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -6333,7 +5907,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: flex;
       width: 100%;
     }
-  `,{moduleId:"vaadin-multi-select-combo-box-container-styles"});let memoizedTemplate$8;class MultiSelectComboBoxContainer extends InputContainer{static get is(){return"vaadin-multi-select-combo-box-container"}static get template(){if(!memoizedTemplate$8){memoizedTemplate$8=super.template.cloneNode(!0);const i=memoizedTemplate$8.content,t=i.querySelectorAll("slot"),r=document.createElement("div");r.setAttribute("id","wrapper"),i.insertBefore(r,t[2]),r.appendChild(t[0]),r.appendChild(t[1])}return memoizedTemplate$8}}customElements.define(MultiSelectComboBoxContainer.is,MultiSelectComboBoxContainer);/**
+  `,{moduleId:"vaadin-multi-select-combo-box-container-styles"});let memoizedTemplate$a;class MultiSelectComboBoxContainer extends InputContainer{static get is(){return"vaadin-multi-select-combo-box-container"}static get template(){if(!memoizedTemplate$a){memoizedTemplate$a=super.template.cloneNode(!0);const i=memoizedTemplate$a.content,t=i.querySelectorAll("slot"),r=document.createElement("div");r.setAttribute("id","wrapper"),i.insertBefore(r,t[2]),r.appendChild(t[0]),r.appendChild(t[1])}return memoizedTemplate$a}}customElements.define(MultiSelectComboBoxContainer.is,MultiSelectComboBoxContainer);/**
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -6368,7 +5942,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       flex-direction: column;
       height: 100%;
     }
-  `,{moduleId:"vaadin-multi-select-combo-box-overlay-styles"});let memoizedTemplate$7;class MultiSelectComboBoxOverlay extends ComboBoxOverlayMixin(Overlay){static get is(){return"vaadin-multi-select-combo-box-overlay"}static get template(){if(!memoizedTemplate$7){memoizedTemplate$7=super.template.cloneNode(!0);const i=memoizedTemplate$7.content.querySelector('[part~="overlay"]');i.removeAttribute("tabindex");const t=document.createElement("div");t.setAttribute("part","loader"),i.insertBefore(t,i.firstElementChild)}return memoizedTemplate$7}}customElements.define(MultiSelectComboBoxOverlay.is,MultiSelectComboBoxOverlay);/**
+  `,{moduleId:"vaadin-multi-select-combo-box-overlay-styles"});let memoizedTemplate$9;class MultiSelectComboBoxOverlay extends ComboBoxOverlayMixin(Overlay){static get is(){return"vaadin-multi-select-combo-box-overlay"}static get template(){if(!memoizedTemplate$9){memoizedTemplate$9=super.template.cloneNode(!0);const i=memoizedTemplate$9.content.querySelector('[part~="overlay"]');i.removeAttribute("tabindex");const t=document.createElement("div");t.setAttribute("part","loader"),i.insertBefore(t,i.firstElementChild)}return memoizedTemplate$9}}customElements.define(MultiSelectComboBoxOverlay.is,MultiSelectComboBoxOverlay);/**
  * @license
  * Copyright (c) 2021 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -6701,7 +6275,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         outline: 3px solid !important;
       }
     }
-  `,{moduleId:"vaadin-dialog-overlay-styles"});let memoizedTemplate$6;class DialogOverlay extends Overlay{static get is(){return"vaadin-dialog-overlay"}static get template(){if(!memoizedTemplate$6){memoizedTemplate$6=super.template.cloneNode(!0);const i=memoizedTemplate$6.content.querySelector('[part="content"]'),t=memoizedTemplate$6.content.querySelector('[part="overlay"]'),r=document.createElement("section");r.id="resizerContainer",r.classList.add("resizer-container"),r.appendChild(i),t.appendChild(r);const o=document.createElement("header");o.setAttribute("part","header"),r.insertBefore(o,i);const a=document.createElement("div");a.setAttribute("part","title"),o.appendChild(a);const s=document.createElement("slot");s.setAttribute("name","title"),a.appendChild(s);const l=document.createElement("div");l.setAttribute("part","header-content"),o.appendChild(l);const h=document.createElement("slot");h.setAttribute("name","header-content"),l.appendChild(h);const c=document.createElement("footer");c.setAttribute("part","footer"),r.appendChild(c);const d=document.createElement("slot");d.setAttribute("name","footer"),c.appendChild(d)}return memoizedTemplate$6}static get observers(){return["_headerFooterRendererChange(headerRenderer, footerRenderer, opened)","_headerTitleChanged(headerTitle, opened)"]}static get properties(){return{modeless:Boolean,withBackdrop:Boolean,headerTitle:String,headerRenderer:Function,footerRenderer:Function}}ready(){super.ready(),this.__resizeObserver=new ResizeObserver(()=>{this.__updateOverflow()}),this.__resizeObserver.observe(this.$.resizerContainer),this.$.content.addEventListener("scroll",()=>{this.__updateOverflow()})}__createContainer(i){const t=document.createElement("div");return t.setAttribute("slot",i),t}__clearContainer(i){i.innerHTML="",delete i._$litPart$}__initContainer(i,t){return i?this.__clearContainer(i):i=this.__createContainer(t),i}_headerFooterRendererChange(i,t,r){const o=this.__oldHeaderRenderer!==i;this.__oldHeaderRenderer=i;const a=this.__oldFooterRenderer!==t;this.__oldFooterRenderer=t;const s=this._oldOpenedFooterHeader!==r;this._oldOpenedFooterHeader=r,this.toggleAttribute("has-header",!!i),this.toggleAttribute("has-footer",!!t),o&&(i?this.headerContainer=this.__initContainer(this.headerContainer,"header-content"):this.headerContainer&&(this.headerContainer.remove(),this.headerContainer=null,this.__updateOverflow())),a&&(t?this.footerContainer=this.__initContainer(this.footerContainer,"footer"):this.footerContainer&&(this.footerContainer.remove(),this.footerContainer=null,this.__updateOverflow())),(i&&(o||s)||t&&(a||s))&&r&&this.requestContentUpdate()}_headerTitleChanged(i,t){this.toggleAttribute("has-title",!!i),t&&(i||this._oldHeaderTitle)&&this.requestContentUpdate(),this._oldHeaderTitle=i}_headerTitleRenderer(){this.headerTitle?(this.headerTitleElement||(this.headerTitleElement=document.createElement("h2"),this.headerTitleElement.setAttribute("slot","title"),this.headerTitleElement.classList.add("draggable")),this.appendChild(this.headerTitleElement),this.headerTitleElement.textContent=this.headerTitle):this.headerTitleElement&&(this.headerTitleElement.remove(),this.headerTitleElement=null)}requestContentUpdate(){super.requestContentUpdate(),this.headerContainer&&(this.headerContainer.parentElement||this.appendChild(this.headerContainer),this.headerRenderer&&this.headerRenderer.call(this.owner,this.headerContainer,this.owner)),this.footerContainer&&(this.footerContainer.parentElement||this.appendChild(this.footerContainer),this.footerRenderer&&this.footerRenderer.call(this.owner,this.footerContainer,this.owner)),this._headerTitleRenderer(),this.__updateOverflow()}setBounds(i){const t=this.$.overlay,r={...i};t.style.position!=="absolute"&&(t.style.position="absolute",this.setAttribute("has-bounds-set","")),Object.keys(r).forEach(o=>{typeof r[o]=="number"&&(r[o]=`${r[o]}px`)}),Object.assign(t.style,r)}getBounds(){const i=this.$.overlay.getBoundingClientRect(),t=this.getBoundingClientRect(),r=i.top-t.top,o=i.left-t.left,a=i.width,s=i.height;return{top:r,left:o,width:a,height:s}}__updateOverflow(){let i="";if(this.hasAttribute("has-header")||this.hasAttribute("has-footer")||this.headerTitle){const r=this.$.content;r.scrollTop>0&&(i+=" top"),r.scrollTop<r.scrollHeight-r.clientHeight&&(i+=" bottom")}const t=i.trim();t.length>0&&this.getAttribute("overflow")!==t?this.setAttribute("overflow",t):t.length===0&&this.hasAttribute("overflow")&&this.removeAttribute("overflow")}}customElements.define(DialogOverlay.is,DialogOverlay);/**
+  `,{moduleId:"vaadin-dialog-overlay-styles"});let memoizedTemplate$8;class DialogOverlay extends Overlay{static get is(){return"vaadin-dialog-overlay"}static get template(){if(!memoizedTemplate$8){memoizedTemplate$8=super.template.cloneNode(!0);const i=memoizedTemplate$8.content.querySelector('[part="content"]'),t=memoizedTemplate$8.content.querySelector('[part="overlay"]'),r=document.createElement("section");r.id="resizerContainer",r.classList.add("resizer-container"),r.appendChild(i),t.appendChild(r);const o=document.createElement("header");o.setAttribute("part","header"),r.insertBefore(o,i);const a=document.createElement("div");a.setAttribute("part","title"),o.appendChild(a);const s=document.createElement("slot");s.setAttribute("name","title"),a.appendChild(s);const l=document.createElement("div");l.setAttribute("part","header-content"),o.appendChild(l);const h=document.createElement("slot");h.setAttribute("name","header-content"),l.appendChild(h);const c=document.createElement("footer");c.setAttribute("part","footer"),r.appendChild(c);const d=document.createElement("slot");d.setAttribute("name","footer"),c.appendChild(d)}return memoizedTemplate$8}static get observers(){return["_headerFooterRendererChange(headerRenderer, footerRenderer, opened)","_headerTitleChanged(headerTitle, opened)"]}static get properties(){return{modeless:Boolean,withBackdrop:Boolean,headerTitle:String,headerRenderer:Function,footerRenderer:Function}}ready(){super.ready(),this.__resizeObserver=new ResizeObserver(()=>{this.__updateOverflow()}),this.__resizeObserver.observe(this.$.resizerContainer),this.$.content.addEventListener("scroll",()=>{this.__updateOverflow()})}__createContainer(i){const t=document.createElement("div");return t.setAttribute("slot",i),t}__clearContainer(i){i.innerHTML="",delete i._$litPart$}__initContainer(i,t){return i?this.__clearContainer(i):i=this.__createContainer(t),i}_headerFooterRendererChange(i,t,r){const o=this.__oldHeaderRenderer!==i;this.__oldHeaderRenderer=i;const a=this.__oldFooterRenderer!==t;this.__oldFooterRenderer=t;const s=this._oldOpenedFooterHeader!==r;this._oldOpenedFooterHeader=r,this.toggleAttribute("has-header",!!i),this.toggleAttribute("has-footer",!!t),o&&(i?this.headerContainer=this.__initContainer(this.headerContainer,"header-content"):this.headerContainer&&(this.headerContainer.remove(),this.headerContainer=null,this.__updateOverflow())),a&&(t?this.footerContainer=this.__initContainer(this.footerContainer,"footer"):this.footerContainer&&(this.footerContainer.remove(),this.footerContainer=null,this.__updateOverflow())),(i&&(o||s)||t&&(a||s))&&r&&this.requestContentUpdate()}_headerTitleChanged(i,t){this.toggleAttribute("has-title",!!i),t&&(i||this._oldHeaderTitle)&&this.requestContentUpdate(),this._oldHeaderTitle=i}_headerTitleRenderer(){this.headerTitle?(this.headerTitleElement||(this.headerTitleElement=document.createElement("h2"),this.headerTitleElement.setAttribute("slot","title"),this.headerTitleElement.classList.add("draggable")),this.appendChild(this.headerTitleElement),this.headerTitleElement.textContent=this.headerTitle):this.headerTitleElement&&(this.headerTitleElement.remove(),this.headerTitleElement=null)}requestContentUpdate(){super.requestContentUpdate(),this.headerContainer&&(this.headerContainer.parentElement||this.appendChild(this.headerContainer),this.headerRenderer&&this.headerRenderer.call(this.owner,this.headerContainer,this.owner)),this.footerContainer&&(this.footerContainer.parentElement||this.appendChild(this.footerContainer),this.footerRenderer&&this.footerRenderer.call(this.owner,this.footerContainer,this.owner)),this._headerTitleRenderer(),this.__updateOverflow()}setBounds(i){const t=this.$.overlay,r={...i};t.style.position!=="absolute"&&(t.style.position="absolute",this.setAttribute("has-bounds-set","")),Object.keys(r).forEach(o=>{typeof r[o]=="number"&&(r[o]=`${r[o]}px`)}),Object.assign(t.style,r)}getBounds(){const i=this.$.overlay.getBoundingClientRect(),t=this.getBoundingClientRect(),r=i.top-t.top,o=i.left-t.left,a=i.width,s=i.height;return{top:r,left:o,width:a,height:s}}__updateOverflow(){let i="";if(this.hasAttribute("has-header")||this.hasAttribute("has-footer")||this.headerTitle){const r=this.$.content;r.scrollTop>0&&(i+=" top"),r.scrollTop<r.scrollHeight-r.clientHeight&&(i+=" bottom")}const t=i.trim();t.length>0&&this.getAttribute("overflow")!==t?this.setAttribute("overflow",t):t.length===0&&this.hasAttribute("overflow")&&this.removeAttribute("overflow")}}customElements.define(DialogOverlay.is,DialogOverlay);/**
  * @license
  * Copyright (c) 2017 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -6887,7 +6461,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     [part='footer'] > * {
       pointer-events: all;
     }
-  `,{moduleId:"vaadin-confirm-dialog-overlay-styles"});let memoizedTemplate$5;const footerTemplate$1=html`
+  `,{moduleId:"vaadin-confirm-dialog-overlay-styles"});let memoizedTemplate$7;const footerTemplate$1=html`
   <div part="cancel-button">
     <slot name="cancel-button"></slot>
   </div>
@@ -6897,7 +6471,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <div part="confirm-button">
     <slot name="confirm-button"></slot>
   </div>
-`;class ConfirmDialogOverlay extends DialogOverlay{static get is(){return"vaadin-confirm-dialog-overlay"}static get template(){if(!memoizedTemplate$5){memoizedTemplate$5=super.template.cloneNode(!0);const i=memoizedTemplate$5.content.querySelector('[part="header"]');i.innerHTML="";const t=document.createElement("slot");t.setAttribute("name","header"),i.appendChild(t);const r=memoizedTemplate$5.content.querySelector('[part="content"]'),o=r.querySelector("slot:not([name])"),a=document.createElement("div");a.setAttribute("part","message"),r.appendChild(a),a.appendChild(o);const s=memoizedTemplate$5.content.querySelector('[part="footer"]');s.setAttribute("role","toolbar");const l=s.querySelector("slot");s.removeChild(l),s.appendChild(footerTemplate$1.content.cloneNode(!0))}return memoizedTemplate$5}_headerFooterRendererChange(i,t,r){super._headerFooterRendererChange(i,t,r),this.setAttribute("has-header",""),this.setAttribute("has-footer","")}}customElements.define(ConfirmDialogOverlay.is,ConfirmDialogOverlay);class ConfirmDialogDialog extends Dialog{static get is(){return"vaadin-confirm-dialog-dialog"}static get template(){return html`
+`;class ConfirmDialogOverlay extends DialogOverlay{static get is(){return"vaadin-confirm-dialog-overlay"}static get template(){if(!memoizedTemplate$7){memoizedTemplate$7=super.template.cloneNode(!0);const i=memoizedTemplate$7.content.querySelector('[part="header"]');i.innerHTML="";const t=document.createElement("slot");t.setAttribute("name","header"),i.appendChild(t);const r=memoizedTemplate$7.content.querySelector('[part="content"]'),o=r.querySelector("slot:not([name])"),a=document.createElement("div");a.setAttribute("part","message"),r.appendChild(a),a.appendChild(o);const s=memoizedTemplate$7.content.querySelector('[part="footer"]');s.setAttribute("role","toolbar");const l=s.querySelector("slot");s.removeChild(l),s.appendChild(footerTemplate$1.content.cloneNode(!0))}return memoizedTemplate$7}_headerFooterRendererChange(i,t,r){super._headerFooterRendererChange(i,t,r),this.setAttribute("has-header",""),this.setAttribute("has-footer","")}}customElements.define(ConfirmDialogOverlay.is,ConfirmDialogOverlay);class ConfirmDialogDialog extends Dialog{static get is(){return"vaadin-confirm-dialog-dialog"}static get template(){return html`
       <style>
         :host {
           display: none;
@@ -8112,7 +7686,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  * @license
  * Copyright (c) 2016 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const template$6=document.createElement("template");template$6.innerHTML=`
+ */const template$7=document.createElement("template");template$7.innerHTML=`
   <style>
     @font-face {
       font-family: 'vaadin-grid-sorter-icons';
@@ -8121,7 +7695,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-style: normal;
     }
   </style>
-`;document.head.appendChild(template$6.content);class GridSorter extends ThemableMixin(DirMixin(PolymerElement)){static get template(){return html`
+`;document.head.appendChild(template$7.content);class GridSorter extends ThemableMixin(DirMixin(PolymerElement)){static get template(){return html`
       <style>
         :host {
           display: inline-flex;
@@ -8168,7 +7742,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div part="indicators">
         <span part="order">[[_getDisplayOrder(_order)]]</span>
       </div>
-    `}static get is(){return"vaadin-grid-sorter"}static get properties(){return{path:String,direction:{type:String,reflectToAttribute:!0,notify:!0,value:null},_order:{type:Number,value:null},_isConnected:{type:Boolean,observer:"__isConnectedChanged"}}}static get observers(){return["_pathOrDirectionChanged(path, direction)"]}ready(){super.ready(),this.addEventListener("click",this._onClick.bind(this))}connectedCallback(){super.connectedCallback(),this._isConnected=!0}disconnectedCallback(){super.disconnectedCallback(),this._isConnected=!1,!this.parentNode&&this._grid&&this._grid.__removeSorters([this])}_pathOrDirectionChanged(){this.__dispatchSorterChangedEvenIfPossible()}__isConnectedChanged(i,t){t!==!1&&this.__dispatchSorterChangedEvenIfPossible()}__dispatchSorterChangedEvenIfPossible(){this.path===void 0||this.direction===void 0||!this._isConnected||(this.dispatchEvent(new CustomEvent("sorter-changed",{detail:{shiftClick:!!this._shiftClick,fromSorterClick:!!this._fromSorterClick},bubbles:!0,composed:!0})),this._fromSorterClick=!1,this._shiftClick=!1)}_getDisplayOrder(i){return i===null?"":i+1}_onClick(i){if(i.defaultPrevented)return;const t=this.getRootNode().activeElement;this!==t&&this.contains(t)||(i.preventDefault(),this._shiftClick=i.shiftKey,this._fromSorterClick=!0,this.direction==="asc"?this.direction="desc":this.direction==="desc"?this.direction=null:this.direction="asc")}}customElements.define(GridSorter.is,GridSorter);registerStyles$1("vaadin-crud-edit",css$e`
+    `}static get is(){return"vaadin-grid-sorter"}static get properties(){return{path:String,direction:{type:String,reflectToAttribute:!0,notify:!0,value:null},_order:{type:Number,value:null},_isConnected:{type:Boolean,observer:"__isConnectedChanged"}}}static get observers(){return["_pathOrDirectionChanged(path, direction)"]}ready(){super.ready(),this.addEventListener("click",this._onClick.bind(this))}connectedCallback(){super.connectedCallback(),this._isConnected=!0}disconnectedCallback(){super.disconnectedCallback(),this._isConnected=!1,!this.parentNode&&this._grid&&this._grid.__removeSorters([this])}_pathOrDirectionChanged(){this.__dispatchSorterChangedEvenIfPossible()}__isConnectedChanged(i,t){t!==!1&&this.__dispatchSorterChangedEvenIfPossible()}__dispatchSorterChangedEvenIfPossible(){this.path===void 0||this.direction===void 0||!this._isConnected||(this.dispatchEvent(new CustomEvent("sorter-changed",{detail:{shiftClick:!!this._shiftClick,fromSorterClick:!!this._fromSorterClick},bubbles:!0,composed:!0})),this._fromSorterClick=!1,this._shiftClick=!1)}_getDisplayOrder(i){return i===null?"":i+1}_onClick(i){if(i.defaultPrevented)return;const t=this.getRootNode().activeElement;this!==t&&this.contains(t)||(i.preventDefault(),this._shiftClick=i.shiftKey,this._fromSorterClick=!0,this.direction==="asc"?this.direction="desc":this.direction==="desc"?this.direction=null:this.direction="asc")}}customElements.define(GridSorter.is,GridSorter);/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */registerStyles$1("vaadin-text-field",inputFieldShared$1,{moduleId:"lumo-text-field-styles"});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const InputFieldMixin=n=>class extends InputControlMixin(n){static get properties(){return{autocomplete:{type:String},autocorrect:{type:String},autocapitalize:{type:String,reflectToAttribute:!0}}}static get delegateAttrs(){return[...super.delegateAttrs,"autocapitalize","autocomplete","autocorrect"]}get __data(){return this.__dataValue||{}}set __data(t){this.__dataValue=t}_inputElementChanged(t){super._inputElementChanged(t),t&&(t.value&&t.value!==this.value&&(console.warn(`Please define value on the <${this.localName}> component!`),t.value=""),this.value&&(t.value=this.value))}_setFocused(t){super._setFocused(t),!t&&document.hasFocus()&&this.validate()}_onInput(t){super._onInput(t),this.invalid&&this.validate()}_valueChanged(t,r){super._valueChanged(t,r),r!==void 0&&this.invalid&&this.validate()}};/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const TextFieldMixin=n=>class extends InputFieldMixin(n){static get properties(){return{maxlength:{type:Number},minlength:{type:Number},pattern:{type:String}}}static get delegateAttrs(){return[...super.delegateAttrs,"maxlength","minlength","pattern"]}static get constraints(){return[...super.constraints,"maxlength","minlength","pattern"]}constructor(){super(),this._setType("text")}get clearElement(){return this.$.clearButton}ready(){super.ready(),this.addController(new InputController(this,t=>{this._setInputElement(t),this._setFocusElement(t),this.stateTarget=t,this.ariaTarget=t})),this.addController(new LabelledInputController(this.inputElement,this._labelController))}};/**
+ * @license
+ * Copyright (c) 2017 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */registerStyles$1("vaadin-text-field",inputFieldShared,{moduleId:"vaadin-text-field-styles"});class TextField extends TextFieldMixin(ThemableMixin(ElementMixin(PolymerElement))){static get is(){return"vaadin-text-field"}static get template(){return html`
+      <style>
+        [part='input-field'] {
+          flex-grow: 0;
+        }
+      </style>
+
+      <div class="vaadin-field-container">
+        <div part="label">
+          <slot name="label"></slot>
+          <span part="required-indicator" aria-hidden="true" on-click="focus"></span>
+        </div>
+
+        <vaadin-input-container
+          part="input-field"
+          readonly="[[readonly]]"
+          disabled="[[disabled]]"
+          invalid="[[invalid]]"
+          theme$="[[_theme]]"
+        >
+          <slot name="prefix" slot="prefix"></slot>
+          <slot name="input"></slot>
+          <slot name="suffix" slot="suffix"></slot>
+          <div id="clearButton" part="clear-button" slot="suffix" aria-hidden="true"></div>
+        </vaadin-input-container>
+
+        <div part="helper-text">
+          <slot name="helper"></slot>
+        </div>
+
+        <div part="error-message">
+          <slot name="error-message"></slot>
+        </div>
+      </div>
+      <slot name="tooltip"></slot>
+    `}static get properties(){return{maxlength:{type:Number},minlength:{type:Number}}}ready(){super.ready(),this._tooltipController=new TooltipController(this),this._tooltipController.setPosition("top"),this.addController(this._tooltipController)}}customElements.define(TextField.is,TextField);registerStyles$1("vaadin-crud-edit",css$e`
     :host {
       min-width: auto;
       margin: 0;
@@ -8321,11 +7946,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :host([fullscreen]) [part='content'] {
       flex: 1;
     }
-  `,{moduleId:"vaadin-crud-dialog-overlay-styles"});let memoizedTemplate$4;const footerTemplate=html`
+  `,{moduleId:"vaadin-crud-dialog-overlay-styles"});let memoizedTemplate$6;const footerTemplate=html`
   <slot name="save-button"></slot>
   <slot name="cancel-button"></slot>
   <slot name="delete-button"></slot>
-`;class CrudDialogOverlay extends DialogOverlay{static get is(){return"vaadin-crud-dialog-overlay"}static get template(){if(!memoizedTemplate$4){memoizedTemplate$4=super.template.cloneNode(!0);const i=memoizedTemplate$4.content.querySelector('[part="header"]');i.innerHTML="";const t=document.createElement("slot");t.setAttribute("name","header"),i.appendChild(t),memoizedTemplate$4.content.querySelector('[part="content"]').querySelector("slot:not([name])").setAttribute("name","form");const a=memoizedTemplate$4.content.querySelector('[part="footer"]');a.setAttribute("role","toolbar");const s=a.querySelector("slot");a.removeChild(s),a.appendChild(footerTemplate.content.cloneNode(!0))}return memoizedTemplate$4}_headerFooterRendererChange(i,t,r){super._headerFooterRendererChange(i,t,r),this.setAttribute("has-header",""),this.setAttribute("has-footer","")}}customElements.define("vaadin-crud-dialog-overlay",CrudDialogOverlay);class CrudDialog extends Dialog{static get template(){return html`
+`;class CrudDialogOverlay extends DialogOverlay{static get is(){return"vaadin-crud-dialog-overlay"}static get template(){if(!memoizedTemplate$6){memoizedTemplate$6=super.template.cloneNode(!0);const i=memoizedTemplate$6.content.querySelector('[part="header"]');i.innerHTML="";const t=document.createElement("slot");t.setAttribute("name","header"),i.appendChild(t),memoizedTemplate$6.content.querySelector('[part="content"]').querySelector("slot:not([name])").setAttribute("name","form");const a=memoizedTemplate$6.content.querySelector('[part="footer"]');a.setAttribute("role","toolbar");const s=a.querySelector("slot");a.removeChild(s),a.appendChild(footerTemplate.content.cloneNode(!0))}return memoizedTemplate$6}_headerFooterRendererChange(i,t,r){super._headerFooterRendererChange(i,t,r),this.setAttribute("has-header",""),this.setAttribute("has-footer","")}}customElements.define("vaadin-crud-dialog-overlay",CrudDialogOverlay);class CrudDialog extends Dialog{static get template(){return html`
       <style>
         :host {
           display: none;
@@ -9079,7 +8704,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :host([disabled]) * {
       color: var(--lumo-disabled-text-color) !important;
     }
-  `,{moduleId:"lumo-month-calendar"});const template$5=document.createElement("template");template$5.innerHTML=`
+  `,{moduleId:"lumo-month-calendar"});const template$6=document.createElement("template");template$6.innerHTML=`
   <style>
     @keyframes vaadin-date-picker-month-calendar-focus-date {
       50% {
@@ -9087,7 +8712,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
   </style>
-`;document.head.appendChild(template$5.content);const datePicker=css$e`
+`;document.head.appendChild(template$6.content);const datePicker=css$e`
   :host {
     outline: none;
   }
@@ -9132,7 +8757,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         outline: 3px solid;
       }
     }
-  `,{moduleId:"vaadin-date-picker-overlay-styles"});let memoizedTemplate$3;class DatePickerOverlay extends PositionMixin(Overlay){static get is(){return"vaadin-date-picker-overlay"}static get template(){return memoizedTemplate$3||(memoizedTemplate$3=super.template.cloneNode(!0),memoizedTemplate$3.content.querySelector('[part~="overlay"]').removeAttribute("tabindex")),memoizedTemplate$3}}customElements.define(DatePickerOverlay.is,DatePickerOverlay);/**
+  `,{moduleId:"vaadin-date-picker-overlay-styles"});let memoizedTemplate$5;class DatePickerOverlay extends PositionMixin(Overlay){static get is(){return"vaadin-date-picker-overlay"}static get template(){return memoizedTemplate$5||(memoizedTemplate$5=super.template.cloneNode(!0),memoizedTemplate$5.content.querySelector('[part~="overlay"]').removeAttribute("tabindex")),memoizedTemplate$5}}customElements.define(DatePickerOverlay.is,DatePickerOverlay);/**
 @license
 Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -9328,7 +8953,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       height: 100%;
     }
   </style>
-`;let memoizedTemplate$2;class DatePickerMonthScroller extends InfiniteScroller{static get is(){return"vaadin-date-picker-month-scroller"}static get template(){return memoizedTemplate$2||(memoizedTemplate$2=super.template.cloneNode(!0),memoizedTemplate$2.content.appendChild(stylesTemplate$1.content.cloneNode(!0))),memoizedTemplate$2}static get properties(){return{bufferSize:{type:Number,value:3}}}_createElement(){return document.createElement("vaadin-month-calendar")}_updateElement(i,t){i.month=dateAfterXMonths(t)}}customElements.define(DatePickerMonthScroller.is,DatePickerMonthScroller);/**
+`;let memoizedTemplate$4;class DatePickerMonthScroller extends InfiniteScroller{static get is(){return"vaadin-date-picker-month-scroller"}static get template(){return memoizedTemplate$4||(memoizedTemplate$4=super.template.cloneNode(!0),memoizedTemplate$4.content.appendChild(stylesTemplate$1.content.cloneNode(!0))),memoizedTemplate$4}static get properties(){return{bufferSize:{type:Number,value:3}}}_createElement(){return document.createElement("vaadin-month-calendar")}_updateElement(i,t){i.month=dateAfterXMonths(t)}}customElements.define(DatePickerMonthScroller.is,DatePickerMonthScroller);/**
  * @license
  * Copyright (c) 2016 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -9366,7 +8991,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-left-color: #000;
     }
   </style>
-`;let memoizedTemplate$1;class DatePickerYearScroller extends InfiniteScroller{static get is(){return"vaadin-date-picker-year-scroller"}static get template(){return memoizedTemplate$1||(memoizedTemplate$1=super.template.cloneNode(!0),memoizedTemplate$1.content.appendChild(stylesTemplate.content.cloneNode(!0))),memoizedTemplate$1}static get properties(){return{bufferSize:{type:Number,value:12}}}_createElement(){return document.createElement("vaadin-date-picker-year")}_updateElement(i,t){i.year=this._yearAfterXYears(t)}_yearAfterXYears(i){const t=new Date,r=new Date(t);return r.setFullYear(parseInt(i)+t.getFullYear()),r.getFullYear()}}customElements.define(DatePickerYearScroller.is,DatePickerYearScroller);/**
+`;let memoizedTemplate$3;class DatePickerYearScroller extends InfiniteScroller{static get is(){return"vaadin-date-picker-year-scroller"}static get template(){return memoizedTemplate$3||(memoizedTemplate$3=super.template.cloneNode(!0),memoizedTemplate$3.content.appendChild(stylesTemplate.content.cloneNode(!0))),memoizedTemplate$3}static get properties(){return{bufferSize:{type:Number,value:12}}}_createElement(){return document.createElement("vaadin-date-picker-year")}_updateElement(i,t){i.year=this._yearAfterXYears(t)}_yearAfterXYears(i){const t=new Date,r=new Date(t);return r.setFullYear(parseInt(i)+t.getFullYear()),r.getFullYear()}}customElements.define(DatePickerYearScroller.is,DatePickerYearScroller);/**
  * @license
  * Copyright (c) 2016 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -9615,7 +9240,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       flex-direction: column;
       height: 100%;
     }
-  `,{moduleId:"vaadin-time-picker-overlay-styles"});let memoizedTemplate;class TimePickerOverlay extends ComboBoxOverlayMixin(Overlay){static get is(){return"vaadin-time-picker-overlay"}static get template(){return memoizedTemplate||(memoizedTemplate=super.template.cloneNode(!0),memoizedTemplate.content.querySelector('[part~="overlay"]').removeAttribute("tabindex")),memoizedTemplate}}customElements.define(TimePickerOverlay.is,TimePickerOverlay);/**
+  `,{moduleId:"vaadin-time-picker-overlay-styles"});let memoizedTemplate$2;class TimePickerOverlay extends ComboBoxOverlayMixin(Overlay){static get is(){return"vaadin-time-picker-overlay"}static get template(){return memoizedTemplate$2||(memoizedTemplate$2=super.template.cloneNode(!0),memoizedTemplate$2.content.querySelector('[part~="overlay"]').removeAttribute("tabindex")),memoizedTemplate$2}}customElements.define(TimePickerOverlay.is,TimePickerOverlay);/**
  * @license
  * Copyright (c) 2018 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
@@ -10334,7 +9959,7 @@ Please wrap fields with a <vaadin-custom-field> instead.`);const t=i.find(r=>!!t
  * @license
  * Copyright (c) 2015 - 2023 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */const template$4=document.createElement("template");template$4.innerHTML=`<svg><defs>
+ */const template$5=document.createElement("template");template$5.innerHTML=`<svg><defs>
 <g id="vaadin:abacus"><path d="M0 0v16h16v-16h-16zM14 2v3h-0.1c-0.2-0.6-0.8-1-1.4-1s-1.2 0.4-1.4 1h-3.2c-0.2-0.6-0.7-1-1.4-1s-1.2 0.4-1.4 1h-0.2c-0.2-0.6-0.7-1-1.4-1s-1.2 0.4-1.4 1h-0.1v-3h12zM13.9 10c-0.2-0.6-0.8-1-1.4-1s-1.2 0.4-1.4 1h-0.2c-0.2-0.6-0.8-1-1.4-1s-1.2 0.4-1.4 1h-3.2c-0.2-0.6-0.7-1-1.4-1s-1.2 0.4-1.4 1h-0.1v-4h0.1c0.2 0.6 0.8 1 1.4 1s1.2-0.4 1.4-1h0.2c0.2 0.6 0.8 1 1.4 1s1.2-0.4 1.4-1h3.2c0.2 0.6 0.8 1 1.4 1s1.2-0.4 1.4-1h0.1l-0.1 4zM2 14v-3h0.1c0.2 0.6 0.8 1 1.4 1s1.2-0.4 1.4-1h3.2c0.2 0.6 0.8 1 1.4 1s1.2-0.4 1.4-1h0.2c0.2 0.6 0.8 1 1.4 1s1.2-0.4 1.4-1h0.1v3h-12z"></path></g>
 <g id="vaadin:absolute-position"><path d="M0 0v16h16v-16h-16zM15 15h-14v-6h3v1l3-2-3-2v1h-3v-6h6v3h-1l2 3 2-3h-1v-3h6v14z"></path></g>
 <g id="vaadin:academy-cap"><path d="M15.090 12.79c0.235-0.185 0.385-0.469 0.385-0.789 0-0.358-0.188-0.672-0.471-0.849l-0.004-5.822-1 0.67v5.15c-0.283 0.18-0.468 0.492-0.468 0.847 0 0.316 0.147 0.598 0.376 0.782l-0.378 0.502c-0.323 0.41-0.521 0.931-0.53 1.498l-0 1.222h0.81c0.002 0 0.004 0 0.005 0 0.411 0 0.757-0.282 0.853-0.664l0.331-1.336v2h1v-1.21c-0.009-0.569-0.207-1.090-0.534-1.505z"></path><path d="M8 0l-8 4 8 5 8-5-8-4z"></path><path d="M8 10l-5-3.33v1.71c0 0.91 2.94 3.62 5 3.62s5-2.71 5-3.62v-1.71z"></path></g>
@@ -10971,7 +10596,7 @@ Please wrap fields with a <vaadin-custom-field> instead.`);const t=i.find(r=>!!t
 <g id="vaadin:wrench"><path d="M15.5 13.4l-7.8-7.8c0.2-0.5 0.3-1 0.3-1.6 0-2.2-1.8-4-4-4-0.6 0-1.1 0.1-1.6 0.3l2.9 2.9-2.1 2.1-2.9-2.9c-0.2 0.5-0.3 1-0.3 1.6 0 2.2 1.8 4 4 4 0.6 0 1.1-0.1 1.6-0.3l7.8 7.8c0.6 0.6 1.5 0.6 2.1 0s0.6-1.5 0-2.1zM6.8 7.6l-1.4-1.4 0.9-0.9 1.4 1.4-0.9 0.9zM14.2 15c-0.4 0-0.8-0.3-0.8-0.8 0-0.4 0.3-0.8 0.8-0.8s0.8 0.3 0.8 0.8c0 0.5-0.3 0.8-0.8 0.8z"></path></g>
 <g id="vaadin:youtube-square"><path d="M7.9 6c0.2 0 0.3-0.2 0.3-0.5v-1.4c0-0.3-0.1-0.5-0.3-0.5s-0.3 0.2-0.3 0.5v1.4c0 0.3 0.1 0.5 0.3 0.5z"></path><path d="M7.1 11.9c-0.1 0.2-0.3 0.3-0.4 0.3s-0.1 0-0.1-0.1c0 0 0-0.1 0-0.2v-2.5h-0.6v2.6c0 0.2 0 0.4 0.1 0.5 0.1 0.2 0.2 0.2 0.4 0.2s0.4-0.1 0.7-0.4v0.4h0.6v-3.3h-0.7v2.5z"></path><path d="M3.8 8.9h0.7v3.8h0.7v-3.8h0.7v-0.7h-2.1z"></path><path d="M9.4 9.3c-0.2 0-0.4 0.2-0.6 0.4v-1.5h-0.6v4.4h0.6v-0.3c0.2 0.2 0.4 0.4 0.6 0.4s0.4-0.1 0.5-0.4c0-0.1 0.1-0.4 0.1-0.7v-1.3c0-0.3 0-0.5-0.1-0.7-0.1-0.1-0.2-0.3-0.5-0.3zM9.4 11.7c0 0.3-0.1 0.4-0.3 0.4-0.1 0-0.2 0-0.3-0.1v-2c0.1-0.1 0.2-0.1 0.3-0.1 0.2 0 0.3 0.2 0.3 0.5v1.3z"></path><path d="M11.3 9.3c-0.3 0-0.5 0.1-0.7 0.3-0.1 0.2-0.2 0.4-0.2 0.8v1.2c0 0.4 0.1 0.6 0.2 0.8 0.2 0.2 0.4 0.3 0.7 0.3s0.6-0.1 0.7-0.4c0.1-0.1 0.1-0.2 0.1-0.4 0-0.1 0-0.2 0-0.4v-0.1h-0.6c0 0.2 0 0.4 0 0.4 0 0.2-0.1 0.2-0.3 0.2s-0.3-0.2-0.3-0.5v-0.6h1.2v-0.7c0-0.4-0.1-0.6-0.2-0.8 0 0.1-0.3-0.1-0.6-0.1zM11.6 10.6h-0.6v-0.3c0-0.3 0.1-0.5 0.3-0.5s0.3 0.2 0.3 0.5v0.3z"></path><path d="M0 0v16h16v-16h-16zM9.3 3.1h0.6v2.5c0 0.1 0 0.2 0 0.2 0 0.1 0 0.2 0.1 0.2s0.2-0.1 0.4-0.3v-2.6h0.6v3.3h-0.6v-0.3c-0.2 0.3-0.5 0.4-0.7 0.4s-0.3-0.1-0.4-0.2c0-0.1-0.1-0.3-0.1-0.5v-2.7zM7 4.2c0-0.3 0-0.6 0.2-0.8s0.4-0.3 0.7-0.3c0.3 0 0.5 0.1 0.7 0.3 0.1 0.2 0.2 0.4 0.2 0.8v1.2c0 0.4-0.1 0.6-0.2 0.8-0.2 0.2-0.4 0.3-0.7 0.3s-0.5-0.1-0.7-0.3c-0.2-0.2-0.2-0.4-0.2-0.8v-1.2zM5.3 2l0.5 1.8 0.5-1.8h0.7l-0.8 2.7v1.8h-0.7v-1.8c-0.1-0.4-0.2-0.8-0.4-1.5-0.2-0.4-0.3-0.8-0.5-1.2h0.7zM12.8 12.9c-0.1 0.5-0.6 0.9-1.1 1-1.2 0.1-2.5 0.1-3.7 0.1s-2.5 0-3.7-0.1c-0.5-0.1-1-0.4-1.1-1-0.2-0.8-0.2-1.6-0.2-2.4 0-0.7 0-1.5 0.2-2.3 0.1-0.5 0.6-0.9 1.1-1 1.2-0.1 2.5-0.1 3.7-0.1s2.5 0 3.7 0.1c0.5 0.1 1 0.4 1.1 1 0.2 0.8 0.2 1.6 0.2 2.3 0 0.8 0 1.6-0.2 2.4z"></path></g>
 <g id="vaadin:youtube"><path d="M6.6 0h-0.9l-0.6 2.3-0.6-2.3h-1c0.2 0.6 0.4 1.1 0.6 1.7 0.3 0.8 0.5 1.5 0.5 1.9v2.4h0.9v-2.4l1.1-3.6zM9 4.5v-1.5c0-0.5-0.1-0.8-0.3-1.1s-0.5-0.4-0.9-0.4c-0.4 0-0.7 0.2-0.9 0.5-0.2 0.2-0.3 0.5-0.3 1v1.6c0 0.5 0.1 0.8 0.3 1 0.2 0.3 0.5 0.4 0.9 0.4s0.7-0.2 0.9-0.5c0.2-0.1 0.3-0.5 0.3-1zM8.2 4.7c0 0.4-0.1 0.6-0.4 0.6s-0.4-0.2-0.4-0.6v-1.9c0-0.4 0.1-0.6 0.4-0.6s0.4 0.2 0.4 0.6v1.9zM12 6v-4.5h-0.8v3.4c-0.2 0.3-0.3 0.4-0.5 0.4-0.1 0-0.2-0.1-0.2-0.2 0 0 0-0.1 0-0.3v-3.3h-0.8v3.5c0 0.3 0 0.5 0.1 0.7 0 0.2 0.2 0.3 0.5 0.3s0.6-0.2 0.9-0.5v0.5h0.8z"></path><path d="M12.4 10.5c-0.3 0-0.4 0.2-0.4 0.6v0.4h0.8v-0.4c0-0.4-0.1-0.6-0.4-0.6z"></path><path d="M9.5 10.5c-0.1 0-0.3 0.1-0.4 0.2v2.7c0.1 0.1 0.3 0.2 0.4 0.2 0.2 0 0.3-0.2 0.3-0.6v-1.9c0-0.4-0.1-0.6-0.3-0.6z"></path><path d="M14.4 8.3c-0.2-0.7-0.8-1.3-1.4-1.3-1.6-0.2-3.3-0.2-5-0.2s-3.3 0-5 0.2c-0.6 0-1.2 0.6-1.4 1.3-0.2 1-0.2 2.1-0.2 3.1s0 2.1 0.2 3.1c0.2 0.7 0.7 1.2 1.4 1.3 1.7 0.2 3.3 0.2 5 0.2s3.3 0 5-0.2c0.7-0.1 1.3-0.6 1.4-1.3 0.2-1 0.2-2.1 0.2-3.1s0-2.1-0.2-3.1zM5.2 9.2h-1v5.1h-0.9v-5.1h-0.9v-0.9h2.8v0.9zM7.6 14.3h-0.8v-0.5c-0.3 0.4-0.6 0.5-0.9 0.5s-0.4-0.1-0.5-0.3c0-0.1-0.1-0.3-0.1-0.7v-3.5h0.8v3.2c0 0.2 0 0.3 0 0.3 0 0.1 0.1 0.2 0.2 0.2 0.2 0 0.3-0.1 0.5-0.4v-3.3h0.8v4.5zM10.6 12.9c0 0.4 0 0.7-0.1 0.9-0.1 0.3-0.3 0.5-0.6 0.5s-0.6-0.2-0.8-0.5v0.4h-0.8v-5.9h0.8v1.9c0.3-0.3 0.5-0.5 0.8-0.5s0.5 0.2 0.6 0.5c0.1 0.2 0.1 0.5 0.1 0.9v1.8zM13.6 12.2h-1.6v0.8c0 0.4 0.1 0.6 0.4 0.6 0.2 0 0.3-0.1 0.4-0.3 0 0 0-0.2 0-0.5h0.8v0.1c0 0.3 0 0.4 0 0.5 0 0.2-0.1 0.3-0.2 0.5-0.2 0.3-0.5 0.5-1 0.5-0.4 0-0.7-0.2-1-0.5-0.2-0.2-0.3-0.6-0.3-1v-1.5c0-0.5 0.1-0.8 0.2-1 0.2-0.3 0.5-0.5 1-0.5 0.4 0 0.7 0.2 0.9 0.5 0.2 0.2 0.2 0.6 0.2 1v0.8z"></path></g>
-</defs></svg>`;Iconset.register("vaadin",16,template$4);registerStyles$1("vaadin-icon",css$e`
+</defs></svg>`;Iconset.register("vaadin",16,template$5);registerStyles$1("vaadin-icon",css$e`
     :host {
       width: var(--lumo-icon-size-m);
       height: var(--lumo-icon-size-m);
@@ -11014,6 +10639,509 @@ Please wrap fields with a <vaadin-custom-field> instead.`);const t=i.find(r=>!!t
 
       <slot name="tooltip"></slot>
     `}static get is(){return"vaadin-icon"}static get properties(){return{icon:{type:String,observer:"__iconChanged"},svg:{type:Object},size:{type:Number,value:24},__defaultPAR:{type:String,value:"xMidYMid meet"},__preserveAspectRatio:String,__svgElement:Object,__viewBox:String}}static get observers(){return["__svgChanged(svg, __svgElement)"]}ready(){super.ready(),this.__svgElement=this.shadowRoot.querySelector("svg"),this._tooltipController=new TooltipController(this),this.addController(this._tooltipController)}connectedCallback(){super.connectedCallback(),Iconset.attachedIcons.add(this)}disconnectedCallback(){super.disconnectedCallback(),Iconset.attachedIcons.delete(this)}_applyIcon(){const{preserveAspectRatio:i,svg:t,size:r,viewBox:o}=Iconset.getIconSvg(this.icon);o&&(this.__viewBox=o),i&&(this.__preserveAspectRatio=i),r&&r!==this.size&&(this.size=r),this.svg=t}__iconChanged(i){i?this._applyIcon():this.svg=ensureSvgLiteral(null)}__svgChanged(i,t){t&&renderSvg(i,t)}__computePAR(i,t){return t||i}__computeViewBox(i,t){return t||`0 0 ${i} ${i}`}};customElements.define(Icon$2.is,Icon$2);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const passwordFieldButton=css$e`
+  :host {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    min-width: auto;
+    background: transparent;
+    outline: none;
+  }
+`;registerStyles$1("vaadin-password-field-button",[button,passwordFieldButton],{moduleId:"lumo-password-field-button"});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const passwordField=css$e`
+  [part='reveal-button']::before {
+    content: var(--lumo-icons-eye);
+  }
+
+  :host([password-visible]) [part='reveal-button']::before {
+    content: var(--lumo-icons-eye-disabled);
+  }
+
+  /* Make it easy to hide the button across the whole app */
+  [part='reveal-button'] {
+    position: relative;
+    display: var(--lumo-password-field-reveal-button-display, block);
+  }
+
+  [part='reveal-button'][hidden] {
+    display: none !important;
+  }
+`;registerStyles$1("vaadin-password-field",[inputFieldShared$1,passwordField],{moduleId:"lumo-password-field"});/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class PasswordFieldButton extends Button{static get is(){return"vaadin-password-field-button"}static get template(){return html`
+      <style>
+        :host {
+          display: block;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+      </style>
+      <slot name="tooltip"></slot>
+    `}}customElements.define(PasswordFieldButton.is,PasswordFieldButton);/**
+ * @license
+ * Copyright (c) 2021 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const ownTemplate=html`
+  <div part="reveal-button" slot="suffix">
+    <slot name="reveal"></slot>
+  </div>
+`;let memoizedTemplate$1;class PasswordField extends TextField{static get is(){return"vaadin-password-field"}static get template(){if(!memoizedTemplate$1){memoizedTemplate$1=super.template.cloneNode(!0);const i=ownTemplate.content.querySelector('[part="reveal-button"]');memoizedTemplate$1.content.querySelector('[part="input-field"]').appendChild(i)}return memoizedTemplate$1}static get properties(){return{revealButtonHidden:{type:Boolean,observer:"_revealButtonHiddenChanged",value:!1},passwordVisible:{type:Boolean,value:!1,reflectToAttribute:!0,observer:"_passwordVisibleChanged",readOnly:!0},i18n:{type:Object,value:()=>({reveal:"Show password"})}}}static get observers(){return["__i18nChanged(i18n.*)"]}constructor(){super(),this._setType("password"),this.__boundRevealButtonClick=this._onRevealButtonClick.bind(this),this.__boundRevealButtonMouseDown=this._onRevealButtonMouseDown.bind(this),this.__lastChange=""}get slotStyles(){const i=this.localName;return[...super.slotStyles,`
+        ${i} [slot="input"]::-ms-reveal {
+          display: none;
+        }
+      `]}get _revealNode(){return this._revealButtonController&&this._revealButtonController.node}ready(){super.ready(),this._revealPart=this.shadowRoot.querySelector('[part="reveal-button"]'),this._revealButtonController=new SlotController(this,"reveal","vaadin-password-field-button",{initializer:i=>{i.disabled=this.disabled,i.addEventListener("click",this.__boundRevealButtonClick),i.addEventListener("mousedown",this.__boundRevealButtonMouseDown)}}),this.addController(this._revealButtonController),this.__updateAriaLabel(this.i18n),this._updateToggleState(!1),this._toggleRevealHidden(this.revealButtonHidden),this.inputElement&&(this.inputElement.autocapitalize="off")}_onChange(i){super._onChange(i),this.__lastChange=this.inputElement.value}_shouldSetFocus(i){return i.target===this.inputElement||i.target===this._revealNode}_shouldRemoveFocus(i){return!(i.relatedTarget===this._revealNode||i.relatedTarget===this.inputElement&&i.target===this._revealNode)}_setFocused(i){if(super._setFocused(i),!i)this._setPasswordVisible(!1),this.__lastChange!==this.inputElement.value&&(this.__lastChange=this.inputElement.value,this.dispatchEvent(new CustomEvent("change",{bubbles:!0})));else{const t=this.getRootNode().activeElement===this._revealNode;this.toggleAttribute("focus-ring",this._keyboardActive&&!t)}}__updateAriaLabel(i){i.reveal&&this._revealNode&&this._revealNode.setAttribute("aria-label",i.reveal)}__i18nChanged(i){this.__updateAriaLabel(i.base)}_revealButtonHiddenChanged(i){this._toggleRevealHidden(i)}_togglePasswordVisibility(){this._setPasswordVisible(!this.passwordVisible)}_onRevealButtonClick(){this._togglePasswordVisibility()}_onRevealButtonMouseDown(i){i.preventDefault(),this.inputElement.focus()}_toggleRevealHidden(i){this._revealNode&&(i?(this._revealPart.setAttribute("hidden",""),this._revealNode.setAttribute("tabindex","-1"),this._revealNode.setAttribute("aria-hidden","true")):(this._revealPart.removeAttribute("hidden"),this._revealNode.setAttribute("tabindex","0"),this._revealNode.removeAttribute("aria-hidden")))}_updateToggleState(i){this._revealNode&&this._revealNode.setAttribute("aria-pressed",i?"true":"false")}_passwordVisibleChanged(i){this._setType(i?"text":"password"),this._updateToggleState(i)}_disabledChanged(i,t){super._disabledChanged(i,t),this._revealNode&&(this._revealNode.disabled=i)}}customElements.define(PasswordField.is,PasswordField);const loginFormWrapper$1=css$e`
+  :host {
+    max-width: calc(var(--lumo-size-m) * 10);
+    background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
+  }
+
+  [part='form'] {
+    padding: var(--lumo-space-l);
+  }
+
+  [part='form-title'] {
+    margin-top: calc(var(--lumo-font-size-xxxl) - var(--lumo-font-size-xxl));
+  }
+
+  ::slotted([slot='forgot-password']) {
+    margin: var(--lumo-space-s) auto;
+  }
+
+  [part='error-message'] {
+    background-color: var(--lumo-error-color-10pct);
+    padding: var(--lumo-space-m);
+    border-radius: var(--lumo-border-radius-m);
+    margin-top: var(--lumo-space-m);
+    margin-bottom: var(--lumo-space-s);
+    color: var(--lumo-error-text-color);
+  }
+
+  :host(:not([dir='rtl'])) [part='error-message'] {
+    padding-left: var(--lumo-size-m);
+  }
+
+  :host([dir='rtl']) [part='error-message'] {
+    padding-right: var(--lumo-size-m);
+  }
+
+  [part='error-message']::before {
+    content: var(--lumo-icons-error);
+    font-family: lumo-icons;
+    font-size: var(--lumo-icon-size-m);
+    position: absolute;
+    width: var(--lumo-size-m);
+    height: 1em;
+    line-height: 1;
+    text-align: center;
+  }
+
+  :host(:not([dir='rtl'])) [part='error-message']::before {
+    /* Visual centering */
+    margin-left: calc(var(--lumo-size-m) * -0.95);
+  }
+
+  :host([dir='rtl']) [part='error-message']::before {
+    /* Visual centering */
+    margin-right: calc(var(--lumo-size-m) * -0.95);
+  }
+
+  [part='error-message-title'] {
+    margin: 0 0 0.25em;
+    color: inherit;
+  }
+
+  [part='error-message-description'] {
+    font-size: var(--lumo-font-size-s);
+    line-height: var(--lumo-line-height-s);
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  [part='footer'] {
+    font-size: var(--lumo-font-size-xs);
+    line-height: var(--lumo-line-height-s);
+    color: var(--lumo-secondary-text-color);
+  }
+`;registerStyles$1("vaadin-login-form-wrapper",[color$h,typography,loginFormWrapper$1],{moduleId:"lumo-login-form-wrapper"});registerStyles$1("vaadin-login-form",css$e`
+    form > vaadin-button[theme~='submit'] {
+      margin-top: var(--lumo-space-l);
+      margin-bottom: var(--lumo-space-s);
+    }
+  `,{moduleId:"lumo-login-form"});/**
+ * @license
+ * Copyright (c) 2018 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class LoginFormWrapper extends ThemableMixin(PolymerElement){static get template(){return html`
+      <style>
+        :host {
+          overflow: hidden;
+          display: inline-block;
+        }
+
+        :host([hidden]) {
+          display: none !important;
+        }
+
+        [part='form'] {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+        }
+
+        [part='form-title'] {
+          margin: 0;
+        }
+
+        [part='error-message'] {
+          position: relative;
+        }
+      </style>
+      <section part="form">
+        <h2 part="form-title">[[i18n.form.title]]</h2>
+        <div part="error-message" hidden$="[[!error]]">
+          <h5 part="error-message-title">[[i18n.errorMessage.title]]</h5>
+          <p part="error-message-description">[[i18n.errorMessage.message]]</p>
+        </div>
+
+        <slot name="form"></slot>
+
+        <slot name="forgot-password"></slot>
+
+        <div part="footer">
+          <p>[[i18n.additionalInformation]]</p>
+        </div>
+      </section>
+    `}static get is(){return"vaadin-login-form-wrapper"}static get properties(){return{error:{type:Boolean,value:!1,reflectToAttribute:!0},i18n:{type:Object}}}}customElements.define(LoginFormWrapper.is,LoginFormWrapper);/**
+ * @license
+ * Copyright (c) 2018 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */const LoginMixin=n=>class extends n{static get properties(){return{action:{type:String,value:null},disabled:{type:Boolean,value:!1,notify:!0},error:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0},noForgotPassword:{type:Boolean,value:!1},noAutofocus:{type:Boolean,value:!1},i18n:{type:Object,value(){return{form:{title:"Log in",username:"Username",password:"Password",submit:"Log in",forgotPassword:"Forgot password"},errorMessage:{title:"Incorrect username or password",message:"Check that you have entered the correct username and password and try again.",username:"Username is required",password:"Password is required"}}}},_preventAutoEnable:{type:Boolean,value:!1}}}};/**
+ * @license
+ * Copyright (c) 2018 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class LoginForm extends LoginMixin(ElementMixin(ThemableMixin(PolymerElement))){static get template(){return html`
+      <style>
+        vaadin-login-form-wrapper > form > * {
+          width: 100%;
+        }
+      </style>
+      <vaadin-login-form-wrapper theme$="[[_theme]]" error="[[error]]" i18n="[[i18n]]">
+        <form method="POST" action$="[[action]]" slot="form">
+          <input id="csrf" type="hidden" />
+          <vaadin-text-field
+            name="username"
+            label="[[i18n.form.username]]"
+            error-message="[[i18n.errorMessage.username]]"
+            id="vaadinLoginUsername"
+            required
+            on-keydown="_handleInputKeydown"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            autocomplete="username"
+          >
+            <input type="text" slot="input" on-keyup="_handleInputKeyup" />
+          </vaadin-text-field>
+
+          <vaadin-password-field
+            name="password"
+            label="[[i18n.form.password]]"
+            error-message="[[i18n.errorMessage.password]]"
+            id="vaadinLoginPassword"
+            required
+            on-keydown="_handleInputKeydown"
+            spellcheck="false"
+            autocomplete="current-password"
+          >
+            <input type="password" slot="input" on-keyup="_handleInputKeyup" />
+          </vaadin-password-field>
+
+          <vaadin-button theme="primary contained submit" on-click="submit" disabled$="[[disabled]]">
+            [[i18n.form.submit]]
+          </vaadin-button>
+        </form>
+
+        <vaadin-button
+          slot="forgot-password"
+          theme="tertiary small"
+          on-click="_onForgotPasswordClick"
+          hidden$="[[noForgotPassword]]"
+        >
+          [[i18n.form.forgotPassword]]
+        </vaadin-button>
+      </vaadin-login-form-wrapper>
+    `}static get is(){return"vaadin-login-form"}static get observers(){return["_errorChanged(error)"]}connectedCallback(){super.connectedCallback(),this.noAutofocus||this.$.vaadinLoginUsername.focus()}_attachDom(i){this.appendChild(i)}_errorChanged(){this.error&&!this._preventAutoEnable&&(this.disabled=!1)}submit(){const i=this.$.vaadinLoginUsername,t=this.$.vaadinLoginPassword;if(this.disabled||!(i.validate()&&t.validate()))return;this.error=!1,this.disabled=!0;const r={bubbles:!0,cancelable:!0,detail:{username:i.value,password:t.value}},o=this.dispatchEvent(new CustomEvent("login",r));if(this.action&&o){const a=document.querySelector("meta[name=_csrf_parameter]"),s=document.querySelector("meta[name=_csrf]");a&&s&&(this.$.csrf.name=a.content,this.$.csrf.value=s.content),this.querySelector("form").submit()}}_handleInputKeydown(i){if(i.key==="Enter"){const{currentTarget:t}=i,r=t.id==="vaadinLoginUsername"?this.$.vaadinLoginPassword:this.$.vaadinLoginUsername;t.validate()&&(r.checkValidity()?this.submit():r.focus())}}_handleInputKeyup(i){const t=i.currentTarget;i.key==="Tab"&&t instanceof HTMLInputElement&&t.select()}_onForgotPasswordClick(){this.dispatchEvent(new CustomEvent("forgot-password"))}}customElements.define(LoginForm.is,LoginForm);const loginOverlayWrapper=css$e`
+  :host {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  [part='backdrop'] {
+    background: var(--lumo-base-color) linear-gradient(var(--lumo-shade-5pct), var(--lumo-shade-5pct));
+  }
+
+  [part='content'] {
+    padding: 0;
+  }
+
+  [part='overlay'] {
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  [part='card'] {
+    width: calc(var(--lumo-size-m) * 10);
+    background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
+  }
+
+  [part='brand'] {
+    padding: var(--lumo-space-l) var(--lumo-space-xl) var(--lumo-space-l) var(--lumo-space-l);
+    background-color: var(--lumo-primary-color);
+    color: var(--lumo-primary-contrast-color);
+    min-height: calc(var(--lumo-size-m) * 5);
+  }
+
+  [part='description'] {
+    line-height: var(--lumo-line-height-s);
+    color: var(--lumo-tint-70pct);
+    margin-bottom: 0;
+  }
+
+  [part='content'] {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  [part='card'] {
+    border-radius: var(--lumo-border-radius-l);
+    box-shadow: var(--lumo-box-shadow-s);
+    margin: var(--lumo-space-s);
+    height: auto;
+  }
+
+  /* Small screen */
+  @media only screen and (max-width: 500px) {
+    [part='overlay'],
+    [part='content'] {
+      height: 100%;
+    }
+
+    [part='content'] {
+      min-height: 100%;
+      background: var(--lumo-base-color);
+      align-items: flex-start;
+    }
+
+    [part='card'],
+    [part='overlay'] {
+      width: 100%;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0;
+    }
+
+    /* RTL styles */
+    :host([dir='rtl']) [part='brand'] {
+      padding: var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-xl);
+    }
+  }
+
+  /* Landscape small screen */
+  @media only screen and (max-height: 600px) and (min-width: 600px) and (orientation: landscape) {
+    [part='card'] {
+      flex-direction: row;
+      align-items: stretch;
+      max-width: calc(var(--lumo-size-m) * 16);
+      width: 100%;
+    }
+
+    [part='brand'],
+    [part='form'] {
+      flex: auto;
+      flex-basis: 0;
+      box-sizing: border-box;
+    }
+
+    [part='brand'] {
+      justify-content: flex-start;
+    }
+
+    [part='form'] {
+      padding: var(--lumo-space-l);
+      overflow: auto;
+    }
+  }
+
+  /* Landscape really small screen */
+  @media only screen and (max-height: 500px) and (min-width: 600px) and (orientation: landscape),
+    only screen and (max-width: 600px) and (min-width: 600px) and (orientation: landscape) {
+    [part='content'] {
+      height: 100vh;
+    }
+
+    [part='card'] {
+      margin: 0;
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      flex: auto;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    [part='form'] {
+      height: 100%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Handle iPhone X notch */
+  @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    [part='card'] {
+      padding-right: constant(safe-area-inset-right);
+      padding-right: env(safe-area-inset-right);
+
+      padding-left: constant(safe-area-inset-left);
+      padding-left: env(safe-area-inset-left);
+    }
+
+    [part='brand'] {
+      margin-left: calc(constant(safe-area-inset-left) * -1);
+      margin-left: calc(env(safe-area-inset-left) * -1);
+
+      padding-left: calc(var(--lumo-space-l) + constant(safe-area-inset-left));
+      padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-left));
+    }
+
+    /* RTL styles */
+    :host([dir='rtl']) [part='card'] {
+      padding-left: constant(safe-area-inset-right);
+      padding-left: env(safe-area-inset-right);
+      padding-right: constant(safe-area-inset-left);
+      padding-right: env(safe-area-inset-left);
+    }
+
+    :host([dir='rtl']) [part='brand'] {
+      margin-right: calc(constant(safe-area-inset-left) * -1);
+      margin-right: calc(env(safe-area-inset-left) * -1);
+      padding-right: calc(var(--lumo-space-l) + constant(safe-area-inset-left));
+      padding-right: calc(var(--lumo-space-l) + env(safe-area-inset-left));
+    }
+  }
+`;registerStyles$1("vaadin-login-overlay-wrapper",[color$h,typography,loginOverlayWrapper],{moduleId:"vaadin-login-overlay-wrapper-lumo-styles"});const loginFormWrapper=css$e`
+  :host([theme~='with-overlay']) {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  /* Landscape small screen */
+  @media only screen and (max-height: 600px) and (min-width: 600px) and (orientation: landscape) {
+    :host([theme~='with-overlay']) [part='form'] {
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+      padding: 2px;
+    }
+  }
+`;registerStyles$1("vaadin-login-form-wrapper",[color$h,typography,loginFormWrapper],{moduleId:"lumo-login-overlay"});/**
+ * @license
+ * Copyright (c) 2018 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */registerStyles$1("vaadin-login-overlay-wrapper",css$e`
+    [part='overlay'] {
+      outline: none;
+    }
+
+    [part='card'] {
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    [part='brand'] {
+      box-sizing: border-box;
+      overflow: hidden;
+      flex-grow: 1;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    [part='brand'] h1 {
+      color: inherit;
+      margin: 0;
+    }
+  `,{moduleId:"vaadin-login-overlay-wrapper-styles"});const template$4=html`
+  <section part="card">
+    <div part="brand">
+      <slot name="title">
+        <h1 part="title">[[title]]</h1>
+      </slot>
+      <p part="description">[[description]]</p>
+    </div>
+    <div part="form">
+      <slot></slot>
+    </div>
+  </section>
+`;let memoizedTemplate;class LoginOverlayWrapper extends Overlay{static get is(){return"vaadin-login-overlay-wrapper"}static get properties(){return{title:{type:String},description:{type:String}}}static get template(){if(!memoizedTemplate){memoizedTemplate=super.template.cloneNode(!0);const i=template$4.content.querySelector("[part=card]"),t=memoizedTemplate.content.querySelector("#content");t.replaceChild(i,t.children[0])}return memoizedTemplate}}customElements.define(LoginOverlayWrapper.is,LoginOverlayWrapper);/**
+ * @license
+ * Copyright (c) 2018 - 2023 Vaadin Ltd.
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */class LoginOverlay extends LoginMixin(OverlayClassMixin(ElementMixin(ThemableMixin(PolymerElement)))){static get template(){return html`
+      <vaadin-login-overlay-wrapper
+        id="vaadinLoginOverlayWrapper"
+        opened="{{opened}}"
+        focus-trap
+        with-backdrop
+        title="[[title]]"
+        description="[[description]]"
+        theme$="[[_theme]]"
+        on-vaadin-overlay-escape-press="_preventClosingLogin"
+        on-vaadin-overlay-outside-click="_preventClosingLogin"
+      >
+        <vaadin-login-form
+          theme="with-overlay"
+          id="vaadinLoginForm"
+          action="[[action]]"
+          disabled="{{disabled}}"
+          error="{{error}}"
+          no-autofocus="[[noAutofocus]]"
+          no-forgot-password="[[noForgotPassword]]"
+          i18n="{{i18n}}"
+          on-login="_retargetEvent"
+          on-forgot-password="_retargetEvent"
+        ></vaadin-login-form>
+      </vaadin-login-overlay-wrapper>
+    `}static get is(){return"vaadin-login-overlay"}static get properties(){return{description:{type:String,value:"Application description",notify:!0},opened:{type:Boolean,value:!1,observer:"_onOpenedChange"},title:{type:String,value:"App name"}}}static get observers(){return["__i18nChanged(i18n.header.*)"]}ready(){super.ready(),this._overlayElement=this.$.vaadinLoginOverlayWrapper}connectedCallback(){super.connectedCallback(),this.__restoreOpened&&(this.opened=!0)}disconnectedCallback(){super.disconnectedCallback(),this.__restoreOpened=this.opened,this.opened=!1}__i18nChanged(i){const t=i.base;t&&(this.title=t.title,this.description=t.description)}_preventClosingLogin(i){i.preventDefault()}_retargetEvent(i){i.stopPropagation();const{detail:t,composed:r,cancelable:o,bubbles:a}=i;this.dispatchEvent(new CustomEvent(i.type,{bubbles:a,cancelable:o,composed:r,detail:t}))||i.preventDefault()}_onOpenedChange(){this.opened?(this._undoTeleport=this._teleport(this._getElementsToTeleport()),document.body.style.pointerEvents=this.$.vaadinLoginOverlayWrapper._previousDocumentPointerEvents):(this.$.vaadinLoginForm.$.vaadinLoginUsername.value="",this.$.vaadinLoginForm.$.vaadinLoginPassword.value="",this.disabled=!1,this._undoTeleport&&this._undoTeleport())}_teleport(i){const t=Array.from(i).map(r=>this.$.vaadinLoginOverlayWrapper.appendChild(r));return()=>{for(;t.length>0;)this.appendChild(t.shift())}}_getElementsToTeleport(){return this.querySelectorAll("[slot=title]")}}customElements.define(LoginOverlay.is,LoginOverlay);/**
  * @license
  * Copyright (c) 2000 - 2023 Vaadin Ltd.
  *
@@ -12513,135 +12641,7 @@ northing meters`+n;var p=u/2,f=0,v=0,g,m,_,y,b;return p>0&&(g=1e5/Math.pow(10,p)
       </style>
 
       <slot></slot>
-    `}static get is(){return"vaadin-horizontal-layout"}}customElements.define(HorizontalLayout.is,HorizontalLayout);const scroller=css$e`
-  :host {
-    outline: none;
-  }
-
-  :host([focus-ring]) {
-    box-shadow: 0 0 0 2px var(--lumo-primary-color-50pct);
-  }
-
-  /* Show dividers when content overflows */
-
-  :host([theme~='overflow-indicators'])::before,
-  :host([theme~='overflow-indicators'])::after {
-    content: '';
-    display: none;
-    position: sticky;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    height: 1px;
-    margin-bottom: -1px;
-    background: var(--lumo-contrast-10pct);
-  }
-
-  :host([theme~='overflow-indicators'])::after {
-    margin-bottom: 0;
-    margin-top: -1px;
-  }
-
-  :host([theme~='overflow-indicators'][overflow~='top'])::before,
-  :host([theme~='overflow-indicators'][overflow~='bottom'])::after {
-    display: block;
-  }
-`;registerStyles$1("vaadin-scroller",scroller,{moduleId:"lumo-scroller"});/**
- * @license
- * Copyright (c) 2021 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class OverflowController{constructor(i,t){this.host=i,this.scrollTarget=t||i,this.__boundOnScroll=this.__onScroll.bind(this)}hostConnected(){this.initialized||(this.initialized=!0,this.observe())}observe(){this.__resizeObserver=new ResizeObserver(()=>{this.__debounceOverflow=Debouncer$1.debounce(this.__debounceOverflow,animationFrame,()=>{this.__updateOverflow()})}),this.__resizeObserver.observe(this.host),this.__childObserver=new FlattenedNodesObserver(this.host,i=>{i.addedNodes.forEach(t=>{t.nodeType===Node.ELEMENT_NODE&&this.__resizeObserver.observe(t)}),i.removedNodes.forEach(t=>{t.nodeType===Node.ELEMENT_NODE&&this.__resizeObserver.unobserve(t)}),this.__updateOverflow()}),this.scrollTarget.addEventListener("scroll",this.__boundOnScroll),this.__updateOverflow()}__onScroll(){this.__updateOverflow()}__updateOverflow(){const i=this.scrollTarget;let t="";i.scrollTop>0&&(t+=" top"),Math.ceil(i.scrollTop)<Math.ceil(i.scrollHeight-i.clientHeight)&&(t+=" bottom");const r=Math.abs(i.scrollLeft);r>0&&(t+=" start"),Math.ceil(r)<Math.ceil(i.scrollWidth-i.clientWidth)&&(t+=" end"),t=t.trim(),t.length>0&&this.host.getAttribute("overflow")!==t?this.host.setAttribute("overflow",t):t.length===0&&this.host.hasAttribute("overflow")&&this.host.removeAttribute("overflow")}}/**
- * @license
- * Copyright (c) 2020 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class Scroller extends FocusMixin(ElementMixin(ControllerMixin(ThemableMixin(PolymerElement)))){static get template(){return html`
-      <style>
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        :host {
-          display: block;
-          overflow: auto;
-        }
-
-        :host([scroll-direction='vertical']) {
-          overflow-x: hidden;
-        }
-
-        :host([scroll-direction='horizontal']) {
-          overflow-y: hidden;
-        }
-
-        :host([scroll-direction='none']) {
-          overflow: hidden;
-        }
-      </style>
-
-      <slot></slot>
-    `}static get is(){return"vaadin-scroller"}static get properties(){return{scrollDirection:{type:String,reflectToAttribute:!0},tabindex:{type:Number,value:0,reflectToAttribute:!0}}}ready(){super.ready(),this.__overflowController=new OverflowController(this),this.addController(this.__overflowController)}_shouldSetFocus(i){return i.target===this}}customElements.define(Scroller.is,Scroller);const verticalLayout=css$e`
-  :host([theme~='margin']) {
-    margin: var(--lumo-space-m);
-  }
-
-  :host([theme~='padding']) {
-    padding: var(--lumo-space-m);
-  }
-
-  :host([theme~='spacing-xs']) {
-    gap: var(--lumo-space-xs);
-  }
-
-  :host([theme~='spacing-s']) {
-    gap: var(--lumo-space-s);
-  }
-
-  :host([theme~='spacing']) {
-    gap: var(--lumo-space-m);
-  }
-
-  :host([theme~='spacing-l']) {
-    gap: var(--lumo-space-l);
-  }
-
-  :host([theme~='spacing-xl']) {
-    gap: var(--lumo-space-xl);
-  }
-`;registerStyles$1("vaadin-vertical-layout",verticalLayout,{moduleId:"lumo-vertical-layout"});/**
- * @license
- * Copyright (c) 2017 - 2023 Vaadin Ltd.
- * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
- */class VerticalLayout extends ElementMixin(ThemableMixin(PolymerElement)){static get template(){return html`
-      <style>
-        :host {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          box-sizing: border-box;
-        }
-
-        :host([hidden]) {
-          display: none !important;
-        }
-
-        /* Theme variations */
-        :host([theme~='margin']) {
-          margin: 1em;
-        }
-
-        :host([theme~='padding']) {
-          padding: 1em;
-        }
-
-        :host([theme~='spacing']) {
-          gap: 1em;
-        }
-      </style>
-
-      <slot></slot>
-    `}static get is(){return"vaadin-vertical-layout"}}customElements.define(VerticalLayout.is,VerticalLayout);registerStyles$1("vaadin-progress-bar",css$e`
+    `}static get is(){return"vaadin-horizontal-layout"}}customElements.define(HorizontalLayout.is,HorizontalLayout);registerStyles$1("vaadin-progress-bar",css$e`
     :host {
       height: calc(var(--lumo-size-l) / 10);
       margin: var(--lumo-space-s) 0;
@@ -15976,4 +15976,4 @@ northing meters`+n;var p=u/2,f=0,v=0,g,m,_,y,b;return p>0&&(g=1e5/Math.pow(10,p)
       <div id="items">
         <slot></slot>
       </div>
-    `}static get is(){return"vaadin-virtual-list"}static get properties(){return{items:{type:Array},renderer:Function,__virtualizer:Object}}static get observers(){return["__itemsOrRendererChanged(items, renderer, __virtualizer)"]}get firstVisibleIndex(){return this.__virtualizer.firstVisibleIndex}get lastVisibleIndex(){return this.__virtualizer.lastVisibleIndex}ready(){super.ready(),this.__virtualizer=new Virtualizer({createElements:this.__createElements,updateElement:this.__updateElement.bind(this),elementsContainer:this,scrollTarget:this,scrollContainer:this.shadowRoot.querySelector("#items")}),this.__overflowController=new OverflowController(this),this.addController(this.__overflowController),processTemplates(this)}scrollToIndex(i){this.__virtualizer.scrollToIndex(i)}__createElements(i){return[...Array(i)].map(()=>document.createElement("div"))}__updateElement(i,t){i.__renderer!==this.renderer&&(i.__renderer=this.renderer,this.__clearRenderTargetContent(i)),this.renderer&&this.renderer(i,this,{item:this.items[t],index:t})}__clearRenderTargetContent(i){i.innerHTML="",delete i._$litPart$}__itemsOrRendererChanged(i,t,r){const o=this.childElementCount>0;(t||o)&&r&&(r.size=(i||[]).length,r.update())}requestContentUpdate(){this.__virtualizer&&this.__virtualizer.update()}}customElements.define(VirtualList.is,VirtualList);window.Vaadin.Flow.virtualListConnector={initLazy:function(n){if(n.$connector)return;const i=20;let t=[0,0];n.$connector={},n.$connector.placeholderItem={__placeholder:!0};const r=function(){const a=[...n.children].filter(d=>"__virtualListIndex"in d).map(d=>d.__virtualListIndex),s=Math.min(...a),l=Math.max(...a);let h=Math.max(0,s-i),c=Math.min(l+i,n.items.length);if(t[0]!=h||t[1]!=c){t=[h,c];const d=1+c-h;n.$server.setRequestedRange(h,d)}},o=function(){n.__requestDebounce=Debouncer.debounce(n.__requestDebounce,timeOut$1.after(50),r)};requestAnimationFrame(()=>r),n.patchVirtualListRenderer=function(){if(!n.renderer||n.renderer.__virtualListConnectorPatched)return;const a=n.renderer,s=(l,h,c)=>{l.__virtualListIndex=c.index,c.item===void 0?h.$connector.placeholderElement?l.__hasComponentRendererPlaceholder||(l.innerHTML="",delete l._$litPart$,l.appendChild(h.$connector.placeholderElement.cloneNode(!0)),l.__hasComponentRendererPlaceholder=!0):a.call(h,l,h,{...c,item:h.$connector.placeholderItem}):(l.__hasComponentRendererPlaceholder&&(l.innerHTML="",l.__hasComponentRendererPlaceholder=!1),a.call(h,l,h,c)),o()};s.__virtualListConnectorPatched=!0,s.__rendererId=a.__rendererId,n.renderer=s},n._createPropertyObserver("renderer","patchVirtualListRenderer",!0),n.patchVirtualListRenderer(),n.items=[],n.$connector.set=function(a,s){n.items.splice(a,s.length,...s),n.items=[...n.items]},n.$connector.clear=function(a,s){const l=Math.min(s,n.items.length-a);n.$connector.set(a,[...Array(l)])},n.$connector.updateData=function(a){const s=a.reduce((l,h)=>(l[h.key]=h,l),{});n.items=n.items.map(l=>l&&(s[l.key]||l))},n.$connector.updateSize=function(a){const s=a-n.items.length;s>0?n.items=[...n.items,...Array(s)]:s<0&&(n.items=n.items.slice(0,a))},n.$connector.setPlaceholderItem=function(a={},s){a.__placeholder=!0,n.$connector.placeholderItem=a;const l=Object.entries(a).find(([h])=>h.endsWith("_nodeid"));n.$connector.placeholderElement=l?Vaadin.Flow.clients[s].getByNodeId(l[1]):null}}};const loadOnDemand=n=>Promise.resolve(0);window.Vaadin=window.Vaadin||{};window.Vaadin.Flow=window.Vaadin.Flow||{};window.Vaadin.Flow.loadOnDemand=loadOnDemand;
+    `}static get is(){return"vaadin-virtual-list"}static get properties(){return{items:{type:Array},renderer:Function,__virtualizer:Object}}static get observers(){return["__itemsOrRendererChanged(items, renderer, __virtualizer)"]}get firstVisibleIndex(){return this.__virtualizer.firstVisibleIndex}get lastVisibleIndex(){return this.__virtualizer.lastVisibleIndex}ready(){super.ready(),this.__virtualizer=new Virtualizer({createElements:this.__createElements,updateElement:this.__updateElement.bind(this),elementsContainer:this,scrollTarget:this,scrollContainer:this.shadowRoot.querySelector("#items")}),this.__overflowController=new OverflowController(this),this.addController(this.__overflowController),processTemplates(this)}scrollToIndex(i){this.__virtualizer.scrollToIndex(i)}__createElements(i){return[...Array(i)].map(()=>document.createElement("div"))}__updateElement(i,t){i.__renderer!==this.renderer&&(i.__renderer=this.renderer,this.__clearRenderTargetContent(i)),this.renderer&&this.renderer(i,this,{item:this.items[t],index:t})}__clearRenderTargetContent(i){i.innerHTML="",delete i._$litPart$}__itemsOrRendererChanged(i,t,r){const o=this.childElementCount>0;(t||o)&&r&&(r.size=(i||[]).length,r.update())}requestContentUpdate(){this.__virtualizer&&this.__virtualizer.update()}}customElements.define(VirtualList.is,VirtualList);window.Vaadin.Flow.virtualListConnector={initLazy:function(n){if(n.$connector)return;const i=20;let t=[0,0];n.$connector={},n.$connector.placeholderItem={__placeholder:!0};const r=function(){const a=[...n.children].filter(d=>"__virtualListIndex"in d).map(d=>d.__virtualListIndex),s=Math.min(...a),l=Math.max(...a);let h=Math.max(0,s-i),c=Math.min(l+i,n.items.length);if(t[0]!=h||t[1]!=c){t=[h,c];const d=1+c-h;n.$server.setRequestedRange(h,d)}},o=function(){n.__requestDebounce=Debouncer.debounce(n.__requestDebounce,timeOut$1.after(50),r)};requestAnimationFrame(()=>r),n.patchVirtualListRenderer=function(){if(!n.renderer||n.renderer.__virtualListConnectorPatched)return;const a=n.renderer,s=(l,h,c)=>{l.__virtualListIndex=c.index,c.item===void 0?h.$connector.placeholderElement?l.__hasComponentRendererPlaceholder||(l.innerHTML="",delete l._$litPart$,l.appendChild(h.$connector.placeholderElement.cloneNode(!0)),l.__hasComponentRendererPlaceholder=!0):a.call(h,l,h,{...c,item:h.$connector.placeholderItem}):(l.__hasComponentRendererPlaceholder&&(l.innerHTML="",l.__hasComponentRendererPlaceholder=!1),a.call(h,l,h,c)),o()};s.__virtualListConnectorPatched=!0,s.__rendererId=a.__rendererId,n.renderer=s},n._createPropertyObserver("renderer","patchVirtualListRenderer",!0),n.patchVirtualListRenderer(),n.items=[],n.$connector.set=function(a,s){n.items.splice(a,s.length,...s),n.items=[...n.items]},n.$connector.clear=function(a,s){const l=Math.min(s,n.items.length-a);n.$connector.set(a,[...Array(l)])},n.$connector.updateData=function(a){const s=a.reduce((l,h)=>(l[h.key]=h,l),{});n.items=n.items.map(l=>l&&(s[l.key]||l))},n.$connector.updateSize=function(a){const s=a-n.items.length;s>0?n.items=[...n.items,...Array(s)]:s<0&&(n.items=n.items.slice(0,a))},n.$connector.setPlaceholderItem=function(a={},s){a.__placeholder=!0,n.$connector.placeholderItem=a;const l=Object.entries(a).find(([h])=>h.endsWith("_nodeid"));n.$connector.placeholderElement=l?Vaadin.Flow.clients[s].getByNodeId(l[1]):null}}};window.alertString=function(n){fetch(n).then(i=>{if(console.log(i.status),!i.ok)throw new Error("HTTP status "+i.status);return i.json()})};const loadOnDemand=n=>Promise.resolve(0);window.Vaadin=window.Vaadin||{};window.Vaadin.Flow=window.Vaadin.Flow||{};window.Vaadin.Flow.loadOnDemand=loadOnDemand;

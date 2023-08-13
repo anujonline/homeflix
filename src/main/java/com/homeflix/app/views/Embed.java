@@ -14,6 +14,17 @@ public class Embed extends HtmlContainer {
             ""
     );
 
+    public Embed(){
+        setWidthFull();
+        setHeight("70%");
+        getElement().setProperty("allowfullscreen", "true");
+        getElement().setProperty("sandbox", "allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation");
+        getElement().setProperty("frameborder", "0");
+        getElement().setProperty("gesture", "media");
+        getElement().setProperty("allow", "encrypted-media");
+        getElement().setAttribute("allowfullscreen", "true");
+        getElement().setAttribute("type", "text/html");
+    }
 
     public Embed(String parameter) {
         setSrc(parameter);

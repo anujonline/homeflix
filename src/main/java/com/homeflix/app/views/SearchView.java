@@ -3,6 +3,7 @@ package com.homeflix.app.views;
 import com.homeflix.app.data.controllers.AdminController;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -24,7 +25,8 @@ public class SearchView extends VerticalLayout {
             setClassName("animate-area");
             setId("animate-area");
             setAlignItems(FlexComponent.Alignment.CENTER);
-            var backButton = new Button(VaadinIcon.ARROW_LEFT.create(), event -> UI.getCurrent().navigate(""));
+            var backButton = new Button("Back to home screen", VaadinIcon.ARROW_LEFT.create(), event -> UI.getCurrent().navigate(""));
+            backButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST, ButtonVariant.LUMO_LARGE);
             backButton.setWidthFull();
             add(backButton);
             add(new H3("Not all titles displayed can be played. Only English movies/series(still not all, but most)"));

@@ -8,8 +8,8 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
 
 public class Content {
-    private static final String PLAY_URL = "https://vidsrc.to/embed/%s/%s";
-    private static final String POSTER_URL = "https://image.tmdb.org/t/p/original/%s";
+    public static final String PLAY_URL = "https://vidsrc.to/embed/%s/%s";
+    public static final String POSTER_URL = "https://image.tmdb.org/t/p/original/%s";
 
     Div showContent(AdminController adminController, String type, Dialog dialog, Embed embed, Result1 videoFile) {
         var movieDiv = new Div();
@@ -18,7 +18,7 @@ public class Content {
         movieDiv.setWidth("20%");
 
         Image image = new Image(videoFile.poster_path() == null ? "icons/icon.png" : POSTER_URL.formatted(videoFile.poster_path()), "");
-        
+
         image.setHeight("100%");
         image.setWidth("90%");
         image.getStyle().set("object-fit", "cover");

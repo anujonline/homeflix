@@ -3,6 +3,8 @@ package com.homeflix.app.views;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.homeflix.app.views.viewers.home.VideoData;
+import com.homeflix.app.views.viewers.home.VideoDataWrapper;
 import lombok.SneakyThrows;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
@@ -11,8 +13,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class TMDBService {
@@ -438,23 +442,59 @@ public class TMDBService {
               "total_results": 1461
             }
             """;
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false).registerModule(new Jdk8Module());
+    private static final HttpHeaders HTTP_HEADERS = new HttpHeaders();
+    private static final HttpEntity HTTP_ENTITY = new HttpEntity<String>(HTTP_HEADERS);
+
+    static {
+        HTTP_HEADERS.set("Authorization", AUTH_TOKEN);
+    }
+
+    private static VideoData getVideoData(Result1 r, String title, String type, String label) {
+        return new VideoData(r.id(), r.poster_path(), title, type, label);
+    }
 
     @Cacheable("movies")
     @SneakyThrows
     public List<Result1> getMovies() {
-        OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false)
-                .registerModule(new Jdk8Module());
-        return OBJECT_MAPPER
-                .readValue(DATA, Response1.class).results();
+        return OBJECT_MAPPER.readValue(DATA, Response1.class).results();
     }
 
+    public VideoDataWrapper popularMovies() {
+        return new VideoDataWrapper("Popular Movies", REST_TEMPLATE.exchange("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", HttpMethod.GET, HTTP_ENTITY, Response1.class).getBody().results().stream().map(r -> getVideoData(r, r.original_title(), "movie", "Popular Movie")).toList());
+    }
+
+    public VideoDataWrapper trendingMovies() {
+        var videoData = REST_TEMPLATE.exchange("https://api.themoviedb.org/3/trending/movie/day?language=en-US", HttpMethod.GET, HTTP_ENTITY, Response1.class).getBody().results().stream().map(r -> getVideoData(r, r.original_title(), "movie", "Popular Movie")).toList();
+        return new VideoDataWrapper("Trending Movies", videoData);
+    }
+
+    public VideoDataWrapper topRatedTVSeries() {
+        return new VideoDataWrapper("Top Rated TV Series", REST_TEMPLATE.exchange("https://api.themoviedb.org/3/tv/popular?language=en-US&page=1", HttpMethod.GET, HTTP_ENTITY, Response1.class).getBody().results().stream().map(r -> getVideoData(r, r.original_name(), "tv", "Top Rated TV Series")).toList());
+    }
+
+    public VideoDataWrapper onTheAir() {
+        return new VideoDataWrapper("On the Air", REST_TEMPLATE.exchange("https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1", HttpMethod.GET, HTTP_ENTITY, Response1.class).getBody().results().stream().map(r -> getVideoData(r, r.original_name(), "tv", "Top Rated TV Series")).toList());
+    }
 
     public List<Result1> getMoviesByName(String value, String type) {
-        var httpHeaders = new HttpHeaders();
-        httpHeaders.set("Authorization", AUTH_TOKEN);
-        var responseEntity = REST_TEMPLATE.exchange("https://api.themoviedb.org/3/search/%s?query=%s&include_adult=false&language=en-US&page=1".formatted(type, value), HttpMethod.GET, new HttpEntity<>(httpHeaders), Response1.class);
+        var responseEntity = REST_TEMPLATE.exchange("https://api.themoviedb.org/3/search/%s?query=%s&include_adult=false&language=en-US&page=1".formatted(type, value), HttpMethod.GET, HTTP_ENTITY, Response1.class);
         return Objects.requireNonNull(responseEntity.getBody()).results();
+    }
+
+    @SneakyThrows
+    public List<VideoData> search(String query) {
+
+        var movieLookup = CompletableFuture.supplyAsync(() -> REST_TEMPLATE.exchange("https://api.themoviedb.org/3/search/movie?query=%s&include_adult=false&language=en-US&page=1".formatted(query), HttpMethod.GET, HTTP_ENTITY, Response1.class).getBody());
+        var tvLookup = CompletableFuture.supplyAsync(() -> REST_TEMPLATE.exchange("https://api.themoviedb.org/3/search/tv?query=%s&include_adult=false&language=en-US&page=1".formatted(query), HttpMethod.GET, HTTP_ENTITY, Response1.class).getBody());
+        var movieList = movieLookup.thenApply(response1 -> response1.results().stream().map(r -> getVideoData(r, r.original_title(), "movie", "Top Rated TV Series")).toList());
+        var tvList = tvLookup.thenApply(response1 -> response1.results().stream().map(r -> getVideoData(r, r.original_name(), "tv", "Top Rated TV Series")).toList());
+
+        return movieList.thenCombine(tvList, (videoData, videoData2) -> {
+            var finalList = new ArrayList<VideoData>();
+            finalList.addAll(videoData);
+            finalList.addAll(videoData2);
+            return finalList;
+        }).join();
     }
 }

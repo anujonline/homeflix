@@ -257,6 +257,7 @@
   "Frontend/generated/jar-resources/lit-renderer.ts",
   "Frontend/generated/jar-resources/menubarConnector.js",
   "Frontend/generated/jar-resources/messageListConnector.js",
+  "Frontend/generated/jar-resources/myjs.js",
   "Frontend/generated/jar-resources/selectConnector.js",
   "Frontend/generated/jar-resources/tooltip.ts",
   "Frontend/generated/jar-resources/vaadin-big-decimal-field.js",
@@ -279,6 +280,7 @@
   "lit-renderer.ts": "afefa9f5fcb38260a0ff08bc044a5f591f242689ca3c7905130ad32df0476e7c",
   "menubarConnector.js": "8ddac5a87155632c516fd16c9402bd9a2fe6d965998169743744842aacdfd412",
   "messageListConnector.js": "480d7092b9fe42aab45756eb4287b2c4b0d6e5d38514e967543bc5c317948c18",
+  "myjs.js": "ae067667b0fdb422afd0085448740a13c7ae12a44193e81d704d88202ac53e47",
   "selectConnector.js": "bd4277e735d390853603351ddd963233349b702789ddf8ce000df5179bb30523",
   "tooltip.ts": "b7e9af67169277b94cab722d244340c3a9d463bcf4de2aaa84dddcebbd59447b",
   "vaadin-big-decimal-field.js": "0e0f4e3bb8928c708d02e77d07ede09525102440511942e3b24721702352f140",
@@ -291,7 +293,7 @@
   "homeflix": "{\n  \"lumoImports\" : [ \"typography\", \"color\", \"spacing\", \"badge\", \"utility\" ],\n  \"assets\" : {\n    \"@fontsource/montserrat\" : {\n      \"*.css\" : \"@fontsource/montserrat\",\n      \"files/*\" : \"@fontsource/montserrat/files\"\n    }\n  }\n}"
  },
  "entryScripts": [
-  "VAADIN/build/indexhtml-57feaed9.js"
+  "VAADIN/build/indexhtml-0c9a9e08.js"
  ],
  "webComponents": [],
  "cvdlModules": {
@@ -326,6 +328,6 @@
  },
  "packageJsonHash": "110dd9e0bedddb85f30ca006e00bca924ca27e234527777dd0846c2b531eb110",
  "indexHtmlGenerated": [
-  "  <script type=\"module\" crossorigin src=\"./VAADIN/build/indexhtml-57feaed9.js\"></script>"
+  "  <script type=\"module\" crossorigin src=\"./VAADIN/build/indexhtml-0c9a9e08.js\"></script>"
  ]
 }
