@@ -138,6 +138,5 @@ public class NetfliSearch extends Section {
         add(dialog);
         dialog.add(horizontalLayout, embed);
         setSizeFull();
-        horizontalLayout.getStyle().set("position", "fixed");
     }
 }
