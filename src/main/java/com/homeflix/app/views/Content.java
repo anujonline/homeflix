@@ -9,7 +9,7 @@ import com.vaadin.flow.component.html.NativeLabel;
 
 public class Content {
     public static final String PLAY_URL = "https://vidsrc.to/embed/%s/%s";
-    public static final String POSTER_URL = "https://image.tmdb.org/t/p/original/%s";
+    public static final String POSTER_URL = "https://image.tmdb.org/t/p/w500/%s";
 
     Div showContent(AdminController adminController, String type, Dialog dialog, Embed embed, Result1 videoFile) {
         var movieDiv = new Div();

@@ -4,6 +4,7 @@ import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.MainLayout;
 import com.homeflix.app.views.TMDBService;
 import com.homeflix.app.views.viewers.home.VideoDataWrapper;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
@@ -126,7 +127,7 @@ public class NetfliView extends VerticalLayout {
         image1.setHeight(30, Unit.PIXELS);
         image1.setWidth(30, Unit.PIXELS);
         var header = new H1(image1, new NativeLabel("HomeFlix"));
-
+        searchBar.addKeyPressListener(Key.ENTER, event -> searchButton.click());
         var component = new HorizontalLayout(searchBar, searchButton);
         component.setFlexGrow(1.0, searchBar);
         searchBar.setPrefixComponent(VaadinIcon.SEARCH.create());
@@ -144,6 +145,5 @@ public class NetfliView extends VerticalLayout {
         add(dialog);
         dialog.add(horizontalLayout, embed);
         setSizeFull();
-        horizontalLayout.getStyle().set("position", "fixed");
     }
 }
