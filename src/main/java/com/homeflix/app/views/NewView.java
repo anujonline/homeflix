@@ -28,17 +28,12 @@ import com.vaadin.flow.server.VaadinService;
 
 import java.util.List;
 
-@Route("")
+@Route(value = "v1", layout = MainLayout.class)
 @PageTitle("Homeflix")
 class ViewBG extends VerticalLayout {
 
     public ViewBG(AdminController adminController, TMDBService service) {
-        getStyle().set("background-image", "url('icons/bg.jpg')");
-        VaadinService.getCurrentRequest().setAttribute("type", "movie");
-        setClassName("animate-area");
-        setId("animate-area");
-        getStyle().set("border-radius", "25px");
-        getStyle().set("overflow", "hidden");
+
         add(new NewView(adminController, true, DataProvider.ofCollection(service.getMovies())));
         setAlignItems(Alignment.CENTER);
         setSizeFull();

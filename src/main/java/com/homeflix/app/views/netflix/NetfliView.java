@@ -1,6 +1,8 @@
 package com.homeflix.app.views.netflix;
 
+import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.views.Embed;
+import com.homeflix.app.views.FeedbackData;
 import com.homeflix.app.views.MainLayout;
 import com.homeflix.app.views.TMDBService;
 import com.homeflix.app.views.viewers.home.VideoDataWrapper;
@@ -8,8 +10,6 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.JavaScript;
-import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -25,27 +25,17 @@ import com.vaadin.flow.server.VaadinSession;
 import static com.homeflix.app.views.Content.PLAY_URL;
 import static com.homeflix.app.views.Content.POSTER_URL;
 
-@Route(value = "v2", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @PageTitle("Homeflix")
-class NewBg extends Section {
-
-    public NewBg(TMDBService service) {
-        setSizeFull();
-        addAttachListener(event -> {
-            UI.getCurrent().access(() -> {
-                add(new NetfliView(service));
-            });
-        });
-    }
-}
-
 public class NetfliView extends VerticalLayout {
     private final Dialog dialog = new Dialog();
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
     private final TextField searchBar = new TextField();
     private final Embed embed;
+    private final AdminController adminController;
 
-    public NetfliView(TMDBService service) {
+    public NetfliView(TMDBService service, AdminController adminController) {
+        this.adminController = adminController;
         this.embed = new Embed("https://vidsrc.to/embed/movie/tt17048514");
         setAlignItems(Alignment.CENTER);
         setSizeFull();
@@ -76,7 +66,7 @@ public class NetfliView extends VerticalLayout {
         add(verticalLayoutHeader, verticalLayout);
 
         searchButton.addClickListener(event -> {
-            UI.getCurrent().navigateToClient("v2/search/%s".formatted(searchBar.getValue()));
+            UI.getCurrent().navigateToClient("search/%s".formatted(searchBar.getValue()));
         });
     }
 
@@ -109,7 +99,13 @@ public class NetfliView extends VerticalLayout {
                 image.getStyle().set("display", "inline-flex");
                 newTv.add(image);
                 image.addClickListener(event -> {
-                    UI.getCurrent().access(() -> {
+                    var ui = UI.getCurrent();
+                    ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
+                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
+                        adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
+                    });
+
+                    ui.access(() -> {
                         var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                         embed.setSrc(formatted);
                     });
