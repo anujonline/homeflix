@@ -15,7 +15,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 
-@Route("search")
+@Route("v1/search")
 @PageTitle("Homeflix")
 public class SearchView extends VerticalLayout {
 

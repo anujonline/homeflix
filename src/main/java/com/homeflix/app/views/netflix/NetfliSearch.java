@@ -1,6 +1,8 @@
 package com.homeflix.app.views.netflix;
 
+import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.views.Embed;
+import com.homeflix.app.views.FeedbackData;
 import com.homeflix.app.views.MainLayout;
 import com.homeflix.app.views.TMDBService;
 import com.homeflix.app.views.viewers.home.VideoDataWrapper;
@@ -22,21 +24,22 @@ import com.vaadin.flow.server.VaadinSession;
 import static com.homeflix.app.views.Content.PLAY_URL;
 import static com.homeflix.app.views.Content.POSTER_URL;
 
-@Route(value = "v2/search", layout = MainLayout.class)
+@Route(value = "search", layout = MainLayout.class)
 @PageTitle("Homeflix")
 class SearchBg extends Section implements HasUrlParameter<String> {
     private final TMDBService service;
+    private final AdminController adminController;
 
-    public SearchBg(TMDBService service) {
+    public SearchBg(TMDBService service, AdminController adminController) {
         this.service = service;
-
+        this.adminController = adminController;
         setSizeFull();
     }
 
     @Override
     public void setParameter(BeforeEvent event, String parameter) {
         addAttachListener(e -> UI.getCurrent().access(() -> {
-            add(new NetfliSearch(service, parameter));
+            add(new NetfliSearch(service, parameter, adminController));
         }));
     }
 }
@@ -44,7 +47,10 @@ class SearchBg extends Section implements HasUrlParameter<String> {
 public class NetfliSearch extends Section {
     private final Dialog dialog = new Dialog();
     private final Embed embed;
-    public NetfliSearch(TMDBService service, String query) {
+    private final AdminController adminController;
+
+    public NetfliSearch(TMDBService service, String query, AdminController adminController) {
+        this.adminController = adminController;
         this.embed = new Embed("https://vidsrc.to/embed/movie/tt17048514");
 
         setSizeFull();
@@ -66,17 +72,16 @@ public class NetfliSearch extends Section {
     private void addHeader(Div verticalLayout) {
         var back = new Button("Back", VaadinIcon.ARROW_LEFT.create());
         back.setWidthFull();
-        back.addClickListener(event -> UI.getCurrent().navigateToClient("v2"));
+        back.addClickListener(event -> UI.getCurrent().navigate(NetfliView.class));
         var component = new HorizontalLayout(back);
         verticalLayout.add(component);
     }
 
 
     private void addContent(VideoDataWrapper videoDataWrapper, Div div) {
-        if(videoDataWrapper.videoData().isEmpty()){
+        if (videoDataWrapper.videoData().isEmpty()) {
             div.add(new NativeLabel("Nope, nothing available with this title."));
-        }
-        else {
+        } else {
             div.add(new H2(videoDataWrapper.label()));
             var newTv = new Div();
             newTv.getStyle().set("margin", "10");
@@ -114,7 +119,13 @@ public class NetfliSearch extends Section {
                     movieDiv.add(text);
                     newTv.add(movieDiv);
                     image.addClickListener(event -> {
-                        UI.getCurrent().access(() -> {
+                        var ui = UI.getCurrent();
+                        ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
+                            var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
+                            adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
+                        });
+
+                        ui.access(() -> {
                             var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                             embed.setSrc(formatted);
                         });
