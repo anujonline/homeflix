@@ -59,7 +59,6 @@ public class BrowseView extends Scroller {
             image.setWidth("90%");
             image.getStyle().set("object-fit", "cover");
             image.getStyle().set("margin", "10px");
-            image.getStyle().set("opacity", "0.5");
             image.getStyle().set("cursor", "pointer");
             image.getStyle().set("box-shadow", "10px 10px 10px black");
             image.getStyle().set("transition", "all 0.3s ease 0s");
