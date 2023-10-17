@@ -94,8 +94,8 @@ public class NetfliView extends VerticalLayout {
         VaadinSession.getCurrent().access(() -> {
             videoDataWrapper.videoData().forEach(videoFile -> {
                 var image = new Image(videoFile.poster() == null ? "icons/icon.png" : POSTER_URL.formatted(videoFile.poster()), "");
-                image.setMaxHeight("10%");
-                image.setWidth("10%");
+                image.setMaxHeight("20%");
+                image.setWidth("20%");
                 image.getStyle().set("display", "inline-flex");
                 newTv.add(image);
                 image.addClickListener(event -> {
