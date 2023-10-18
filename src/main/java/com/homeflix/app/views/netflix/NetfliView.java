@@ -2,10 +2,10 @@ package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.views.Embed;
-import com.homeflix.app.views.FeedbackData;
-import com.homeflix.app.views.MainLayout;
-import com.homeflix.app.views.TMDBService;
-import com.homeflix.app.views.viewers.home.VideoDataWrapper;
+import com.homeflix.app.data.service.FeedbackData;
+import com.homeflix.app.views.common.MainLayout;
+import com.homeflix.app.data.service.tmdb.TMDBService;
+import com.homeflix.app.data.models.VideoDataWrapper;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
@@ -20,13 +20,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
+import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
+import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 
-import static com.homeflix.app.views.Content.PLAY_URL;
-import static com.homeflix.app.views.Content.POSTER_URL;
-
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "watch", layout = MainLayout.class)
 @PageTitle("Homeflix")
+@RolesAllowed(value = {"ROLE_USER"})
 public class NetfliView extends VerticalLayout {
     private final Dialog dialog = new Dialog();
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());

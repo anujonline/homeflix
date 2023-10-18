@@ -1,6 +1,6 @@
 package com.homeflix.app;
 
-import com.homeflix.app.data.service.MovieRepository;
+import com.homeflix.app.data.repositories.MovieRepository;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Meta;
@@ -31,7 +31,7 @@ import java.net.URI;
 @EnableCaching
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
 @Theme(value = "homeflix", variant = Lumo.DARK)
-@PWA(name = "HomeFlix", shortName = "HomeFlix", offlinePath = "offline.html")
+@PWA(name = "HomeFlix", shortName = "HomeFlix")
 @Viewport("width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @Meta(name = "HandheldFriendly", content = "true")
 @Meta(name = "mobile-web-app-capable", content = "yes")
@@ -42,17 +42,9 @@ import java.net.URI;
 public class Application implements AppShellConfigurator {
 
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
-    @Autowired
-    private MovieRepository movieRepository;
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-    }
-
-    private static String createIdentifier(String url) {
-        var uri = URI.create(url);
-        var split = uri.getPath().split("/");
-        return split[2];
     }
 
     @Scheduled(fixedDelay = 10000L)
