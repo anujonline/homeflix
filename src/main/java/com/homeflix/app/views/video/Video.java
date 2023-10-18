@@ -5,13 +5,14 @@ import com.vaadin.flow.component.PropertyDescriptor;
 import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 @Tag("video")
-@AnonymousAllowed
+@PermitAll
 @CrossOrigin
 public class Video extends HtmlContainer {
 
@@ -31,7 +32,7 @@ public class Video extends HtmlContainer {
 }
 
 @Tag("source")
-@AnonymousAllowed
+@PermitAll
 @CrossOrigin
 class Src extends HtmlContainer {
     private final PropertyDescriptor<String, String> srcDescriptor = PropertyDescriptors.attributeWithDefault(

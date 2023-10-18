@@ -1,9 +1,9 @@
 package com.homeflix.app.data.controllers;
 
-import com.homeflix.app.data.entity.MovieDatabase;
-import com.homeflix.app.data.entity.WatchHistory;
-import com.homeflix.app.data.entity.WatchRespository;
-import com.homeflix.app.data.service.MovieRepository;
+import com.homeflix.app.data.repositories.entities.MovieDatabase;
+import com.homeflix.app.data.repositories.entities.WatchHistory;
+import com.homeflix.app.data.repositories.WatchRespository;
+import com.homeflix.app.data.repositories.MovieRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;

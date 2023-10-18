@@ -13,9 +13,12 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.PermitAll;
 import jakarta.servlet.http.Cookie;
 
 @Route("/browse")
+@PermitAll
 public class BrowseView extends Scroller {
 
     public BrowseView(VAccess videoService, AdminController adminController) {

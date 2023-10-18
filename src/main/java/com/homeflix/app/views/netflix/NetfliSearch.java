@@ -1,72 +1,65 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.controllers.AdminController;
+import com.homeflix.app.data.service.FeedbackData;
+import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
-import com.homeflix.app.views.FeedbackData;
-import com.homeflix.app.views.MainLayout;
-import com.homeflix.app.views.TMDBService;
-import com.homeflix.app.views.viewers.home.VideoDataWrapper;
+import com.homeflix.app.views.common.MainLayout;
+import com.homeflix.app.data.models.VideoDataWrapper;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.PermitAll;
 
-import static com.homeflix.app.views.Content.PLAY_URL;
-import static com.homeflix.app.views.Content.POSTER_URL;
+import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
+import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
+
 
 @Route(value = "search", layout = MainLayout.class)
 @PageTitle("Homeflix")
-class SearchBg extends Section implements HasUrlParameter<String> {
+@PermitAll
+class NetfliSearch extends Section implements HasUrlParameter<String> {
     private final TMDBService service;
     private final AdminController adminController;
+    private final Dialog dialog = new Dialog();
+    private final Embed embed;
 
-    public SearchBg(TMDBService service, AdminController adminController) {
+
+    public NetfliSearch(TMDBService service, AdminController adminController) {
         this.service = service;
         this.adminController = adminController;
+        this.embed = new Embed("https://vidsrc.to/embed/movie/tt17048514");
         setSizeFull();
     }
 
     @Override
     public void setParameter(BeforeEvent event, String parameter) {
         addAttachListener(e -> UI.getCurrent().access(() -> {
-            add(new NetfliSearch(service, parameter, adminController));
+            setSizeFull();
+            getStyle().set("overflow", "scroll");
+            getStyle().set("display", "block");
+            scrollIntoView();
+            addDialog();
+            var verticalLayoutHeader = new Div();
+            verticalLayoutHeader.getStyle().set("position", "fixed");
+            verticalLayoutHeader.setWidthFull();
+            verticalLayoutHeader.setHeight("10%");
+            var verticalLayout = new Div();
+            addHeader(verticalLayoutHeader);
+            addContent(new VideoDataWrapper("Search Results", service.search(parameter)), verticalLayout);
+            verticalLayout.getStyle().set("padding-top", "102px");
+            add(verticalLayoutHeader, verticalLayout);
         }));
-    }
-}
-
-public class NetfliSearch extends Section {
-    private final Dialog dialog = new Dialog();
-    private final Embed embed;
-    private final AdminController adminController;
-
-    public NetfliSearch(TMDBService service, String query, AdminController adminController) {
-        this.adminController = adminController;
-        this.embed = new Embed("https://vidsrc.to/embed/movie/tt17048514");
-
-        setSizeFull();
-        getStyle().set("overflow", "scroll");
-        getStyle().set("display", "block");
-        scrollIntoView();
-        addDialog();
-        var verticalLayoutHeader = new Div();
-        verticalLayoutHeader.getStyle().set("position", "fixed");
-        verticalLayoutHeader.setWidthFull();
-        verticalLayoutHeader.setHeight("10%");
-        var verticalLayout = new Div();
-        addHeader(verticalLayoutHeader);
-        addAttachListener(event -> addContent(new VideoDataWrapper("Search Results", service.search(query)), verticalLayout));
-        verticalLayout.getStyle().set("padding-top", "102px");
-        add(verticalLayoutHeader, verticalLayout);
     }
 
     private void addHeader(Div verticalLayout) {
