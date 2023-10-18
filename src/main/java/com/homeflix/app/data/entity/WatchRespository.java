@@ -1,4 +1,4 @@
-package com.homeflix.app.data.controllers;
+package com.homeflix.app.data.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
