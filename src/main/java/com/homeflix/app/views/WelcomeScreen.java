@@ -16,7 +16,6 @@ public class WelcomeScreen extends VerticalLayout {
 
     public WelcomeScreen() {
         getElement().setProperty("innerHTML", "\n" +
-                "<input class=\"retrigger\" type=\"radio\" name=\"rerun\" id=\"retrigger--1\"/>\n" +
                 "<input class=\"retrigger\" type=\"radio\" name=\"rerun\" id=\"retrigger--2\" checked=\"checked\"/>\n" +
                 "<div class=\"bg\"></div>\n" +
                 "<div id=\"bb\" class=\"buttons\" onclick=\"window.location.href='/watch'\">\n" +

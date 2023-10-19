@@ -24,14 +24,3 @@
       --lumo-body-text-color: hsla(214, 0%, 99%, 0.9);
 
     }
-@keyframes animatedBackground {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 100% 0;
-  }
-}
-#animate-area {
-  animation: animatedBackground 60s linear infinite alternate;
-}

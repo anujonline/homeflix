@@ -13,6 +13,7 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
@@ -28,7 +29,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 @Route(value = "search", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @PermitAll
-class NetfliSearch extends Section implements HasUrlParameter<String> {
+class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
     private final AdminController adminController;
     private final Dialog dialog = new Dialog();
@@ -46,7 +47,7 @@ class NetfliSearch extends Section implements HasUrlParameter<String> {
     public void setParameter(BeforeEvent event, String parameter) {
         addAttachListener(e -> UI.getCurrent().access(() -> {
             setSizeFull();
-            getStyle().set("overflow", "scroll");
+            getStyle().set("overflow-x", "scroll");
             getStyle().set("display", "block");
             scrollIntoView();
             addDialog();
@@ -80,7 +81,7 @@ class NetfliSearch extends Section implements HasUrlParameter<String> {
             newTv.getStyle().set("margin", "10");
             newTv.getStyle().set("padding", "10");
             newTv.getStyle().set("display", "inline-block");
-            newTv.getStyle().set("position", "absolute");
+            newTv.getStyle().set("position", "relative");
             VaadinSession.getCurrent().access(() -> {
                 videoDataWrapper.videoData().forEach(videoFile -> {
                     var movieDiv = new Div();

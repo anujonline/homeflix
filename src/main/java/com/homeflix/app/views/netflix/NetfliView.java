@@ -43,12 +43,12 @@ public class NetfliView extends VerticalLayout {
         setSizeFull();
         getStyle().set("overflow", "scroll");
         getStyle().set("display", "block");
+        getStyle().set("padding-top", "2px");
         scrollIntoView();
         addDialog();
         var verticalLayoutHeader = new Div();
         setPadding(false);
         setSpacing(false);
-        verticalLayoutHeader.getStyle().set("position", "fixed");
         verticalLayoutHeader.setWidthFull();
         verticalLayoutHeader.setHeight("10%");
         var verticalLayout = new Div();
@@ -64,7 +64,6 @@ public class NetfliView extends VerticalLayout {
             }
 
         });
-        verticalLayout.getStyle().set("padding-top", "102px");
         add(verticalLayoutHeader, verticalLayout);
 
         searchButton.addClickListener(event -> {
@@ -121,10 +120,7 @@ public class NetfliView extends VerticalLayout {
     }
 
     private void addHeader(Div verticalLayout) {
-        var image1 = new Image("icons/icon.png", "");
-        image1.setHeight(30, Unit.PIXELS);
-        image1.setWidth(30, Unit.PIXELS);
-        var header = new H1(image1, new NativeLabel("HomeFlix"));
+        var header = new H1(new NativeLabel("HomeFlix"));
         searchBar.addKeyPressListener(Key.ENTER, event -> searchButton.click());
         var component = new HorizontalLayout(searchBar, searchButton);
         component.setFlexGrow(1.0, searchBar);

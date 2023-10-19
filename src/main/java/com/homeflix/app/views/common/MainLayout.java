@@ -12,12 +12,6 @@ import com.vaadin.flow.server.VaadinService;
  */
 public class MainLayout extends AppLayout {
     public MainLayout() {
-
-        getStyle().set("background-image", "url('icons/bg.jpg')");
-
-        VaadinService.getCurrentRequest().setAttribute("type", "movie");
-        setClassName("animate-area");
-        setId("animate-area");
         getStyle().set("border-radius", "25px");
         getStyle().set("overflow", "hidden");
         var current = UI.getCurrent().getSession();
