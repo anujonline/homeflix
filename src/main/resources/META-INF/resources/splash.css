@@ -1,827 +1,454 @@
-html,
-body
-	margin: 0
-	padding: 0
-	width: 100%
-	height: 100%
+        @import url(https://fonts.googleapis.com/css?family=Passion+One);
+body {
+  background: #D30215;
+  overflow: hidden;
+  margin: 0;
+  font-family: "Passion One", impact;
+}
 
-$bg-color: #000000
-$base-color: #e40913
+.bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/28359/marvel.jpg");
+  -webkit-animation: fade 3s steps(10) forwards;
+          animation: fade 3s steps(10) forwards;
+}
+#retrigger--1:checked ~ .bg {
+  -webkit-animation-name: fade--1;
+          animation-name: fade--1;
+}
+#retrigger--2:checked ~ .bg {
+  -webkit-animation-name: fade--2;
+          animation-name: fade--2;
+}
+@-webkit-keyframes fade--1 {
+  0% {
+    background-position: 0 0;
+    opacity: 1;
+  }
+  50% {
+    background-position: 2000% 2000%;
+    opacity: 0.6;
+  }
+  100% {
+    background-position: -2000% -2000%;
+    opacity: 0;
+  }
+}
+@keyframes fade--1 {
+  0% {
+    background-position: 0 0;
+    opacity: 1;
+  }
+  50% {
+    background-position: 2000% 2000%;
+    opacity: 0.6;
+  }
+  100% {
+    background-position: -2000% -2000%;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fade--2 {
+  0% {
+    background-position: 0 0;
+    opacity: 1;
+  }
+  50% {
+    background-position: 2000% 2000%;
+    opacity: 0.6;
+  }
+  100% {
+    background-position: -2000% -2000%;
+    opacity: 0;
+  }
+}
+@keyframes fade--2 {
+  0% {
+    background-position: 0 0;
+    opacity: 1;
+  }
+  50% {
+    background-position: 2000% 2000%;
+    opacity: 0.6;
+  }
+  100% {
+    background-position: -2000% -2000%;
+    opacity: 0;
+  }
+}
 
-#container
-	display: flex
-	flex-direction: column
-	justify-content: center
-	align-items: center
-	width: 100%
-	height: 100%
-	background-color: $bg-color
-	overflow: hidden
+.pane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleY(1.3);
+  perspective: 700px;
+}
 
-	netflixintro
-		display: block
-		position: relative
-		width: 300px
-		height: 300px
-		overflow: hidden
-		animation-name: zoom-in
-		animation-delay: .5s
-		animation-duration: 3.5s
-		animation-timing-function: ease-in
-		animation-fill-mode: forwards
-		background-size: 4000px
-		background-position: -1950px 0
-		&::before
-			content: ""
-			position: absolute
-			display: block
-			background-color: $bg-color
-			width: 150%
-			height: 30%
-			left: -25%
-			bottom: -27%
-			border-radius: 50%
-			z-index: 5
-			transform-origin: left center
-			background-size: 4000px
-			background-position: -1950px 0
+.rotate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate3d(1, -1, 0, 40deg) scale(2);
+  transform-style: preserve-3d;
+  -webkit-animation: rotate 3s 2s forwards;
+          animation: rotate 3s 2s forwards;
+}
+#retrigger--1:checked ~ .pane .rotate {
+  -webkit-animation-name: rotate--1;
+          animation-name: rotate--1;
+}
+#retrigger--2:checked ~ .pane .rotate {
+  -webkit-animation-name: rotate--2;
+          animation-name: rotate--2;
+}
+@-webkit-keyframes rotate--1 {
+  0% {
+    transform: translate(-50%, -50%) rotate3d(1, -1, 0, 40deg) scale(2);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1);
+  }
+}
+@keyframes rotate--1 {
+  0% {
+    transform: translate(-50%, -50%) rotate3d(1, -1, 0, 40deg) scale(2);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1);
+  }
+}
+@-webkit-keyframes rotate--2 {
+  0% {
+    transform: translate(-50%, -50%) rotate3d(1, -1, 0, 40deg) scale(2);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1);
+  }
+}
+@keyframes rotate--2 {
+  0% {
+    transform: translate(-50%, -50%) rotate3d(1, -1, 0, 40deg) scale(2);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate3d(0, 0, 0, 0deg) scale(1);
+  }
+}
 
-		&[letter="N"]
-			transform-origin: 30% center
-			.helper-1
-				width: 19.5%
-				height: 100%
-				background-color: rgba($base-color, .5)
-				left: 22.4%
-				top: 0
-				transform: rotate(180deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: 1.2s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-			.helper-3
-				width: 19%
-				height: 150%
-				left: 40.5%
-				top: -25%
-				transform: rotate(-19.5deg)
-				box-shadow: 0px 0px 35px -12px rgba(0, 0, 0, .4)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .8s
-			.helper-2
-				width: 19.5%
-				height: 100%
-				left: 57.8%
-				top: 0
-				transform: rotate(180deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .5s
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+  font-size: 9em;
+  letter-spacing: -0.06em;
+  -webkit-animation: hide 4s linear forwards;
+          animation: hide 4s linear forwards;
+  padding: 0 0.2em;
+  line-height: 1;
+  border: 0.02em solid black;
+}
+#retrigger--1:checked ~ .pane .logo {
+  -webkit-animation-name: hide--1;
+          animation-name: hide--1;
+}
+#retrigger--2:checked ~ .pane .logo {
+  -webkit-animation-name: hide--2;
+          animation-name: hide--2;
+}
+.logo:nth-child(1) {
+  -webkit-animation: change 4s steps(30) forwards;
+          animation: change 4s steps(30) forwards;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/28359/marvel.jpg");
+  background-size: 2000px auto;
+  -webkit-background-clip: text;
+  -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+  color: transparent;
+}
+#retrigger--1:checked ~ .pane .logo:nth-child(1) {
+  -webkit-animation-name: change--1;
+          animation-name: change--1;
+}
+#retrigger--2:checked ~ .pane .logo:nth-child(1) {
+  -webkit-animation-name: change--2;
+          animation-name: change--2;
+}
+.logo:nth-child(2) {
+  transform: translate3d(-50%, -50%, -2px);
+}
+.logo:nth-child(3) {
+  transform: translate3d(-50%, -50%, -3px);
+}
+.logo:nth-child(4) {
+  transform: translate3d(-50%, -50%, -4px);
+}
+.logo:nth-child(5) {
+  transform: translate3d(-50%, -50%, -5px);
+}
+.logo:nth-child(6) {
+  transform: translate3d(-50%, -50%, -6px);
+}
+.logo:nth-child(7) {
+  transform: translate3d(-50%, -50%, -7px);
+}
+.logo:nth-child(8) {
+  transform: translate3d(-50%, -50%, -8px);
+}
+.logo:nth-child(9) {
+  transform: translate3d(-50%, -50%, -9px);
+}
+.logo:nth-child(10) {
+  transform: translate3d(-50%, -50%, -10px);
+}
+.logo:nth-child(11) {
+  transform: translate3d(-50%, -50%, -11px);
+}
+.logo:nth-child(12) {
+  transform: translate3d(-50%, -50%, -12px);
+}
+.logo:nth-child(13) {
+  transform: translate3d(-50%, -50%, -13px);
+}
+.logo:nth-child(14) {
+  transform: translate3d(-50%, -50%, -14px);
+}
+.logo:nth-child(15) {
+  transform: translate3d(-50%, -50%, -15px);
+}
+.logo:nth-child(16) {
+  transform: translate3d(-50%, -50%, -16px);
+}
+.logo:nth-child(17) {
+  transform: translate3d(-50%, -50%, -17px);
+}
+.logo:nth-child(18) {
+  transform: translate3d(-50%, -50%, -18px);
+}
+.logo:nth-child(19) {
+  transform: translate3d(-50%, -50%, -19px);
+}
+.logo:nth-child(20) {
+  transform: translate3d(-50%, -50%, -20px);
+}
+@-webkit-keyframes hide--1 {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+@keyframes hide--1 {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes hide--2 {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+@keyframes hide--2 {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes change--1 {
+  0% {
+    background-position: 0 0;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: black;
+  }
+  50% {
+    background-position: 200% 200%;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: white;
+  }
+  100% {
+    background-position: -200% -200%;
+    color: white;
+    -webkit-filter: drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white);
+    border-color: white;
+  }
+}
+@keyframes change--1 {
+  0% {
+    background-position: 0 0;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: black;
+  }
+  50% {
+    background-position: 200% 200%;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: white;
+  }
+  100% {
+    background-position: -200% -200%;
+    color: white;
+    -webkit-filter: drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white);
+    border-color: white;
+  }
+}
+@-webkit-keyframes change--2 {
+  0% {
+    background-position: 0 0;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: black;
+  }
+  50% {
+    background-position: 200% 200%;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: white;
+  }
+  100% {
+    background-position: -200% -200%;
+    color: white;
+    -webkit-filter: drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white);
+    border-color: white;
+  }
+}
+@keyframes change--2 {
+  0% {
+    background-position: 0 0;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: black;
+  }
+  50% {
+    background-position: 200% 200%;
+    color: rgba(150, 150, 0, 0.4);
+    -webkit-filter: drop-shadow(0 -1px 0 black) drop-shadow(0 1px 0 black) drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black);
+    border-color: white;
+  }
+  100% {
+    background-position: -200% -200%;
+    color: white;
+    -webkit-filter: drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white) drop-shadow(0 0 0 white);
+    border-color: white;
+  }
+}
 
-		&[letter="E"]
-			transform-origin: 30% center
-			.helper-1
-				width: 19.5%
-				height: 100%
-				background-color: rgba($base-color, .5)
-				left: 22%
-				top: 0
-				transform: rotate(180deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: 1.2s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-			.helper-2
-				width: 17.5%
-				height: 50%
-				left: 38%
-				top: -49px
-				transform: rotate(270deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .8s
-			.helper-3
-				width: 17%
-				height: 39%
-				left: 33%
-				top: 29%
-				transform: rotate(-90deg)
-				box-shadow: 0px 0px 35px -12px rgba(0, 0, 0, 0.4)
-				overflow: hidden
-				animation-name: fading-out
-				animation-duration: 2s
-				animation-fill-mode: forwards
-				animation-delay: 1s
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .6s
-			.helper-4
-				width: 17.5%
-				height: 50%
-				left: 38%
-				top: 196px
-				transform: rotate(270deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .4s
-					animation-delay: .5s
+.retrigger {
+  position: absolute;
+  left: -5em;
+  opacity: 0;
+}
 
-		&[letter="T"]
-			transform-origin: center center
-			.helper-1
-				width: 19.5%
-				height: 100%
-				background-color: rgba($base-color, .5)
-				left: 38%
-				top: 0
-				transform: rotate(180deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: 1s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-			.helper-2
-				width: 17.5%
-				height: 54%
-				left: 39%
-				top: -55px
-				transform: rotate(270deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .5s
+@-webkit-keyframes buttons--1 {
+  0%, 99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
 
-
-		&[letter="F"]
-			transform-origin: 30% center
-			.helper-1
-				width: 19.5%
-				height: 100%
-				background-color: rgba($base-color, .5)
-				left: 22%
-				top: 0
-				transform: rotate(180deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: 1.2s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-			.helper-2
-				width: 17.5%
-				height: 50%
-				left: 38%
-				top: -49px
-				transform: rotate(270deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .7s
-			.helper-3
-				width: 17%
-				height: 39%
-				left: 33%
-				top: 29%
-				transform: rotate(-90deg)
-				box-shadow: 0px 0px 35px -12px rgba(0, 0, 0, 0.4)
-				overflow: hidden
-				animation-name: fading-out
-				animation-duration: 2s
-				animation-fill-mode: forwards
-				animation-delay: 1s
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .5s
-
-
-		&[letter="L"]
-			transform-origin: 30% center
-			.helper-1
-				width: 19.5%
-				height: 100%
-				background-color: rgba($base-color, .5)
-				left: 22%
-				top: 0
-				transform: rotate(180deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: .8s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-			.helper-2
-				width: 17.5%
-				height: 50%
-				left: 38%
-				top: 196px
-				transform: rotate(270deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .4s
-
-		&[letter="I"]
-			transform-origin: center center
-			.helper-1
-				width: 19.5%
-				height: 100%
-				background-color: rgba($base-color, .5)
-				left: 38%
-				top: 0
-				transform: rotate(180deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: 1s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-
-		&[letter="X"]
-			transform-origin: center center
-			.helper-1
-				width: 19%
-				height: 150%
-				left: 40.5%
-				top: -25%
-				transform: rotate(-19.5deg)
-				animation-name: fading-lumieres-box
-				animation-duration: 2s
-				animation-delay: .6s
-				animation-fill-mode: forwards
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2.5s
-					animation-fill-mode: forwards
-					animation-delay: 1.2s
-					[class*="fur-"]
-						bottom: 0
-						height: 40%
-			.helper-2
-				width: 19%
-				height: 150%
-				left: 40.5%
-				top: -25%
-				transform: rotate(19.5deg)
-				overflow: hidden
-				.effect-brush
-					animation-name: brush-moving
-					animation-duration: 2s
-					animation-fill-mode: forwards
-					animation-delay: .5s
-
-		[class*="helper-"]
-			position: absolute
-
-			.effect-brush
-				position: absolute
-				width: 100%
-				height: 300%
-				top: 0
-				overflow: hidden
-				&::before
-					display: block
-					content: ""
-					position: absolute
-					background-color: $base-color
-					width: 100%
-					height: 70%
-					box-shadow: 0px 0px 29px 24px $base-color
-
-				[class*="fur-"]
-					display: block
-					position: absolute
-					bottom: 10%
-					height: 30%
-
-				.fur-1
-					left: 0%
-					width: 3.8%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 15%, rgba(0, 0, 0, 0) 81%, rgba(0, 0, 0, 0) 100%)
-				.fur-2
-					left: 3.8%
-					width: 2.8%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 10%, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0) 100%)
-				.fur-3
-					left: 6.6%
-					width: 4.8%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 37%, rgba(0, 0, 0, 0) 100%)
-				.fur-4
-					left: 11.4%
-					width: 4%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 23%, rgba(0, 0, 0, 0) 100%)
-				.fur-5
-					left: 15.4%
-					width: 4%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 15%, rgba(0, 0, 0, 0) 86%, rgba(0, 0, 0, 0) 100%)
-				.fur-6
-					left: 19.4%
-					width: 2.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 27%, rgba(0, 0, 0, 0) 89%, rgba(0, 0, 0, 0) 100%)
-				.fur-7
-					left: 21.9%
-					width: 4%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 20%, rgba(0, 0, 0, 0) 100%)
-				.fur-8
-					left: 25.9%
-					width: 2%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 30%, rgba(0, 0, 0, 0) 100%)
-				.fur-9
-					left: 27.9%
-					width: 4%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 35%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)
-				.fur-10
-					left: 31.9%
-					width: 3.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 39%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)
-				.fur-11
-					left: 35.4%
-					width: 2%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 34%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)
-				.fur-12
-					left: 37.4%
-					width: 2.6%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 22%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)
-				.fur-13
-					left: 40%
-					width: 6%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 47%, rgba(0, 0, 0, 0) 100%)
-				.fur-14
-					left: 46%
-					width: 2%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 36%, rgba(0, 0, 0, 0) 100%)
-				.fur-15
-					left: 48%
-					width: 5.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 29%, rgba(0, 0, 0, 0) 100%)
-				.fur-16
-					left: 53.5%
-					width: 3%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 39%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)
-				.fur-17
-					left: 56.5%
-					width: 4.1%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 45%, rgba(0, 0, 0, 0) 100%)
-				.fur-18
-					left: 60.6%
-					width: 2.4%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 34%, rgba(0, 0, 0, 0) 100%)
-				.fur-19
-					left: 63%
-					width: 4%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 47%, rgba(0, 0, 0, 0) 100%)
-				.fur-20
-					left: 67%
-					width: 1.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 27%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)
-				.fur-21
-					left: 68.5%
-					width: 2.8%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 37%, rgba(0, 0, 0, 0) 100%)
-				.fur-22
-					left: 71.3%
-					width: 2.3%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 9%, rgba(0, 0, 0, 0) 100%)
-				.fur-23
-					left: 73.6%
-					width: 2.2%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 28%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 100%)
-				.fur-24
-					left: 75.8%
-					width: 1%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 37%, rgba(0, 0, 0, 0) 100%)
-				.fur-25
-					left: 76.8%
-					width: 2.1%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 28%, rgba(0, 0, 0, 0) 100%)
-				.fur-26
-					left: 78.9%
-					width: 4.1%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 34%, rgba(0, 0, 0, 0) 100%)
-				.fur-27
-					left: 83%
-					width: 2.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 21%, rgba(0, 0, 0, 0) 100%)
-				.fur-28
-					left: 85.5%
-					width: 4.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 39%, rgba(0, 0, 0, 0) 100%)
-				.fur-29
-					left: 90%
-					width: 2.8%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 30%, rgba(0, 0, 0, 0) 100%)
-				.fur-30
-					left: 92.8%
-					width: 3.5%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 19%, rgba(0, 0, 0, 0) 100%)
-				.fur-31
-					left: 96.3%
-					width: 3.7%
-					background: linear-gradient(to bottom, $base-color 0%, $base-color 37%, rgba(0, 0, 0, 0) 100%)
-
-			.effect-lumieres
-				position: absolute
-				width: 100%
-				height: 100%
-				opacity: 0
-				animation-name: showing-lumieres
-				animation-duration: 2s
-				animation-delay: 1.6s
-				animation-fill-mode: forwards
-
-				[class*="lamp-"]
-					position: absolute
-					display: block
-					height: 100%
-					box-shadow: 0px 0px 10px 0px rgba($base-color, 0.75)
-					background: var(--color)
-
-					&::before
-						position: absolute
-						content: " "
-						display: block
-						width: 100%
-						height: 100%
-						background: var(--color)
-						box-shadow: 0px 0px 10px 0px rgba($base-color, 0.75)
-
-				.lamp-1
-					--color: #ff0100
-					z: 6
-					left: 0.7%
-					width: 1%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-2
-					--color: #ffde01
-					left: 2.2%
-					width: 1.4%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-3
-					--color: #ff00cc
-					left: 5.8%
-					width: 2.1%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-4
-					--color: #04fd8f
-					left: 10.1%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-5
-					--color: #ff0100
-					left: 12.9%
-					width: 1.4%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-6
-					--color: #ff9600
-					left: 15.3%
-					width: 2.8%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-7
-					--color: #0084ff
-					left: 21.2%
-					width: 2.5%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-8
-					--color: #f84006
-					left: 25%
-					width: 2.5%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-9
-					--color: #ffc601
-					left: 30.5%
-					width: 3%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-10
-					--color: #ff4800
-					left: 36.3%
-					width: 3%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-11
-					--color: #fd0100
-					left: 41%
-					width: 2.2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-12
-					--color: #01ffff
-					left: 44.2%
-					width: 2.6%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-13
-					--color: #ffc601
-					left: 51.7%
-					width: 0.5%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-14
-					--color: #ffc601
-					left: 52.1%
-					width: 1.8%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-15
-					--color: #0078fe
-					left: 53.8%
-					width: 2.3%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-16
-					--color: #0080ff
-					left: 57.2%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-17
-					--color: #ffae01
-					left: 62.3%
-					width: 2.9%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-18
-					--color: #ff00bf
-					left: 65.8%
-					width: 1.7%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-19
-					--color: #a601f4
-					left: 72.8%
-					width: 0.8%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-20
-					--color: #f30b34
-					left: 74.3%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-21
-					--color: #ff00bf
-					left: 79.8%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-22
-					--color: #04fd8f
-					left: 78.2%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-23
-					--color: #01ffff
-					left: 78.5%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-24
-					--color: #a201ff
-					left: 85.3%
-					width: 1.1%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-25
-					--color: #ec0014
-					left: 86.9%
-					width: 1.1%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-26
-					--color: #0078fe
-					left: 88.8%
-					width: 2%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-27
-					--color: #ff0036
-					left: 92.4%
-					width: 2.4%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-				.lamp-28
-					--color: #06f98c
-					left: 96.2%
-					width: 2.1%
-					animation-delay: (random(200) / 100) + s
-					&::before
-						left: percentage((random(200) / 100))
-						animation-delay: (random(200) / 100) + s
-
-				.lamp-1,
-				.lamp-3,
-				.lamp-5,
-				.lamp-7,
-				.lamp-9,
-				.lamp-11,
-				.lamp-13,
-				.lamp-15,
-				.lamp-17,
-				.lamp-19,
-				.lamp-21,
-				.lamp-23,
-				.lamp-25,
-				.lamp-27
-					animation-name: lumieres-moving-left
-					animation-duration: 5s
-					animation-fill-mode: forwards
-					&::before
-						animation-name: lumieres-moving-left
-						animation-duration: 5.5s
-
-				.lamp-2,
-				.lamp-4,
-				.lamp-6,
-				.lamp-8,
-				.lamp-10,
-				.lamp-12,
-				.lamp-14,
-				.lamp-16,
-				.lamp-18,
-				.lamp-20,
-				.lamp-22,
-				.lamp-24,
-				.lamp-26,
-				.lamp-28
-					animation-name: lumieres-moving-right
-					animation-duration: 5s
-					animation-fill-mode: forwards
-					&::before
-						animation-name: lumieres-moving-right
-						animation-duration: 5.5s
-
-@keyframes brush-moving
-	0%
-		transform: translateY(0)
-	100%
-		transform: translateY(-100%)
-
-@keyframes fading-out
-	0%
-		opacity: 1
-	100%
-		opacity: 0
-
-@keyframes lumieres-moving-right
-	0%
-		transform: translate(0)
-	40%
-		transform: translate(-10px) scaleX(1)
-	50%
-		transform: translate(-60px)
-	100%
-		transform: translate(-120px) scaleX(3)
-
-@keyframes lumieres-moving-left
-	0%
-		transform: translate(0)
-	40%
-		transform: translate(10px) scaleX(1)
-	50%
-		transform: translate(60px)
-	100%
-		transform: translate(120px) scaleX(3)
-
-@keyframes zoom-in
-	0%
-		transform: scale(1)
-	100%
-		transform: scale(15)
-
-@keyframes showing-lumieres
-	0%
-		opacity: 0
-	100%
-		opacity: 1
-
-@keyframes fading-lumieres-box
-	0%
-		background-color: rgba($base-color, .5)
-	100%
-		background-color: rgba($base-color, .0)
+@keyframes buttons--1 {
+  0%, 99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+@-webkit-keyframes buttons--2 {
+  0%, 99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+@keyframes buttons--2 {
+  0%, 99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+.buttons {
+  position: absolute;
+  z-index: 3;
+  top: 70%;
+  left: 50%;
+  width: 10em;
+  margin-left: -5em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  cursor: pointer;
+  font-size: 34px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-animation: button 4s linear;
+          animation: button 4s linear;
+}
+#retrigger--1:checked ~ .buttons {
+  -webkit-animation-name: buttons--1;
+          animation-name: buttons--1;
+}
+#retrigger--2:checked ~ .buttons {
+  -webkit-animation-name: buttons--2;
+          animation-name: buttons--2;
+}
+.buttons .button {
+  padding: 0.3em 1em;
+  color: black;
+  font-size: 1.3em;
+  display: none;
+  cursor: pointer;
+  border: 2px solid black;
+}
+.buttons .button:hover {
+  color: white;
+  background: black;
+}
+#retrigger--2:checked ~ .buttons .button--1 {
+  display: block;
+}
+#retrigger--1:checked ~ .buttons .button--2 {
+  display: block;
+}

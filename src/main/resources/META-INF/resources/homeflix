@@ -469,7 +469,7 @@ body {
 <input class="retrigger" type="radio" name="rerun" id="retrigger--1"/>
 <input class="retrigger" type="radio" name="rerun" id="retrigger--2" checked="checked"/>
 <div class="bg"></div>
-<div class="buttons" onclick="window.location.href='/watch'">
+<div class="buttons" onclick="window.location.href='https://homeflix.onrender.com/watch'">
     <label class="button button--1">ENTER</label>
 </div>
 <div class="pane">
