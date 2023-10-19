@@ -33,4 +33,7 @@ vaadin-text-field::part(input-field) {}
 
 vaadin-text-field::part(label) { color:rgba(255,255,255,1); }
 
-vaadin-vertical-layout {border-radius:var(--lumo-border-radius-m)}
+vaadin-vertical-layout {
+border-radius:var(--lumo-border-radius-m);
+background: black;
+}

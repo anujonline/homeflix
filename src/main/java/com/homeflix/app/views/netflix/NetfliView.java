@@ -48,7 +48,6 @@ public class NetfliView extends VerticalLayout {
         var verticalLayoutHeader = new Div();
         setPadding(false);
         setSpacing(false);
-        verticalLayoutHeader.getStyle().set("position", "fixed");
         verticalLayoutHeader.setWidthFull();
         verticalLayoutHeader.setHeight("10%");
         var verticalLayout = new Div();
