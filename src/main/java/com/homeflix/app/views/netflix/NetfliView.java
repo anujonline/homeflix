@@ -1,14 +1,13 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.controllers.AdminController;
-import com.homeflix.app.views.Embed;
-import com.homeflix.app.data.service.FeedbackData;
-import com.homeflix.app.views.common.MainLayout;
-import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.data.models.VideoDataWrapper;
+import com.homeflix.app.data.service.FeedbackData;
+import com.homeflix.app.data.service.tmdb.TMDBService;
+import com.homeflix.app.views.Embed;
+import com.homeflix.app.views.common.MainLayout;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
@@ -20,15 +19,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import jakarta.annotation.security.PermitAll;
-import jakarta.annotation.security.RolesAllowed;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
 import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 
 @Route(value = "watch", layout = MainLayout.class)
 @PageTitle("Homeflix")
-@RolesAllowed(value = {"ROLE_USER"})
 public class NetfliView extends VerticalLayout {
     private final Dialog dialog = new Dialog();
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
@@ -39,16 +35,13 @@ public class NetfliView extends VerticalLayout {
     public NetfliView(TMDBService service, AdminController adminController) {
         this.adminController = adminController;
         this.embed = new Embed("https://vidsrc.to/embed/movie/tt17048514");
-        setAlignItems(Alignment.CENTER);
         setSizeFull();
-        getStyle().set("overflow", "scroll");
+        setAlignItems(Alignment.CENTER);
+        getStyle().set("overflow-x", "scroll");
         getStyle().set("display", "block");
-        getStyle().set("padding-top", "2px");
         scrollIntoView();
         addDialog();
         var verticalLayoutHeader = new Div();
-        setPadding(false);
-        setSpacing(false);
         verticalLayoutHeader.setWidthFull();
         verticalLayoutHeader.setHeight("10%");
         var verticalLayout = new Div();
@@ -66,9 +59,7 @@ public class NetfliView extends VerticalLayout {
         });
         add(verticalLayoutHeader, verticalLayout);
 
-        searchButton.addClickListener(event -> {
-            UI.getCurrent().navigateToClient("search/%s".formatted(searchBar.getValue()));
-        });
+        searchButton.addClickListener(event -> UI.getCurrent().navigateToClient("search/%s".formatted(searchBar.getValue())));
     }
 
     private void addInstallButton() {
