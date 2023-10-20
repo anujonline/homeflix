@@ -1,15 +1,18 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.controllers.AdminController;
+import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.common.MainLayout;
-import com.homeflix.app.data.models.VideoDataWrapper;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -19,7 +22,6 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import jakarta.annotation.security.PermitAll;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
@@ -52,13 +54,12 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
             scrollIntoView();
             addDialog();
             var verticalLayoutHeader = new Div();
-            verticalLayoutHeader.getStyle().set("position", "fixed");
             verticalLayoutHeader.setWidthFull();
             verticalLayoutHeader.setHeight("10%");
             var verticalLayout = new Div();
             addHeader(verticalLayoutHeader);
             addContent(new VideoDataWrapper("Search Results", service.search(parameter)), verticalLayout);
-            verticalLayout.getStyle().set("padding-top", "102px");
+
             add(verticalLayoutHeader, verticalLayout);
         }));
     }
