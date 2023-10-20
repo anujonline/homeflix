@@ -62,23 +62,6 @@ public class NetfliView extends VerticalLayout {
         searchButton.addClickListener(event -> UI.getCurrent().navigateToClient("search/%s".formatted(searchBar.getValue())));
     }
 
-    private void addInstallButton() {
-        var installButton = new Button("Want to load faster? Install the app", VaadinIcon.QUESTION.create(), event -> UI.getCurrent().access(() -> {
-            var installDialog = new Dialog();
-            var installInstructions = new VerticalLayout();
-            installInstructions.add(new H3("Following instructions are application for ios/macos/chrome browser/android and WIndows Phone"));
-            installInstructions.add(new HorizontalLayout(new NativeLabel("1. Click on Share button in navigator,"), VaadinIcon.SHARE_SQUARE.create()));
-            installInstructions.add(new NativeLabel("2. Press Add to Home Screen"));
-            installInstructions.add(new H4("Installation will give you faster load times"));
-
-            add(installDialog);
-            installDialog.add(installInstructions);
-            installDialog.open();
-        }));
-        installButton.setWidthFull();
-        add(installButton);
-    }
-
     private void addContent(VideoDataWrapper videoDataWrapper, Div div) {
         var accordionTV = new VerticalLayout();
         var newTv = new HorizontalLayout();
