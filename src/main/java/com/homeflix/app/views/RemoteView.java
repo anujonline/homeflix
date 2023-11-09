@@ -40,7 +40,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @PageTitle("Homeflix")
 public class RemoteView extends VerticalLayout {
     private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
-    private static final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
+    private final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
     private final Dialog dialog = new Dialog();
     private final QRCodeWriter qrCodeWriter = new QRCodeWriter();
     private final NativeLabel nativeLabel = new NativeLabel("You can change movies now only via remote. Click on play button here to start watching.");
