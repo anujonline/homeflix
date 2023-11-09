@@ -39,7 +39,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @Route("remote")
 @PageTitle("Homeflix")
 public class RemoteView extends VerticalLayout {
-    private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
+    private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
     private static final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
     private final Dialog dialog = new Dialog();
     private final QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -61,7 +61,7 @@ public class RemoteView extends VerticalLayout {
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
 
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-        MatrixToImageConfig con = new MatrixToImageConfig(0xFF000002, 0xFFFFC041);
+        MatrixToImageConfig con = new MatrixToImageConfig();
 
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream, con);
         return pngOutputStream.toByteArray();
@@ -80,7 +80,6 @@ public class RemoteView extends VerticalLayout {
         setSizeFull();
         UUID uuid = UUID.randomUUID();
         var url = REMOTE_ACCESS_S.formatted(uuid.toString());
-        System.out.println(url);
         Image img = new Image(new StreamResource("", new InputStreamFactory() {
             @SneakyThrows
             @Override
