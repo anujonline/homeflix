@@ -1,19 +1,19 @@
 package com.homeflix.app.views.netflix;
 
+import com.homeflix.app.data.Broadcaster;
 import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
-import com.homeflix.app.views.Embed;
+import com.homeflix.app.data.RemoteAccessDTO;
 import com.homeflix.app.views.common.MainLayout;
+import com.homeflix.app.views.common.Marquee;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -24,21 +24,20 @@ import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
+import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STILL_IN_BETA;
 
 
-@Route(value = "search", layout = MainLayout.class)
+@Route(value = "search-remote", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @PermitAll
-class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
+class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
     private final AdminController adminController;
-    private final Dialog dialog = new Dialog();
-    private final Embed embed;
 
-    public NetfliSearch(TMDBService service, AdminController adminController) {
+    public NetfliSearchRemote(TMDBService service, AdminController adminController) {
+        add(new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA));
         this.service = service;
         this.adminController = adminController;
-        this.embed = new Embed();
         setSizeFull();
     }
 
@@ -49,7 +48,6 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
             getStyle().set("overflow-x", "scroll");
             getStyle().set("display", "block");
             scrollIntoView();
-            addDialog();
             var verticalLayoutHeader = new Div();
             verticalLayoutHeader.setWidthFull();
             verticalLayoutHeader.setHeight("10%");
@@ -84,28 +82,13 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
                         var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
                         adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
                     });
-
-                    ui.access(() -> {
-                        var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
-                        embed.setSrc(formatted);
-                    });
-                    dialog.open();
+                    var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
+                    var message = new RemoteAccessDTO();
+                    message.setId(UI.getCurrent().getSession().getAttribute("id").toString());
+                    message.setUrl(formatted);
+                    Broadcaster.broadcast(message);
                 });
             }));
         }
-
-    }
-
-
-    private void addDialog() {
-        var horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        var closeDialog = new Button("Close Player", VaadinIcon.ARROW_LEFT.create());
-        horizontalLayout.add(closeDialog);
-        dialog.setSizeFull();
-        closeDialog.addClickListener(event -> dialog.close());
-        add(dialog);
-        dialog.add(horizontalLayout, embed);
-        setSizeFull();
     }
 }
