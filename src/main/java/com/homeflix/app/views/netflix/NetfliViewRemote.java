@@ -13,6 +13,8 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -27,10 +29,15 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
     private final TextField searchBar = new TextField();
     private final AdminController adminController;
+    private final Notification notification = new Notification("Movie will now be playing on your remote device.", 3000, Notification.Position.TOP_STRETCH);
+    private final Notification errorNotification = new Notification("Your remote session is ended. Please scan the QR again.", 3000, Notification.Position.TOP_STRETCH);
     private String id;
+
     public NetfliViewRemote(TMDBService service, AdminController adminController) {
-        add(new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA));
         this.adminController = adminController;
+        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        errorNotification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+        add(new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA));
         setSizeFull();
         setAlignItems(Alignment.CENTER);
         getStyle().set("overflow-x", "scroll");
@@ -78,7 +85,11 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
                     var message = new RemoteAccessDTO();
                     message.setId(id);
                     message.setUrl(formatted);
-                    Broadcaster.broadcast(message);
+                    if (Broadcaster.broadcast(id, message)) {
+                        notification.open();
+                    } else {
+                        errorNotification.open();
+                    }
                 });
             });
             accordionTV.add(new H3(videoDataWrapper.label()));

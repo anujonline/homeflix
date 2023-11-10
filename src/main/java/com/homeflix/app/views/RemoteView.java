@@ -25,7 +25,6 @@ import com.vaadin.flow.server.InputStreamFactory;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.flow.theme.lumo.LumoIcon;
 import lombok.SneakyThrows;
 
 import java.io.ByteArrayInputStream;
@@ -40,13 +39,13 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @PageTitle("Homeflix")
 public class RemoteView extends VerticalLayout {
     private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
-    //        private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
+    //    private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
     private final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
     private final Dialog dialog = new Dialog();
     private final QRCodeWriter qrCodeWriter = new QRCodeWriter();
-    private final MatrixToImageConfig con = new MatrixToImageConfig();
+    private final MatrixToImageConfig con = new MatrixToImageConfig(0xFFfb1c13, MatrixToImageConfig.WHITE);
     private final NativeLabel nativeLabel = new NativeLabel("You can change movies now only via remote. Click on play button here to start watching.");
-    private final Button button = new Button("Go back to home", LumoIcon.CROSS.create(), e -> {
+    private final Button button = new Button("Home", VaadinIcon.HOME.create(), e -> {
         dialog.close();
         this.removeAll();
         UI.getCurrent().navigate(NetfliView.class);
@@ -77,8 +76,8 @@ public class RemoteView extends VerticalLayout {
         super.onAttach(attachEvent);
         setAlignItems(Alignment.CENTER);
         setSizeFull();
-        UUID uuid = UUID.randomUUID();
-        var url = REMOTE_ACCESS_S.formatted(uuid.toString());
+        var id = UUID.randomUUID().toString();
+        var url = REMOTE_ACCESS_S.formatted(id);
         Image img = new Image(new StreamResource("", new InputStreamFactory() {
             @SneakyThrows
             @Override
@@ -86,14 +85,11 @@ public class RemoteView extends VerticalLayout {
                 return new ByteArrayInputStream(getQRCodeImage(url, 340, 340));
             }
         }), "");
-        add(new Button("End remote viewing", VaadinIcon.ARROW_LEFT.create(), e -> UI.getCurrent().navigate(NetfliView.class)), img, new H2("Scan this QR code with your phone, and enjoy remote viewing."));
-        add(new NativeLabel("1. Scan this QR from your mobile device."));
-        add(new NativeLabel("2. Select a movie on your mobile device. And the movie shall play on this screen."));
-        add(new NativeLabel("3. You can also search and play for content on the mobile and it will be played on this screen"));
+        add(new Button("End remote viewing", VaadinIcon.ARROW_LEFT.create(), e -> UI.getCurrent().navigate(NetfliView.class)), img, new H2("Unlock movie magic! Scan the QR code with your phone, open the link, and choose any movie to play on the screen where the QR code is shown."));
 
         UI ui = attachEvent.getUI();
-        VaadinSession.getCurrent().setAttribute("id", uuid.toString());
-        broadcaster = Broadcaster.register(remoteAccessDTO -> ui.access(() -> showMovie(remoteAccessDTO)));
+        VaadinSession.getCurrent().setAttribute("id", id);
+        broadcaster = Broadcaster.register(id, remoteAccessDTO -> ui.access(() -> showMovie(remoteAccessDTO)));
     }
 
     private void showMovie(RemoteAccessDTO remoteAccessDTO) {
