@@ -26,6 +26,7 @@ import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 import lombok.SneakyThrows;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,6 +38,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 
 @Route("remote")
 @PageTitle("Homeflix")
+@SessionScope
 public class RemoteView extends VerticalLayout {
     private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
     //    private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
@@ -93,13 +95,10 @@ public class RemoteView extends VerticalLayout {
     }
 
     private void showMovie(RemoteAccessDTO remoteAccessDTO) {
-        if (remoteAccessDTO.getId().equals(VaadinSession.getCurrent().getAttribute("id"))) {
-            dialog.removeAll();
-            dialog.add(MARQUEE, button, nativeLabel);
-            embed.setSrc(remoteAccessDTO.getUrl());
-            dialog.add(embed);
-            dialog.open();
-        }
-
+        dialog.removeAll();
+        dialog.add(MARQUEE, button, nativeLabel);
+        embed.setSrc(remoteAccessDTO.url());
+        dialog.add(embed);
+        dialog.open();
     }
 }

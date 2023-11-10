@@ -20,18 +20,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
+import org.springframework.web.context.annotation.SessionScope;
 
 import static com.homeflix.app.views.netflix.PlayConstants.*;
 
 @Route(value = "watch-remote", layout = MainLayout.class)
 @PageTitle("Homeflix")
+@SessionScope
 public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
     private final TextField searchBar = new TextField();
     private final AdminController adminController;
     private final Notification notification = new Notification("Movie will now be playing on your remote device.", 3000, Notification.Position.TOP_STRETCH);
     private final Notification errorNotification = new Notification("Your remote session is ended. Please scan the QR again.", 3000, Notification.Position.TOP_STRETCH);
-    private String id;
 
     public NetfliViewRemote(TMDBService service, AdminController adminController) {
         this.adminController = adminController;
@@ -78,13 +79,13 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
                     ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
+                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), "REMOTE " + ui.getSession().getBrowser().getBrowserApplication());
                         adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
                     });
                     var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
-                    var message = new RemoteAccessDTO();
-                    message.setId(id);
-                    message.setUrl(formatted);
+                    var id = VaadinSession.getCurrent().getAttribute("id").toString();
+                    var message = new RemoteAccessDTO(id, formatted);
+
                     if (Broadcaster.broadcast(id, message)) {
                         notification.open();
                     } else {
@@ -110,7 +111,6 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, @OptionalParameter String s) {
-        this.id = s;
-        UI.getCurrent().getSession().setAttribute("id", s);
+        VaadinSession.getCurrent().setAttribute("id", s);
     }
 }

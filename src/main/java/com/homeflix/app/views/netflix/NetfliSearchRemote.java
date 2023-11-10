@@ -24,6 +24,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
+import org.springframework.web.context.annotation.SessionScope;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
 import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STILL_IN_BETA;
@@ -32,6 +33,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @Route(value = "search-remote", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @PermitAll
+@SessionScope
 class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
     private final AdminController adminController;
@@ -85,14 +87,12 @@ class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<Strin
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
                     ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
+                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), "REMOTE " + ui.getSession().getBrowser().getBrowserApplication());
                         adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
                     });
                     var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
-                    var message = new RemoteAccessDTO();
-                    var id = UI.getCurrent().getSession().getAttribute("id").toString();
-                    message.setId(id);
-                    message.setUrl(formatted);
+                    var id = VaadinSession.getCurrent().getAttribute("id").toString();
+                    var message = new RemoteAccessDTO(id, formatted);
                     if (Broadcaster.broadcast(id, message)) {
                         notification.open();
                     } else {
