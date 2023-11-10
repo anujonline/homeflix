@@ -1,11 +1,11 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.Broadcaster;
+import com.homeflix.app.data.RemoteAccessDTO;
 import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
-import com.homeflix.app.data.RemoteAccessDTO;
 import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.Marquee;
 import com.vaadin.flow.component.UI;
@@ -62,7 +62,7 @@ class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<Strin
     private void addHeader(Div verticalLayout) {
         var back = new Button("Back", VaadinIcon.ARROW_LEFT.create());
         back.setWidthFull();
-        back.addClickListener(event -> UI.getCurrent().navigate(NetfliView.class));
+        back.addClickListener(event -> UI.getCurrent().navigate("/watch-remote/%s".formatted(UI.getCurrent().getSession().getAttribute("id"))));
         var component = new HorizontalLayout(back);
         verticalLayout.add(component);
     }
