@@ -1,9 +1,9 @@
 package com.homeflix.app.data.controllers;
 
+import com.homeflix.app.data.repositories.MovieRepository;
+import com.homeflix.app.data.repositories.WatchRespository;
 import com.homeflix.app.data.repositories.entities.MovieDatabase;
 import com.homeflix.app.data.repositories.entities.WatchHistory;
-import com.homeflix.app.data.repositories.WatchRespository;
-import com.homeflix.app.data.repositories.MovieRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,6 @@ public class AdminController {
     private static String createIdentifier(String url) {
         var uri = URI.create(url);
         var split = uri.getPath().split("/");
-        System.out.println(split);
         return split[2];
     }
 

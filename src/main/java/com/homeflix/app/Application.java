@@ -1,6 +1,5 @@
 package com.homeflix.app;
 
-import com.homeflix.app.data.repositories.MovieRepository;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Meta;
@@ -9,7 +8,7 @@ import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,8 +16,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
 
 /**
  * The entry point of the Spring Boot application.
@@ -39,6 +36,7 @@ import java.net.URI;
 @Meta(name = "apple-mobile-web-app-status-bar-style", content = "black-translucent")
 @EnableScheduling
 @Push
+@Slf4j
 public class Application implements AppShellConfigurator {
 
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
@@ -50,6 +48,6 @@ public class Application implements AppShellConfigurator {
     @Scheduled(fixedDelay = 10000L)
     void call() {
         var response = REST_TEMPLATE.getForEntity("https://homeflix.onrender.com", String.class);
-        System.out.println(response.getStatusCode());
+        log.info("Response code {}", response.getStatusCode());
     }
 }
