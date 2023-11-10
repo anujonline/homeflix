@@ -14,6 +14,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -33,12 +35,16 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
     private final AdminController adminController;
+    private final Notification notification = new Notification("Movie will now be playing on your remote device.", 3000, Notification.Position.TOP_STRETCH);
+    private final Notification errorNotification = new Notification("Your remote session is ended. Please scan the QR again.", 3000, Notification.Position.TOP_STRETCH);
 
     public NetfliSearchRemote(TMDBService service, AdminController adminController) {
         add(new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA));
         this.service = service;
         this.adminController = adminController;
         setSizeFull();
+        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        errorNotification.addThemeVariants(NotificationVariant.LUMO_ERROR);
     }
 
     @Override
@@ -84,9 +90,14 @@ class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<Strin
                     });
                     var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                     var message = new RemoteAccessDTO();
-                    message.setId(UI.getCurrent().getSession().getAttribute("id").toString());
+                    var id = UI.getCurrent().getSession().getAttribute("id").toString();
+                    message.setId(id);
                     message.setUrl(formatted);
-                    Broadcaster.broadcast(message);
+                    if (Broadcaster.broadcast(id, message)) {
+                        notification.open();
+                    } else {
+                        errorNotification.open();
+                    }
                 });
             }));
         }
