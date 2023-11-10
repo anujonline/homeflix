@@ -1,11 +1,11 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.Broadcaster;
+import com.homeflix.app.data.RemoteAccessDTO;
 import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
-import com.homeflix.app.data.RemoteAccessDTO;
 import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.Marquee;
 import com.vaadin.flow.component.Key;
@@ -16,10 +16,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 
 import static com.homeflix.app.views.netflix.PlayConstants.*;
@@ -101,8 +98,8 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
     }
 
     @Override
-    public void setParameter(BeforeEvent beforeEvent, String s) {
+    public void setParameter(BeforeEvent beforeEvent, @OptionalParameter String s) {
         this.id = s;
-        UI.getCurrent().getSession().setAttribute("id",s);
+        UI.getCurrent().getSession().setAttribute("id", s);
     }
 }

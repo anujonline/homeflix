@@ -4,7 +4,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.homeflix.app.data.Broadcaster;
 import com.homeflix.app.data.RemoteAccessDTO;
@@ -18,6 +17,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -40,9 +40,11 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @PageTitle("Homeflix")
 public class RemoteView extends VerticalLayout {
     private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
+    //        private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
     private final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
     private final Dialog dialog = new Dialog();
     private final QRCodeWriter qrCodeWriter = new QRCodeWriter();
+    private final MatrixToImageConfig con = new MatrixToImageConfig();
     private final NativeLabel nativeLabel = new NativeLabel("You can change movies now only via remote. Click on play button here to start watching.");
     private final Button button = new Button("Go back to home", LumoIcon.CROSS.create(), e -> {
         dialog.close();
@@ -58,11 +60,8 @@ public class RemoteView extends VerticalLayout {
     }
 
     public byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
-        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
-
-        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-        MatrixToImageConfig con = new MatrixToImageConfig();
-
+        var bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+        var pngOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream, con);
         return pngOutputStream.toByteArray();
     }
@@ -84,10 +83,14 @@ public class RemoteView extends VerticalLayout {
             @SneakyThrows
             @Override
             public InputStream createInputStream() {
-                return new ByteArrayInputStream(getQRCodeImage(url, 540, 540));
+                return new ByteArrayInputStream(getQRCodeImage(url, 340, 340));
             }
         }), "");
-        add(img, new H2("Scan this QR code with your phone, and enjoy remote viewing."));
+        add(new Button("End remote viewing", VaadinIcon.ARROW_LEFT.create(), e -> UI.getCurrent().navigate(NetfliView.class)), img, new H2("Scan this QR code with your phone, and enjoy remote viewing."));
+        add(new NativeLabel("1. Scan this QR from your mobile device."));
+        add(new NativeLabel("2. Select a movie on your mobile device. And the movie shall play on this screen."));
+        add(new NativeLabel("3. You can also search and play for content on the mobile and it will be played on this screen"));
+
         UI ui = attachEvent.getUI();
         VaadinSession.getCurrent().setAttribute("id", uuid.toString());
         broadcaster = Broadcaster.register(remoteAccessDTO -> ui.access(() -> showMovie(remoteAccessDTO)));

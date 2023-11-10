@@ -1,9 +1,6 @@
 package com.homeflix.app.views;
 
-import com.vaadin.flow.component.HtmlContainer;
-import com.vaadin.flow.component.PropertyDescriptor;
-import com.vaadin.flow.component.PropertyDescriptors;
-import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @Tag("iframe")
@@ -14,12 +11,13 @@ public class Embed extends HtmlContainer {
     public Embed() {
         setWidthFull();
         setHeight("70%");
-//        if(!UI.getCurrent().getSession().getBrowser().isChrome()){
-        getElement().setProperty("sandbox", "allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation");
-//        }
+        if (!UI.getCurrent().getSession().getBrowser().isChrome()) {
+            getElement().setProperty("sandbox", "allow-forms allow-pointer-lock allow-same-origin allow-scripts");
+        }
         getElement().setProperty("allow", "autoplay");
         getElement().setProperty("frameborder", "0");
         getElement().setProperty("allowfullscreen", "true");
+        getElement().setAttribute("allowfullscreen", "true");
     }
 
     public String getSrc() {

@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
  * The main view is a top-level placeholder for other views.
  */
 public class MainLayout extends AppLayout {
-    private static final String MESSAGE = "Chrome browser is not supported at this moment.";
+    private static final String MESSAGE = "Chrome browser might show some ads. For ad free experience use any other browser";
     public MainLayout() {
         getStyle().set("border-radius", "25px");
         getStyle().set("overflow", "hidden");
