@@ -9,11 +9,14 @@ public class Embed extends HtmlContainer {
     private final PropertyDescriptor<String, String> srcDescriptor = PropertyDescriptors.attributeWithDefault("src", "");
 
     public Embed() {
+        setId("hframe");
         setWidthFull();
         setHeight("70%");
         if (!UI.getCurrent().getSession().getBrowser().isChrome()) {
-            getElement().setProperty("sandbox", "allow-forms allow-pointer-lock allow-same-origin allow-scripts");
+            getElement().setProperty("sandbox", "");
         }
+        getElement().setProperty("referrerpolicy", "same-origin");
+        getElement().setAttribute("referrerpolicy", "same-origin");
         getElement().setProperty("allow", "autoplay");
         getElement().setProperty("frameborder", "0");
         getElement().setProperty("allowfullscreen", "true");

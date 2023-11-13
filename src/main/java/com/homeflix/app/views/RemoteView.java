@@ -14,6 +14,7 @@ import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
@@ -41,12 +42,14 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @SessionScope
 public class RemoteView extends VerticalLayout {
     private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
+    private static final String INFORMATION_MESSAGE = "Unlock movie magic! Scan the QR code with your phone, open the link, and choose any movie to play on the screen where the QR code is shown or click the link above.";
     //    private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
     private final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
     private final Dialog dialog = new Dialog();
     private final QRCodeWriter qrCodeWriter = new QRCodeWriter();
     private final MatrixToImageConfig con = new MatrixToImageConfig(0xFFfb1c13, MatrixToImageConfig.WHITE);
     private final NativeLabel nativeLabel = new NativeLabel("You can change movies now only via remote. Click on play button here to start watching.");
+    private final NativeLabel urlLabel = new NativeLabel();
     private final Button button = new Button("Home", VaadinIcon.HOME.create(), e -> {
         dialog.close();
         this.removeAll();
@@ -80,6 +83,7 @@ public class RemoteView extends VerticalLayout {
         setSizeFull();
         var id = UUID.randomUUID().toString();
         var url = REMOTE_ACCESS_S.formatted(id);
+        add(new Anchor(url, "Remote Access URL"));
         Image img = new Image(new StreamResource("", new InputStreamFactory() {
             @SneakyThrows
             @Override
@@ -87,7 +91,11 @@ public class RemoteView extends VerticalLayout {
                 return new ByteArrayInputStream(getQRCodeImage(url, 340, 340));
             }
         }), "");
-        add(new Button("End remote viewing", VaadinIcon.ARROW_LEFT.create(), e -> UI.getCurrent().navigate(NetfliView.class)), img, new H2("Unlock movie magic! Scan the QR code with your phone, open the link, and choose any movie to play on the screen where the QR code is shown."));
+        add(new Button("End remote viewing",
+                VaadinIcon.ARROW_LEFT.create(),
+                e -> UI.getCurrent().navigate(NetfliView.class)),
+                img,
+                new H2(INFORMATION_MESSAGE));
 
         UI ui = attachEvent.getUI();
         VaadinSession.getCurrent().setAttribute("id", id);
