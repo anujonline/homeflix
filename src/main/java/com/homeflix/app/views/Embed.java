@@ -15,15 +15,12 @@ public class Embed extends HtmlContainer {
         if (!UI.getCurrent().getSession().getBrowser().isChrome()) {
             getElement().setProperty("sandbox", "");
         }
-        getElement().setProperty("referrerpolicy","same-origin");
-        getElement().setAttribute("referrerpolicy","same-origin");
+        getElement().setProperty("referrerpolicy", "same-origin");
+        getElement().setAttribute("referrerpolicy", "same-origin");
         getElement().setProperty("allow", "autoplay");
         getElement().setProperty("frameborder", "0");
         getElement().setProperty("allowfullscreen", "true");
         getElement().setAttribute("allowfullscreen", "true");
-        getElement().addEventListener("click", domEvent -> {
-            domEvent.getEventTarget().ifPresent(System.out::println);
-        });
     }
 
     public String getSrc() {
