@@ -21,3 +21,4 @@ error-screenshots/
 webpack.generated.js
 /MoviesHistory.json
 /src/main/dev-bundle/
+/src/main/webapp/test.html

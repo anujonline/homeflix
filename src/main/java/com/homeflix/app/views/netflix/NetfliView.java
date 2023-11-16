@@ -99,7 +99,6 @@ public class NetfliView extends VerticalLayout {
 
     private void addHeader(Div verticalLayout) {
         var header = new H1(new NativeLabel("HomeFlix"));
-        searchBar.addKeyPressListener(Key.ENTER, event -> searchButton.click());
         var component = new HorizontalLayout(searchBar, searchButton);
         component.setFlexGrow(1.0, searchBar);
         searchBar.setPrefixComponent(VaadinIcon.SEARCH.create());
