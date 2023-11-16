@@ -41,6 +41,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @SessionScope
 public class RemoteView extends VerticalLayout {
     private static final String REMOTE_ACCESS_S = "https://homeflix.onrender.com/watch-remote/%s";
+    private static final String INFORMATION_MESSAGE = "Unlock movie magic! Scan the QR code with your phone, open the link, and choose any movie to play on the screen where the QR code is shown or click the link above.";
     //    private static final String REMOTE_ACCESS_S = "http://192.168.178.248:8080/watch-remote/%s";
     private final Marquee MARQUEE = new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA);
     private final Dialog dialog = new Dialog();
@@ -80,6 +81,7 @@ public class RemoteView extends VerticalLayout {
         setSizeFull();
         var id = UUID.randomUUID().toString();
         var url = REMOTE_ACCESS_S.formatted(id);
+        add("Scan or enter this url on other device: " + url);
         Image img = new Image(new StreamResource("", new InputStreamFactory() {
             @SneakyThrows
             @Override
@@ -87,7 +89,11 @@ public class RemoteView extends VerticalLayout {
                 return new ByteArrayInputStream(getQRCodeImage(url, 340, 340));
             }
         }), "");
-        add(new Button("End remote viewing", VaadinIcon.ARROW_LEFT.create(), e -> UI.getCurrent().navigate(NetfliView.class)), img, new H2("Unlock movie magic! Scan the QR code with your phone, open the link, and choose any movie to play on the screen where the QR code is shown."));
+        add(new Button("End remote viewing",
+                        VaadinIcon.ARROW_LEFT.create(),
+                        e -> UI.getCurrent().navigate(NetfliView.class)),
+                img,
+                new H2(INFORMATION_MESSAGE));
 
         UI ui = attachEvent.getUI();
         VaadinSession.getCurrent().setAttribute("id", id);
