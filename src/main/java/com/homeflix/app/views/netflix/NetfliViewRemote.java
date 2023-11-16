@@ -54,6 +54,8 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
                 addContent(service.popularMovies(), verticalLayout);
                 addContent(service.trendingMovies(), verticalLayout);
                 addContent(service.topRatedTVSeries(), verticalLayout);
+                addContent(service.homeflixFavMovies(), verticalLayout);
+                addContent(service.homeflixFavTv(), verticalLayout);
                 addContent(service.onTheAir(), verticalLayout);
             } catch (Exception e) {
                 e.printStackTrace();
