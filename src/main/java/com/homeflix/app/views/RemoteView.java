@@ -90,8 +90,8 @@ public class RemoteView extends VerticalLayout {
             }
         }), "");
         add(new Button("End remote viewing",
-                VaadinIcon.ARROW_LEFT.create(),
-                e -> UI.getCurrent().navigate(NetfliView.class)),
+                        VaadinIcon.ARROW_LEFT.create(),
+                        e -> UI.getCurrent().navigate(NetfliView.class)),
                 img,
                 new H2(INFORMATION_MESSAGE));
 
