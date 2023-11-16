@@ -14,6 +14,7 @@ import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.NativeLabel;
@@ -48,6 +49,7 @@ public class RemoteView extends VerticalLayout {
     private final QRCodeWriter qrCodeWriter = new QRCodeWriter();
     private final MatrixToImageConfig con = new MatrixToImageConfig(0xFFfb1c13, MatrixToImageConfig.WHITE);
     private final NativeLabel nativeLabel = new NativeLabel("You can change movies now only via remote. Click on play button here to start watching.");
+    private final NativeLabel urlLabel = new NativeLabel();
     private final Button button = new Button("Home", VaadinIcon.HOME.create(), e -> {
         dialog.close();
         this.removeAll();
@@ -90,8 +92,9 @@ public class RemoteView extends VerticalLayout {
             }
         }), "");
         add(new Button("End remote viewing",
-                        VaadinIcon.ARROW_LEFT.create(),
-                        e -> UI.getCurrent().navigate(NetfliView.class)),
+
+                VaadinIcon.ARROW_LEFT.create(),
+                e -> UI.getCurrent().navigate(NetfliView.class)),
                 img,
                 new H2(INFORMATION_MESSAGE));
 
