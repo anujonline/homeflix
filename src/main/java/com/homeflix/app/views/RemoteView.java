@@ -83,7 +83,7 @@ public class RemoteView extends VerticalLayout {
         setSizeFull();
         var id = UUID.randomUUID().toString();
         var url = REMOTE_ACCESS_S.formatted(id);
-        add(new Anchor(url, "Remote Access URL"));
+        add("Scan or enter this url on other device: " + url);
         Image img = new Image(new StreamResource("", new InputStreamFactory() {
             @SneakyThrows
             @Override
@@ -92,6 +92,7 @@ public class RemoteView extends VerticalLayout {
             }
         }), "");
         add(new Button("End remote viewing",
+
                 VaadinIcon.ARROW_LEFT.create(),
                 e -> UI.getCurrent().navigate(NetfliView.class)),
                 img,
