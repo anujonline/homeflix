@@ -1,10 +1,9 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.Broadcaster;
+import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.RemoteAccessDTO;
-import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoDataWrapper;
-import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.Marquee;
@@ -20,6 +19,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.annotation.SessionScope;
 
 import static com.homeflix.app.views.netflix.PlayConstants.*;
@@ -27,14 +27,15 @@ import static com.homeflix.app.views.netflix.PlayConstants.*;
 @Route(value = "watch-remote", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @SessionScope
+@Slf4j
 public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
     private final TextField searchBar = new TextField();
-    private final AdminController adminController;
+    private final DataSaver adminController;
     private final Notification notification = new Notification("Movie will now be playing on your remote device.", 3000, Notification.Position.TOP_STRETCH);
     private final Notification errorNotification = new Notification("Your remote session is ended. Please scan the QR again.", 3000, Notification.Position.TOP_STRETCH);
 
-    public NetfliViewRemote(TMDBService service, AdminController adminController) {
+    public NetfliViewRemote(TMDBService service, DataSaver adminController) {
         this.adminController = adminController;
         notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         errorNotification.addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -80,10 +81,8 @@ public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<
                 newTv.add(image);
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
-                    ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), "REMOTE " + ui.getSession().getBrowser().getBrowserApplication());
-                        adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
-                    });
+                    adminController
+                            .saveData(ui, videoFile);
                     var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                     var id = VaadinSession.getCurrent().getAttribute("id").toString();
                     var message = new RemoteAccessDTO(id, formatted);

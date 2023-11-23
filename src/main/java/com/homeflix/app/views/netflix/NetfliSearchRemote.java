@@ -1,10 +1,9 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.Broadcaster;
+import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.RemoteAccessDTO;
-import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoDataWrapper;
-import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.Marquee;
@@ -24,6 +23,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.annotation.SessionScope;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
@@ -34,13 +34,14 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @PageTitle("Homeflix")
 @PermitAll
 @SessionScope
+@Slf4j
 class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
-    private final AdminController adminController;
+    private final DataSaver adminController;
     private final Notification notification = new Notification("Movie will now be playing on your remote device.", 3000, Notification.Position.TOP_STRETCH);
     private final Notification errorNotification = new Notification("Your remote session is ended. Please scan the QR again.", 3000, Notification.Position.TOP_STRETCH);
 
-    public NetfliSearchRemote(TMDBService service, AdminController adminController) {
+    public NetfliSearchRemote(TMDBService service, DataSaver adminController) {
         add(new Marquee(REMOTE_VIEWING_IS_STILL_IN_BETA));
         this.service = service;
         this.adminController = adminController;
@@ -86,10 +87,8 @@ class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<Strin
                 div.add(image);
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
-                    ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), "REMOTE " + ui.getSession().getBrowser().getBrowserApplication());
-                        adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
-                    });
+                    adminController
+                            .saveData(ui, videoFile);
                     var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                     var id = VaadinSession.getCurrent().getAttribute("id").toString();
                     var message = new RemoteAccessDTO(id, formatted);
