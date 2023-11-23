@@ -22,14 +22,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import lombok.extern.slf4j.Slf4j;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
 
 @Route(value = "watch", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
-@Slf4j
 public class NetfliView extends VerticalLayout {
     private final Dialog dialog = new Dialog();
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());

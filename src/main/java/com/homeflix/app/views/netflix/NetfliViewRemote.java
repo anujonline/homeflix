@@ -10,6 +10,7 @@ import com.homeflix.app.views.common.Marquee;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -19,7 +20,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.annotation.SessionScope;
 
 import static com.homeflix.app.views.netflix.PlayConstants.*;
@@ -27,7 +27,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.*;
 @Route(value = "watch-remote", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @SessionScope
-@Slf4j
+@JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 public class NetfliViewRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
     private final TextField searchBar = new TextField();

@@ -15,15 +15,12 @@ public class DataSaver {
 
     public void saveData(UI ui, VideoData videoFile) {
         try {
-            var pendingJavaScriptResult = ui
-                    .getPage()
-                    .executeJs("""
-                            return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
-                                JSON.stringify(data, null, 2);
-                            });
-                            """, "");
-            pendingJavaScriptResult.then(jsonValue -> adminController
-                    .addHistory(videoFile.title() + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
+            var pendingJavaScriptResult = ui.getPage().executeJs("""
+                    return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
+                        JSON.stringify(data, null, 2);
+                    });
+                    """, "");
+            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title() + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
         } catch (Exception e) {
             log.error("Exception in running js ", e);
         }

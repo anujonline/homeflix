@@ -9,6 +9,7 @@ import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.Marquee;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.NativeLabel;
@@ -23,7 +24,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.annotation.SessionScope;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
@@ -34,7 +34,7 @@ import static com.homeflix.app.views.netflix.PlayConstants.REMOTE_VIEWING_IS_STI
 @PageTitle("Homeflix")
 @PermitAll
 @SessionScope
-@Slf4j
+@JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 class NetfliSearchRemote extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
     private final DataSaver adminController;
