@@ -1,15 +1,14 @@
 package com.homeflix.app.views.netflix;
 
-import com.homeflix.app.data.controllers.AdminController;
+import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.models.VideoDataWrapper;
-import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.RemoteView;
 import com.homeflix.app.views.common.MainLayout;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
@@ -28,15 +27,16 @@ import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
 
 @Route(value = "watch", layout = MainLayout.class)
 @PageTitle("Homeflix")
+@JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 public class NetfliView extends VerticalLayout {
     private final Dialog dialog = new Dialog();
     private final Button searchButton = new Button("Search", VaadinIcon.SEARCH.create());
     private final TextField searchBar = new TextField();
     private final Embed embed;
-    private final AdminController adminController;
+    private final DataSaver adminController;
     private final Button qr = new Button("Remote Watch?", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(RemoteView.class));
 
-    public NetfliView(TMDBService service, AdminController adminController) {
+    public NetfliView(TMDBService service, DataSaver adminController) {
         this.adminController = adminController;
         this.embed = new Embed();
         setSizeFull();
@@ -79,11 +79,8 @@ public class NetfliView extends VerticalLayout {
                 newTv.add(image);
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
-                    ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
-                        adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
-                    });
-
+                    adminController
+                            .saveData(ui, videoFile);
                     ui.access(() -> {
                         var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                         embed.setSrc(formatted);

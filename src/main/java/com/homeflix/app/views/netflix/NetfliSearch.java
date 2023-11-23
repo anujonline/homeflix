@@ -1,13 +1,13 @@
 package com.homeflix.app.views.netflix;
 
-import com.homeflix.app.data.controllers.AdminController;
+import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.models.VideoDataWrapper;
-import com.homeflix.app.data.service.FeedbackData;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.common.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
@@ -29,13 +29,14 @@ import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
 @Route(value = "search", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @PermitAll
+@JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
-    private final AdminController adminController;
+    private final DataSaver adminController;
     private final Dialog dialog = new Dialog();
     private final Embed embed;
 
-    public NetfliSearch(TMDBService service, AdminController adminController) {
+    public NetfliSearch(TMDBService service, DataSaver adminController) {
         this.service = service;
         this.adminController = adminController;
         this.embed = new Embed();
@@ -80,11 +81,8 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
                 div.add(image);
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
-                    ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                        var data = new FeedbackData(videoFile.id(), extendedClientDetails.getCurrentDate(), extendedClientDetails.getTimeZoneId(), extendedClientDetails.isTouchDevice(), ui.getSession().getBrowser().getBrowserApplication());
-                        adminController.addHistory(ui.getSession().getBrowser().getAddress(), data.toString());
-                    });
-
+                    adminController
+                            .saveData(ui, videoFile);
                     ui.access(() -> {
                         var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                         embed.setSrc(formatted);
