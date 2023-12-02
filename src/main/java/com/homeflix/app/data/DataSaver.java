@@ -2,6 +2,7 @@ package com.homeflix.app.data;
 
 import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoData;
+import com.homeflix.app.data.service.VideoFile;
 import com.vaadin.flow.component.UI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,20 @@ public class DataSaver {
                         JSON.stringify(data, null, 2);
                     });
                     """, "");
-            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title() + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
+            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
+        } catch (Exception e) {
+            log.error("Exception in running js ", e);
+        }
+    }
+
+    public void saveData(UI ui, VideoFile videoFile) {
+        try {
+            var pendingJavaScriptResult = ui.getPage().executeJs("""
+                    return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
+                        JSON.stringify(data, null, 2);
+                    });
+                    """, "");
+            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.getName() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
         } catch (Exception e) {
             log.error("Exception in running js ", e);
         }

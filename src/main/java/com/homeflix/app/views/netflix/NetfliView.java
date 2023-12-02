@@ -5,6 +5,7 @@ import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.RemoteView;
+import com.homeflix.app.views.browse.BrowseView;
 import com.homeflix.app.views.common.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -34,13 +35,12 @@ public class NetfliView extends VerticalLayout {
     private final TextField searchBar = new TextField();
     private final Embed embed;
     private final DataSaver adminController;
-    private final Button qr = new Button("Remote Watch?", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(RemoteView.class));
 
     public NetfliView(TMDBService service, DataSaver adminController) {
         this.adminController = adminController;
         this.embed = new Embed();
         setSizeFull();
-        add(qr);
+        add(new HorizontalLayout(new Button("Remote Watch?", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(RemoteView.class)), new Button("Bollywood", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(BrowseView.class))));
         setAlignItems(Alignment.CENTER);
         getStyle().set("overflow-x", "scroll");
         getStyle().set("display", "block");
@@ -79,8 +79,7 @@ public class NetfliView extends VerticalLayout {
                 newTv.add(image);
                 image.addClickListener(event -> {
                     var ui = UI.getCurrent();
-                    adminController
-                            .saveData(ui, videoFile);
+                    adminController.saveData(ui, videoFile);
                     ui.access(() -> {
                         var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
                         embed.setSrc(formatted);
