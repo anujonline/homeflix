@@ -1,5 +1,6 @@
 package com.homeflix.app.views.video;
 
+import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.service.VAccess;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -21,12 +22,15 @@ import jakarta.annotation.security.PermitAll;
 @JavaScript(value = "https://vjs.zencdn.net/7.14.3/video.min.js", loadMode = LoadMode.EAGER)
 @StyleSheet(value = "https://vjs.zencdn.net/7.14.3/video-js.css", loadMode = LoadMode.EAGER)
 @PermitAll
+@JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 public class EmbedVideo extends VerticalLayout implements HasUrlParameter<String> {
     private final VAccess vAccess;
+    private final DataSaver dataSaver;
 
-    public EmbedVideo(VAccess vAccess) {
+    public EmbedVideo(DataSaver dataSaver, VAccess vAccess) {
         super();
         this.vAccess = vAccess;
+        this.dataSaver = dataSaver;
         getStyle().set("background", """
                 linear-gradient(black,#501414)
                 """);
@@ -45,7 +49,8 @@ public class EmbedVideo extends VerticalLayout implements HasUrlParameter<String
         back.addThemeVariants(ButtonVariant.LUMO_ICON);
         back.setWidthFull();
         add(back);
-
+        dataSaver
+                .saveData(UI.getCurrent(), videoFile);
         back.addClickListener(event -> UI.getCurrent().navigate("browse"));
         addAttachListener(event -> UI.getCurrent().access(() -> {
             var video = new Video(videoFile.getFullPath());
