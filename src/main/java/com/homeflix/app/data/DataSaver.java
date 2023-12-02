@@ -34,7 +34,7 @@ public class DataSaver {
                         JSON.stringify(data, null, 2);
                     });
                     """, "");
-            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.getName() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
+            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory("browse " + videoFile.getName() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
         } catch (Exception e) {
             log.error("Exception in running js ", e);
         }

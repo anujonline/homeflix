@@ -1,11 +1,9 @@
 package com.homeflix.app.views.browse;
 
-import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.service.VAccess;
 import com.vaadin.flow.component.ScrollOptions;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
-import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
@@ -19,10 +17,10 @@ import jakarta.servlet.http.Cookie;
 
 @Route("/browse")
 @PermitAll
-@JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
+
 public class BrowseView extends Scroller {
 
-    public BrowseView(VAccess videoService, DataSaver adminController) {
+    public BrowseView(VAccess videoService) {
         super();
         var image1 = new Image("icons/icon.png", "");
         image1.setHeight(30, Unit.PIXELS);
@@ -69,8 +67,7 @@ public class BrowseView extends Scroller {
 
             image.addClickListener(clickEvent -> {
                 var ui = UI.getCurrent();
-                adminController
-                        .saveData(ui, videoFile);
+
                 VaadinService.getCurrentResponse().addCookie(new Cookie("mainURL", videoFile.getFullPath()));
                 ui.getPage().setLocation("play/" + videoFile.getIdentifier());
             });

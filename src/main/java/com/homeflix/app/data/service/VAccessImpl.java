@@ -26,6 +26,6 @@ public class VAccessImpl implements VAccess {
     @Override
     public VideoFile getVideoFile(String identifier) {
         var movieDatabase = movieRepository.findByIdentifier(identifier);
-        return new VideoFile().setFullPath(movieDatabase.getLink().toString());
+        return new VideoFile().setName(movieDatabase.getName()).setFullPath(movieDatabase.getLink().toString());
     }
 }
