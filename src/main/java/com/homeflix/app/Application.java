@@ -28,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableCaching
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
 @Theme(value = "homeflix", variant = Lumo.DARK)
-@PWA(name = "HomeFlix", shortName = "HomeFlix", backgroundColor = "black")
+@PWA(name = "HomeFlix", shortName = "HomeFlix", backgroundColor = "#000000")
 @Viewport("width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @Meta(name = "HandheldFriendly", content = "true")
 @Meta(name = "mobile-web-app-capable", content = "yes")
