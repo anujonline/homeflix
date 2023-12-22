@@ -22,3 +22,5 @@ webpack.generated.js
 /MoviesHistory.json
 /src/main/dev-bundle/
 /src/main/webapp/test.html
+/src/main/java/com/homeflix/app/views/TerminalView.java
+/src/main/java/com/homeflix/app/Delete.java

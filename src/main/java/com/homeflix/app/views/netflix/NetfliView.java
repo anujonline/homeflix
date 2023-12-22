@@ -26,7 +26,7 @@ import com.vaadin.flow.server.VaadinSession;
 
 import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
 
-@Route(value = "watch", layout = MainLayout.class)
+@Route(value = "watch-o", layout = MainLayout.class)
 @PageTitle("Homeflix")
 @JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 public class NetfliView extends VerticalLayout {

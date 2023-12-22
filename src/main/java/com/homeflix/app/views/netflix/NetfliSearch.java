@@ -23,7 +23,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
 
-import static com.homeflix.app.views.netflix.PlayConstants.PLAY_URL;
+import java.util.function.Function;
 
 
 @Route(value = "search", layout = MainLayout.class)
@@ -65,7 +65,7 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
     private void addHeader(Div verticalLayout) {
         var back = new Button("Back", VaadinIcon.ARROW_LEFT.create());
         back.setWidthFull();
-        back.addClickListener(event -> UI.getCurrent().navigate(NetfliView.class));
+        back.addClickListener(event -> UI.getCurrent().navigate(NetflixLikeUI.class));
         var component = new HorizontalLayout(back);
         verticalLayout.add(component);
     }
@@ -76,22 +76,20 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
             div.add(new NativeLabel("Nope, nothing available with this title."));
         } else {
             div.add(new H2(videoDataWrapper.label()));
-            VaadinSession.getCurrent().access(() -> videoDataWrapper.videoData().forEach(videoFile -> {
-                var image = NetfliInterface.getImage(videoFile);
+            VaadinSession.getCurrent().access(() -> videoDataWrapper.videoData().forEach(videoData -> {
+                var image = NetfliInterface.getImage(videoData);
                 div.add(image);
                 image.addClickListener(event -> {
-                    var ui = UI.getCurrent();
-                    adminController
-                            .saveData(ui, videoFile);
-                    ui.access(() -> {
-                        var formatted = PLAY_URL.formatted(videoFile.type(), videoFile.id());
-                        embed.setSrc(formatted);
-                    });
-                    dialog.open();
+                    adminController.saveData(UI.getCurrent(), videoData);
+                    PlayConstants.playContent(videoData, function());
                 });
             }));
         }
 
+    }
+
+    Function<String, Boolean> function() {
+        return service::checkAvailability;
     }
 
 

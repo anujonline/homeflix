@@ -3,6 +3,7 @@ package com.homeflix.app.data.service.tmdb;
 import com.homeflix.app.data.models.VideoData;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,7 +26,7 @@ public class TMDBService {
     }
 
     private static VideoData getVideoData(TMDBElement r, String title, String type) {
-        return new VideoData(r.id(), r.poster_path(), title, type);
+        return new VideoData(r.id(), r.poster_path(), title, type, r.overview());
     }
 
     public VideoDataWrapper popularMovies() {
@@ -62,10 +63,19 @@ public class TMDBService {
             finalList.addAll(videoData);
             finalList.addAll(videoData2);
             return finalList;
-        }).join();
+        }).join().stream().filter(videoData -> StringUtils.isNoneEmpty(videoData.poster())).toList();
     }
 
     public VideoDataWrapper homeflixFavTv() {
         return new VideoDataWrapper("Homeflix's favourite Series", REST_TEMPLATE.exchange("https://api.themoviedb.org/3/account/20288329/watchlist/tv?language=en-US&page=1&sort_by=created_at.asc", HttpMethod.GET, HTTP_ENTITY, TMDBCollectionResponse.class).getBody().results().stream().map(r -> getVideoData(r, r.original_name(), "tv")).toList());
+    }
+
+    public Boolean checkAvailability(String url) {
+        try {
+            var forEntity = REST_TEMPLATE.getForEntity(url, Void.class);
+            return forEntity.getStatusCode().is2xxSuccessful();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
