@@ -1,10 +1,14 @@
 package com.homeflix.app.views.netflix;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homeflix.app.data.DataSaver;
+import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.RemoteView;
 import com.homeflix.app.views.browse.BrowseView;
 import com.homeflix.app.views.common.MainLayout;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -14,12 +18,15 @@ import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.WebStorage;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 
@@ -27,11 +34,34 @@ import java.util.function.Function;
 @PageTitle("Homeflix")
 @JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 public class NetflixLikeUI extends VerticalLayout {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final TMDBService service;
+    private final DataSaver adminController;
 
     public NetflixLikeUI(TMDBService service, DataSaver adminController) {
-        add(new HorizontalLayout(new Button("Remote Watch?", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(RemoteView.class)), new Button("Bollywood", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(BrowseView.class))));
+        this.adminController = adminController;
         this.service = service;
+
+    }
+
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        var videoDataWrapper = new AtomicReference<VideoDataWrapper>();
+        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, "watched", s -> {
+            try {
+                videoDataWrapper.set(new VideoDataWrapper("Recently watched", new ArrayList<>()));
+                var localStorage = OBJECT_MAPPER.readValue(s, VideoDataWrapper.class);
+                videoDataWrapper.get().videoData().addAll(localStorage.videoData());
+            } catch (Exception e) {
+
+            }
+            addUI(videoDataWrapper);
+        });
+    }
+
+    private void addUI(AtomicReference<VideoDataWrapper> videoDataWrapper) {
+        add(new HorizontalLayout(new Button("Remote Watch?", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(RemoteView.class)), new Button("Bollywood", VaadinIcon.ASTERISK.create(), e -> UI.getCurrent().navigate(BrowseView.class))));
         setAlignItems(Alignment.CENTER);
         var search = new HorizontalLayout();
         search.setWidthFull();
@@ -50,11 +80,17 @@ public class NetflixLikeUI extends VerticalLayout {
         add(search);
 
         //service response
-        var videoDataWrappers = List.of(service.trendingMovies(), service.popularMovies(), service.homeflixFavMovies(), service.homeflixFavTv(), service.topRatedTVSeries());
+        var videoDataWrappers = new ArrayList<VideoDataWrapper>();
+        videoDataWrappers.add(videoDataWrapper.get());
+        videoDataWrappers.add(service.trendingMovies());
+        videoDataWrappers.add(service.popularMovies());
+        videoDataWrappers.add(service.homeflixFavMovies());
+        videoDataWrappers.add(service.homeflixFavTv());
+        videoDataWrappers.add(service.topRatedTVSeries());
 
         // Header
         // Category content
-        videoDataWrappers.forEach(wrapper -> {
+        videoDataWrappers.stream().filter(Objects::nonNull).forEach(wrapper -> {
             var header = new HorizontalLayout();
             header.setWidthFull();
             header.setAlignItems(Alignment.CENTER);
@@ -69,6 +105,15 @@ public class NetflixLikeUI extends VerticalLayout {
                 var videoLayout = new VerticalLayout();
                 var movieImage = NetfliInterface.getImage(videoData);
                 movieImage.addClickListener(event -> {
+                    var vd = videoDataWrapper.get().videoData();
+                    if (!vd.contains(videoData)) {
+                        vd.add(videoData);
+                    }
+                    try {
+                        WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, "watched", OBJECT_MAPPER.writeValueAsString(videoDataWrapper));
+                    } catch (JsonProcessingException e) {
+
+                    }
                     adminController.saveData(UI.getCurrent(), videoData);
                     PlayConstants.playContent(videoData, function());
                 });
