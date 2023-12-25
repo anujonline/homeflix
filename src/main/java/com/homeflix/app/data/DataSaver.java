@@ -3,6 +3,7 @@ package com.homeflix.app.data;
 import com.homeflix.app.data.controllers.AdminController;
 import com.homeflix.app.data.models.VideoData;
 import com.homeflix.app.data.service.VideoFile;
+import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.UI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DataSaver {
     private final AdminController adminController;
+    private final MaintainHistory maintainHistory;
 
     public void saveData(UI ui, VideoData videoFile) {
         try {
+            maintainHistory.addToList(videoFile);
             var pendingJavaScriptResult = ui.getPage().executeJs("""
                     return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
                         JSON.stringify(data, null, 2);

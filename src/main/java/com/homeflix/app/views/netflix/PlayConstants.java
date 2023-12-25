@@ -24,7 +24,7 @@ public final class PlayConstants {
         var dialog = new Dialog();
         dialog.add(new Button(VaadinIcon.CLOSE.create(), e -> dialog.close()));
         var imgAndDesc = new VerticalLayout();
-        imgAndDesc.add(new HorizontalLayout(NetfliInterface.onlyImage(videoData), new VerticalLayout(new H4(videoData.title()), new NativeLabel(videoData.overview()))));
+        imgAndDesc.add(new HorizontalLayout(NetfliInterface.getImage(videoData), new VerticalLayout(new H4(videoData.title()), new NativeLabel(videoData.overview()))));
         var ui = UI.getCurrent();
         var url = PLAY_URL.formatted(videoData.type(), videoData.id());
         getCurrent().setAttribute("url", url);
