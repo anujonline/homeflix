@@ -1,5 +1,6 @@
 package com.homeflix.app.views;
 
+import com.homeflix.app.views.common.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -8,7 +9,7 @@ import com.vaadin.flow.shared.ui.LoadMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
-@Route(value = "")
+@Route(value = "", layout = MainLayout.class)
 @StyleSheet(value = "./splash.css", loadMode = LoadMode.EAGER)
 public class WelcomeScreen extends VerticalLayout {
 

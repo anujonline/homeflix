@@ -52,7 +52,7 @@ public class MaintainHistory {
     public void reference(Consumer<Collection<VideoDataWrapper>> videoDataWrapperListFunction) {
 
         WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, "watched", s -> {
-            if (StringUtils.isNoneEmpty()) {
+            if (!StringUtils.isEmpty(s)) {
                 try {
                     var localStorage = OBJECT_MAPPER.readValue(s, new TypeReference<List<VideoData>>() {
                     });
