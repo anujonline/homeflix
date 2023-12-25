@@ -22,9 +22,13 @@ public final class PlayConstants {
 
     public static void playContent(VideoData videoData, Function<String, Boolean> function) {
         var dialog = new Dialog();
+        dialog.setSizeFull();
         dialog.add(new Button(VaadinIcon.CLOSE.create(), e -> dialog.close()));
         var imgAndDesc = new VerticalLayout();
-        imgAndDesc.add(new HorizontalLayout(NetfliInterface.getImage(videoData), new VerticalLayout(new H4(videoData.title()), new NativeLabel(videoData.overview()))));
+        var image = NetfliInterface.getImage(videoData);
+        image.setWidth("200px");
+        image.setHeight("200px");
+        imgAndDesc.add(new HorizontalLayout(image, new VerticalLayout(new H4(videoData.title()), new NativeLabel(videoData.overview()))));
         var ui = UI.getCurrent();
         var url = PLAY_URL.formatted(videoData.type(), videoData.id());
         getCurrent().setAttribute("url", url);
