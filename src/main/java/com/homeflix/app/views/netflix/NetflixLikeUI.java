@@ -104,16 +104,13 @@ public class NetflixLikeUI extends VerticalLayout {
     }
 
     private static Button getRemoteWatch() {
-
         var remoteWatch = createButton("Remote Watch?", e -> UI.getCurrent().navigate(RemoteView.class));
         remoteWatch.setSuffixComponent(VaadinIcon.COMPRESS_SQUARE.create());
         return remoteWatch;
     }
 
     private static Button createButton(String text, ComponentEventListener<ClickEvent<Button>> clickEventComponentEventListener) {
-        var button = new Button(text, clickEventComponentEventListener);
-        button.addThemeVariants(ButtonVariant.LUMO_SMALL);
-        return button;
+        return new Button(text, clickEventComponentEventListener);
     }
 
     @Override
@@ -132,17 +129,17 @@ public class NetflixLikeUI extends VerticalLayout {
         // Category content
         videoDataWrappers.stream().filter(obj -> Objects.nonNull(obj) && !obj.videoData().isEmpty()).forEach(wrapper -> {
             var header = new HorizontalLayout();
-            header.setWidthFull();
-            header.setAlignItems(Alignment.CENTER);
+            header.setAlignItems(Alignment.START);
             var headerLabel = new H4(wrapper.label());
             header.add(headerLabel);
             add(header);
             var categoryLayout = new HorizontalLayout();
             categoryLayout.setWidthFull();
-            categoryLayout.setAlignItems(Alignment.CENTER);
+            categoryLayout.setAlignItems(Alignment.START);
             var videoDataList = wrapper.videoData();
-            videoDataList.stream().limit(20).forEach(videoData -> {
+            videoDataList.forEach(videoData -> {
                 var videoLayout = new VerticalLayout();
+                videoLayout.setWidth("120px");
                 videoLayout.getStyle().set("cursor", "pointer");
                 var movieImage = NetfliInterface.getImage(videoData);
                 videoLayout.addClickListener(event -> {
