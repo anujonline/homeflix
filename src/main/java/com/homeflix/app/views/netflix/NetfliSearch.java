@@ -5,6 +5,7 @@ import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.common.MainLayout;
+import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JavaScript;
@@ -23,8 +24,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
 
-import java.util.function.Function;
-
 
 @Route(value = "search", layout = MainLayout.class)
 @PageTitle("Homeflix")
@@ -33,13 +32,15 @@ import java.util.function.Function;
 class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
     private final TMDBService service;
     private final DataSaver adminController;
+    private final MaintainHistory maintainHistory;
     private final Dialog dialog = new Dialog();
     private final Embed embed;
 
-    public NetfliSearch(TMDBService service, DataSaver adminController) {
+    public NetfliSearch(TMDBService service, DataSaver adminController, MaintainHistory maintainHistory) {
         this.service = service;
         this.adminController = adminController;
         this.embed = new Embed();
+        this.maintainHistory = maintainHistory;
         setSizeFull();
     }
 
@@ -78,20 +79,17 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
             div.add(new H2(videoDataWrapper.label()));
             VaadinSession.getCurrent().access(() -> videoDataWrapper.videoData().forEach(videoData -> {
                 var image = NetfliInterface.getImage(videoData);
-                div.add(image);
+                image.setWidth("80px");
+                image.getStyle().set("margin", "20px");
                 image.addClickListener(event -> {
                     adminController.saveData(UI.getCurrent(), videoData);
-                    PlayConstants.playContent(videoData, function());
+                    PlayConstants.playContent(videoData, maintainHistory.checkAvailability());
                 });
+                div.add(image);
             }));
         }
 
     }
-
-    Function<String, Boolean> function() {
-        return service::checkAvailability;
-    }
-
 
     private void addDialog() {
         var horizontalLayout = new HorizontalLayout();
