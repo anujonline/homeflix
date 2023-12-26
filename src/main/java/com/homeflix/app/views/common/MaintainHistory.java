@@ -1,5 +1,6 @@
 package com.homeflix.app.views.common;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homeflix.app.data.models.VideoData;
@@ -11,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -19,13 +19,7 @@ import java.util.function.Supplier;
 @Service
 public class MaintainHistory {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private static final AtomicReference<VideoDataWrapper> VIDEO_DATA_WRAPPER = new AtomicReference<>();
     private static final Map<Integer, Supplier<VideoDataWrapper>> WRAPPER_MAP = new TreeMap<>();
-
-    static {
-        VIDEO_DATA_WRAPPER.set(new VideoDataWrapper("Recently watched", new ArrayList<>()));
-    }
-
     private final TMDBService service;
 
     public MaintainHistory(TMDBService service) {
@@ -37,9 +31,9 @@ public class MaintainHistory {
         WRAPPER_MAP.put(5, service::topRatedTVSeries);
     }
 
-    private void addRecentlyWatchedMovie(VideoData movie) {
+    private void addRecentlyWatchedMovie(VideoData movie, VideoDataWrapper videoDataWrapper) {
         // Ensure the list contains a maximum of 10 elements
-        var watchedMovies = VIDEO_DATA_WRAPPER.get().videoData();
+        var watchedMovies = videoDataWrapper.videoData();
         if (!watchedMovies.contains(movie)) {
             // Ensure the list contains a maximum of 10 elements
             if (watchedMovies.size() >= 10) {
@@ -56,11 +50,7 @@ public class MaintainHistory {
                 try {
                     var localStorage = OBJECT_MAPPER.readValue(s, new TypeReference<List<VideoData>>() {
                     });
-                    WRAPPER_MAP.put(0, () -> {
-                        var videoDataWrapper = new VideoDataWrapper("Recently Watched", localStorage);
-                        VIDEO_DATA_WRAPPER.set(videoDataWrapper);
-                        return videoDataWrapper;
-                    });
+                    WRAPPER_MAP.put(0, () -> new VideoDataWrapper("Recently Watched", localStorage));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -69,16 +59,42 @@ public class MaintainHistory {
         });
     }
 
+    private void addToReference(Consumer<List<VideoData>> videoDataWrapper) {
+        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, "watched", s -> {
+            if (!StringUtils.isEmpty(s)) {
+                try {
+                    var localStorage = OBJECT_MAPPER.readValue(s, new TypeReference<List<VideoData>>() {
+                    });
+                    videoDataWrapper.accept(localStorage);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                videoDataWrapper.accept(new ArrayList<>());
+            }
+        });
+    }
+
     @SneakyThrows
     public void addToList(VideoData videoData) {
-        addRecentlyWatchedMovie(videoData);
-        var vd = VIDEO_DATA_WRAPPER.get().videoData();
-        WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, "watched", OBJECT_MAPPER.writeValueAsString(vd));
+        var videoDataWrapperConsumer = new Consumer<List<VideoData>>() {
+            @Override
+            public void accept(List<VideoData> videoDataWrapper) {
+                try {
+                    var wrapper = new VideoDataWrapper().setVideoData(videoDataWrapper);
+                    addRecentlyWatchedMovie(videoData, wrapper);
+                    WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, "watched", OBJECT_MAPPER.writeValueAsString(wrapper.videoData()));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        addToReference(videoDataWrapperConsumer);
 
     }
 
     public void clearHistory() {
-        VIDEO_DATA_WRAPPER.get().videoData().clear();
         WebStorage.clear(WebStorage.Storage.LOCAL_STORAGE);
     }
 
