@@ -23,7 +23,7 @@ public class MainLayout extends AppLayout {
         horizontalLayout.add(new Svg("""
                 <svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
                                            <g id="Homeflix">
-                                            <title>Layer 1</title>
+                                            <title>Homeflix</title>
                                             <ellipse fill="#ffffff" cx="52.63636" cy="39.38636" id="svg_1" rx="28" ry="27.97727" stroke="#ffffff"/>
                                             <ellipse fill="none" cx="52.63636" cy="39.38636" id="svg_4" rx="22" ry="22" stroke="#000000"/>
                                             <ellipse fill="#ffffff" cx="52.75131" cy="25.47832" id="svg_5" rx="5" ry="5" stroke="#000000"/>

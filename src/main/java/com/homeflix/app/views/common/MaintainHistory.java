@@ -99,7 +99,7 @@ public class MaintainHistory {
     }
 
     public void clearHistory() {
-        WebStorage.clear(WebStorage.Storage.LOCAL_STORAGE);
+        WebStorage.removeItem(WebStorage.Storage.LOCAL_STORAGE, LOCAL_DB_KEY);
     }
 
     public Function<String, Boolean> checkAvailability() {
