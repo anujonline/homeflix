@@ -20,6 +20,8 @@ import java.util.function.Supplier;
 public class MaintainHistory {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Map<Integer, Supplier<VideoDataWrapper>> WRAPPER_MAP = new TreeMap<>();
+    private static final String LOCAL_DB_KEY = "watched";
+    private static final String RECENTLY_WATCHED_TITLE = "Recently Watched";
     private final TMDBService service;
 
     public MaintainHistory(TMDBService service) {
@@ -45,22 +47,24 @@ public class MaintainHistory {
 
     public void reference(Consumer<Collection<VideoDataWrapper>> videoDataWrapperListFunction) {
 
-        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, "watched", s -> {
+        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, LOCAL_DB_KEY, s -> {
             if (!StringUtils.isEmpty(s)) {
                 try {
                     var localStorage = OBJECT_MAPPER.readValue(s, new TypeReference<List<VideoData>>() {
                     });
-                    WRAPPER_MAP.put(0, () -> new VideoDataWrapper("Recently Watched", localStorage));
+                    WRAPPER_MAP.put(0, () -> new VideoDataWrapper(RECENTLY_WATCHED_TITLE, localStorage));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                WRAPPER_MAP.put(0, () -> new VideoDataWrapper(RECENTLY_WATCHED_TITLE, Collections.EMPTY_LIST));
             }
             videoDataWrapperListFunction.accept(WRAPPER_MAP.values().parallelStream().map(Supplier::get).toList());
         });
     }
 
     private void addToReference(Consumer<List<VideoData>> videoDataWrapper) {
-        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, "watched", s -> {
+        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, LOCAL_DB_KEY, s -> {
             if (!StringUtils.isEmpty(s)) {
                 try {
                     var localStorage = OBJECT_MAPPER.readValue(s, new TypeReference<List<VideoData>>() {
@@ -84,7 +88,7 @@ public class MaintainHistory {
                 try {
                     var wrapper = new VideoDataWrapper().setVideoData(videoDataWrapper);
                     addRecentlyWatchedMovie(videoData, wrapper);
-                    WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, "watched", OBJECT_MAPPER.writeValueAsString(wrapper.videoData()));
+                    WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, LOCAL_DB_KEY, OBJECT_MAPPER.writeValueAsString(wrapper.videoData()));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

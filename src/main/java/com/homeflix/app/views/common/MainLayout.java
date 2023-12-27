@@ -21,8 +21,8 @@ public class MainLayout extends AppLayout {
         horizontalLayout.setWidthFull();
         horizontalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         horizontalLayout.add(new Svg("""
-                <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-                                           <g id="Layer_1">
+                <svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+                                           <g id="Homeflix">
                                             <title>Layer 1</title>
                                             <ellipse fill="#ffffff" cx="52.63636" cy="39.38636" id="svg_1" rx="28" ry="27.97727" stroke="#ffffff"/>
                                             <ellipse fill="none" cx="52.63636" cy="39.38636" id="svg_4" rx="22" ry="22" stroke="#000000"/>
