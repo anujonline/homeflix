@@ -27,7 +27,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoIcon;
 
 import java.util.Collection;
 import java.util.List;
@@ -66,7 +65,7 @@ public class NetflixLikeUI extends VerticalLayout {
             layout.add(new Svg("""
                     <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
                                                <g id="Layer_1">
-                                                <title>Layer 1</title>
+                                                <title>Homeflix</title>
                                                 <ellipse fill="#ffffff" cx="52.63636" cy="39.38636" id="svg_1" rx="28" ry="27.97727" stroke="#ffffff"/>
                                                 <ellipse fill="none" cx="52.63636" cy="39.38636" id="svg_4" rx="22" ry="22" stroke="#000000"/>
                                                 <ellipse fill="#ffffff" cx="52.75131" cy="25.47832" id="svg_5" rx="5" ry="5" stroke="#000000"/>
@@ -165,7 +164,7 @@ public class NetflixLikeUI extends VerticalLayout {
     }
 
     private void addHeader() {
-        var accordionPanel = new AccordionPanel(new HorizontalLayout(LumoIcon.ALIGN_CENTER.create(), new NativeLabel("More")));
+        var accordionPanel = new AccordionPanel(new HorizontalLayout(new NativeLabel("More")));
         accordionPanel.addThemeVariants(DetailsVariant.SMALL);
         accordionPanel.setWidthFull();
         accordionPanel.add(List.of(getRemoteWatch(), getBollywood(), getClearBrowsingHistory(), aboutUs()));
