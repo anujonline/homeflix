@@ -6,9 +6,14 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.AnchorTargetValue;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -41,6 +46,7 @@ public class MainLayout extends AppLayout {
                 """));
         horizontalLayout.addClickListener(horizontalLayoutClickEvent -> UI.getCurrent().navigate(""));
         horizontalLayout.getStyle().set("cursor", "pointer");
+        horizontalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         getStyle().set("border-radius", "25px");
         getStyle().set("overflow", "hidden");
         var ui = UI.getCurrent();
@@ -56,7 +62,15 @@ public class MainLayout extends AppLayout {
                 }
             }
         });
-        addToNavbar(horizontalLayout);
+        var instagram  = new Anchor("https://www.instagram.com/homeflixofficial");
+        instagram.setClassName("button");
+        instagram.setText("Let's connect over Instagram");
+        instagram.setWidthFull();
+        instagram.setTarget(BLANK);
+        var verticalLayout = new VerticalLayout();
+        verticalLayout.setWidthFull();
+        verticalLayout.add(instagram,horizontalLayout);
+        addToNavbar(verticalLayout);
     }
 }
 

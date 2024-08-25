@@ -14,3 +14,13 @@ vaadin-scroller[slot="drawer"] {
 [slot="drawer"]:is(header, footer):is(:empty) {
   display: none;
 }
+.button {
+    display: block;
+    width: 115px;
+    height: 25px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
