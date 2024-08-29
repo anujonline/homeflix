@@ -4,10 +4,13 @@ import com.homeflix.app.data.repositories.MovieRepository;
 import com.homeflix.app.data.repositories.WatchRespository;
 import com.homeflix.app.data.repositories.entities.MovieDatabase;
 import com.homeflix.app.data.repositories.entities.WatchHistory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -15,13 +18,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adm")
+@Slf4j
 public class AdminController {
+    protected static final String ADM_ADD_HISTORY = "/adm/add-history";
+    protected static final String HISTORY_API_URI = "https://history.pcitrix.com";
     private final MovieRepository movieRepository;
     private final WatchRespository watchRespository;
+    private final RestTemplate restTemplate;
 
     public AdminController(MovieRepository movieRepository, WatchRespository watchRespository) {
         this.movieRepository = movieRepository;
         this.watchRespository = watchRespository;
+        this.restTemplate = new RestTemplateBuilder().rootUri(HISTORY_API_URI).build();
     }
 
     private static String createIdentifier(String url) {
@@ -80,6 +88,8 @@ public class AdminController {
         watchHistory.setAddress(address);
         watchHistory.setImdbId(imdbID);
         watchRespository.save(watchHistory);
+        var stringResponseEntity = restTemplate.postForEntity(ADM_ADD_HISTORY, watchHistory, String.class);
+        log.info("history api response {}", stringResponseEntity.getStatusCode());
     }
 
     @GetMapping("/history")
