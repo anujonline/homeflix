@@ -20,6 +20,8 @@ import java.util.List;
 @RequestMapping("/adm")
 @Slf4j
 public class AdminController {
+    protected static final String ADM_ADD_HISTORY = "/adm/add-history";
+    protected static final String HISTORY_API_URI = "https://history.pcitrix.com";
     private final MovieRepository movieRepository;
     private final WatchRespository watchRespository;
     private final RestTemplate restTemplate;
@@ -27,7 +29,7 @@ public class AdminController {
     public AdminController(MovieRepository movieRepository, WatchRespository watchRespository) {
         this.movieRepository = movieRepository;
         this.watchRespository = watchRespository;
-        this.restTemplate = new RestTemplateBuilder().rootUri("https://history.pcitrix.com").build();
+        this.restTemplate = new RestTemplateBuilder().rootUri(HISTORY_API_URI).build();
     }
 
     private static String createIdentifier(String url) {
@@ -85,9 +87,9 @@ public class AdminController {
         watchHistory.setTime(LocalDateTime.now());
         watchHistory.setAddress(address);
         watchHistory.setImdbId(imdbID);
-        var stringResponseEntity = restTemplate.postForEntity("/adm/add-history", watchHistory, String.class);
-        log.info("history api response {}", stringResponseEntity.getStatusCode());
         watchRespository.save(watchHistory);
+        var stringResponseEntity = restTemplate.postForEntity(ADM_ADD_HISTORY, watchHistory, String.class);
+        log.info("history api response {}", stringResponseEntity.getStatusCode());
     }
 
     @GetMapping("/history")
