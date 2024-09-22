@@ -14,7 +14,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import com.vaadin.flow.component.page.WebStorage;
@@ -28,7 +30,7 @@ import java.util.List;
 import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
 
-@Route("watch")
+@Route("")
 @StyleSheet("./nm.css")
 public class NewHome extends Div {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -92,7 +94,6 @@ public class NewHome extends Div {
         var homeflix = new H1("Homeflix");
         homeflix.setWidthFull();
         verticalLayout.add(homeflix, instagram);
-        getStyle().set("background","f2f5f7");
         add(verticalLayout);
 
     }
@@ -116,15 +117,17 @@ public class NewHome extends Div {
     }
 
     private void addSearch() {
-        var spotlightWrapper = new Div();
+        var spotlightWrapper = new HorizontalLayout();
         spotlightWrapper.setWidthFull();
         spotlightWrapper.addClassNames("spotlight_wrapper");
         //<input type="text" id="spotlight" placeholder="Spotlight-Search" />
         var textField = new TextField();
         textField.setWidthFull();
-        textField.setPrefixComponent(LumoIcon.SEARCH.create());
+        spotlightWrapper.setFlexGrow(1.0, textField);
+        var component = new Button(LumoIcon.SEARCH.create());
+        component.addClickListener(iconClickEvent -> UI.getCurrent().navigateToClient("search/%s".formatted(textField.getValue())));
         textField.setPlaceholder("Search ... ");
-        spotlightWrapper.add(textField);
+        spotlightWrapper.add(textField, component);
         add(spotlightWrapper);
 
         textField.addKeyPressListener(Key.ENTER, keyPressEvent -> {

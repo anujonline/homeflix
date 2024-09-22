@@ -61,7 +61,8 @@ movie-title {
 
 h1 {
     text-align: center;
-	font-family: 'Dancing Script', cursive;
+	font-family: 'Tahoma, Geneva, sans-serif';
+	letter-spacing: 2.2px;
 	font-size: 80px;
 	margin-bottom: 30px;
 }
