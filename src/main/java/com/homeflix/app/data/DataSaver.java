@@ -20,11 +20,13 @@ public class DataSaver {
         try {
             maintainHistory.addToList(videoFile);
             var pendingJavaScriptResult = ui.getPage().executeJs("""
-                    return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
-                        JSON.stringify(data, null, 2);
-                    });
+                    return fetch('https://json.geoiplookup.io/')
+                                .then(response => response.json())
+                                .then(data => {
+                                    return JSON.stringify(data);
+                                });
                     """, "");
-            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
+            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title(), jsonValue.asString()));
         } catch (Exception e) {
             log.error("Exception in running js ", e);
         }

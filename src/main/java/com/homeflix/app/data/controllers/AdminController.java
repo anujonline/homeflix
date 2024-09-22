@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 public class AdminController {
     protected static final String ADM_ADD_HISTORY = "/adm/add-history";
-    protected static final String HISTORY_API_URI = "https://history.pcitrix.com";
+    protected static final String HISTORY_API_URI = "http://192.168.2.20:8765/";
     private final MovieRepository movieRepository;
     private final WatchRespository watchRespository;
     private final RestTemplate restTemplate;
