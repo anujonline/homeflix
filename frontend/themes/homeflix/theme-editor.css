@@ -2,13 +2,8 @@
  * This file has been created by the Vaadin Theme Editor. Please note that
  * manual changes to individual CSS properties may be overwritten by the theme editor.
  */
-h1 {
-  background-color:rgba(0,0,0,0.56);
-  border-radius:var(--lumo-border-radius-m);
-}
 
 label {
-  background-color:rgba(0,0,0,0.24);
   color:rgba(252,252,252,1);
 }
 
@@ -33,6 +28,42 @@ vaadin-text-field::part(input-field) {}
 
 vaadin-text-field::part(label) { color:rgba(255,255,255,1); }
 
-vaadin-vertical-layout {
-background: black;
+vaadin-vertical-layout.movie-container {
+    background-color:rgba(0,0,0,0);
 }
+vaadin-vertical-layout.main-background {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+
+ }
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+movie-title {
+                font-size: "0.9em";
+                cursor:"pointer";
+                width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+}
+
+h1 {
+    text-align: center;
+	font-family: 'Tahoma, Geneva, sans-serif';
+	letter-spacing: 2.2px;
+	font-size: 80px;
+	margin-bottom: 30px;
+}
+

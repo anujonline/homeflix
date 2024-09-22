@@ -11,6 +11,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
+import java.io.InputStream;
 import java.util.function.Function;
 
 import static com.vaadin.flow.server.VaadinSession.getCurrent;
@@ -19,6 +20,25 @@ public final class PlayConstants {
     public static final String PLAY_URL = "https://vidsrc.in/embed/%s/%s";
     public static final String POSTER_URL = "https://image.tmdb.org/t/p/w200/%s";
     public static final String REMOTE_VIEWING_IS_STILL_IN_BETA = "Remote Viewing is still in Beta";
+    public static final String HOMEFLIX_SVG = """
+                <svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+                                           <g id="Homeflix">
+                                            <title>Homeflix</title>
+                                            <ellipse fill="#ffffff" cx="52.63636" cy="39.38636" id="svg_1" rx="28" ry="27.97727" stroke="#ffffff"/>
+                                            <ellipse fill="none" cx="52.63636" cy="39.38636" id="svg_4" rx="22" ry="22" stroke="#000000"/>
+                                            <ellipse fill="#ffffff" cx="52.75131" cy="25.47832" id="svg_5" rx="5" ry="5" stroke="#000000"/>
+                                            <ellipse fill="#ffffff" cx="64.88506" cy="34" id="svg_6" rx="5" ry="5" stroke="#000000"/>
+                                            <ellipse fill="#ffffff" cx="65" cy="47" id="svg_7" rx="5" ry="5" stroke="#000000"/>
+                                            <ellipse fill="#ffffff" cx="52.75131" cy="54" id="svg_8" rx="5" ry="5" stroke="#000000"/>
+                                            <ellipse fill="#ffffff" cx="41.25705" cy="47" id="svg_9" rx="5" ry="5" stroke="#000000"/>
+                                            <ellipse fill="#ffffff" cx="41.25705" cy="34" id="svg_10" rx="5" ry="5" stroke="#000000"/>
+                                            <line fill="none" stroke="#ffffff" x1="52.29885" y1="67.47126" x2="22.18391" y2="67.35632" id="svg_11"/>
+                                            <text fill="#ff0000" stroke="#000" x="7.30659" y="86.38968" id="svg_13" stroke-width="0" font-size="17" font-family="Noto Sans JP" text-anchor="start" xml:space="preserve">HOMEFLIX</text>
+                                            <text fill="#ff7f00" stroke="#000" stroke-width="0" x="26.5043" y="92.12034" id="svg_14" font-size="4" font-family="Noto Sans JP" text-anchor="start" xml:space="preserve">ENTERTAINMENT AT HOME</text>
+                                           </g>
+                                          
+                                          </svg>
+                """;
 
     public static void playContent(VideoData videoData, Function<String, Boolean> function) {
         var dialog = new Dialog();
@@ -43,7 +63,6 @@ public final class PlayConstants {
             play.addClickListener(clickEvent -> {
                 ui.navigate(PlayUI.class);
                 dialog.close();
-
             });
         }
         imgAndDesc.add(play);

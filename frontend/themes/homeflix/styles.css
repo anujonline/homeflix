@@ -24,3 +24,6 @@
       --lumo-body-text-color: hsla(214, 0%, 99%, 0.9);
 
     }
+ vaadin-dialog-overlay{
+ opacity: 0.9
+ }

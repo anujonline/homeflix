@@ -3,17 +3,23 @@ package com.homeflix.app.views;
 import com.homeflix.app.views.common.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.ui.LoadMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "wc")
 @StyleSheet(value = "./splash.css", loadMode = LoadMode.EAGER)
 public class WelcomeScreen extends VerticalLayout {
 
     public WelcomeScreen() {
+        Div audioContainer = new Div();
+        audioContainer.getElement().setProperty("innerHTML", "<audio id='myAudio' src='entry.mp3'></audio>");
+        add(audioContainer);
+
+        getStyle().set("background","#840606");
         getElement().setProperty("innerHTML", """
                 <input class="retrigger" type="radio" name="rerun" id="retrigger--2" checked="checked"/>
                 <div class="bg"></div>
@@ -46,6 +52,7 @@ public class WelcomeScreen extends VerticalLayout {
                 }
                                 
                 function countdownTimer() {
+                document.getElementById('myAudio').play();
                     foo = setInterval(function () {
                         updateSecs()
                     }, 1000);

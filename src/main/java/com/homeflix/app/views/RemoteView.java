@@ -8,7 +8,9 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.homeflix.app.data.Broadcaster;
 import com.homeflix.app.data.RemoteAccessDTO;
 import com.homeflix.app.views.common.Marquee;
-import com.homeflix.app.views.netflix.NetflixLikeUI;
+
+
+import com.homeflix.app.views.netflix.NewHome;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.UI;
@@ -51,7 +53,7 @@ public class RemoteView extends VerticalLayout {
     private final Button button = new Button("Home", VaadinIcon.HOME.create(), e -> {
         dialog.close();
         this.removeAll();
-        UI.getCurrent().navigate(NetflixLikeUI.class);
+        UI.getCurrent().navigate(NewHome.class);
     });
     private final Embed embed = new Embed();
     private Registration broadcaster;
@@ -92,7 +94,7 @@ public class RemoteView extends VerticalLayout {
         add(new Button("End remote viewing",
 
                         VaadinIcon.ARROW_LEFT.create(),
-                        e -> UI.getCurrent().navigate(NetflixLikeUI.class)),
+                        e -> UI.getCurrent().navigate(NewHome.class)),
                 img,
                 new H2(INFORMATION_MESSAGE));
 

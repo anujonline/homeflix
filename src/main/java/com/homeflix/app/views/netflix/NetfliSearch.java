@@ -4,6 +4,7 @@ import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
+import com.homeflix.app.views.common.CustomComponent;
 import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.UI;
@@ -29,7 +30,7 @@ import jakarta.annotation.security.PermitAll;
 @PageTitle("Homeflix")
 @PermitAll
 @JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
-class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
+class NetfliSearch extends CustomComponent implements HasUrlParameter<String> {
     private final TMDBService service;
     private final DataSaver adminController;
     private final MaintainHistory maintainHistory;
@@ -42,6 +43,8 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
         this.embed = new Embed();
         this.maintainHistory = maintainHistory;
         setSizeFull();
+
+        this.addClassName("main-background");
     }
 
     @Override
@@ -66,7 +69,7 @@ class NetfliSearch extends VerticalLayout implements HasUrlParameter<String> {
     private void addHeader(Div verticalLayout) {
         var back = new Button("Back", VaadinIcon.ARROW_LEFT.create());
         back.setWidthFull();
-        back.addClickListener(event -> UI.getCurrent().navigate(NetflixLikeUI.class));
+        back.addClickListener(event -> UI.getCurrent().navigate(NewHome.class));
         var component = new HorizontalLayout(back);
         verticalLayout.add(component);
     }

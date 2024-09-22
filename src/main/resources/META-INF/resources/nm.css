@@ -1,0 +1,75 @@
+/* width */
+::-webkit-scrollbar {
+    height: 3px;
+    width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #fcba03;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #241b01;
+}
+h3{
+    margin-left: 30px;
+}
+.home {
+  background: rgb(40,35,30);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,123,45,0.6881346288515406) 100%);
+}
+.movies {
+  display: flex;
+  padding: 8px 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 15px;
+  .movie {
+    padding: 10px;
+    cursor: pointer;
+    height: fit-content;
+
+    transition:
+        transform 250ms,
+        opacity 400ms;
+    .poster {
+      margin-bottom: 6px;
+      border-radius: 24px;
+
+      &.active {
+        opacity: 0;
+      }
+    }
+
+    .title {
+      text-transform: uppercase;
+      color: #04574f;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .info {
+      font-size: 11px;
+      opacity: .8;
+    }
+
+    .desc {
+      display: none;
+    }
+  }
+}
+.movie:hover{
+    transform: scale(1.1);
+}
+.spotlight_wrapper{
+    width: 80%;
+    float: right;
+}
