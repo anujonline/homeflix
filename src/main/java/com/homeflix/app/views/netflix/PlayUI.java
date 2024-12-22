@@ -15,7 +15,7 @@ import com.vaadin.flow.server.VaadinSession;
 
 import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
 
-@Route(value = "now-playing", layout = TimerLayout.class)
+@Route(value = "now-playing")
 @PageTitle("Homeflix")
 public class PlayUI extends VerticalLayout {
     private final Embed embed = new Embed();
@@ -23,6 +23,7 @@ public class PlayUI extends VerticalLayout {
 
     public PlayUI() {
         try {
+
             setSizeFull();
             var anchor = new Anchor("https://brave.com/download/");
             anchor.setText("For ad free experience we recommend using Brave Browser");
