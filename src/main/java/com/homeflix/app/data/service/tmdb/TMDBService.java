@@ -6,6 +6,7 @@ import com.google.common.cache.LoadingCache;
 import com.homeflix.app.data.models.VideoData;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Slf4j
 public class TMDBService {
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
     private static final String AUTH_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NzQzYjM2YmU2NWNmZWUzZWE5NzlkZmM5ZTIwZDY4YSIsInN1YiI6IjY0ZDcyNThkZjQ5NWVlMDI5NDJmYWRhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.x4EMfvuP8Qd8ab9CGx_UmihVOJIfSQyOuDL3kuFB2w8";
@@ -57,11 +59,21 @@ public class TMDBService {
     }
 
     private List<VideoData> callTMDB(Request request) {
-        return REST_TEMPLATE.exchange(request.url(), HttpMethod.GET, HTTP_ENTITY, TMDBCollectionResponse.class).getBody().results().stream().map(r -> getVideoData(r, r.original_title(), request.type())).toList();
+        try {
+            return REST_TEMPLATE.exchange(request.url(), HttpMethod.GET, HTTP_ENTITY, TMDBCollectionResponse.class).getBody().results().stream().map(r -> getVideoData(r, r.original_title(), request.type())).toList();
+        }
+        catch (Exception e){
+            log.error(request.toString(), e);
+            throw e;
+        }
     }
 
     public VideoDataWrapper trendingMovies() {
         return new VideoDataWrapper("Trending Movies", cache.getUnchecked(new Request("https://api.themoviedb.org/3/trending/movie/day?language=en-US", "movie")));
+    }
+
+    public VideoDataWrapper similarMovies(Long tmdbId, String type){
+        return new VideoDataWrapper("Similar Movies", cache.getUnchecked(new Request("https://api.themoviedb.org/3/%s/%s/recommendations?language=en-US&page=1".formatted(type,tmdbId),type)));
     }
 
     public VideoDataWrapper topRatedTVSeries() {

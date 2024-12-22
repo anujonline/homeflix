@@ -14,7 +14,7 @@ import com.vaadin.flow.server.VaadinSession;
 
 import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
 
-@Route("now-playing")
+@Route(value = "now-playing", layout = TimerLayout.class)
 @PageTitle("Homeflix")
 public class PlayUI extends VerticalLayout {
     private final Embed embed = new Embed();
@@ -36,7 +36,6 @@ public class PlayUI extends VerticalLayout {
         embed.setSizeFull();
         div.add(closeDialog, embed);
         div.setWidthFull();
-        div.setHeight("400px");
         add(div);
     }
 }

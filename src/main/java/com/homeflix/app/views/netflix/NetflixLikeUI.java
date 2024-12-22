@@ -13,10 +13,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.NativeLabel;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -139,7 +136,7 @@ public class NetflixLikeUI extends CustomComponent {
         var movieImage = NetfliInterface.getImage(videoData);
         videoLayout.addClickListener(event -> {
             adminController.saveData(UI.getCurrent(), videoData);
-            PlayConstants.playContent(videoData, maintainHistory.checkAvailability());
+            PlayConstants.playContent(videoData, maintainHistory.checkAvailability(), new Div());
         });
         movieImage.setWidth("120px");
         var titleLabel = new NativeLabel(videoData.title());
