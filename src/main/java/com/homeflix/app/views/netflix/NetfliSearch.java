@@ -5,19 +5,16 @@ import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.Embed;
 import com.homeflix.app.views.common.CustomComponent;
-import com.homeflix.app.views.common.MainLayout;
 import com.homeflix.app.views.common.MaintainHistory;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.NativeLabel;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
@@ -25,8 +22,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
 
+import static com.homeflix.app.views.netflix.NewHome.getMovieDiv;
 
-@Route(value = "search", layout = MainLayout.class)
+
+@Route(value = "search", layout = TimerLayout.class)
 @PageTitle("Homeflix")
 @PermitAll
 @JavaScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js")
@@ -46,7 +45,19 @@ class NetfliSearch extends CustomComponent implements HasUrlParameter<String> {
 
         this.addClassName("main-background");
     }
-
+    public Component getSection(VideoDataWrapper videoDataWrapper) {
+        add(new H3(videoDataWrapper.label()));
+        var list = new Section();
+        list.addClassName("movies");
+        videoDataWrapper.videoData().forEach(videoData ->
+                list.add(getMovieDiv(videoData.poster(), videoData.title(), videoData.voteAverage(),
+                        divClickEvent -> {
+                            adminController.saveData(UI.getCurrent(), videoData);
+                            PlayConstants.playContent(videoData, maintainHistory.checkAvailability(),
+                                    getSection(service.similarMovies(videoData.id(), videoData.type())));
+                        })));
+        return list;
+    }
     @Override
     public void setParameter(BeforeEvent event, String parameter) {
         addAttachListener(e -> UI.getCurrent().access(() -> {
@@ -69,7 +80,7 @@ class NetfliSearch extends CustomComponent implements HasUrlParameter<String> {
     private void addHeader(Div verticalLayout) {
         var back = new Button("Back", VaadinIcon.ARROW_LEFT.create());
         back.setWidthFull();
-        back.addClickListener(event -> UI.getCurrent().navigate(NewHome.class));
+        back.addClickListener(event -> UI.getCurrent().navigateToClient(NewHome.class.getAnnotation(Route.class).value()));
         var component = new HorizontalLayout(back);
         verticalLayout.add(component);
     }
@@ -86,7 +97,7 @@ class NetfliSearch extends CustomComponent implements HasUrlParameter<String> {
                 image.getStyle().set("margin", "20px");
                 image.addClickListener(event -> {
                     adminController.saveData(UI.getCurrent(), videoData);
-                    PlayConstants.playContent(videoData, maintainHistory.checkAvailability());
+                    PlayConstants.playContent(videoData, maintainHistory.checkAvailability(), getSection(service.similarMovies(videoData.id(), videoData.type())));
                 });
                 div.add(image);
             }));

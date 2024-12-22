@@ -1,6 +1,7 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.data.models.VideoData;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -10,8 +11,8 @@ import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
 
-import java.io.InputStream;
 import java.util.function.Function;
 
 import static com.vaadin.flow.server.VaadinSession.getCurrent;
@@ -40,7 +41,7 @@ public final class PlayConstants {
                                           </svg>
                 """;
 
-    public static void playContent(VideoData videoData, Function<String, Boolean> function) {
+    public static void playContent(VideoData videoData, Function<String, Boolean> function, Component section) {
         var dialog = new Dialog();
         dialog.setSizeFull();
         dialog.add(new Button(VaadinIcon.CLOSE.create(), e -> dialog.close()));
@@ -49,7 +50,6 @@ public final class PlayConstants {
         image.setWidth("200px");
         image.setHeight("200px");
         imgAndDesc.add(new HorizontalLayout(image, new VerticalLayout(new H4(videoData.title()), new NativeLabel(videoData.overview()))));
-        var ui = UI.getCurrent();
         var url = PLAY_URL.formatted(videoData.type(), videoData.id());
         getCurrent().setAttribute("url", url);
 
@@ -61,12 +61,13 @@ public final class PlayConstants {
             play = new Button("Play", VaadinIcon.PLAY.create());
             play.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             play.addClickListener(clickEvent -> {
-                ui.navigate(PlayUI.class);
-                dialog.close();
+                UI.getCurrent().removeAll();
+                UI.getCurrent().navigateToClient(PlayUI.class.getAnnotation(Route.class).value());
             });
         }
         imgAndDesc.add(play);
         dialog.add(imgAndDesc);
+        dialog.add(section);
         dialog.open();
     }
 }

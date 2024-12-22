@@ -14,7 +14,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
-import com.vaadin.flow.component.icon.Icon;
+
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -26,11 +26,12 @@ import com.vaadin.flow.theme.lumo.LumoIcon;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
 
-@Route("")
+@Route(value = "", layout = TimerLayout.class)
 @StyleSheet("./nm.css")
 public class NewHome extends Div {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -98,7 +99,7 @@ public class NewHome extends Div {
 
     }
 
-    private static Div getMovieDiv(String src, String movieTitle, String rating, String yearReleased, ComponentEventListener<ClickEvent<Div>> clickAction) {
+    public static Div getMovieDiv(String src, String movieTitle, String rating, ComponentEventListener<ClickEvent<Div>> clickAction) {
         var movie = new Div();
         movie.addClickListener(clickAction);
         movie.addClassName("movie");
@@ -158,17 +159,20 @@ public class NewHome extends Div {
         add(getSection(service.homeflixFavTv()));
     }
 
-    private Component getSection(VideoDataWrapper service) {
-        add(new H3(service.label()));
+    public Component getSection(VideoDataWrapper videoDataWrapper) {
+        var div = new Div();
+        div.add(new H3(videoDataWrapper.label()));
         var list = new Section();
         list.addClassName("movies");
-        service.videoData().forEach(videoData ->
-                list.add(getMovieDiv(videoData.poster(), videoData.title(), videoData.voteAverage(), videoData.releaseDate(),
+        videoDataWrapper.videoData().forEach(videoData ->
+                list.add(getMovieDiv(videoData.poster(), videoData.title(), videoData.voteAverage(),
                         divClickEvent -> {
                     dataSaver.saveData(UI.getCurrent(), videoData);
-                    PlayConstants.playContent(videoData, maintainHistory.checkAvailability());
+                    PlayConstants.playContent(videoData, maintainHistory.checkAvailability(),
+                            getSection(service.similarMovies(videoData.id(), videoData.type())));
         })));
-        return list;
+        div.add(list);
+        return div;
     }
 }
 
