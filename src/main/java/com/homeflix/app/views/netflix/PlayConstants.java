@@ -61,7 +61,7 @@ public final class PlayConstants {
             play = new Button("Play", VaadinIcon.PLAY.create());
             play.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             play.addClickListener(clickEvent -> {
-                UI.getCurrent().removeAll();
+                closeAllDialogs();
                 UI.getCurrent().navigateToClient(PlayUI.class.getAnnotation(Route.class).value());
             });
         }
@@ -69,5 +69,14 @@ public final class PlayConstants {
         dialog.add(imgAndDesc);
         dialog.add(section);
         dialog.open();
+    }
+
+    // Method to close all dialogs in the UI
+    private static void closeAllDialogs() {
+        UI.getCurrent().getChildren().forEach(component -> {
+            if (component instanceof Dialog) {
+                ((Dialog) component).close();
+            }
+        });
     }
 }
