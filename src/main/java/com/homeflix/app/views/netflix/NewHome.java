@@ -76,7 +76,7 @@ public class NewHome extends Div {
                             anchor.setText("We recommend using Brave Browser");
                             anchor.setClassName("Button");
                             anchor.setTarget(BLANK);
-                            show.add(new VerticalLayout(new Text("nvboinvfjfivdfbindsf"), anchor, new Button("Ok", event -> show.close())));
+                            show.add(new VerticalLayout(new Text("Report issues via Instagram connect on homepage"), anchor, new Button("Ok", event -> show.close())));
                             show.open();
                             WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, "message-read", "OK");
                         }
@@ -110,7 +110,13 @@ public class NewHome extends Div {
         title.add(movieTitle);
         var info = new Div();
         info.addClassName("info");
-        var length = new Span("Rating : " + "%.2f".formatted(Double.valueOf(rating)));
+        Span length;
+        try{
+            length = new Span("Rating : " + "%.2f".formatted(Double.valueOf(rating)));
+        }
+        catch (Exception e){
+            length = new Span("Rating : --");
+        }
         length.addClassName("length");
         info.add(length);
         movie.add(image, title, info);
