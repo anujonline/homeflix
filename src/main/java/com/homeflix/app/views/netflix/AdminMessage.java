@@ -20,16 +20,22 @@ public class AdminMessage extends VerticalLayout {
         var textField = new TextField("message");
         var broadcast = new Button("Broadcast", e -> {
             passphrase.getOptionalValue()
-                            .ifPresentOrElse(s -> {
-                                broadcaster.broadcast(textField.getValue());
-                                showNotification("Broadcast successful", NotificationVariant.LUMO_SUCCESS);
-                            },() -> {
-                                showNotification("What are you doing??", NotificationVariant.LUMO_ERROR);
-                                log.error("ALERT SOMEONE TRIED IT");
-                            });
+
+                    .ifPresentOrElse(s -> {
+                        if (!s.equals("adm")) {
+                            showError();
+                        }
+                        broadcaster.broadcast(textField.getValue());
+                        showNotification("Broadcast successful", NotificationVariant.LUMO_SUCCESS);
+                    }, AdminMessage::showError);
 
         });
         add(passphrase, textField, broadcast);
+    }
+
+    private static void showError() {
+        showNotification("What are you doing??", NotificationVariant.LUMO_ERROR);
+        log.error("ALERT SOMEONE TRIED IT");
     }
 
     private static void showNotification(String message, NotificationVariant notificationVariant) {
