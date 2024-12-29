@@ -5,12 +5,14 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.ui.LoadMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
 @Route(value = "wc")
+@PageTitle("Homeflix")
 @StyleSheet(value = "./splash.css", loadMode = LoadMode.EAGER)
 public class WelcomeScreen extends VerticalLayout {
 

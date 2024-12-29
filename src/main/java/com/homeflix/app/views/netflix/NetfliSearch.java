@@ -93,6 +93,7 @@ class NetfliSearch extends CustomComponent implements HasUrlParameter<String> {
             div.add(new H2(videoDataWrapper.label()));
             VaadinSession.getCurrent().access(() -> videoDataWrapper.videoData().forEach(videoData -> {
                 var image = NetfliInterface.getImage(videoData);
+                image.getElement().setAttribute("data-m:click", "movie=" + videoData.title());
                 image.setWidth("80px");
                 image.getStyle().set("margin", "20px");
                 image.addClickListener(event -> {
