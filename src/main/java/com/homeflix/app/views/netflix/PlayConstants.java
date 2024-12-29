@@ -59,6 +59,7 @@ public final class PlayConstants {
             play.addThemeVariants(ButtonVariant.LUMO_ERROR);
         } else {
             play = new Button("Play", VaadinIcon.PLAY.create());
+            play.getElement().setAttribute("data-m:click", "play-movie=" + videoData.title());
             play.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             play.addClickListener(clickEvent -> {
                 closeAllDialogs();
