@@ -12,8 +12,12 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteParam;
+import com.vaadin.flow.router.RouteParameters;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.vaadin.flow.server.VaadinSession.getCurrent;
 
@@ -63,7 +67,7 @@ public final class PlayConstants {
             play.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             play.addClickListener(clickEvent -> {
                 closeAllDialogs();
-                UI.getCurrent().navigateToClient(PlayUI.class.getAnnotation(Route.class).value());
+                UI.getCurrent().navigateToClient("now-playing/%s".formatted(videoData.id()));
             });
         }
         imgAndDesc.add(play);

@@ -104,11 +104,11 @@
     "proj4": "$proj4",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "date-fns": "$date-fns",
-    "@fontsource/montserrat": "$@fontsource/montserrat",
     "@vaadin/react-components": "$@vaadin/react-components",
     "@vaadin/react-components-pro": "$@vaadin/react-components-pro",
     "react-dom": "$react-dom",
     "react-router-dom": "$react-router-dom",
-    "react": "$react"
+    "react": "$react",
+    "@fontsource/montserrat": "$@fontsource/montserrat"
   }
 }

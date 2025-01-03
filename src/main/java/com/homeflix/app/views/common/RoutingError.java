@@ -19,7 +19,7 @@ public class RoutingError
             notification.addThemeVariants(NotificationVariant.LUMO_PRIMARY);
             notification.setPosition(Notification.Position.TOP_STRETCH);
         });
-        event.forwardTo(NewHome.class);
+        UI.getCurrent().navigateToClient(NewHome.class.getAnnotation(Route.class).value());
         return HttpServletResponse.SC_NOT_FOUND;
     }
 }

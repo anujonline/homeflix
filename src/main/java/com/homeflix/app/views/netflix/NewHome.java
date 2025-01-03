@@ -27,7 +27,6 @@ import com.vaadin.flow.theme.lumo.LumoIcon;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.function.Function;
 
 import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
