@@ -1,6 +1,7 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.views.common.Broadcaster;
+import com.homeflix.app.views.common.PassWallView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -15,24 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 @Route("admin")
 @PageTitle("Homeflix")
 @Slf4j
-public class AdminMessage extends VerticalLayout {
+public class AdminMessage extends PassWallView {
+
+    private final Broadcaster broadcaster;
 
     public AdminMessage(Broadcaster broadcaster) {
-        var passphrase = new PasswordField("Enter passphrase to get through");
-        var textField = new TextField("message");
-        var broadcast = new Button("Broadcast", e -> {
-            passphrase.getOptionalValue()
-
-                    .ifPresentOrElse(s -> {
-                        if (!s.equals("adm")) {
-                            showError();
-                        }
-                        broadcaster.broadcast(textField.getValue());
-                        showNotification("Broadcast successful", NotificationVariant.LUMO_SUCCESS);
-                    }, AdminMessage::showError);
-
-        });
-        add(passphrase, textField, broadcast);
+        super();
+        this.broadcaster = broadcaster;
     }
 
     private static void showError() {
@@ -40,11 +30,20 @@ public class AdminMessage extends VerticalLayout {
         log.error("ALERT SOMEONE TRIED IT");
     }
 
-    private static void showNotification(String message, NotificationVariant notificationVariant) {
-
+    public static void showNotification(String message, NotificationVariant notificationVariant) {
         var notification = Notification.show(message);
         notification.addThemeVariants(notificationVariant);
-        notification.setPosition(Notification.Position.TOP_STRETCH);
+        notification.setPosition(Notification.Position.BOTTOM_CENTER);
         notification.open();
+    }
+
+    @Override
+    public void showContent() {
+        var textField = new TextField("message");
+        var broadcast = new Button("Broadcast", e -> {
+            broadcaster.broadcast(textField.getValue());
+            showNotification("Broadcast successful", NotificationVariant.LUMO_SUCCESS);
+        });
+        add(textField, broadcast);
     }
 }

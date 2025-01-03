@@ -46,7 +46,6 @@ class NetfliSearch extends CustomComponent implements HasUrlParameter<String> {
         this.addClassName("main-background");
     }
     public Component getSection(VideoDataWrapper videoDataWrapper) {
-        add(new H3(videoDataWrapper.label()));
         var list = new Section();
         list.addClassName("movies");
         videoDataWrapper.videoData().forEach(videoData ->
