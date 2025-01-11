@@ -7,6 +7,7 @@ import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.models.VideoData;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
+import com.homeflix.app.views.FeedbackDialog;
 import com.homeflix.app.views.RemoteView;
 import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.*;
@@ -14,11 +15,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
-
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-
 import com.vaadin.flow.component.page.WebStorage;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -93,6 +92,16 @@ public class NewHome extends Div {
         return movie;
     }
 
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        WebStorage.getItem("clnzoxcy10001vy2ohi4obbi0", s -> {
+            if (s == null) {
+                new FeedbackDialog().open();
+            }
+        });
+    }
+
     private void addHeader() {
         var ui = UI.getCurrent();
         var current = ui.getSession();
@@ -138,7 +147,7 @@ public class NewHome extends Div {
         textField.setWidthFull();
         spotlightWrapper.setFlexGrow(1.0, textField);
         var component = new Button(LumoIcon.SEARCH.create());
-        component.getElement().setAttribute("data-m:click","search="+textField.getValue());
+        component.getElement().setAttribute("data-m:click", "search=" + textField.getValue());
         component.addClickListener(iconClickEvent -> UI.getCurrent().navigateToClient("search/%s".formatted(textField.getValue())));
         textField.setPlaceholder("Search ... ");
         spotlightWrapper.add(textField, component);
