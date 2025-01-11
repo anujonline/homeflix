@@ -62,15 +62,11 @@ public class NewHome extends Div {
     }
 
     private static Button createButton(String text, ComponentEventListener<ClickEvent<Button>> clickEventComponentEventListener) {
-        var button = new Button(text, clickEventComponentEventListener);
-        button.getElement().setAttribute("data-m:click", "button=" + text);
-
-        return button;
+        return new Button(text, clickEventComponentEventListener);
     }
 
     public static Div getMovieDiv(String src, String movieTitle, String rating, ComponentEventListener<ClickEvent<Div>> clickAction) {
         var movie = new Div();
-        movie.getElement().setAttribute("data-m:click", "movie=" + movieTitle);
         movie.addClickListener(clickAction);
         movie.addClassName("movie");
         var image = new Image(POSTER_URL.formatted(src), movieTitle);
@@ -147,7 +143,6 @@ public class NewHome extends Div {
         textField.setWidthFull();
         spotlightWrapper.setFlexGrow(1.0, textField);
         var component = new Button(LumoIcon.SEARCH.create());
-        component.getElement().setAttribute("data-m:click", "search=" + textField.getValue());
         component.addClickListener(iconClickEvent -> UI.getCurrent().navigateToClient("search/%s".formatted(textField.getValue())));
         textField.setPlaceholder("Search ... ");
         spotlightWrapper.add(textField, component);
