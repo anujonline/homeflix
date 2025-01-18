@@ -91,11 +91,7 @@ public class NewHome extends Div {
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
-        WebStorage.getItem("clnzoxcy10001vy2ohi4obbi0", s -> {
-            if (s == null) {
-                new FeedbackDialog().open();
-            }
-        });
+        
     }
 
     private void addHeader() {
