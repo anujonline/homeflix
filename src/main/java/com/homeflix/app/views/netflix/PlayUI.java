@@ -26,13 +26,9 @@ public class PlayUI extends VerticalLayout implements HasUrlParameter<String> {
 
     public PlayUI() {
         try {
-
+            setHeightFull();
             setSizeFull();
-            var anchor = new Anchor("https://brave.com/download/");
-            anchor.setText("For ad free experience we recommend using Brave Browser");
-            anchor.setClassName("Button");
-            anchor.setTarget(BLANK);
-            add(anchor);
+            div.setHeight("500px");
             embed.setSrc((String) VaadinSession.getCurrent().getAttribute("url"));
             setAlignItems(FlexComponent.Alignment.CENTER);
             var closeDialog = new Button("Back", VaadinIcon.ARROW_LEFT.create(), e -> {

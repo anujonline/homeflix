@@ -7,13 +7,11 @@ import com.homeflix.app.data.DataSaver;
 import com.homeflix.app.data.models.VideoData;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
-import com.homeflix.app.views.FeedbackDialog;
 import com.homeflix.app.views.RemoteView;
 import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -91,31 +89,10 @@ public class NewHome extends Div {
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
-        
+
     }
 
     private void addHeader() {
-        var ui = UI.getCurrent();
-        var current = ui.getSession();
-        WebStorage.getItem(WebStorage.Storage.LOCAL_STORAGE, "message-read", s -> {
-            ui.getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
-                if (current.getBrowser().isChrome() && !extendedClientDetails.isTouchDevice()) {
-                    UI.getCurrent().access(() -> {
-                        if (StringUtils.isEmpty(s)) {
-                            var show = new Dialog();
-                            var anchor = new Anchor("https://brave.com/download/");
-                            anchor.setText("We recommend using Brave Browser");
-                            anchor.setClassName("Button");
-                            anchor.setTarget(BLANK);
-                            show.add(new VerticalLayout(new Text("Report issues via Instagram connect on homepage"), anchor, new Button("Ok", event -> show.close())));
-                            show.open();
-                            WebStorage.setItem(WebStorage.Storage.LOCAL_STORAGE, "message-read", "OK");
-                        }
-                    });
-                }
-            });
-
-        });
         var instagram = new Anchor("https://www.instagram.com/homeflixofficial");
         instagram.setClassName("button");
         instagram.setText("Let's connect over Instagram");

@@ -90,7 +90,7 @@ public class AdminController {
             watchHistory.setImdbId(imdbID);
             watchRespository.save(watchHistory);
             var stringResponseEntity = restTemplate.postForEntity(ADM_ADD_HISTORY, watchHistory, String.class);
-            log.info("history api response {}", stringResponseEntity.getStatusCode());
+            log.debug("history api response {}", stringResponseEntity.getStatusCode());
         }
         catch (Exception e){
             log.error("Error saving history", e);
