@@ -11,16 +11,22 @@ import com.homeflix.app.views.RemoteView;
 import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.WebStorage;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoIcon;
+import com.vaadin.flow.theme.lumo.LumoUtility;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -31,6 +37,7 @@ import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
 @Route(value = "", layout = TimerLayout.class)
 @PageTitle("Homeflix")
 @StyleSheet("./nm.css")
+@Slf4j
 public class NewHome extends Div {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final TMDBService service;
@@ -99,12 +106,46 @@ public class NewHome extends Div {
         instagram.setWidthFull();
         instagram.setTarget(BLANK);
         var verticalLayout = new VerticalLayout();
+        verticalLayout.setClassName(LumoUtility.TextAlignment.CENTER);
         verticalLayout.setWidthFull();
         var homeflix = new H1("Homeflix");
         homeflix.setWidthFull();
         verticalLayout.add(homeflix, instagram);
-        add(verticalLayout);
+        add(addSettings(), verticalLayout);
 
+    }
+
+    private Component addSettings() {
+        var themeList = this.getElement().getThemeList();
+        WebStorage.getItem("theme", value -> {
+            if (value != null && value.equals("dark")) {
+                themeList.add(Lumo.DARK);
+            }
+        });
+        var svg = new Svg(PlayConstants.SETTINGS_SVG);
+        var button = new Button("Settings", svg);
+        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        button.addClickListener(buttonClickEvent -> {
+            var dialog = new Dialog();
+            dialog.add("Select Theme");
+            var stringSelect = new Select<String>();
+            stringSelect.setItems(List.of("Light", "Dark"));
+            stringSelect.addValueChangeListener(s -> {
+                var selectedTheme = s.getValue();
+                log.info("changed theme to {}", selectedTheme);
+                if (selectedTheme.equals("Light")) {
+                    themeList.remove(Lumo.DARK);
+                    WebStorage.removeItem("theme");
+                } else {
+                    themeList.add(Lumo.DARK);
+                    WebStorage.setItem("theme", "dark");
+                }
+                dialog.close();
+            });
+            dialog.add(stringSelect);
+            dialog.open();
+        });
+        return button;
     }
 
     private void addSearch() {
