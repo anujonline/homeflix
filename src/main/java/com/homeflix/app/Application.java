@@ -33,7 +33,7 @@ import java.time.LocalDate;
 @EnableAsync
 @EnableCaching
 @NpmPackage(value = "@fontsource/montserrat", version = "4.5.0")
-@Theme(value = "homeflix", variant = Lumo.DARK)
+@Theme(value = "homeflix", variant = Lumo.LIGHT)
 @PWA(name = "HomeFlix", shortName = "HomeFlix", backgroundColor = "#000000")
 @Viewport("width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
 @Meta(name = "HandheldFriendly", content = "true")
