@@ -7,7 +7,7 @@ public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // The initial value is to account for data.sql demo data ids
+    // The initial userName is to account for data.sql demo data ids
     @SequenceGenerator(name = "idgenerator", initialValue = 1000)
     private Long id;
 

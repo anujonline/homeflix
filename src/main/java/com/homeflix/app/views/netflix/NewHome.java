@@ -8,6 +8,8 @@ import com.homeflix.app.data.models.VideoData;
 import com.homeflix.app.data.models.VideoDataWrapper;
 import com.homeflix.app.data.service.tmdb.TMDBService;
 import com.homeflix.app.views.RemoteView;
+import com.homeflix.app.views.common.LoggedInUser;
+import com.homeflix.app.views.common.LoginView;
 import com.homeflix.app.views.common.MaintainHistory;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
@@ -23,6 +25,7 @@ import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoIcon;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -30,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.homeflix.app.views.netflix.PlayConstants.POSTER_URL;
 import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
@@ -52,6 +56,7 @@ public class NewHome extends Div {
         this.maintainHistory = maintainHistory;
 
         add(getRemoteWatch());
+        loginInfo();
         addHeader();
         addSearch();
         addClassName("home");
@@ -91,6 +96,16 @@ public class NewHome extends Div {
         info.add(length);
         movie.add(image, title, info);
         return movie;
+    }
+
+    private void loginInfo() {
+        Optional.ofNullable(VaadinSession.getCurrent().getAttribute(LoggedInUser.class)).ifPresentOrElse(loggedInUser -> {
+            add("Hi, " + loggedInUser.userName());
+            add(new Button("logout", e -> {
+                VaadinSession.getCurrent().setAttribute(LoggedInUser.class, null);
+                UI.getCurrent().getPage().reload();
+            }));
+        }, () -> add(new Button("Login", e -> UI.getCurrent().navigate(LoginView.class))));
     }
 
     @Override

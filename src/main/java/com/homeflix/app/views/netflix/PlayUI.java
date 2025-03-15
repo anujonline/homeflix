@@ -1,19 +1,22 @@
 package com.homeflix.app.views.netflix;
 
 import com.homeflix.app.views.Embed;
+import com.homeflix.app.views.common.LoggedInUser;
+import com.homeflix.app.views.common.LoginView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.vaadin.flow.component.html.AnchorTarget.BLANK;
+import java.util.Optional;
 
 @Route(value = "now-playing/:" + PlayUI.PARAMETER_MOVIE_ID, layout = TimerLayout.class)
 @PageTitle("Homeflix")
@@ -23,14 +26,19 @@ public class PlayUI extends VerticalLayout implements HasUrlParameter<String> {
 
     private final Embed embed = new Embed();
     private final Div div = new Div();
+    private final Dialog noti = new Dialog();
 
     public PlayUI() {
+        play();
+    }
+
+    private void play() {
         try {
             setHeightFull();
             setSizeFull();
             div.setHeight("500px");
             embed.setSrc((String) VaadinSession.getCurrent().getAttribute("url"));
-            setAlignItems(FlexComponent.Alignment.CENTER);
+            setAlignItems(Alignment.CENTER);
             var closeDialog = new Button("Back", VaadinIcon.ARROW_LEFT.create(), e -> {
                 UI.getCurrent().getPage().getHistory().back();
             });
