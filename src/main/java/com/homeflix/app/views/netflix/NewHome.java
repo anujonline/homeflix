@@ -16,6 +16,8 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.WebStorage;
@@ -52,6 +54,7 @@ public class NewHome extends Div {
         this.maintainHistory = maintainHistory;
 
         add(getRemoteWatch());
+        loginInfo();
         addHeader();
         addSearch();
         addClassName("home");
@@ -93,6 +96,32 @@ public class NewHome extends Div {
         return movie;
     }
 
+    private void loginInfo() {
+        var loginButton = new Button("Login", e -> {
+            log.info("login clicked");
+            var notification = Notification.show("");
+            UI.getCurrent().getPage().retrieveExtendedClientDetails(extendedClientDetails -> {
+                if (extendedClientDetails.isTouchDevice()) {
+                    notification.setPosition(Notification.Position.BOTTOM_STRETCH);
+                } else {
+                    notification.setPosition(Notification.Position.TOP_CENTER);
+                }
+            });
+            notification.add("""
+                    Coming soon!!
+                    
+                    Enjoy unlimited streaming..
+                    Save watch history..
+                    Create playlists..
+                    and many more ...
+                    """);
+
+            notification.addThemeVariants(NotificationVariant.LUMO_WARNING);
+        });
+        loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        add(loginButton);
+    }
+
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
@@ -124,7 +153,6 @@ public class NewHome extends Div {
         });
         var svg = new Svg(PlayConstants.SETTINGS_SVG);
         var button = new Button("Settings", svg);
-        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         button.addClickListener(buttonClickEvent -> {
             var dialog = new Dialog();
             dialog.add("Select Theme");
