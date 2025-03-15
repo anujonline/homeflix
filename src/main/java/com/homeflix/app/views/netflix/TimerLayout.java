@@ -31,20 +31,6 @@ public class TimerLayout extends AppLayout {
         UI.getCurrent().addDetachListener(detachEvent -> {
             jc.stopSession(VaadinSession.getCurrent().getSession().getId());
         });
-        WebStorage.getItem("setting-update", s -> {
-            if(Optional.ofNullable(s).isEmpty()){
-                var show = new Notification();
-                show.addThemeVariants(NotificationVariant.LUMO_WARNING);
-                show.add("Introducing Settings. Explore from the top of the page.");
-                show.setPosition(Notification.Position.MIDDLE);
-                show.setDuration(0);
-                show.add(new Button("", VaadinIcon.CLOSE.create(), e->{
-                    show.close();
-                    WebStorage.setItem("setting-update","read");
-                }));
-                show.open();
-            }
-        });
         WebStorage.getItem("client-id", s -> {
             Optional.ofNullable(s).ifPresentOrElse(s1 -> {
                 log.info("existing user {}", s1);
