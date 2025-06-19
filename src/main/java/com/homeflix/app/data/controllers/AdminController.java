@@ -83,18 +83,18 @@ public class AdminController {
 
     @Async
     public void addHistory(String address, String imdbID) {
-        try {
-            var watchHistory = new WatchHistory();
-            watchHistory.setTime(LocalDateTime.now());
-            watchHistory.setAddress(address);
-            watchHistory.setImdbId(imdbID);
-            watchRespository.save(watchHistory);
-            var stringResponseEntity = restTemplate.postForEntity(ADM_ADD_HISTORY, watchHistory, String.class);
-            log.debug("history api response {}", stringResponseEntity.getStatusCode());
-        }
-        catch (Exception e){
-            log.error("Error saving history", e);
-        }
+//        try {
+//            var watchHistory = new WatchHistory();
+//            watchHistory.setTime(LocalDateTime.now());
+//            watchHistory.setAddress(address);
+//            watchHistory.setImdbId(imdbID);
+//            watchRespository.save(watchHistory);
+//            var stringResponseEntity = restTemplate.postForEntity(ADM_ADD_HISTORY, watchHistory, String.class);
+//            log.debug("history api response {}", stringResponseEntity.getStatusCode());
+//        }
+//        catch (Exception e){
+//            log.error("Error saving history", e);
+//        }
     }
 
     @GetMapping("/history")

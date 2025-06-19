@@ -19,14 +19,14 @@ public class DataSaver {
     public void saveData(UI ui, VideoData videoFile) {
         try {
             maintainHistory.addToList(videoFile);
-            var pendingJavaScriptResult = ui.getPage().executeJs("""
-                    return fetch('https://json.geoiplookup.io/')
-                                .then(response => response.json())
-                                .then(data => {
-                                    return JSON.stringify(data);
-                                });
-                    """, "");
-            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title(), jsonValue.asString()));
+//            var pendingJavaScriptResult = ui.getPage().executeJs("""
+//                    return fetch('https://json.geoiplookup.io/')
+//                                .then(response => response.json())
+//                                .then(data => {
+//                                    return JSON.stringify(data);
+//                                });
+//                    """, "");
+//            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory(videoFile.title(), jsonValue.asString()));
         } catch (Exception e) {
             log.error("Exception in running js ", e);
         }
@@ -34,12 +34,12 @@ public class DataSaver {
 
     public void saveData(UI ui, VideoFile videoFile) {
         try {
-            var pendingJavaScriptResult = ui.getPage().executeJs("""
-                    return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
-                        JSON.stringify(data, null, 2);
-                    });
-                    """, "");
-            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory("browse " + videoFile.getName() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
+//            var pendingJavaScriptResult = ui.getPage().executeJs("""
+//                    return $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
+//                        JSON.stringify(data, null, 2);
+//                    });
+//                    """, "");
+//            pendingJavaScriptResult.then(jsonValue -> adminController.addHistory("browse " + videoFile.getName() + " " + ui.getSession().getBrowser().getBrowserApplication(), jsonValue.toJson()));
         } catch (Exception e) {
             log.error("Exception in running js ", e);
         }
