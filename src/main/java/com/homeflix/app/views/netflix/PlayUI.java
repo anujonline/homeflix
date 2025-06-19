@@ -26,18 +26,16 @@ public class PlayUI extends VerticalLayout implements HasUrlParameter<String> {
 
     public PlayUI() {
         try {
-            setHeightFull();
-            setSizeFull();
-            div.setHeight("500px");
+            getStyle().set("overflow","hidden");
+            setHeight("40rem");
+            div.setHeight("35rem");
             embed.setSrc((String) VaadinSession.getCurrent().getAttribute("url"));
             setAlignItems(FlexComponent.Alignment.CENTER);
             var closeDialog = new Button("Back", VaadinIcon.ARROW_LEFT.create(), e -> {
                 UI.getCurrent().getPage().getHistory().back();
             });
             closeDialog.setWidthFull();
-            embed.setSizeFull();
             div.add(closeDialog, embed);
-            div.setWidthFull();
             add(div);
         } catch (Exception e) {
             UI.getCurrent().navigateToClient("");

@@ -11,11 +11,8 @@ public class Embed extends HtmlContainer {
     public Embed() {
         setId("hframe");
         setSizeFull();
-        setHeight("70%");
-        if (!UI.getCurrent().getSession().getBrowser().isChrome()) {
-            getElement().setProperty("sandbox", "allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation");
-            getElement().setAttribute("sandbox", "allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation");
-        }
+        setHeight("100%");
+
         getElement().setProperty("allow", "autoplay");
 
         getElement().setAttribute("allowfullscreen", "true");
