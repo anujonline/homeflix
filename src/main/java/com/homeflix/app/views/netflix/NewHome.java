@@ -190,7 +190,7 @@ public class NewHome extends Div {
         spotlightWrapper.add(textField, component);
         add(spotlightWrapper);
 
-        textField.addKeyPressListener(Key.ENTER, keyPressEvent -> UI.getCurrent().navigateToClient("search/%s".formatted(textField.getValue())));
+//        textField.addKeyPressListener(Key.ENTER, keyPressEvent -> UI.getCurrent().navigateToClient("search/%s".formatted(textField.getValue())));
     }
 
     private void addMovies() {
