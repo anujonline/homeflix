@@ -112,8 +112,9 @@ public class TMDBService {
 
     public Boolean checkAvailability(String url) {
         try {
-            var forEntity = REST_TEMPLATE.getForEntity(url, Void.class);
-            return forEntity.getStatusCode().is2xxSuccessful();
+            var response = REST_TEMPLATE.getForEntity(url, Void.class);
+            log.info("URL {} returned status code {}", url, response.getStatusCode());
+            return response.getStatusCode().is2xxSuccessful();
         } catch (Exception e) {
             return false;
         }
