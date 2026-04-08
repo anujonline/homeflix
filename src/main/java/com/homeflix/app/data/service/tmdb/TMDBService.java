@@ -116,6 +116,7 @@ public class TMDBService {
             log.info("URL {} returned status code {}", url, response.getStatusCode());
             return response.getStatusCode().is2xxSuccessful();
         } catch (Exception e) {
+            log.error("Exception while checking movie availability",e);
             return false;
         }
     }
