@@ -111,14 +111,7 @@ public class TMDBService {
 
 
     public Boolean checkAvailability(String url) {
-        try {
-            var response = REST_TEMPLATE.getForEntity(url, Void.class);
-            log.info("URL {} returned status code {}", url, response.getStatusCode());
-            return response.getStatusCode().is2xxSuccessful();
-        } catch (Exception e) {
-            log.error("Exception while checking movie availability",e);
-            return false;
-        }
+        return true;
     }
 
     record Request(String url, String type) {
