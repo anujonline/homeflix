@@ -1,9 +1,22 @@
-import { UserConfigFn } from 'vite';
-import { overrideVaadinConfig } from './vite.generated';
+import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-const customConfig: UserConfigFn = (env) => ({
-  // Here you can add custom Vite parameters
-  // https://vitejs.dev/config/
-});
-
-export default overrideVaadinConfig(customConfig);
+export default defineConfig({
+      server: {
+        port: 3000,
+        host: '0.0.0.0',
+        proxy: {
+          '/api': {
+            target: 'http://localhost:8080',
+            changeOrigin: true,
+          },
+        },
+      },
+      plugins: [react()],
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '.'),
+        }
+      }
+    });
