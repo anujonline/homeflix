@@ -33,8 +33,11 @@ public class TmdbService {
         this.restTemplate = restTemplate;
         this.tmdbBaseUrl = tmdbBaseUrl;
         this.apiKey = apiKey;
-        log.info("TMDB API KEY {}", apiKey);
-        log.info("BASE URL {} ", tmdbBaseUrl);
+        if (apiKey == null || apiKey.isBlank()) {
+            log.warn("TMDB_API_KEY not set - TMDB proxy will return 503");
+        } else {
+            log.info("TMDB proxy configured (baseUrl={})", tmdbBaseUrl);
+        }
     }
 
     private HttpHeaders headers() {

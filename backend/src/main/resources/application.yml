@@ -29,7 +29,10 @@ spring:
     type: caffeine
     caffeine:
       spec: maximumSize=500,expireAfterWrite=300s
+  mvc:
+    log-resolved-exception: false
 
 logging:
   level:
     com.homeflix: INFO
+    org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver: ERROR
