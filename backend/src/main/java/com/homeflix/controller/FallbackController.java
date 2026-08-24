@@ -19,12 +19,10 @@ public class FallbackController {
 
     private static final Logger log = LoggerFactory.getLogger(FallbackController.class);
 
-    // Accept POST to health (some uptime checkers use POST)
-    @RequestMapping(value = "/api/health", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.HEAD, RequestMethod.OPTIONS})
+    // Some uptime checkers POST to /api/health - handle without 405
+    @RequestMapping(value = "/api/health", method = {RequestMethod.POST, RequestMethod.HEAD, RequestMethod.OPTIONS})
     public ResponseEntity<String> healthAlt(HttpServletRequest req) {
-        if (!"GET".equalsIgnoreCase(req.getMethod())) {
-            log.debug("Health {} from {} {}", req.getMethod(), req.getRemoteAddr(), req.getRequestURI());
-        }
+        log.debug("Health {} from {} {}", req.getMethod(), req.getRemoteAddr(), req.getRequestURI());
         return ResponseEntity.ok("{\"status\":\"ok\"}");
     }
 
@@ -33,19 +31,5 @@ public class FallbackController {
     public ResponseEntity<Void> analyticsSink(HttpServletRequest req) {
         log.debug("Analytics sink {} {} dropped", req.getMethod(), req.getRequestURI());
         return ResponseEntity.noContent().build();
-    }
-
-    // Catch-all POST to avoid 405 WARN for SPA routes (e.g. POST / or POST /watch/...)
-    @RequestMapping(value = "/**", method = RequestMethod.POST)
-    public ResponseEntity<Void> postFallback(HttpServletRequest req) {
-        // Don't intercept /api/** that actually has no handler — return 404 quietly
-        String uri = req.getRequestURI();
-        if (uri.startsWith("/api/")) {
-            log.debug("Unhandled POST {} from {}", uri, req.getRemoteAddr());
-            return ResponseEntity.notFound().build();
-        }
-        // SPA POST (unlikely) — return 404 without WARN
-        log.debug("SPA POST {} from {}", uri, req.getRemoteAddr());
-        return ResponseEntity.notFound().build();
     }
 }
