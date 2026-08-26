@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { X, Play, Plus, ThumbsUp, Share2, Star, Clock, PlayCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { X, Play, Plus, ThumbsUp, Share2, Check, Star, Clock, PlayCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Movie, Video, CastMember, WatchProviderResult, SeasonSummary, Episode } from '../types';
 import { fetchMovieDetails, fetchVideos, fetchCredits, fetchWatchProviders, fetchSimilar, fetchRecommendations, fetchTvSeasons, fetchSeasonEpisodes, getWatchRegion } from '../services/tmdbService';
 import MovieCard from './MovieCard';
@@ -18,6 +18,11 @@ const formatAirDate = (d: string | null) => {
   try { return new Date(d + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }); } catch { return d; }
 };
 
+// keep in sync with the deep-link format App.tsx pushes (/:type/:id/:slug)
+const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'untitled';
+
+const glassBtn = 'bg-white/70 dark:bg-white/10 backdrop-blur border border-slate-200/80 dark:border-white/15 hover:bg-white dark:hover:bg-white/15 hover:border-amber-400/60 text-slate-900 dark:text-white shadow-sm';
+
 const MovieDetails: React.FC<MovieDetailsProps> = ({ movie: initialMovie, onClose, onPlay, onAddToPlaylist, onSelectMovie }) => {
   const [movie, setMovie] = useState<Movie>(initialMovie);
 
@@ -32,9 +37,35 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie: initialMovie, onClos
   const [episodesLoading, setEpisodesLoading] = useState(false);
 
   const [showTrailer, setShowTrailer] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const movieId = initialMovie.id;
   const mediaType = initialMovie.mediaType || 'movie';
+
+  // native share sheet on mobile, clipboard fallback everywhere else
+  const handleShare = async () => {
+    const url = `${window.location.origin}/${mediaType}/${movie.id}/${slugify(movie.title)}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: movie.title, url }); return; }
+      catch (e: any) { if (e?.name === 'AbortError') return; }
+    }
+    let ok = false;
+    try { await navigator.clipboard.writeText(url); ok = true; } catch { /* insecure context etc. */ }
+    if (!ok) {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand('copy'); } catch { /* no clipboard at all */ }
+      document.body.removeChild(ta);
+    }
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    }
+  };
 
   useEffect(() => {
     if (initialMovie.duration) {
@@ -146,24 +177,54 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie: initialMovie, onClos
 
         <div className="flex-1 overflow-y-auto">
           <div className="p-6 md:p-8">
-            <div className="flex gap-3 mb-6">
-              <button onClick={onPlay} className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-[#bf9708] hover:bg-[#a68207] text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-amber-500/20">
-                <Play size={18} fill="currentColor" /> Play
-              </button>
+            <div className="flex gap-2.5 mb-6">
+              {/* Play — dark glass with amber accent; stays high-contrast against any poster */}
+              <motion.button
+                onClick={onPlay}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                className="group/play relative flex-1 md:flex-none inline-flex items-center justify-center gap-2.5 overflow-hidden pl-2 pr-8 py-2 rounded-full font-bold text-white bg-slate-950/95 dark:bg-black/80 backdrop-blur ring-1 ring-amber-400/70 hover:ring-amber-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-400/45 transition-all duration-300"
+              >
+                <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-amber-200/40 to-transparent opacity-0 group-hover/play:opacity-100 group-hover/play:animate-shine" />
+                <span className="relative w-8 h-8 grid place-items-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-black shadow-inner">
+                  <Play size={15} fill="currentColor" className="ml-0.5" />
+                </span>
+                <span className="relative">Play</span>
+              </motion.button>
               {trailer && (
-                <button onClick={() => setShowTrailer(v => !v)} className={`flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold border ${showTrailer ? 'bg-slate-900 dark:bg-white text-white dark:text-black border-slate-900 dark:border-white' : 'bg-slate-100 dark:bg-white/10 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-900 dark:text-white'}`}>
+                <motion.button
+                  onClick={() => setShowTrailer(v => !v)}
+                  whileTap={{ scale: 0.96 }}
+                  className={`flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold ${showTrailer ? 'bg-slate-900 dark:bg-white text-white dark:text-black border border-slate-900 dark:border-white' : glassBtn}`}
+                >
                   <PlayCircle size={18} /> {showTrailer ? 'Hide Trailer' : 'Trailer'}
-                </button>
+                </motion.button>
               )}
-              <button onClick={onAddToPlaylist} className="w-11 h-11 grid place-items-center rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/15">
+              <motion.button whileTap={{ scale: 0.9 }} onClick={onAddToPlaylist} title="Add to playlist" className={`w-11 h-11 grid place-items-center rounded-full ${glassBtn}`}>
                 <Plus size={18} />
-              </button>
-              <button className="w-11 h-11 grid place-items-center rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 hidden md:grid">
+              </motion.button>
+              <motion.button whileTap={{ scale: 0.9 }} className={`w-11 h-11 grid place-items-center rounded-full ${glassBtn} hidden md:grid`} title="Like">
                 <ThumbsUp size={16} />
-              </button>
-              <button className="w-11 h-11 grid place-items-center rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 hidden md:grid">
-                <Share2 size={16} />
-              </button>
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={handleShare}
+                title={copied ? 'Link copied!' : 'Copy shareable link'}
+                className={`w-11 h-11 grid place-items-center rounded-full ${glassBtn} ${copied ? 'border-emerald-400/70 dark:border-emerald-400/50' : ''}`}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={copied ? 'check' : 'share'}
+                    initial={{ scale: 0.4, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.4, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="grid place-items-center"
+                  >
+                    {copied ? <Check size={16} className="text-emerald-500" /> : <Share2 size={16} />}
+                  </motion.span>
+                </AnimatePresence>
+              </motion.button>
             </div>
 
             {showTrailer && trailer && (

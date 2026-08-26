@@ -136,20 +136,23 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
-            <button
+            <motion.button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary hover:bg-primary-700 text-white font-bold py-3.5 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6 shadow-lg shadow-primary/20"
+              whileHover={loading ? undefined : { scale: 1.02 }}
+              whileTap={loading ? undefined : { scale: 0.96 }}
+              className="group/auth relative w-full overflow-hidden flex items-center justify-center gap-2.5 py-2.5 pl-2.5 pr-6 rounded-full font-bold text-white bg-slate-950/95 dark:bg-black/80 backdrop-blur ring-1 ring-amber-400/70 hover:ring-amber-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-400/45 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
             >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  {isLogin ? 'Sign In' : 'Sign Up'}
-                  <ArrowRight size={18} />
-                </>
-              )}
-            </button>
+              <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-amber-200/40 to-transparent opacity-0 group-hover/auth:opacity-100 group-hover/auth:animate-shine" />
+              <span className="relative w-8 h-8 shrink-0 grid place-items-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-black shadow-inner">
+                {loading ? (
+                  <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                ) : (
+                  <ArrowRight size={15} />
+                )}
+              </span>
+              <span className="relative">{isLogin ? 'Sign In' : 'Sign Up'}</span>
+            </motion.button>
           </form>
 
           <div className="mt-6 text-center">

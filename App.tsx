@@ -15,7 +15,7 @@ import { fetchTrendingAll, fetchPopularByType, fetchTopRatedMovies, fetchTopRate
 import { Movie } from './types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from './context/AuthContext';
-import { Search, Bell, Sun, Moon, Sparkles, Clock3, Bookmark, History, Trash2, Play } from 'lucide-react';
+import { Search, Bell, Sun, Moon, Sparkles, Clock3, Bookmark, History, Trash2, Play, LogIn, LogOut } from 'lucide-react';
 
 type ViewType = 'home' | 'movies' | 'series' | 'popular' | 'browse' | 'profile';
 
@@ -49,7 +49,7 @@ const App: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const { user, addToHistory } = useAuth();
+  const { user, addToHistory, logout } = useAuth();
   const hasSyncedUrl = useRef(false);
 
   useEffect(() => {
@@ -238,6 +238,13 @@ const App: React.FC = () => {
     setIsPlaylistModalOpen(true);
   };
 
+  const handleSignOut = () => {
+    logout();
+    setCurrentView('home');
+    window.history.pushState({}, '', '/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleViewChange = (view: ViewType) => {
     if (view === 'profile' && !user) { setIsAuthModalOpen(true); return; }
     setSearchQuery('');
@@ -309,8 +316,14 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div className="hidden md:flex items-center gap-2 text-xs bg-white dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 rounded-full px-3 py-2"><Sparkles size={14} className="text-amber-500" /> {user.history.length + user.playlists.length} items saved</div>
+            <button
+              onClick={handleSignOut}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 hover:border-red-400/60 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            >
+              <LogOut size={15} /> Sign out
+            </button>
           </div>
         </div>
 
@@ -532,7 +545,11 @@ const App: React.FC = () => {
                   <span className="text-sm font-medium max-w-[100px] truncate">{user.name.split(' ')[0]}</span>
                 </button>
               ) : (
-                <button onClick={() => setIsAuthModalOpen(true)} className="hidden md:inline-flex bg-amber-500 hover:bg-amber-600 text-black px-5 py-2 rounded-full text-sm font-bold">Sign in</button>
+                <button onClick={() => setIsAuthModalOpen(true)} className="group/signin hidden md:inline-flex relative overflow-hidden items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full text-sm font-bold text-white bg-slate-950/95 dark:bg-black/80 ring-1 ring-amber-400/70 hover:ring-amber-300 shadow-md shadow-amber-500/25 hover:shadow-amber-400/40 transition-all active:scale-95">
+                  <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-amber-200/40 to-transparent opacity-0 group-hover/signin:opacity-100 group-hover/signin:animate-shine" />
+                  <span className="relative w-6 h-6 grid place-items-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-black"><LogIn size={13} /></span>
+                  <span className="relative">Sign in</span>
+                </button>
               )}
             </div>
           </div>
