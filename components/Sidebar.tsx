@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Film, Tv, TrendingUp, Bookmark, History, Library } from 'lucide-react';
+import { Home, Film, Tv, TrendingUp, Compass, Bookmark, History, Library } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
     { id: 'movies', label: 'Movies', icon: Film, desc: 'Top & popular' },
     { id: 'series', label: 'Series', icon: Tv, desc: 'TV shows' },
     { id: 'popular', label: 'Explore', icon: TrendingUp, desc: 'Trending' },
+    { id: 'browse', label: 'Browse', icon: Compass, desc: 'Genre & year filters' },
   ];
 
   return (

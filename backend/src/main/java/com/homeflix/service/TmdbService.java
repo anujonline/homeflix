@@ -14,8 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.Set;
 
 @Service
 public class TmdbService {
@@ -106,5 +107,73 @@ public class TmdbService {
 
     public String genresTv() {
         return cachedForward("/genre/tv/list", Map.of());
+    }
+
+    // sort values TMDB accepts for /discover that we allow through the proxy
+    public static final Set<String> ALLOWED_SORTS = Set.of(
+            "popularity.desc", "vote_average.desc", "revenue.desc",
+            "primary_release_date.desc", "first_air_date.desc", "title.desc", "name.desc"
+    );
+
+    private static final int MAX_PAGE = 500;
+
+    /**
+     * /discover/{movie|tv} with genre/year/sort/page filters. Conditional params go in a
+     * LinkedHashMap so the cache key (path + params.toString()) is deterministic.
+     */
+    public String discover(String type, String genre, String year, String sort, String page) {
+        String yearParam = type.equals("tv") ? "first_air_date_year" : "primary_release_year";
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put("language", "en-US");
+        params.put("include_adult", "false");
+        if (genre != null && !genre.isBlank()) params.put("with_genres", genre);
+        if (year != null && !year.isBlank()) params.put(yearParam, year);
+        if (sort != null && ALLOWED_SORTS.contains(sort)) params.put("sort_by", sort);
+        else params.put("sort_by", "popularity.desc");
+        if ("vote_average.desc".equals(sort)) params.put("vote_count.gte", "200"); // avoid niche high scores
+        int p = 1;
+        try { p = Math.min(Math.max(Integer.parseInt(page == null ? "1" : page), 1), MAX_PAGE); } catch (NumberFormatException ignored) {}
+        params.put("page", String.valueOf(p));
+        return cachedForward("/discover/" + type, params);
+    }
+
+    public String watchProviders(String type, String id, String region) {
+        Map<String, String> params = new LinkedHashMap<>();
+        if (region == null || !region.matches("^[A-Za-z]{2}$")) region = "US";
+        params.put("watch_region", region.toUpperCase());
+        return cachedForward("/" + type + "/" + id + "/watch/providers", params);
+    }
+
+    public String videos(String type, String id) {
+        return cachedForward("/" + type + "/" + id + "/videos", Map.of("language", "en-US"));
+    }
+
+    public String credits(String type, String id) {
+        return cachedForward("/" + type + "/" + id + "/credits", Map.of());
+    }
+
+    public String similar(String type, String id) {
+        return cachedForward("/" + type + "/" + id + "/similar", Map.of("language", "en-US", "page", "1"));
+    }
+
+    public String recommendations(String type, String id) {
+        return cachedForward("/" + type + "/" + id + "/recommendations", Map.of("language", "en-US", "page", "1"));
+    }
+
+    public String season(String tvId, String seasonNumber) {
+        return cachedForward("/tv/" + tvId + "/season/" + seasonNumber, Map.of("language", "en-US"));
+    }
+
+    public String configuration() {
+        return cachedForward("/configuration", Map.of());
+    }
+
+    public String searchPerson(String query) {
+        return forward("/search/person", Map.of(
+                "query", query,
+                "include_adult", "false",
+                "language", "en-US",
+                "page", "1"
+        ));
     }
 }

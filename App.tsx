@@ -10,13 +10,14 @@ import VideoPlayer from './components/VideoPlayer';
 import MovieDetails from './components/MovieDetails';
 import AuthModal from './components/AuthModal';
 import AddToPlaylistModal from './components/AddToPlaylistModal';
-import { fetchTrendingAll, fetchPopularByType, fetchTopRatedMovies, fetchTopRatedTV, fetchMovieDetails, searchContent, fetchGenres } from './services/tmdbService';
+import BrowseView from './components/BrowseView';
+import { fetchTrendingAll, fetchPopularByType, fetchTopRatedMovies, fetchTopRatedTV, fetchMovieDetails, searchContent, fetchGenres, fetchRecommendations } from './services/tmdbService';
 import { Movie } from './types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from './context/AuthContext';
 import { Search, Bell, Sun, Moon, Sparkles, Clock3, Bookmark, History, Trash2, Play } from 'lucide-react';
 
-type ViewType = 'home' | 'movies' | 'series' | 'popular' | 'profile';
+type ViewType = 'home' | 'movies' | 'series' | 'popular' | 'browse' | 'profile';
 
 const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'untitled';
 
@@ -38,6 +39,8 @@ const App: React.FC = () => {
   const [popularSeries, setPopularSeries] = useState<Movie[]>([]);
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
   const [topRatedSeries, setTopRatedSeries] = useState<Movie[]>([]);
+  const [recommended, setRecommended] = useState<Movie[]>([]);
+  const [recommendSeed, setRecommendSeed] = useState<Movie | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [allGenres, setAllGenres] = useState<string[]>([]);
 
@@ -83,6 +86,7 @@ const App: React.FC = () => {
     if (path === '/movies') setCurrentView('movies');
     else if (path === '/series') setCurrentView('series');
     else if (path === '/popular') setCurrentView('popular');
+    else if (path === '/browse') setCurrentView('browse');
     else if (path === '/profile') setCurrentView('profile');
     const watchMatch = path.match(/^\/watch\/(movie|tv)\/(\d+)/);
     const watchMatch2 = path.match(/^\/watch\/(\d+)/);
@@ -105,6 +109,7 @@ const App: React.FC = () => {
       if (ph === '/movies') setCurrentView('movies');
       else if (ph === '/series') setCurrentView('series');
       else if (ph === '/popular') setCurrentView('popular');
+      else if (ph === '/browse') setCurrentView('browse');
       else if (ph === '/profile') setCurrentView('profile');
       else if (ph === '/') setCurrentView('home');
       if (!ph.startsWith('/watch')) setPlayingMovie(null);
@@ -191,6 +196,16 @@ const App: React.FC = () => {
     };
     fetchData();
   }, [currentView, loadHomeData, trendingMovies.length, popularMovies.length, topRatedSeries.length, popularSeries.length, topRatedMovies.length]);
+
+  // "Because you watched" — recommendations seeded from the most recent history entry
+  useEffect(() => {
+    if (!user || user.history.length === 0 || recommended.length > 0) return;
+    const seed = user.history[0];
+    setRecommendSeed(seed);
+    fetchRecommendations(seed.id, seed.mediaType || 'movie')
+      .then((list) => setRecommended(list.slice(0, 20)))
+      .catch(() => {});
+  }, [user, recommended.length]);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
@@ -416,6 +431,9 @@ const App: React.FC = () => {
         </div>
       );
     }
+    if (currentView === 'browse') {
+      return <BrowseView onSelectMovie={handleSelectMovie} />;
+    }
     if (currentView === 'popular') {
       return (
         <div className="pb-24">
@@ -452,6 +470,7 @@ const App: React.FC = () => {
         )}
 
         {user && user.history.length > 0 && <MovieRow title="Continue Watching" movies={filterByGenre(user.history)} onSelectMovie={handleSelectMovie} onSeeAll={() => handleViewChange('profile')} />}
+        {recommendSeed && recommended.length > 0 && <MovieRow title={`Because you watched ${recommendSeed.title}`} movies={recommended} onSelectMovie={handleSelectMovie} />}
         <MovieRow title="Trending Now" movies={trendingFiltered.slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => handleViewChange('popular')} />
         <MovieRow title="Top Rated Movies" movies={topMoviesFiltered.slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => { setMovieTab('top'); handleViewChange('movies'); }} />
         <MovieRow title="Popular Series" movies={filterByGenre(popularSeries).slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => { setSeriesTab('popular'); handleViewChange('series'); }} />
@@ -534,7 +553,7 @@ const App: React.FC = () => {
       <BottomNav activeView={currentView} onViewChange={handleViewChange} />
 
       <AnimatePresence>{playingMovie && <VideoPlayer key="player" movie={playingMovie} onClose={handleClosePlayer} />}</AnimatePresence>
-      <AnimatePresence>{selectedMovie && <MovieDetails key="details" movie={selectedMovie} onClose={handleCloseDetails} onPlay={() => handlePlay(selectedMovie)} onAddToPlaylist={() => handleAddToPlaylist(selectedMovie)} />}</AnimatePresence>
+      <AnimatePresence>{selectedMovie && <MovieDetails key={`details-${selectedMovie.id}`} movie={selectedMovie} onClose={handleCloseDetails} onPlay={() => handlePlay(selectedMovie)} onAddToPlaylist={() => handleAddToPlaylist(selectedMovie)} onSelectMovie={handleSelectMovie} />}</AnimatePresence>
       <AnimatePresence>{isAuthModalOpen && <AuthModal key="auth" isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />}</AnimatePresence>
       <AnimatePresence>{isPlaylistModalOpen && <AddToPlaylistModal key="playlist" isOpen={isPlaylistModalOpen} onClose={() => { setIsPlaylistModalOpen(false); setPlaylistMovie(null); }} movie={playlistMovie} />}</AnimatePresence>
     </div>
