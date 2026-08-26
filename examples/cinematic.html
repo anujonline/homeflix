@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematic — Homeflix</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Outfit','sans-serif'],display:['Space Grotesk','sans-serif']}}}}</script>
+</head>
+<body class="bg-[#020617] text-white font-sans">
+<nav class="flex items-center justify-between px-6 md:px-10 h-16 border-b border-white/10 sticky top-0 bg-[#020617]/80 backdrop-blur z-50">
+  <div class="flex items-center gap-8"><span class="font-display font-bold text-xl tracking-tighter">HOMEFLIX</span><div class="hidden md:flex gap-6 text-sm text-white/60"><span class="text-white">Home</span><span>Movies</span><span>Series</span><span>List</span></div></div>
+  <div class="flex items-center gap-3"><input placeholder="Search" class="hidden md:block bg-white/10 rounded-full px-4 py-1.5 text-sm outline-none"><img src="https://i.pravatar.cc/100?img=12" class="w-8 h-8 rounded-full"></div>
+</nav>
+<div class="relative h-[70vh] overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60">
+  <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent"></div>
+  <div class="absolute bottom-0 p-6 md:p-10 max-w-3xl">
+    <div class="text-amber-400 text-xs font-bold tracking-widest">TRENDING #1</div>
+    <h1 class="font-display text-5xl font-bold mt-2">DUNE: PART TWO</h1>
+    <p class="text-white/70 mt-3 max-w-xl">Epic sci-fi continuation. Stunning visuals, immersive sound. Play in 4K HDR.</p>
+    <div class="flex gap-3 mt-6"><button class="bg-white text-black px-8 py-3 rounded-full font-semibold">▶ Play</button><button class="bg-white/15 backdrop-blur px-6 py-3 rounded-full border border-white/20">+ My List</button></div>
+  </div>
+</div>
+<div class="px-6 md:px-10 py-8 space-y-8">
+  <div><h3 class="font-semibold mb-3">Trending Now</h3><div class="flex gap-4 overflow-x-auto pb-2" style="scrollbar-width:none"><div class="min-w-[160px]"><div class="aspect-[2/3] rounded-2xl overflow-hidden bg-slate-800"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963d?w=400&q=80" class="w-full h-full object-cover"></div><div class="text-sm mt-2">Inside Out 2</div></div><div class="min-w-[160px]"><div class="aspect-[2/3] rounded-2xl overflow-hidden bg-slate-800"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" class="w-full h-full object-cover"></div><div class="text-sm mt-2">Civil War</div></div><div class="min-w-[160px]"><div class="aspect-[2/3] rounded-2xl overflow-hidden bg-slate-800"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" class="w-full h-full object-cover"></div><div class="text-sm mt-2">The Fall Guy</div></div><div class="min-w-[160px]"><div class="aspect-[2/3] rounded-2xl overflow-hidden bg-slate-800"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80" class="w-full h-full object-cover"></div><div class="text-sm mt-2">Furiosa</div></div></div></div>
+</div>
+</body>
+</html>

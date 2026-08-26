@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Bell, Menu, X, LogOut, User as UserIcon, Home, Film, Tv, TrendingUp, Sun, Moon } from 'lucide-react';
+import { Search, Bell, X, LogOut, User as UserIcon, Home, Film, Tv, TrendingUp, Sun, Moon, Bookmark } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
@@ -19,22 +19,30 @@ const Navbar: React.FC<NavbarProps> = ({ activeView, onViewChange, onSearch, onO
   const [searchQuery, setSearchQuery] = useState('');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  
   const { user, logout } = useAuth();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    if (isSearchOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
+    if (isSearchOpen && inputRef.current) inputRef.current.focus();
   }, [isSearchOpen]);
+
+  // cmd+k to focus search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+      if (e.key === 'Escape') setIsSearchOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -49,10 +57,10 @@ const Navbar: React.FC<NavbarProps> = ({ activeView, onViewChange, onSearch, onO
   };
 
   const navLinks = [
-    { id: 'home', label: 'Home', icon: <Home size={18} /> },
-    { id: 'movies', label: 'Movies', icon: <Film size={18} /> },
-    { id: 'series', label: 'Series', icon: <Tv size={18} /> },
-    { id: 'popular', label: 'New & Popular', icon: <TrendingUp size={18} /> },
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'movies', label: 'Movies', icon: Film },
+    { id: 'series', label: 'Series', icon: Tv },
+    { id: 'popular', label: 'Popular', icon: TrendingUp },
   ];
 
   const handleNavClick = (view: any) => {
@@ -61,140 +69,138 @@ const Navbar: React.FC<NavbarProps> = ({ activeView, onViewChange, onSearch, onO
     clearSearch();
   };
 
+  const isTransparent = !isScrolled && !isSearchOpen && activeView === 'home';
+
   return (
     <>
       <motion.nav
-        className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
-          isScrolled || isSearchOpen || isMobileMenuOpen
-            ? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 py-3' 
-            : 'bg-gradient-to-b from-black/80 to-transparent py-5'
+        className={`fixed top-0 w-full z-[100] transition-all duration-300 border-b ${
+          isTransparent
+            ? 'bg-gradient-to-b from-black/70 via-black/20 to-transparent border-transparent py-4'
+            : 'bg-white/80 dark:bg-[#020617]/80 backdrop-blur-xl border-slate-200/60 dark:border-white/[0.06] py-3 shadow-sm'
         }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
       >
-        <div className="max-w-[1400px] mx-auto px-4 md:px-12 flex items-center justify-between">
-          <div className="flex items-center gap-10">
-            <button 
-              onClick={() => handleNavClick('home')} 
-              className="flex items-center gap-2 outline-none group"
-            >
-              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">H</div>
-              <span className="text-2xl font-bold tracking-tighter text-white dark:text-white group-hover:text-primary transition-colors hidden sm:block">HOMEFLIX</span>
+        <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
+          {/* Left: Logo + Nav */}
+          <div className="flex items-center gap-6 md:gap-8">
+            <button onClick={() => handleNavClick('home')} className="flex items-center gap-2.5 group outline-none">
+              <div className="w-[36px] h-[36px] rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-black font-black text-[15px] shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">H</div>
+              <span className={`hidden sm:block font-display font-bold tracking-tighter text-[20px] leading-none ${isTransparent ? 'text-white' : 'text-slate-900 dark:text-white'}`}>HOMEFLIX</span>
             </button>
-            
-            <div className={`hidden md:flex items-center gap-8 text-sm font-medium transition-opacity duration-300 ${isSearchOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => handleNavClick(link.id)}
-                  className={`transition-colors relative py-2 ${
-                    activeView === link.id 
-                      ? (isScrolled ? 'text-primary' : 'text-white') 
-                      : (isScrolled ? 'text-slate-500 hover:text-primary' : 'text-slate-300 hover:text-white')
-                  }`}
-                >
-                  {link.label}
-                  {activeView === link.id && (
-                    <motion.div 
-                      layoutId="navUnderline" 
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
-                    />
-                  )}
-                </button>
-              ))}
+
+            {/* Desktop segmented nav */}
+            <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-black/5 dark:bg-white/[0.06] border border-black/5 dark:border-white/5">
+              {navLinks.map(link => {
+                const ActiveIcon = link.icon;
+                const active = activeView === link.id;
+                return (
+                  <button
+                    key={link.id}
+                    onClick={() => handleNavClick(link.id)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
+                      active
+                        ? 'bg-white dark:bg-white text-black shadow-sm'
+                        : isTransparent
+                        ? 'text-white/70 hover:text-white hover:bg-white/10'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/10'
+                    }`}
+                  >
+                    <ActiveIcon size={14} />
+                    {link.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="flex items-center gap-1 md:gap-5 text-slate-300 relative">
-            {/* Theme Toggle */}
-            <button 
-              onClick={toggleTheme}
-              className={`p-2 rounded-full transition-colors ${isScrolled ? 'text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10 dark:text-slate-400' : 'text-slate-300 hover:bg-white/10'}`}
-              aria-label="Toggle Theme"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-
-            {/* Desktop Search */}
+          {/* Right */}
+          <div className="flex items-center gap-1.5 md:gap-2">
+            {/* Search - desktop */}
             <div className="hidden md:flex items-center">
-              <div className={`relative flex items-center transition-all duration-300 ${isSearchOpen ? 'w-64' : 'w-10'}`}>
-                <button 
-                  onClick={() => isSearchOpen ? clearSearch() : setIsSearchOpen(true)}
-                  className={`p-2 rounded-full hover:bg-white/10 transition-colors z-10 ${isScrolled ? 'text-slate-500' : 'text-slate-300'} ${isSearchOpen ? 'absolute right-0' : ''}`}
-                >
-                  {isSearchOpen ? <X size={20} /> : <Search size={20} />}
-                </button>
-                {isSearchOpen && (
-                  <motion.input
-                    ref={inputRef}
-                    initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: '100%', opacity: 1 }}
-                    type="text"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    placeholder="Search titles..."
-                    className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-full py-2 pl-4 pr-10 text-slate-900 dark:text-white focus:outline-none focus:border-primary text-sm w-full"
-                  />
+              <div className={`relative flex items-center transition-all duration-300 ${isSearchOpen ? 'w-[280px]' : 'w-auto'}`}>
+                {isSearchOpen ? (
+                  <div className="flex items-center gap-2 w-full bg-slate-100 dark:bg-white/[0.08] border border-slate-200 dark:border-white/10 rounded-full px-3 py-2">
+                    <Search size={16} className="text-slate-400 shrink-0" />
+                    <input
+                      ref={inputRef}
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      placeholder="Search movies, series..."
+                      className="bg-transparent outline-none text-sm flex-1 placeholder:text-slate-400 text-slate-900 dark:text-white"
+                    />
+                    <button onClick={clearSearch} className="p-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10">
+                      <X size={14} />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setIsSearchOpen(true)}
+                    className={`flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium border transition-colors ${
+                      isTransparent
+                        ? 'bg-white/10 text-white border-white/15 hover:bg-white/15 backdrop-blur'
+                        : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    <Search size={16} />
+                    <span className="hidden xl:inline">Search</span>
+                    <span className="hidden xl:inline-flex ml-1 text-xs px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10 border border-black/10 dark:border-white/10">⌘K</span>
+                  </button>
                 )}
               </div>
             </div>
 
-            {/* Mobile Search Toggle */}
-            <button 
-              className={`md:hidden p-2 rounded-full ${isScrolled ? 'text-slate-500' : 'text-slate-300'}`}
-              onClick={() => setIsMobileMenuOpen(true)}
-            >
-              <Search size={22} />
+            {/* Mobile search */}
+            <button onClick={() => setIsMobileMenuOpen(true)} className={`md:hidden w-9 h-9 grid place-items-center rounded-full border ${isTransparent ? 'bg-white/10 text-white border-white/15 backdrop-blur' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10'}`}>
+              <Search size={16} />
             </button>
-            
-            <button className={`hidden sm:flex p-2 rounded-full transition-colors ${isScrolled ? 'text-slate-500' : 'text-slate-300'}`}>
-              <Bell size={20} />
+
+            <button
+              onClick={toggleTheme}
+              className={`w-9 h-9 grid place-items-center rounded-full border transition-colors ${isTransparent ? 'bg-white/10 text-white border-white/15 backdrop-blur hover:bg-white/15' : 'bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'}`}
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
+            <button className={`hidden sm:grid w-9 h-9 place-items-center rounded-full border ${isTransparent ? 'bg-white/10 text-white border-white/15 backdrop-blur' : 'bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-white/10'}`}>
+              <Bell size={16} />
             </button>
 
             {user ? (
               <div className="relative">
-                <button 
-                  onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-2 p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all"
-                >
-                  {user.avatar ? (
-                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full border border-slate-200 dark:border-white/20" />
-                  ) : (
-                      <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs uppercase">
-                          {user.name.charAt(0)}
-                      </div>
-                  )}
+                <button onClick={() => setShowUserMenu(!showUserMenu)} className="flex items-center gap-2 pl-1 pr-1 py-1 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black hover:opacity-90 transition-opacity">
+                  {user.avatar ? <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-full object-cover" /> : <div className="w-7 h-7 rounded-full bg-primary grid place-items-center text-white text-xs font-bold">{user.name.charAt(0)}</div>}
+                  <span className="hidden md:block text-sm font-medium pr-2 max-w-[100px] truncate">{user.name.split(' ')[0]}</span>
                 </button>
-
                 <AnimatePresence>
                   {showUserMenu && (
                     <>
                       <div className="fixed inset-0 z-10" onClick={() => setShowUserMenu(false)} />
                       <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className="absolute right-0 top-full mt-3 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden py-1 z-20"
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        className="absolute right-0 top-full mt-3 w-64 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden z-20"
                       >
-                        <div className="px-5 py-4 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5">
-                          <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{user.name}</p>
-                          <p className="text-xs text-slate-400 truncate mt-0.5">{user.email}</p>
+                        <div className="px-4 py-4 flex gap-3 items-center">
+                          {user.avatar ? <img src={user.avatar} className="w-10 h-10 rounded-full" /> : <div className="w-10 h-10 rounded-full bg-primary grid place-items-center text-white font-bold">{user.name.charAt(0)}</div>}
+                          <div className="min-w-0">
+                            <div className="text-sm font-semibold truncate text-slate-900 dark:text-white">{user.name}</div>
+                            <div className="text-xs text-slate-500 truncate">{user.email}</div>
+                          </div>
                         </div>
-                        
-                        <button 
-                          onClick={() => { handleNavClick('profile'); setShowUserMenu(false); }}
-                          className="w-full text-left px-5 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-primary transition-colors flex items-center gap-3"
-                        >
-                          <UserIcon size={16} />
-                          Account Settings
+                        <div className="h-px bg-slate-100 dark:bg-white/5" />
+                        <button onClick={() => { handleNavClick('profile'); setShowUserMenu(false); }} className="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300">
+                          <UserIcon size={16} /> Profile & Lists
                         </button>
-
-                        <button 
-                          onClick={() => { logout(); setShowUserMenu(false); }}
-                          className="w-full text-left px-5 py-3 text-sm text-red-500 dark:text-red-400 hover:bg-slate-50 dark:hover:bg-white/5 flex items-center gap-3 transition-colors"
-                        >
-                          <LogOut size={16} />
-                          Sign Out
+                        <button onClick={() => { handleNavClick('profile'); setShowUserMenu(false); }} className="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 hover:bg-slate-50 dark:hover:bg-white/[0.04] text-slate-700 dark:text-slate-300">
+                          <Bookmark size={16} /> My List
+                        </button>
+                        <div className="h-px bg-slate-100 dark:bg-white/5" />
+                        <button onClick={() => { logout(); setShowUserMenu(false); }} className="w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 hover:bg-slate-50 dark:hover:bg-white/[0.04] text-red-600">
+                          <LogOut size={16} /> Sign out
                         </button>
                       </motion.div>
                     </>
@@ -202,98 +208,70 @@ const Navbar: React.FC<NavbarProps> = ({ activeView, onViewChange, onSearch, onO
                 </AnimatePresence>
               </div>
             ) : (
-              <button 
-                  onClick={onOpenAuth}
-                  className={`${isScrolled ? 'bg-primary text-white' : 'bg-white text-black'} px-5 py-2 rounded-full text-sm font-bold hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-black/5`}
-              >
-                  Sign In
+              <button onClick={onOpenAuth} className="bg-[#bf9708] hover:bg-[#a68207] text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg shadow-amber-500/20 transition-colors">
+                Sign in
               </button>
             )}
-
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 ml-2 ${isScrolled ? 'text-slate-900 dark:text-white' : 'text-white'}`}
-            >
-              {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-            </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile bottom nav */}
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-[90] bg-white/95 dark:bg-[#020617]/95 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 safe-area-pb">
+        <div className="flex items-center justify-around px-2 py-1.5">
+          {navLinks.map(link => {
+            const Icon = link.icon;
+            const active = activeView === link.id;
+            return (
+              <button key={link.id} onClick={() => handleNavClick(link.id)} className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl min-w-[64px] transition-colors ${active ? 'text-[#bf9708]' : 'text-slate-500 dark:text-slate-400'}`}>
+                <span className={`w-6 h-6 grid place-items-center rounded-full ${active ? 'bg-amber-500/15' : ''}`}>
+                  <Icon size={18} />
+                </span>
+                <span className={`text-[10px] font-medium tracking-wide ${active ? 'font-bold' : ''}`}>{link.label}</span>
+              </button>
+            );
+          })}
+          <button onClick={() => handleNavClick('profile')} className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl min-w-[64px] ${activeView === 'profile' ? 'text-[#bf9708]' : 'text-slate-500 dark:text-slate-400'}`}>
+            <span className={`w-6 h-6 grid place-items-center rounded-full ${activeView === 'profile' ? 'bg-amber-500/15' : ''}`}>
+              <UserIcon size={18} />
+            </span>
+            <span className="text-[10px] font-medium">You</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile search sheet */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsMobileMenuOpen(false)} className="fixed inset-0 z-[110] bg-black/40 backdrop-blur-sm lg:hidden" />
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm md:hidden"
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[120] w-[80%] max-w-sm bg-white dark:bg-slate-950 md:hidden flex flex-col p-8"
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              className="fixed bottom-0 inset-x-0 z-[120] bg-white dark:bg-[#0f172a] rounded-t-[28px] p-6 pb-10 lg:hidden max-h-[85vh] overflow-auto"
             >
-              <div className="flex justify-between items-center mb-10">
-                <span className="text-xl font-bold tracking-tighter text-slate-900 dark:text-white">HOMEFLIX</span>
-                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-slate-400 hover:text-primary transition-colors">
-                  <X size={24} />
+              <div className="w-10 h-1 rounded-full bg-slate-200 dark:bg-white/10 mx-auto mb-6" />
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-slate-900 dark:text-white">Search</h3>
+                <button onClick={() => setIsMobileMenuOpen(false)} className="w-8 h-8 grid place-items-center rounded-full bg-slate-100 dark:bg-white/10">
+                  <X size={16} />
                 </button>
               </div>
-
-              {/* Mobile Search */}
-              <div className="mb-8">
-                <div className="relative">
-                  <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input 
-                    type="text" 
-                    placeholder="Search movies..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3 pl-10 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-primary"
-                  />
+              <div className="relative">
+                <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input autoFocus value={searchQuery} onChange={handleSearchChange} placeholder="Movies, TV shows, people..." className="w-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 rounded-2xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white outline-none focus:border-amber-500" />
+              </div>
+              <div className="mt-6">
+                <div className="text-xs font-bold tracking-widest text-slate-400 mb-3">BROWSE</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {navLinks.map(l => (
+                    <button key={l.id} onClick={() => handleNavClick(l.id)} className={`p-4 rounded-2xl border text-left flex items-center gap-3 ${activeView === l.id ? 'bg-slate-900 dark:bg-white text-white dark:text-black border-slate-900' : 'bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'}`}>
+                      <l.icon size={18} /> {l.label}
+                    </button>
+                  ))}
                 </div>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Discovery</p>
-                {navLinks.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => handleNavClick(link.id)}
-                    className={`flex items-center gap-4 text-lg font-medium py-4 px-4 rounded-xl transition-all ${
-                      activeView === link.id 
-                        ? 'bg-primary text-white shadow-lg shadow-primary/20' 
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
-                    }`}
-                  >
-                    {link.icon}
-                    {link.label}
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-auto pt-8 border-t border-slate-100 dark:border-white/10">
-                {user ? (
-                   <button 
-                    onClick={() => { handleNavClick('profile'); }}
-                    className="flex items-center gap-4 p-4 w-full text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                   >
-                     <UserIcon size={20} />
-                     Account Settings
-                   </button>
-                ) : (
-                  <button 
-                    onClick={() => { setIsMobileMenuOpen(false); onOpenAuth(); }}
-                    className="w-full bg-primary text-white py-4 rounded-xl font-bold active:scale-[0.98] transition-transform shadow-lg shadow-primary/20"
-                  >
-                    Sign In to Homeflix
-                  </button>
-                )}
               </div>
             </motion.div>
           </>

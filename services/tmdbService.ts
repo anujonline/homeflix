@@ -43,7 +43,7 @@ const setCachedData = (key: string, data: any) => {
   apiCache.set(key, { data, timestamp: Date.now() });
 };
 
-const fetchGenres = (): Promise<Genre[]> => {
+export const fetchGenres = (): Promise<Genre[]> => {
   if (genresPromise) return genresPromise;
 
   genresPromise = (async () => {

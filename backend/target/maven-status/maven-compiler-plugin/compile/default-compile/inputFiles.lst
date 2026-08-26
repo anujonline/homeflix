@@ -1,0 +1,7 @@
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/HomeflixApplication.java
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/config/RestTemplateConfig.java
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/config/WebConfig.java
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/controller/FallbackController.java
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/controller/TmdbProxyController.java
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/scheduler/KeepAliveScheduler.java
+/Users/anuj/IdeaProjects/homeflix/backend/src/main/java/com/homeflix/service/TmdbService.java
