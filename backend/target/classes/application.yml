@@ -1,0 +1,38 @@
+server:
+  port: ${PORT:8080}
+
+tmdb:
+  api-key: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NzQzYjM2YmU2NWNmZWUzZWE5NzlkZmM5ZTIwZDY4YSIsInN1YiI6IjY0ZDcyNThkZjQ5NWVlMDI5NDJmYWRhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.x4EMfvuP8Qd8ab9CGx_UmihVOJIfSQyOuDL3kuFB2w8
+  base-url: https://api.themoviedb.org/3
+  image-base-url: https://image.tmdb.org/t/p
+
+# self-ping to prevent Render free tier sleep
+homeflix:
+  self-ping:
+    enabled: ${SELF_PING_ENABLED:true}
+    # Render injects RENDER_EXTERNAL_URL (e.g. https://homeflix-xxxx.onrender.com)
+    # Fallback to SELF_PING_URL if set, otherwise disabled when blank
+    url: ${SELF_PING_URL:${RENDER_EXTERNAL_URL:https://homeflix.onrender.com}}
+    interval-ms: ${SELF_PING_INTERVAL_MS:10000} # 14 min (Render sleeps ~15 min)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+spring:
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=300s
+  mvc:
+    log-resolved-exception: false
+
+logging:
+  level:
+    com.homeflix: INFO
+    org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver: ERROR

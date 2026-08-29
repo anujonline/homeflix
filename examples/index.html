@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homeflix — UI Concepts</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Outfit','sans-serif'], display: ['Space Grotesk','sans-serif'] },
+      colors: {
+        primary: { DEFAULT: '#bf9708', 500:'#d4a90a', 600:'#bf9708' },
+      }
+    }
+  }
+}
+</script>
+<style>
+  *{ scrollbar-width: thin; scrollbar-color: #334155 transparent }
+  .no-scrollbar::-webkit-scrollbar{display:none}
+  .no-scrollbar{-ms-overflow-style:none; scrollbar-width:none}
+  .glass{ backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+</style>
+</head>
+<body class="bg-[#f1f5f9] dark:bg-[#020617] text-slate-900 dark:text-white transition-colors">
+<!-- Hub Nav -->
+<div class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 glass border-b border-slate-200 dark:border-white/10">
+  <div class="max-w-[1440px] mx-auto px-4 md:px-6 h-[64px] flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 grid place-items-center text-black font-black text-sm">H</div>
+      <div>
+        <div class="font-display font-bold leading-none tracking-tight">HOMEFLIX <span class="text-amber-500">CONCEPTS</span></div>
+        <div class="text-xs text-slate-500 dark:text-slate-400">3 responsive directions • click to preview</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="hidden md:flex items-center gap-1 p-1 bg-slate-100 dark:bg-white/10 rounded-full">
+        <button onclick="showConcept('cinematic')" id="tab-cinematic" class="tab-btn px-4 py-1.5 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black transition">Cinematic</button>
+        <button onclick="showConcept('bento')" id="tab-bento" class="tab-btn px-4 py-1.5 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-black">Bento Light</button>
+        <button onclick="showConcept('mobile')" id="tab-mobile" class="tab-btn px-4 py-1.5 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-black">Mobile Native</button>
+      </div>
+      <select onchange="showConcept(this.value)" class="md:hidden bg-slate-900 text-white rounded-full px-4 py-2 text-sm">
+        <option value="cinematic">Cinematic Dark</option>
+        <option value="bento">Bento Light</option>
+        <option value="mobile">Mobile Native</option>
+      </select>
+      <a href="/examples/cinematic.html" target="_blank" class="hidden md:inline-flex text-xs font-medium px-3 py-1.5 rounded-full border border-slate-200 dark:border-white/15 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition">Open isolated →</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPT 1: CINEMATIC -->
+<section id="concept-cinematic" class="concept">
+  <div class="bg-[#020617] text-white">
+    <!-- Nav -->
+    <nav class="sticky top-[64px] z-40 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-md border-b border-white/5">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8 h-[56px] flex items-center justify-between">
+        <div class="flex items-center gap-8">
+          <span class="font-display font-bold tracking-tighter text-xl">HOMEFLIX</span>
+          <div class="hidden md:flex items-center gap-6 text-sm text-white/70">
+            <span class="text-white font-semibold border-b-2 border-amber-400 pb-1">Home</span><span>Movies</span><span>Series</span><span>My List</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="hidden md:flex items-center gap-2 bg-white/10 rounded-full px-3 py-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input placeholder="Search titles..." class="bg-transparent outline-none text-sm placeholder:text-white/50 w-32">
+          </div>
+          <img src="https://i.pravatar.cc/100?img=12" class="w-8 h-8 rounded-full ring-2 ring-white/20">
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="relative h-[62vh] md:h-[72vh] overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/60 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#020617]/80 via-transparent to-transparent hidden md:block"></div>
+      <div class="relative max-w-[1440px] mx-auto px-4 md:px-8 h-full flex items-end pb-10 md:pb-16">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-400 mb-3"><span class="w-8 h-[2px] bg-amber-400"></span> #1 TRENDING TODAY</div>
+          <h1 class="font-display text-4xl md:text-6xl font-bold leading-none tracking-tight mb-3">DUNE: PART TWO</h1>
+          <div class="flex flex-wrap items-center gap-2 text-sm text-white/70 mb-4"><span class="bg-white text-black px-2 py-0.5 rounded text-xs font-bold">IMAX</span><span>2024</span><span>•</span><span>PG-13</span><span>•</span><span>2h 46m</span><span>•</span><span class="text-amber-400">★ 8.6</span></div>
+          <p class="text-white/80 text-sm md:text-base leading-relaxed line-clamp-2 mb-6">Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.</p>
+          <div class="flex gap-3">
+            <button class="bg-white text-black px-6 md:px-8 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-white/90 transition"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v14l11-7z"/></svg> Play</button>
+            <button class="bg-white/15 glass px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-white/25 transition border border-white/10"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> More Info</button>
+            <button class="w-12 h-12 rounded-full bg-white/10 glass grid place-items-center border border-white/10">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rows -->
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 py-6 space-y-7 -mt-6 relative">
+      <!-- Continue -->
+      <div>
+        <div class="flex items-center justify-between mb-3"><h3 class="font-semibold">Continue Watching</h3><span class="text-xs text-white/50">3 titles</span></div>
+        <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x">
+          <div class="min-w-[280px] md:min-w-[340px] snap-start bg-white/5 rounded-2xl overflow-hidden border border-white/10">
+            <div class="h-36 relative"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><div class="absolute bottom-2 left-3 right-3"><div class="h-1 bg-white/20 rounded-full overflow-hidden"><div class="h-full w-[62%] bg-amber-400"></div></div><div class="flex justify-between text-xs mt-1 text-white/80"><span>The Batman</span><span>62%</span></div></div><div class="absolute inset-0 grid place-items-center"><div class="w-10 h-10 rounded-full bg-white grid place-items-center text-black">▶</div></div></div>
+          </div>
+          <div class="min-w-[280px] md:min-w-[340px] snap-start bg-white/5 rounded-2xl overflow-hidden border border-white/10">
+            <div class="h-36 relative"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80" class="w-full h-full object-cover"><div class="absolute bottom-2 left-3 right-3"><div class="h-1 bg-white/20 rounded-full overflow-hidden"><div class="h-full w-[18%] bg-amber-400"></div></div><div class="flex justify-between text-xs mt-1 text-white/80"><span>Oppenheimer</span><span>18%</span></div></div></div>
+          </div>
+          <div class="min-w-[280px] md:min-w-[340px] snap-start bg-white/5 rounded-2xl overflow-hidden border border-white/10">
+            <div class="h-36 relative"><img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=600&q=80" class="w-full h-full object-cover"><div class="absolute bottom-2 left-3 right-3"><div class="h-1 bg-white/20 rounded-full overflow-hidden"><div class="h-full w-[89%] bg-amber-400"></div></div><div class="flex justify-between text-xs mt-1 text-white/80"><span>Interstellar</span><span>89%</span></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trending row -->
+      <div>
+        <div class="flex items-center gap-3 mb-3"><h3 class="font-semibold">Trending Now</h3><span class="text-xs bg-amber-400 text-black px-2 py-0.5 rounded-full font-bold">TOP 10</span><button class="ml-auto text-xs text-white/60">See all →</button></div>
+        <div class="flex gap-3 md:gap-4 overflow-x-auto no-scrollbar pb-2">
+          <!-- cards -->
+          <div class="group min-w-[140px] md:min-w-[176px] cursor-pointer">
+            <div class="relative rounded-2xl overflow-hidden aspect-[2/3] bg-slate-800">
+              <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-1.5 py-0.5 rounded font-bold">★ 8.6</div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+              <div class="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition flex gap-1"><span class="text-[10px] bg-white text-black px-1.5 py-0.5 rounded font-bold">4K</span><span class="text-[10px] bg-white/20 text-white px-1.5 py-0.5 rounded">HDR</span></div>
+            </div>
+            <div class="mt-2 text-sm font-medium leading-tight">Dune: Part Two</div><div class="text-xs text-white/50">Sci-Fi • 2024</div>
+          </div>
+          <div class="group min-w-[140px] md:min-w-[176px] cursor-pointer">
+            <div class="relative rounded-2xl overflow-hidden aspect-[2/3] bg-slate-800"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-1.5 py-0.5 rounded font-bold">★ 8.1</div></div>
+            <div class="mt-2 text-sm font-medium">The Fall Guy</div><div class="text-xs text-white/50">Action • 2024</div>
+          </div>
+          <div class="group min-w-[140px] md:min-w-[176px] cursor-pointer">
+            <div class="relative rounded-2xl overflow-hidden aspect-[2/3] bg-slate-800"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963d?w=400&q=80" class="w-full h-full object-cover"><div class="absolute top-2 left-2 bg-amber-400 text-black text-xs px-1.5 py-0.5 rounded font-bold">NEW</div></div>
+            <div class="mt-2 text-sm font-medium">Inside Out 2</div><div class="text-xs text-white/50">Animation • 2024</div>
+          </div>
+          <div class="group min-w-[140px] md:min-w-[176px] cursor-pointer">
+            <div class="relative rounded-2xl overflow-hidden aspect-[2/3] bg-slate-800"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80" class="w-full h-full object-cover"></div>
+            <div class="mt-2 text-sm font-medium">Furiosa</div><div class="text-xs text-white/50">Action • 2024</div>
+          </div>
+          <div class="group min-w-[140px] md:min-w-[176px] cursor-pointer">
+            <div class="relative rounded-2xl overflow-hidden aspect-[2/3] bg-slate-800"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" class="w-full h-full object-cover"></div>
+            <div class="mt-2 text-sm font-medium">Civil War</div><div class="text-xs text-white/50">Thriller • 2024</div>
+          </div>
+          <div class="group min-w-[140px] md:min-w-[176px] cursor-pointer">
+            <div class="relative rounded-2xl overflow-hidden aspect-[2/3] bg-slate-800"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=80" class="w-full h-full object-cover"></div>
+            <div class="mt-2 text-sm font-medium">Challengers</div><div class="text-xs text-white/50">Drama • 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="bg-white/[0.06] border border-white/10 rounded-2xl p-4 flex gap-3 items-center"><img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=200&q=80" class="w-16 h-24 object-cover rounded-xl"><div><div class="text-xs text-amber-400 font-bold tracking-widest">BECAUSE YOU WATCHED</div><div class="font-semibold">Sci-Fi Essentials</div><div class="text-xs text-white/60 mt-1">12 titles • Updated today</div></div></div>
+        <div class="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-4 text-black"><div class="text-xs font-bold tracking-widest opacity-70">HOMEFLIX ORIGINALS</div><div class="font-display font-bold text-lg leading-tight mt-1">Watch ad-free with Premium</div><button class="mt-3 bg-black text-white px-4 py-2 rounded-full text-sm font-semibold">Start 7-day trial</button></div>
+        <div class="bg-white/[0.06] border border-white/10 rounded-2xl p-4"><div class="font-semibold mb-2">Top Genres</div><div class="flex flex-wrap gap-2 text-xs"><span class="px-3 py-1.5 rounded-full bg-white text-black font-medium">Sci-Fi</span><span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Drama</span><span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Comedy</span><span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Thriller</span></div></div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-white/30 py-8 border-t border-white/5 mt-4">Cinematic Dark • Responsive: horizontal scroll on mobile, hover preview on desktop</div>
+  </div>
+</section>
+
+<!-- CONCEPT 2: BENTO LIGHT -->
+<section id="concept-bento" class="concept hidden">
+  <div class="bg-[#f8fafc] text-slate-900">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 py-6">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="font-display text-3xl font-bold tracking-tight">Good evening, Alex</h2>
+          <p class="text-slate-500 text-sm">Pick up where you left off or discover something new.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 md:w-[360px] flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-2.5 shadow-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input placeholder="Search movies, series, people..." class="flex-1 outline-none text-sm placeholder:text-slate-400">
+            <span class="hidden md:inline text-xs bg-slate-100 px-2 py-1 rounded-full text-slate-500">⌘K</span>
+          </div>
+          <img src="https://i.pravatar.cc/100?img=33" class="w-10 h-10 rounded-full">
+        </div>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <!-- Hero bento -->
+        <div class="md:col-span-8 relative rounded-[28px] overflow-hidden bg-black text-white min-h-[420px] flex">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80" class="absolute inset-0 w-full h-full object-cover opacity-70">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+          <div class="relative mt-auto p-6 md:p-8 w-full">
+            <div class="inline-flex items-center gap-2 bg-white text-black text-xs font-bold px-3 py-1 rounded-full mb-3">▶ Continue • 42 min left</div>
+            <h3 class="font-display text-3xl md:text-4xl font-bold leading-none">Oppenheimer</h3>
+            <p class="text-white/70 text-sm mt-2 max-w-xl line-clamp-2">The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.</p>
+            <div class="flex items-center gap-3 mt-4">
+              <button class="bg-white text-black px-6 py-2.5 rounded-full font-semibold text-sm flex items-center gap-2">Resume <span>→</span></button>
+              <button class="w-10 h-10 rounded-full bg-white/15 glass grid place-items-center border border-white/20">♡</button>
+              <span class="ml-auto hidden md:inline text-xs text-white/60">IMDb 8.3 • 3h 00m • Drama</span>
+            </div>
+            <div class="mt-4 h-1 bg-white/20 rounded-full overflow-hidden max-w-xl"><div class="h-full w-[58%] bg-white"></div></div>
+          </div>
+        </div>
+        <!-- Side stack -->
+        <div class="md:col-span-4 grid gap-4">
+          <div class="bg-white rounded-[28px] p-5 border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-4"><h4 class="font-semibold">My List</h4><span class="text-xs bg-slate-900 text-white px-2 py-1 rounded-full">12</span></div>
+            <div class="space-y-3">
+              <div class="flex gap-3 items-center"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=200&q=80" class="w-12 h-16 object-cover rounded-xl"><div class="flex-1 min-w-0"><div class="font-medium text-sm leading-tight truncate">The Batman</div><div class="text-xs text-slate-500">Action • 2h 55m</div><div class="h-1 bg-slate-100 rounded-full mt-1.5"><div class="h-full w-[80%] bg-amber-500 rounded-full"></div></div></div><button class="w-8 h-8 rounded-full bg-slate-900 text-white grid place-items-center text-sm">▶</button></div>
+              <div class="flex gap-3 items-center"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=200&q=80" class="w-12 h-16 object-cover rounded-xl"><div class="flex-1"><div class="font-medium text-sm">Interstellar</div><div class="text-xs text-slate-500">Sci-Fi • 2h 49m</div></div><span class="text-xs text-slate-400">★ 8.7</span></div>
+              <div class="flex gap-3 items-center opacity-60"><img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=200&q=80" class="w-12 h-16 object-cover rounded-xl"><div class="flex-1"><div class="font-medium text-sm">Past Lives</div><div class="text-xs text-slate-500">Romance • 1h 46m</div></div></div>
+            </div>
+            <button class="w-full mt-4 py-2.5 rounded-full border border-slate-200 text-sm font-medium hover:bg-slate-50">View all list →</button>
+          </div>
+          <div class="bg-gradient-to-br from-violet-600 to-indigo-600 rounded-[28px] p-5 text-white">
+            <div class="text-xs font-bold tracking-widest opacity-80">NEW FOR YOU</div>
+            <div class="font-semibold mt-1 leading-tight">Based on your watch history, try <span class="underline decoration-white/40">A24 Collection</span></div>
+            <div class="flex -space-x-2 mt-3"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&q=80" class="w-10 h-14 object-cover rounded-lg ring-2 ring-violet-600"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=100&q=80" class="w-10 h-14 object-cover rounded-lg ring-2 ring-violet-600"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=100&q=80" class="w-10 h-14 object-cover rounded-lg ring-2 ring-violet-600"><div class="w-10 h-14 rounded-lg bg-white/20 grid place-items-center text-xs font-bold ring-2 ring-violet-600">+9</div></div>
+          </div>
+        </div>
+
+        <!-- Category pills -->
+        <div class="md:col-span-12 flex gap-2 overflow-x-auto no-scrollbar py-1">
+          <span class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium whitespace-nowrap">For you</span>
+          <span class="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm whitespace-nowrap">Trending 🔥</span>
+          <span class="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm whitespace-nowrap">New releases</span>
+          <span class="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm whitespace-nowrap">A24</span>
+          <span class="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm whitespace-nowrap">Sci-Fi</span>
+          <span class="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm whitespace-nowrap">Documentaries</span>
+        </div>
+
+        <!-- Grid cards -->
+        <div class="md:col-span-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div class="bg-white rounded-[20px] overflow-hidden border border-slate-200 shadow-sm group cursor-pointer">
+            <div class="aspect-[3/4] relative overflow-hidden"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963d?w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2 left-2 bg-white px-2 py-0.5 rounded-full text-xs font-bold shadow">★ 8.1</span><span class="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-white shadow grid place-items-center">♡</span></div>
+            <div class="p-3"><div class="font-medium text-sm leading-tight">Inside Out 2</div><div class="text-xs text-slate-500">Animation • 1h 36m</div></div>
+          </div>
+          <div class="bg-white rounded-[20px] overflow-hidden border border-slate-200 shadow-sm group cursor-pointer"><div class="aspect-[3/4] relative overflow-hidden"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition"></div><div class="p-3"><div class="font-medium text-sm">Civil War</div><div class="text-xs text-slate-500">Action • 1h 49m</div></div></div>
+          <div class="bg-white rounded-[20px] overflow-hidden border border-slate-200 shadow-sm group cursor-pointer"><div class="aspect-[3/4] relative overflow-hidden"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition"></div><div class="p-3"><div class="font-medium text-sm">Challengers</div><div class="text-xs text-slate-500">Drama • 2h 11m</div></div></div>
+          <div class="bg-white rounded-[20px] overflow-hidden border border-slate-200 shadow-sm group cursor-pointer"><div class="aspect-[3/4] relative overflow-hidden"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition"></div><div class="p-3"><div class="font-medium text-sm">The Fall Guy</div><div class="text-xs text-slate-500">Action • 2h 06m</div></div></div>
+          <div class="bg-white rounded-[20px] overflow-hidden border border-slate-200 shadow-sm group cursor-pointer hidden md:block"><div class="aspect-[3/4] relative overflow-hidden"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80" class="w-full h-full object-cover"></div><div class="p-3"><div class="font-medium text-sm">Furiosa</div><div class="text-xs text-slate-500">Action • 2h 28m</div></div></div>
+          <div class="bg-slate-900 text-white rounded-[20px] p-4 flex flex-col justify-center"><div class="text-2xl">🎬</div><div class="font-semibold mt-2 leading-tight">200+ titles waiting</div><div class="text-sm text-white/60 mt-1">Explore by mood, cast or director</div><button class="mt-4 bg-white text-black px-4 py-2 rounded-full text-sm font-semibold">Browse catalog</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs text-slate-400 py-6 border-t">Bento Light • Cards morph from 2-col (mobile) to 6-col (desktop) • Great for touch & mouse</div>
+  </div>
+</section>
+
+<!-- CONCEPT 3: MOBILE NATIVE -->
+<section id="concept-mobile" class="concept hidden">
+  <div class="bg-[#f1f5f9] dark:bg-[#0f172a] py-8">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+      <div class="grid lg:grid-cols-[420px_1fr] gap-8 items-start">
+        <!-- Phone frame -->
+        <div class="mx-auto w-full max-w-[390px] bg-black rounded-[48px] p-3 shadow-2xl">
+          <div class="bg-white dark:bg-slate-950 rounded-[40px] overflow-hidden relative">
+            <!-- Dynamic island -->
+            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-20"></div>
+            <!-- App -->
+            <div class="h-[760px] flex flex-col">
+              <!-- Top bar -->
+              <div class="px-5 pt-10 pb-3 flex items-center justify-between">
+                <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-black text-white grid place-items-center font-bold text-sm">H</div><span class="font-bold tracking-tight">Homeflix</span></div>
+                <div class="flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-slate-100 grid place-items-center">🔔</span><img src="https://i.pravatar.cc/100?img=15" class="w-8 h-8 rounded-full"></div>
+              </div>
+              <!-- Stories -->
+              <div class="flex gap-3 px-5 overflow-x-auto no-scrollbar pb-3">
+                <div class="text-center min-w-[64px]"><div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-br from-amber-400 to-pink-500"><img src="https://i.pravatar.cc/100?img=11" class="w-full h-full rounded-full border-2 border-white object-cover"></div><div class="text-[10px] mt-1 font-medium">For you</div></div>
+                <div class="text-center min-w-[64px]"><img src="https://i.pravatar.cc/100?img=20" class="w-16 h-16 rounded-full object-cover"><div class="text-[10px] mt-1 text-slate-500">A24</div></div>
+                <div class="text-center min-w-[64px]"><img src="https://i.pravatar.cc/100?img=32" class="w-16 h-16 rounded-full object-cover"><div class="text-[10px] mt-1 text-slate-500">Marvel</div></div>
+                <div class="text-center min-w-[64px]"><img src="https://i.pravatar.cc/100?img=14" class="w-16 h-16 rounded-full object-cover"><div class="text-[10px] mt-1 text-slate-500">Nolan</div></div>
+                <div class="text-center min-w-[64px]"><div class="w-16 h-16 rounded-full bg-slate-100 grid place-items-center text-lg">+</div><div class="text-[10px] mt-1 text-slate-500">New</div></div>
+              </div>
+              <!-- Hero card -->
+              <div class="px-3">
+                <div class="relative rounded-[24px] overflow-hidden h-[340px]">
+                  <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&q=80" class="absolute inset-0 w-full h-full object-cover">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
+                  <div class="absolute top-3 left-3 bg-black/60 text-white text-xs px-2 py-1 rounded-full backdrop-blur">▶ Trailer • 2:14</div>
+                  <div class="absolute bottom-0 p-4 text-white w-full">
+                    <div class="inline-flex items-center gap-1 bg-amber-400 text-black text-xs font-bold px-2 py-1 rounded-full">★ 8.6 • Trending #1</div>
+                    <h3 class="font-bold text-xl leading-tight mt-2">Dune: Part Two</h3>
+                    <p class="text-xs text-white/70 mt-1 line-clamp-2">The mythic journey continues as Paul unites with the Fremen.</p>
+                    <div class="flex gap-2 mt-3">
+                      <button class="flex-1 bg-white text-black py-3 rounded-full font-semibold text-sm flex items-center justify-center gap-1">▶ Play</button>
+                      <button class="w-11 h-11 rounded-full bg-white/20 backdrop-blur grid place-items-center border border-white/20">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Continue -->
+              <div class="px-5 mt-4">
+                <div class="flex items-center justify-between mb-2"><span class="font-semibold text-sm">Continue Watching</span><span class="text-xs text-slate-500">See all</span></div>
+                <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                  <div class="min-w-[160px]"><div class="h-24 rounded-2xl overflow-hidden relative"><img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=300&q=80" class="w-full h-full object-cover"><div class="absolute bottom-1 left-1 right-1 h-1 bg-white/30 rounded-full"><div class="h-full w-[70%] bg-white rounded-full"></div></div></div><div class="text-xs font-medium mt-1">Interstellar</div><div class="text-[10px] text-slate-500">42m left</div></div>
+                  <div class="min-w-[160px]"><div class="h-24 rounded-2xl overflow-hidden relative"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&q=80" class="w-full h-full object-cover"><div class="absolute bottom-1 left-1 right-1 h-1 bg-white/30 rounded-full"><div class="h-full w-[30%] bg-white rounded-full"></div></div></div><div class="text-xs font-medium mt-1">The Batman</div><div class="text-[10px] text-slate-500">1h 12m left</div></div>
+                  <div class="min-w-[160px]"><div class="h-24 rounded-2xl overflow-hidden relative"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&q=80" class="w-full h-full object-cover"></div><div class="text-xs font-medium mt-1">Oppenheimer</div></div>
+                </div>
+              </div>
+              <!-- Tab bar -->
+              <div class="mt-auto border-t bg-white dark:bg-slate-950 px-2 py-2 flex justify-around items-center">
+                <div class="flex flex-col items-center gap-1 text-black dark:text-white"><span class="text-lg">⌂</span><span class="text-[10px] font-semibold">Home</span></div>
+                <div class="flex flex-col items-center gap-1 text-slate-400"><span class="text-lg">◎</span><span class="text-[10px]">Search</span></div>
+                <div class="flex flex-col items-center gap-1 text-slate-400"><span class="text-lg">♡</span><span class="text-[10px]">List</span></div>
+                <div class="flex flex-col items-center gap-1 text-slate-400"><span class="text-lg">◐</span><span class="text-[10px]">Profile</span></div>
+              </div>
+              <div class="h-1 w-32 bg-black rounded-full mx-auto mb-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details panel -->
+        <div class="space-y-4">
+          <div class="bg-white dark:bg-slate-900 rounded-[24px] p-6 border border-slate-200 dark:border-white/10">
+            <div class="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-violet-600"><span class="w-2 h-2 rounded-full bg-violet-600"></span> MOBILE NATIVE • iOS 26 GLASS</div>
+            <h3 class="font-display text-2xl font-bold mt-2">Thumb-first, not mouse-first</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 leading-relaxed">All primary actions within 72px of bottom. Top 40% is content, bottom 60% is controls. Haptics on play, swipe to dismiss player, long-press for preview (like Netflix mobile).</p>
+            <div class="grid grid-cols-3 gap-3 mt-5">
+              <div class="bg-slate-50 dark:bg-white/5 rounded-2xl p-3 text-center"><div class="text-lg">👆</div><div class="text-xs font-semibold mt-1">Swipe Row</div><div class="text-xs text-slate-500">Horizontal snap</div></div>
+              <div class="bg-slate-50 dark:bg-white/5 rounded-2xl p-3 text-center"><div class="text-lg">⌨</div><div class="text-xs font-semibold mt-1">Bottom Sheet</div><div class="text-xs text-slate-500">Details slide up</div></div>
+              <div class="bg-slate-50 dark:bg-white/5 rounded-2xl p-3 text-center"><div class="text-lg">◐</div><div class="text-xs font-semibold mt-1">Tab Bar</div><div class="text-xs text-slate-500">4 items max</div></div>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 rounded-[24px] p-0 overflow-hidden border border-slate-200 dark:border-white/10">
+            <div class="p-5 pb-3 flex items-center justify-between"><span class="font-semibold">Browse by mood</span><span class="text-xs text-slate-500">Personalized</span></div>
+            <div class="px-5 flex gap-2 overflow-x-auto no-scrollbar pb-3">
+              <span class="px-4 py-2 rounded-full bg-black text-white text-sm whitespace-nowrap">🔥 Comfort watch</span>
+              <span class="px-4 py-2 rounded-full bg-slate-100 dark:bg-white/10 text-sm whitespace-nowrap">Mind-bending</span>
+              <span class="px-4 py-2 rounded-full bg-slate-100 dark:bg-white/10 text-sm whitespace-nowrap">Cozy</span>
+              <span class="px-4 py-2 rounded-full bg-slate-100 dark:bg-white/10 text-sm whitespace-nowrap">Late night</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 p-5 pt-0">
+              <div class="rounded-2xl overflow-hidden relative h-40"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963d?w=400&q=80" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div><div class="absolute bottom-2 left-3 text-white font-semibold text-sm">Feel good</div></div>
+              <div class="rounded-2xl overflow-hidden relative h-40"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div><div class="absolute bottom-2 left-3 text-white font-semibold text-sm">Thrillers</div></div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-slate-900 to-black rounded-[24px] p-6 text-white">
+            <div class="text-xs tracking-widest opacity-60">RESPONSIVE BEHAVIOR</div>
+            <div class="font-semibold mt-1">Phone → Tablet → Desktop</div>
+            <div class="mt-3 grid grid-cols-3 gap-2 text-xs">
+              <div class="bg-white/10 rounded-xl p-3"><div class="font-bold">320-768</div><div class="opacity-60">Single col, bottom nav, sheets</div></div>
+              <div class="bg-white/10 rounded-xl p-3"><div class="font-bold">768-1024</div><div class="opacity-60">2-col bento, sidebar</div></div>
+              <div class="bg-amber-400 text-black rounded-xl p-3"><div class="font-bold">1024+</div><div class="opacity-70">Cinematic hero + rows</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function showConcept(name){
+  document.querySelectorAll('.concept').forEach(c=>c.classList.add('hidden'));
+  document.getElementById('concept-'+name).classList.remove('hidden');
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    b.className = 'tab-btn px-4 py-1.5 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-black';
+  });
+  const active = document.getElementById('tab-'+name);
+  if(active) active.className = 'tab-btn px-4 py-1.5 rounded-full text-sm font-medium bg-black text-white dark:bg-white dark:text-black transition';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>

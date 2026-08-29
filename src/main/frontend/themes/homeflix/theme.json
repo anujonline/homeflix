@@ -1,9 +1,0 @@
-{
-  "lumoImports" : [ "typography", "color", "spacing", "badge", "utility" ],
-  "assets" : {
-    "@fontsource/montserrat" : {
-      "*.css" : "@fontsource/montserrat",
-      "files/*" : "@fontsource/montserrat/files"
-    }
-  }
-}

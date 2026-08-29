@@ -1,0 +1,8 @@
+com/homeflix/scheduler/KeepAliveScheduler.class
+com/homeflix/controller/TmdbProxyController.class
+com/homeflix/HomeflixApplication.class
+com/homeflix/controller/FallbackController.class
+com/homeflix/config/WebConfig$1.class
+com/homeflix/service/TmdbService.class
+com/homeflix/config/RestTemplateConfig.class
+com/homeflix/config/WebConfig.class
