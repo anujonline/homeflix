@@ -21,35 +21,46 @@ export const INTRO_CONFIG = {
 
 const Intro: React.FC<IntroProps> = ({ onComplete, movies = [], animationType }) => {
   const [stage, setStage] = useState<'initial' | 'revealing' | 'logo' | 'tagline' | 'complete'>('initial');
-  
-  // Use provided animationType or random selection
-  const selectedAnimation = animationType || ALL_ANIMATIONS[Math.floor(Math.random() * ALL_ANIMATIONS.length)];
+
+  // Pick ONCE per mount — computing random inline would re-randomize on every render
+  const [selectedAnimation] = useState<AnimationType>(
+    () => (animationType as AnimationType) || ALL_ANIMATIONS[Math.floor(Math.random() * ALL_ANIMATIONS.length)]
+  );
 
   useEffect(() => {
+    let cancelled = false;
+    const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
     const timeline = async () => {
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await wait(100);
+      if (cancelled) return;
       setStage('revealing');
-      
-      const config = INTRO_CONFIG[selectedAnimation as AnimationType];
-      await new Promise(resolve => setTimeout(resolve, config.duration * 0.3));
+
+      const config = INTRO_CONFIG[selectedAnimation];
+      await wait(config.duration * 0.3);
+      if (cancelled) return;
       setStage('logo');
-      
-      await new Promise(resolve => setTimeout(resolve, config.duration * 0.4));
+
+      await wait(config.duration * 0.4);
+      if (cancelled) return;
       setStage('tagline');
-      
-      await new Promise(resolve => setTimeout(resolve, config.duration * 0.3));
+
+      await wait(config.duration * 0.3);
+      if (cancelled) return;
       setStage('complete');
-      
-      await new Promise(resolve => setTimeout(resolve, 700));
+
+      await wait(700);
+      if (cancelled) return;
       onComplete();
     };
 
     timeline();
+    return () => { cancelled = true; };
   }, [selectedAnimation, onComplete]);
 
   // Animation components
   const renderBackgroundEffect = () => {
-    switch (animationType) {
+    switch (selectedAnimation) {
       case 'spotlight':
         return (
           <AnimatePresence>
@@ -188,7 +199,7 @@ const Intro: React.FC<IntroProps> = ({ onComplete, movies = [], animationType })
             initial={{ scale: 0.5, opacity: 0 }}
             animate={stage === 'logo' ? { scale: 1, opacity: 1 } : {}}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="flex justify-center mb-10"
+            className="relative flex justify-center mb-10"
           >
             {/* Enhanced glow effect */}
             <motion.div
@@ -217,7 +228,7 @@ const Intro: React.FC<IntroProps> = ({ onComplete, movies = [], animationType })
                 ease: 'easeOut',
                 rotateY: { type: 'spring', stiffness: 100, damping: 15 }
               }}
-              className="relative w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 grid place-items-center text-black font-black text-5xl md:text-6xl shadow-2xl shadow-amber-500/60 border-3 border-amber-300/60"
+              className="relative w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 grid place-items-center text-black font-black text-5xl md:text-6xl shadow-2xl shadow-amber-500/60 border-2 border-amber-300/60"
               style={{ 
                 transformStyle: 'preserve-3d',
                 perspective: 1000

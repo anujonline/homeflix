@@ -27,7 +27,7 @@ public class TmdbService {
     private final String tmdbBaseUrl;
     private final String apiKey;
 
-    // simple in-memory fallback for genres merging — actual cache handled by Spring Cache (caffeine 5min)
+    // simple in-memory fallback for genres merging — actual cache handled by Spring Cache (caffeine 6h, search uncached)
     public TmdbService(RestTemplate restTemplate,
                        @Value("${tmdb.base-url}") String tmdbBaseUrl,
                        @Value("${tmdb.api-key}") String apiKey) {

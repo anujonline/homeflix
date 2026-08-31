@@ -28,7 +28,9 @@ spring:
   cache:
     type: caffeine
     caffeine:
-      spec: maximumSize=500,expireAfterWrite=300s
+      # Content endpoints only — search bypasses the cache (live TMDB calls).
+      # Catalog data (trending/browse/popular/top-rated) rarely changes, so 6h TTL.
+      spec: maximumSize=500,expireAfterWrite=6h
   mvc:
     log-resolved-exception: false
 
