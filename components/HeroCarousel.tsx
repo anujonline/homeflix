@@ -70,8 +70,8 @@ const HeroCarousel: React.FC<Props> = ({ movies, onPlay, onMore }) => {
 
       {/* controls */}
       <div className="absolute bottom-4 right-4 md:right-10 flex items-center gap-2">
-        <button onClick={() => setIdx(i => (i - 1 + featured.length) % featured.length)} className="hidden md:grid w-9 h-9 place-items-center rounded-full bg-black/40 backdrop-blur border border-white/15 text-white hover:bg-black/60"><ChevronLeft size={16} /></button>
-        <button onClick={() => setIdx(i => (i + 1) % featured.length)} className="hidden md:grid w-9 h-9 place-items-center rounded-full bg-black/40 backdrop-blur border border-white/15 text-white hover:bg-black/60"><ChevronRight size={16} /></button>
+        <button onClick={() => setIdx(i => (i - 1 + featured.length) % featured.length)} className="grid w-9 h-9 place-items-center rounded-full bg-black/40 backdrop-blur border border-white/15 text-white hover:bg-black/60"><ChevronLeft size={16} /></button>
+        <button onClick={() => setIdx(i => (i + 1) % featured.length)} className="grid w-9 h-9 place-items-center rounded-full bg-black/40 backdrop-blur border border-white/15 text-white hover:bg-black/60"><ChevronRight size={16} /></button>
       </div>
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 md:left-10 md:translate-x-0 flex gap-1.5">
         {featured.map((_, i) => (

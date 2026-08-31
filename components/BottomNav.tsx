@@ -1,14 +1,13 @@
 import React from 'react';
-import { Home, Film, Tv, TrendingUp, Compass, Library } from 'lucide-react';
+import { Home, Film, Tv, Compass, Library } from 'lucide-react';
 
 interface Props { activeView: string; onViewChange: (v:any)=>void }
 const BottomNav: React.FC<Props> = ({ activeView, onViewChange }) => {
   const items = [
     { id: 'home', label: 'Home', icon: Home },
+    { id: 'browse', label: 'Browse', icon: Compass },
     { id: 'movies', label: 'Movies', icon: Film },
     { id: 'series', label: 'Series', icon: Tv },
-    { id: 'popular', label: 'Explore', icon: TrendingUp },
-    { id: 'browse', label: 'Browse', icon: Compass },
     { id: 'profile', label: 'Library', icon: Library },
   ];
   return (

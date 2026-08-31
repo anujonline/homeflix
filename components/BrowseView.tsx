@@ -99,39 +99,43 @@ const BrowseView: React.FC<BrowseViewProps> = ({ onSelectMovie }) => {
   return (
     <div className="pb-24">
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-              <SlidersHorizontal size={20} className="text-amber-500" /> Browse
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+          <div className="text-center md:text-left">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
+              <SlidersHorizontal size={24} className="text-amber-500" /> Browse
             </h1>
             <p className="text-xs text-slate-500 mt-1">
               {loading ? 'Searching TMDB…' : `${meta.totalResults.toLocaleString()} titles${activeGenre ? ` • ${activeGenre.name}` : ''}${year ? ` • ${year}` : ''} • ${activeSortLabel}`}
             </p>
           </div>
-          <div className="flex items-center gap-1 p-1 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/5">
-            <button onClick={() => switchType('movie')} className={`px-4 py-1.5 rounded-full text-sm font-medium ${type === 'movie' ? 'bg-slate-900 dark:bg-white text-white dark:text-black' : 'text-slate-600 dark:text-slate-400'}`}>Movies</button>
-            <button onClick={() => switchType('tv')} className={`px-4 py-1.5 rounded-full text-sm font-medium ${type === 'tv' ? 'bg-slate-900 dark:bg-white text-white dark:text-black' : 'text-slate-600 dark:text-slate-400'}`}>Series</button>
+          <div className="flex justify-center md:justify-end">
+            <div className="flex items-center gap-1 p-1 rounded-full bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/5">
+              <button onClick={() => switchType('movie')} className={`px-4 py-1.5 rounded-full text-sm font-medium ${type === 'movie' ? 'bg-slate-900 dark:bg-white text-white dark:text-black' : 'text-slate-600 dark:text-slate-400'}`}>Movies</button>
+              <button onClick={() => switchType('tv')} className={`px-4 py-1.5 rounded-full text-sm font-medium ${type === 'tv' ? 'bg-slate-900 dark:bg-white text-white dark:text-black' : 'text-slate-600 dark:text-slate-400'}`}>Series</button>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3 mt-4">
-          <FilterSelect value={genreId} onChange={setGenreId} ariaLabel="Filter by genre">
-            <option value="">All Genres</option>
-            {genres.map((g) => (
-              <option key={g.id} value={String(g.id)}>{g.name}</option>
-            ))}
-          </FilterSelect>
-          <FilterSelect value={year} onChange={setYear} ariaLabel="Filter by year">
-            <option value="">Any Year</option>
-            {YEARS.map((y) => (
-              <option key={y} value={String(y)}>{y}</option>
-            ))}
-          </FilterSelect>
-          <FilterSelect value={sort} onChange={setSort} ariaLabel="Sort results">
-            {sortOptions(type).map((o) => (
-              <option key={o.value} value={o.value}>{o.label}</option>
-            ))}
-          </FilterSelect>
+        <div className="max-w-2xl mx-auto md:max-w-none">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-3 mb-4">
+            <FilterSelect value={genreId} onChange={setGenreId} ariaLabel="Filter by genre">
+              <option value="">All Genres</option>
+              {genres.map((g) => (
+                <option key={g.id} value={String(g.id)}>{g.name}</option>
+              ))}
+            </FilterSelect>
+            <FilterSelect value={year} onChange={setYear} ariaLabel="Filter by year">
+              <option value="">Any Year</option>
+              {YEARS.map((y) => (
+                <option key={y} value={String(y)}>{y}</option>
+              ))}
+            </FilterSelect>
+            <FilterSelect value={sort} onChange={setSort} ariaLabel="Sort results">
+              {sortOptions(type).map((o) => (
+                <option key={o.value} value={o.value}>{o.label}</option>
+              ))}
+            </FilterSelect>
+          </div>
         </div>
       </div>
 

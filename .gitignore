@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Backend build artifacts
+backend/target/
+*.jar
+*.jar.original
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -17,7 +17,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from './context/AuthContext';
 import { Search, Bell, Sun, Moon, Sparkles, Clock3, Bookmark, History, Trash2, Play, LogIn, LogOut } from 'lucide-react';
 
-type ViewType = 'home' | 'movies' | 'series' | 'popular' | 'browse' | 'profile';
+type ViewType = 'home' | 'movies' | 'series' | 'browse' | 'profile';
 
 const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'untitled';
 
@@ -53,12 +53,15 @@ const App: React.FC = () => {
   const hasSyncedUrl = useRef(false);
 
   useEffect(() => {
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('homeflix_theme', 'dark');
+      if (themeColorMeta) themeColorMeta.setAttribute('content', '#020617');
     } else {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('homeflix_theme', 'light');
+      if (themeColorMeta) themeColorMeta.setAttribute('content', '#f8fafc');
     }
   }, [isDarkMode]);
 
@@ -85,7 +88,6 @@ const App: React.FC = () => {
     const path = window.location.pathname;
     if (path === '/movies') setCurrentView('movies');
     else if (path === '/series') setCurrentView('series');
-    else if (path === '/popular') setCurrentView('popular');
     else if (path === '/browse') setCurrentView('browse');
     else if (path === '/profile') setCurrentView('profile');
     const watchMatch = path.match(/^\/watch\/(movie|tv)\/(\d+)/);
@@ -108,7 +110,6 @@ const App: React.FC = () => {
       const ph = window.location.pathname;
       if (ph === '/movies') setCurrentView('movies');
       else if (ph === '/series') setCurrentView('series');
-      else if (ph === '/popular') setCurrentView('popular');
       else if (ph === '/browse') setCurrentView('browse');
       else if (ph === '/profile') setCurrentView('profile');
       else if (ph === '/') setCurrentView('home');
@@ -446,15 +447,6 @@ const App: React.FC = () => {
     }
     if (currentView === 'browse') {
       return <BrowseView onSelectMovie={handleSelectMovie} />;
-    }
-    if (currentView === 'popular') {
-      return (
-        <div className="pb-24">
-          <HeroCarousel movies={trendingMovies} onPlay={handlePlay} onMore={handleSelectMovie} />
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-4"><GenreBar genres={allGenres} active={activeGenre} onSelect={setActiveGenre} /></div>
-          {renderGridSection('Trending This Week', trendingFiltered)}
-        </div>
-      );
     }
     // home
     return (

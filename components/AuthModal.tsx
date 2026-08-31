@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mail, Lock, User as UserIcon, AlertCircle, ArrowRight } from 'lucide-react';
+import { X, Mail, Lock, User as UserIcon, AlertCircle, ArrowRight, Shield, Database } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface AuthModalProps {
@@ -154,6 +154,31 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               <span className="relative">{isLogin ? 'Sign In' : 'Sign Up'}</span>
             </motion.button>
           </form>
+
+          {/* Data Storage Disclaimer */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl"
+          >
+            <div className="flex items-start gap-3">
+              <div className="shrink-0 w-8 h-8 rounded-full bg-amber-500/20 grid place-items-center">
+                <Database size={16} className="text-amber-600 dark:text-amber-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-semibold text-slate-900 dark:text-white text-sm mb-1.5">Local Storage Notice</h4>
+                <ul className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                  <li>• Login credentials saved in browser localStorage</li>
+                  <li>• Watch history & playlists stored locally</li>
+                  <li>• Secure server authentication coming soon</li>
+                </ul>
+                <div className="flex items-center gap-1.5 mt-2 text-xs text-amber-700 dark:text-amber-300 font-medium">
+                  <Shield size={12} />
+                  <span>Server sync in progress • Better experience soon</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           <div className="mt-6 text-center">
             <p className="text-slate-500 dark:text-slate-400 text-sm">
