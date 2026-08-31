@@ -11,6 +11,7 @@ import MovieDetails from './components/MovieDetails';
 import AuthModal from './components/AuthModal';
 import AddToPlaylistModal from './components/AddToPlaylistModal';
 import BrowseView from './components/BrowseView';
+import Intro from './components/Intro';
 import { fetchTrendingAll, fetchPopularByType, fetchTopRatedMovies, fetchTopRatedTV, fetchMovieDetails, searchContent, fetchGenres, fetchRecommendations } from './services/tmdbService';
 import { Movie } from './types';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -28,6 +29,10 @@ const App: React.FC = () => {
   const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false);
   const [playlistMovie, setPlaylistMovie] = useState<Movie | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('homeflix_theme') !== 'light');
+  const [showIntro, setShowIntro] = useState(() => {
+    // Show intro if this is a fresh app launch (no session flag)
+    return !sessionStorage.getItem('homeflix_intro_shown');
+  });
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [activeGenre, setActiveGenre] = useState<string | null>(null);
   const [movieTab, setMovieTab] = useState<'popular' | 'top'>('popular');
@@ -75,10 +80,14 @@ const App: React.FC = () => {
         e.preventDefault();
         searchInputRef.current?.focus();
       }
+      // Skip intro with any key/click
+      if (showIntro && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) {
+        handleIntroComplete();
+      }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, []);
+  }, [showIntro]);
 
   // URL sync
   useEffect(() => {
@@ -245,6 +254,11 @@ const App: React.FC = () => {
     window.history.pushState({}, '', '/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const handleIntroComplete = useCallback(() => {
+    sessionStorage.setItem('homeflix_intro_shown', 'true');
+    setShowIntro(false);
+  }, []);
 
   const handleViewChange = (view: ViewType) => {
     if (view === 'profile' && !user) { setIsAuthModalOpen(true); return; }
@@ -476,7 +490,7 @@ const App: React.FC = () => {
 
         {user && user.history.length > 0 && <MovieRow title="Continue Watching" movies={filterByGenre(user.history)} onSelectMovie={handleSelectMovie} onSeeAll={() => handleViewChange('profile')} />}
         {recommendSeed && recommended.length > 0 && <MovieRow title={`Because you watched ${recommendSeed.title}`} movies={recommended} onSelectMovie={handleSelectMovie} />}
-        <MovieRow title="Trending Now" movies={trendingFiltered.slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => handleViewChange('popular')} />
+        <MovieRow title="Trending Now" movies={trendingFiltered.slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => handleViewChange('browse')} />
         <MovieRow title="Top Rated Movies" movies={topMoviesFiltered.slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => { setMovieTab('top'); handleViewChange('movies'); }} />
         <MovieRow title="Popular Series" movies={filterByGenre(popularSeries).slice(0, 20)} onSelectMovie={handleSelectMovie} onSeeAll={() => { setSeriesTab('popular'); handleViewChange('series'); }} />
 
@@ -497,7 +511,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-[#020617] text-slate-900 dark:text-slate-50 flex">
+    <>
+      {/* Animated Intro - Shows on app launch only */}
+      <AnimatePresence>
+        {showIntro && <Intro key="intro" onComplete={handleIntroComplete} movies={trendingMovies} />}
+      </AnimatePresence>
+
+      <div className="min-h-screen bg-[#f8fafc] dark:bg-[#020617] text-slate-900 dark:text-slate-50 flex">
       <Sidebar activeView={currentView} onViewChange={handleViewChange} />
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Top bar */}
@@ -566,6 +586,7 @@ const App: React.FC = () => {
       <AnimatePresence>{isAuthModalOpen && <AuthModal key="auth" isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />}</AnimatePresence>
       <AnimatePresence>{isPlaylistModalOpen && <AddToPlaylistModal key="playlist" isOpen={isPlaylistModalOpen} onClose={() => { setIsPlaylistModalOpen(false); setPlaylistMovie(null); }} movie={playlistMovie} />}</AnimatePresence>
     </div>
+    </>
   );
 };
 
